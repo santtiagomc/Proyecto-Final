@@ -1,9 +1,7 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
-
-# Individual Project - Henry Food
+# Proyecto Final - Henry E-commerce Books
 
 <p align="right">
-  <img height="200" src="./cooking.png" />
+  <img height="200" src="./libros.png" />
 </p>
 
 ## Objetivos del Proyecto
@@ -13,10 +11,6 @@
 - Aprender mejores prácticas.
 - Aprender y practicar el workflow de GIT.
 - Usar y practicar testing.
-
-## Horarios y Fechas
-
-El proyecto tendrá una duración máxima de tres semanas. En el caso de que completan todas las tareas antes de dicho lapso podrán avisar a su Instructor para coordinar una fecha de presentación del trabajo (DEMO).
 
 ## Comenzando
 
