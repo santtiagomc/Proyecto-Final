@@ -1,0 +1,25 @@
+.container {
+    font-family: Helvetica;
+    width: 180px;
+    height: 260px;
+    border: solid 1px #000;
+}
+
+.imageContainer {
+    width: 180px;
+    height: 200px;
+    border-bottom: solid 1px #000;
+}
+
+.bookCover {
+    object-fit: contain;
+    width: 180px;
+    height: 200px;
+}
+
+.prize {
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
