@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const GET_SEARCH = "GET_SEARCH";
+export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
 
 export const searchCountry = (payload) => {
   return async (dispatch) => {

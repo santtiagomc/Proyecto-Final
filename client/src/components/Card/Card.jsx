@@ -7,7 +7,7 @@ export default function Card({ image, price }) {
         <img className={style.bookCover} src={image} alt="img-book" />
       </div>
       <div>
-        <p className={style.prize}>${price}</p>
+        <p className={style.price}>${price}</p>
       </div>
     </div>
   );
