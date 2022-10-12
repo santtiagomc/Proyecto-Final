@@ -22,8 +22,8 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      prize: {
-        type: DataTypes.INTEGER,
+      price: {
+        type: DataTypes.DECIMAL(5,2),
         allowNull: false,
       },
       genre: {
