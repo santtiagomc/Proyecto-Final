@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       price: {
-        type: DataTypes.DECIMAL(5,2),
+        type: DataTypes.DECIMAL(5, 2),
         allowNull: false,
       },
       genre: {
