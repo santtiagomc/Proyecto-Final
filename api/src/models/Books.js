@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       },
       image: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
       author: {
         type: DataTypes.STRING,
@@ -20,14 +20,10 @@ module.exports = (sequelize) => {
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
       price: {
         type: DataTypes.DECIMAL(5, 2),
-        allowNull: false,
-      },
-      genre: {
-        type: DataTypes.STRING,
         allowNull: false,
       },
       stock: {
