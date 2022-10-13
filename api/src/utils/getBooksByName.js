@@ -1,33 +1,32 @@
-const axios = require('axios');
 const { Books, Genres } = require('../db');
 
-async function getBooks(name) {
+async function getBooksByName(name) {
   try{
     const allBooks = await Books.findAll({
       include: [{
         model: Genres,
-        attributes: ['name'],
+        attributes: ["name"],
         through: { attributes: [] }
       }]
     });
 
     if(name){
-      const books = allBooks.filter(b => b.name.toLowerCase().includes(name.toLowerCase()));
+      const booksByName = allBooks.filter(b => b.name.toLowerCase().includes(name.toLowerCase()));
       //{
         // if(!b.eliminated){
         //     return b.name.toLowerCase().includes(name.toLowerCase())
         // }
       //});
-      if(!books.length) return {messageError: 'No se encontraron coincidencias.'}
-      return books;
+      if(!booksByName.length) return {messageError: `No se encontraron resultados para "${name}".`}
+      return booksByName;
     }else{
       return allBooks;
     }
   }catch(error){
-    return {messageError: 'Se ha producido un error.'}
+    return {messageError: "Se ha producido un error."}
   };
 };
 
 module.exports = {
-  getBooks
+  getBooksByName
 };

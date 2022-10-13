@@ -1,14 +1,14 @@
 const { Router } = require('express');
 
 // Traigo las funciones necesarias
-const { getBooks } = require('../utils/getBooks')
+const { getBooksByName } = require('../utils/getBooksByName')
 const { createBook } = require('../utils/createBook')
 
 const router = Router();
 
 router.get('/', async (req, res) => {
     const {name} = req.query;
-    const books = await getBooks(name);
+    const books = await getBooksByName(name);
 
     books.messageError? 
     res.status(404).json(books):
