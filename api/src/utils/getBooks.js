@@ -14,10 +14,10 @@ async function getBooks(name) {
     if(name){
       const books = allBooks.filter(b => b.name.toLowerCase().includes(name.toLowerCase()));
       //{
-      // if(!b.eliminated){
+        // if(!b.eliminated){
         //     return b.name.toLowerCase().includes(name.toLowerCase())
         // }
-        //});
+      //});
       if(!books.length) return {messageError: 'No se encontraron coincidencias.'}
       return books;
     }else{
