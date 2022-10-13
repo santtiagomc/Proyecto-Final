@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -25,8 +25,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       set(value) {
-        this.setDataValue("password", (this.name + this.lastName + value).split("").sort(() => 0.5 - Math.random()));
-      }
+        this.setDataValue(
+          "password",
+          (this.name + this.lastName + value)
+            .split("")
+            .sort(() => 0.5 - Math.random())
+        );
+      },
     },
     province: {
       type: DataTypes.STRING,
@@ -43,8 +48,8 @@ module.exports = (sequelize) => {
     zipCode: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    }
+    },
   }, {
-    timestamps: false
+    timestamps: false,
   });
 };

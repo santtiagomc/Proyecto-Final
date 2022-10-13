@@ -6,21 +6,28 @@ async function postAllBooks(allBooks) {
   try {
     allBooks.forEach(async (book) => {
       let [newBook, created] = await Books.findOrCreate({
-        name: book.name,
-        image: book.image,
-        author: book.author,
-        description: book.description,
-        price: book.price,
-        stock: book.stock,
-        editorial: book.editorial,
-        edition: book.edition,
+        where: {
+          name: book.name,
+        },
+        defaults: {
+          image: book.image,
+          author: book.author,
+          description: book.description,
+          price: book.price,
+          stock: book.stock,
+          editorial: book.editorial,
+          edition: book.edition,
+        }
       })
 
-      if (Genres.length) {
+      let genresDb = await Genres.findAll()
+
+      if (genresDb.length) {
         if (created) {
-          newBook.addGenres(allBooks.genres)
+          newBook.addGenres(book.genres)
         }
       }
+
     })
 
     return { message: "Success" };

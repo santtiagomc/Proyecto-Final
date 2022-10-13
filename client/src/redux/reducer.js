@@ -13,11 +13,10 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, books: action.payload };
 
     case GET_DETAIL:
-      return{ ...state, detail: action.payload };
+      return { ...state, detail: action.payload };
 
     case CLEAR_DETAIL:
-      return{ ...state, detail: [] };
-    
+      return { ...state, detail: [] };
 
     default:
       return { ...state };

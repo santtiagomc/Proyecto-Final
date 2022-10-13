@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Books, Genres } = require('../db');
 
-async function createBook({ name, image, author, description, price, stock, editorial, edition, genres }) {
+async function postBook({ name, image, author, description, price, stock, editorial, edition, genres }) {
   try {
     let [newBook, created] = await Books.findOrCreate({
       where: {
@@ -20,7 +20,9 @@ async function createBook({ name, image, author, description, price, stock, edit
 
     if (!created) return { messageError: "Book already exist" };
 
-    if (Genres.length) {
+    let genresDb = await Genres.findAll()
+
+    if (genresDb.length) {
       newBook.addGenres(genres)
     }
 
@@ -31,5 +33,5 @@ async function createBook({ name, image, author, description, price, stock, edit
 }
 
 module.exports = {
-  createBook
+  postBook
 }

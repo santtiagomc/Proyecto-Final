@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Traigo las funciones necesarias
 const { getBooks } = require("../utils/getBooks");
-const { createBook } = require("../utils/createBook");
+const { postBook } = require("../utils/postBook");
 const { postAllBooks } = require("../utils/postAllBooks");
 
 const { Books, Genres } = require("../db");
@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", async (req, res) => { });
 
 router.post("/", async (req, res) => {
-  const response = await createBook(req.body);
+  const response = await postBook(req.body);
 
   let statusCode
   response.messageError ? statusCode = 404 : statusCode = 201
