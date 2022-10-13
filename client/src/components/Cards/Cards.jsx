@@ -1,9 +1,12 @@
+import { useEffect } from "react";
 import api from "../../api.js";
 import Card from "../Card/Card";
 
 import style from "./Cards.module.css";
 
 export default function Cards() {
+  useEffect(() => {}, []);
+
   return (
     <div className={style.cardsContainer}>
       <div>
