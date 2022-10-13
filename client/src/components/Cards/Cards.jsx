@@ -6,26 +6,50 @@ export default function Cards() {
   return (
     <div className={style.cardsContainer}>
       <div>
-        <h2>Top 100 mas vendidos</h2>
+        <h2 className={style.titles}>Top 100 mas vendidos</h2>
         <div className={style.categories}>
           {api.books.slice(0, 5).map((book) => {
-            return <Card image={book.image} price={book.price} key={book.id} />;
+            return (
+              <Card
+                image={book.image}
+                price={book.price}
+                key={book.id}
+                name={book.name}
+                author={book.author}
+              />
+            );
           })}
         </div>
       </div>
       <div>
-        <h2>Ciencia Ficcion</h2>
+        <h2 className={style.titles}>Ciencia Ficcion</h2>
         <div className={style.categories}>
           {api.books.slice(5, 10).map((book) => {
-            return <Card image={book.image} price={book.price} key={book.id} />;
+            return (
+              <Card
+                image={book.image}
+                price={book.price}
+                key={book.id}
+                name={book.name}
+                author={book.author}
+              />
+            );
           })}
         </div>
       </div>
       <div>
-        <h2>Mas buscados</h2>
+        <h2 className={style.titles}>Mas buscados</h2>
         <div className={style.categories}>
           {api.books.slice(10, 15).map((book) => {
-            return <Card image={book.image} price={book.price} key={book.id} />;
+            return (
+              <Card
+                image={book.image}
+                price={book.price}
+                key={book.id}
+                name={book.name}
+                author={book.author}
+              />
+            );
           })}
         </div>
       </div>
