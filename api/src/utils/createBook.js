@@ -20,7 +20,9 @@ async function createBook({ name, image, author, description, price, stock, edit
 
     if (!created) return { messageError: "Book already exist" };
 
-    // newBook.addGenres(genres);
+    if (Genres.length) {
+      newBook.addGenres(genres)
+    }
 
     return { message: "Success" };
   } catch (error) {
