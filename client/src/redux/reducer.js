@@ -1,10 +1,11 @@
-import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL } from "./actions";
+import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, GET_REVIEWS } from "./actions";
 
 const initialState = {
   books: [],
   genres: [],
   book: [],
   detail: [],
+  reviews: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -14,6 +15,9 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_DETAIL:
       return { ...state, detail: action.payload };
+
+    case GET_REVIEWS:
+      return { ...state, reviews: action.payload };
 
     case CLEAR_DETAIL:
       return { ...state, detail: [] };
