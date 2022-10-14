@@ -1,15 +1,31 @@
-const { Router } = require('express');
+const { Router } = require("express");
 
 // Traigo las funciones necesarias
-const { getBooks } = require("../utils/getBooks");
+const { getAllBooks } = require("../utils/getAllBooks");
+const { getBooksByName } = require("../utils/getBooksByName");
+const { getBooksByAuthor } = require("../utils/getBooksByAuthor");
+const { getBooksByEditorial } = require("../utils/getBooksByEditorial");
 const { postBook } = require("../utils/postBook");
 const { postAllBooks } = require("../utils/postAllBooks");
 
-const { Books, Genres } = require("../db");
-
 const router = Router();
 
-router.get("/", async (req, res) => { });
+router.get("/", async (req, res) => {
+    const {name, author, editorial} = req.query;
+
+    let books 
+    if(name){
+        books = await getBooksByName(name);
+    }else if(author){
+        books = await getBooksByAuthor(author);
+    }else if(editorial){
+        books = await getBooksByEditorial(editorial);
+    }else{
+        books = await getAllBooks();
+    }
+
+    books.messageError ? res.status(404).json(books) : res.status(201).json(books);
+});
 
 router.post("/", async (req, res) => {
   const response = await postBook(req.body);
