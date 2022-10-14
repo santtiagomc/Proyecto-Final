@@ -1,8 +1,15 @@
 body {
   margin: 0;
+  background-color: #191919;
+
   box-sizing: border-box;
-  font-family: 'Helvetica', -apple-system, 'Roboto', sans-serif;
+  font-family: "Helvetica", -apple-system, "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #191919;
+}
+button {
+  font-family: inherit;
+}
+select {
+  font-family: inherit;
 }
