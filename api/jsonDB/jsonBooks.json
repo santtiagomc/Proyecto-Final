@@ -27,7 +27,7 @@
     "description": "¡Gaturro va al mundial y lo quiere compartir con vos! En este comic encontrará 39 tiras inéditas, datos y curiosidadesde sobre los 32 países que participarán del Mundial Qatar. Información sobre los jugadores estrella y contenido exclusivo sobre los estadios increíbles donde tendrán lugar los partidos. Los mejores chistes de Mundial, jugadores de los 32 países participantes, datos curiosos, los 8 estadios y mucho más!!!",
     "price": 20.55,
     "image": "https://http2.mlstatic.com/D_NQ_NP_779250-MLA30414595995_052019-O.webp",
-    "genres": ["Infantiles", "Juvenil"],
+    "genres": ["Infantil", "Juvenil", "Humor y Comedia"],
     "stock": 20,
     "editorial": "Catapulta",
     "edition": 2022
@@ -126,7 +126,7 @@
     "description": "Álbum de Shrek Tercero",
     "price": 2.54,
     "image": "https://contentv2.tap-commerce.com/cover/large/9788424148621_1.jpg?id_com=1113",
-    "genres": ["Infantiles"],
+    "genres": ["Infantil", "Humor y Comedia"],
     "stock": 13,
     "editorial": "Everest",
     "edition": 2000
@@ -169,8 +169,7 @@
   {
     "name": "Pensar Rápido, Pensar Despacio",
     "author": "Kahneman Daniel",
-    "description": "En Pensar rápido, pensar despacio, un éxito internacional, Kahneman presenta por primera vez su revolucionaria perspectiva del cerebro y explica los dos sistemas que modelan cómo pensamos. El sistema 1 es rápido, intuitivo y emocional, mientras que el sistema 2 es más lento, deliberativo y lógico. El impacto de la aversión a la pérdida y el exceso de confianza en las estrategias empresariales, la dificultad de predecir lo que nos hará felices en el futuro o el profundo efecto de los sesgos cognitivos sobre todo lo que hacemos solo pueden comprenderse si entendemos el funcionamiento conjunto de los dos sistemas a la hora de formular nuestros juicios y decisiones.
-    Al implicar al lector en una animada reflexión sobre cómo pensamos, Kahneman consigue revelar cuándo debemos confiar en nuestras intuiciones y cuándo no, y de qué modo podemos aprovechar los beneficios del pensamiento lento. Además, ofrece enseñanzas prácticas e iluminadoras sobre cómo se adoptan decisiones en la vida profesional o personal, y sobre cómo podemos usar distintas técnicas para protegernos de los fallos mentales que nos crean problemas. Pensar rápido, pensar despacio cambiará para siempre nuestra manera de pensar sobre cómo pensamos. ",
+    "description": "En Pensar rápido, pensar despacio, un éxito internacional, Kahneman presenta por primera vez su revolucionaria perspectiva del cerebro y explica los dos sistemas que modelan cómo pensamos. El sistema 1 es rápido, intuitivo y emocional, mientras que el sistema 2 es más lento, deliberativo y lógico. El impacto de la aversión a la pérdida y el exceso de confianza en las estrategias empresariales, la dificultad de predecir lo que nos hará felices en el futuro o el profundo efecto de los sesgos cognitivos sobre todo lo que hacemos solo pueden comprenderse si entendemos el funcionamiento conjunto de los dos sistemas a la hora de formular nuestros juicios y decisiones.",
     "price": 45.46,
     "image": "https://contentv2.tap-commerce.com/cover/large/9789871786404_1.jpg?id_com=1113",
     "genres": ["Psicología"],
@@ -217,7 +216,7 @@
     "description": "París en el siglo XX es una de las novelas más desconocidas de Julio Verne y fue publicada por primera vez en francés en 1994. Es considerada como la «novela perdida» de Julio Verne, ya que fue escrita en 1863 y se mantuvo oculta durante más de ciento treinta años. El manuscrito que sirvió de base a la novela fue completado ese mismo año y después fue olvidado en una caja fuerte hasta que fue descubierto en 1989 por Jean Verne, bisnieto de Julio Verne. El principio de la historia se ubica en París, exactamente el día 13 de agosto de 1960. Ese día, la «Corporación Nacional de Crédito Instruccional» una moderna versión del viejo Ministerio de Educación creado en 1837 durante el reinado de Napoleón V celebra su ceremonia anual en la cual se premian los logros académicos alcanzados por los jóvenes graduados franceses. ",
     "price": 27.05,
     "image": "https://contentv2.tap-commerce.com/cover/large/9788413375212_1.jpg?id_com=1113",
-    "genres": ["Ciencia Ficción"],
+    "genres": ["Ficción"],
     "stock": 28,
     "editorial": "EDITORIAL VERBUM",
     "edition": 2021
