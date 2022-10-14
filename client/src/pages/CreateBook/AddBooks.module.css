@@ -1,0 +1,10 @@
+.containerForm {
+    background: white;
+}
+
+.err {
+    display: contents;
+    color: red;
+    padding: 4px;
+    font-weight: 500;
+}
