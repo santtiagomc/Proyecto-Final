@@ -15,7 +15,7 @@
     "name": "Terror"
   },  
   {
-    "name": "Humor y comedia"
+    "name": "Humor y Comedia"
   },
   {
     "name": "Ficción"
@@ -84,12 +84,21 @@
     "name": "Autoayuda"
   },
   {
-    "name": "Accion"
+    "name": "Acción"
   },
   {
     "name": "Aventura"
   },
   {
     "name": "Novelas"
+  },
+  {
+    "name": "Infantil"
+  },
+  {
+    "name": "Juvenil"
+  },
+  {
+    "name": "Desarrollo personal"
   }
 ]
