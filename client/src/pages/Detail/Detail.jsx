@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail, clearDetail } from "../redux/actions";
+
+import { clearDetail, getDetail } from "../../redux/actions";
 
 import style from "./Detail.module.css";
 
