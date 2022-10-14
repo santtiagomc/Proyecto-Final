@@ -3,7 +3,7 @@ const { Books, Genres } = require('../db');
 
 async function getAllBooks(){
     try{
-        const allBooks = await Books.findAll({
+        const allBooksDb = await Books.findAll({
             where: {
                 visible: true,
                 stock: {
@@ -17,8 +17,8 @@ async function getAllBooks(){
               }]
         });
 
-        if(!allBooks.length) return {messageError: "No hay libros disponibles."};
-        return allBooks;
+        if(!allBooksDb.length) return {messageError: "No hay libros disponibles."};
+        return allBooksDb;
 
     }catch(error){
         return {messageError: "Se ha producido un error."};
