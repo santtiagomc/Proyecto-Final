@@ -7,7 +7,12 @@ const { putBookVisibility } = require("../utils/putBookVisibility");
 const router = Router();
 
 router.get("/:id", async (req, res) => {
-  res.send("Hola buenas");
+  const {id}= req.params
+  const response = await getBookDetail(id)
+  let statusCode;
+  response.messageError ? (statusCode = 404) : (statusCode = 201);
+
+  res.status(statusCode).json(response);
 });
 
 router.put("/:id", async (req, res) => {
