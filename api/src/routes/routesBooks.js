@@ -7,14 +7,17 @@ const { getBooksByAuthor } = require("../utils/getBooksByAuthor");
 const { getBooksByEditorial } = require("../utils/getBooksByEditorial");
 const { postBook } = require("../utils/postBook");
 const { postAllBooks } = require("../utils/postAllBooks");
+const {getBooksByAll} = require("../utils/getBooksByAll")
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-    const {name, author, editorial} = req.query;
+    const {name, author, editorial, all} = req.query;
 
     let books 
-    if(name){
+    if(all){
+        books = await getBooksByAll(all)
+    }else if(name){
         books = await getBooksByName(name);
     }else if(author){
         books = await getBooksByAuthor(author);
