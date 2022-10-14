@@ -7,7 +7,7 @@ async function postAllBooks(allBooks) {
     allBooks.forEach(async (book) => {
       let [newBook, created] = await Books.findOrCreate({
         where: {
-          name: book.name,
+          name: book.name.toLowerCase(),
         },
         defaults: {
           image: book.image,
