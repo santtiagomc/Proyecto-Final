@@ -1,10 +1,11 @@
-import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, POST_BOOKS, GET_ALL_BOOKS } from "./actions";
+import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, POST_BOOKS, GET_ALL_BOOKS, GET_REVIEWS, GET_GENRE } from "./actions";
 
 const initialState = {
   books: [],
   genres: [],
   book: [],
   detail: [],
+  reviews: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -18,14 +19,17 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, books: action.payload };
 
     case GET_DETAIL:
-      return{ ...state, detail: action.payload };
+      return { ...state, detail: action.payload };
+
+    case GET_REVIEWS:
+      return { ...state, reviews: action.payload };
 
     case CLEAR_DETAIL:
       return{ ...state, detail: [] };
     
-    case POST_BOOKS:
-      return { ...state}
-
+    case GET_GENRE:
+      return{ ...state, genres: action.payload}
+    
     default:
       return { ...state };
   }

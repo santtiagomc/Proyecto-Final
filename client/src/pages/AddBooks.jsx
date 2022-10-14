@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link ,useHistory } from "react-router-dom";
-import { addBooks, getAllBooks } from "../redux/actions";
+import { addBooks, getGenres } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function validation(input) {
@@ -90,7 +90,7 @@ export default function CreateBook() {
                 edition: "",
                 genre: []
             })
-            history.push("/books")
+            history.push("/")
         }
         else{
             alert ("Missing info!")
@@ -109,7 +109,7 @@ export default function CreateBook() {
     }
 
     useEffect (() => {
-        dispatch(getAllBooks())      
+        dispatch(getGenres())      
     }, [dispatch])
 
 
@@ -201,22 +201,13 @@ export default function CreateBook() {
                             onChange = {(e) => handleChange(e)}/>
                             {errors.edition && (<p >{errors.edition}</p>)}
                     </div>
-                    {/* <div>
+                    <div>
                         <label> Genres   </label> 
                         <select value= {input.genre}  onChange = {(e)=> handleSelect(e)}>
-                        {genres.map((el) => (<option value={el.name} key={el.id}> {el.name} </option>))}
-                        </select>
-                    </div> */}
-                    <div>
-                    <label>Genres: </label>
-                        <select onChange={e => handleSelect(e)}>
-                            <option value={""}>Chose a Genre</option>
-                            <option value="Spring">Historietas</option>
-                            <option value="Summer">Cocina</option>
-                            <option value="Autumn">Filosofía</option>
-                            <option value="Winter">Misterio</option>
+                        {genres.map((el) => (<option value={el}> {el} </option>))}
                         </select>
                     </div>
+                    
                     <div>
                         <ul>
                             {input.genre.map(el=>  <li> {el} <button onClick={() =>handleDelete(el)}>X
@@ -224,8 +215,8 @@ export default function CreateBook() {
                         </ul>
                     </div>
                     <div >
-                        <button /* disabled={Object.keys(errors).length > 0 || input.genre.length === 0 ? true : false} */ type ='submit'> CREATE </button>          
-                        <Link to="/books">
+                        <button disabled={Object.keys(errors).length > 0 || input.genre.length === 0 ? true : false} type ='submit'> CREATE </button>          
+                        <Link to="/">
                         <button>BACK</button>
                         </Link>
                     </div>

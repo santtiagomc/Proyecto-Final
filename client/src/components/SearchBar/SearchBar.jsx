@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { searchBook } from "../../redux/actions";
+
 import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
@@ -8,9 +10,9 @@ export default function SearchBar() {
   let [book, setBook] = useState();
 
   const handleSubmit = (e) => {
-    if (state.trim().length !== 0) {
+    if (book.trim().length !== 0) {
       e.preventDefault();
-      dispatch(getSearch(book));
+      dispatch(searchBook(book));
       e.target.reset();
       setBook("");
     } else {
@@ -21,6 +23,7 @@ export default function SearchBar() {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <input
+        className={style.input}
         type="text"
         placeholder="Harry Potter"
         onChange={(e) => setBook(e.target.value.toLowerCase())}

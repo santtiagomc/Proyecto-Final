@@ -1,25 +1,105 @@
+/* .container {
+    position: absolute;
+    width: 480px;
+    height: 280px;
+    left: 356px;
+    top: 681px;
+    background: linear-gradient(180deg, #D97197 0%, rgba(217, 113, 151, 0) 100%);
+    border-radius: 50px;
+}
+
+.titulo {
+    position: absolute;
+    width: 214px;
+    height: 66px;
+    left: 578px;
+    top: 713px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    color: #FFFFFF;
+}
+    
+.autor {
+    position: absolute;
+    width: 214px;
+    height: 15px;
+    left: 580px;
+    top: 791px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+}
+    
+.precio {
+    position: absolute;
+    width: 232px;
+    height: 47px;
+    left: 580px;
+    top: 828px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #FFFFFF;
+}
+       */
+.navLink {
+  text-decoration: none;
+}
+
 .container {
-    font-family: Helvetica;
-    width: 180px;
-    height: 260px;
-    border: solid 1px #000;
+  width: 300px;
+  height: 240px;
+  background-color: #a35873;
+  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+  display: flex;
+  padding: 0 20px;
+  border-radius: 30px;
 }
 
 .imageContainer {
-    width: 180px;
-    height: 200px;
-    border-bottom: solid 1px #000;
+  width: 135px;
+  height: 200px;
 }
 
 .bookCover {
-    object-fit: contain;
-    width: 180px;
-    height: 200px;
+  position: relative;
+  top: -40px;
+  border-radius: 20px;
+  width: 135px;
+  height: 200px;
+}
+
+.information {
+  padding: 25px 10px;
+}
+
+.name {
+  margin: 0px;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.author {
+  margin: 0px;
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 300;
+  font-size: 15px;
 }
 
 .price {
-    margin: 0px;
-    margin-top: 10px;
-    font-size: 18px;
-    text-align: center;
+  margin: 0px;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 600;
 }
