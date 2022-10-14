@@ -14,6 +14,7 @@ async function getBookDetail(idBook) {
         },
       ],
     });
+    if (!idDb) return { messageError: "This book does not exist" };
 
     return idDb;
   } catch (error) {

@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  place-items: center;
+  /*  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 25% 25% 25% 25%; */
+
+  margin-top: 30px;
+  margin-bottom: 30px;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.span {
+  background-color: wheat;
+}
