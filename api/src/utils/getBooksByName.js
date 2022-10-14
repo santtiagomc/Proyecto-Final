@@ -1,22 +1,12 @@
-const { Books, Genres } = require('../db');
+const { getAllBooks } = require("./getAllBooks");
 
 async function getBooksByName(name) {
   try{
-    const allBooks = await Books.findAll({
-      include: [{
-        model: Genres,
-        attributes: ["name"],
-        through: { attributes: [] }
-      }]
-    });
+    const allBooks = await getAllBooks();
 
-    const booksByName = allBooks.filter(b => b.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
-      //{
-        // if(!b.eliminated){
-        //     return b.name.toLowerCase().includes(name.toLowerCase())
-        // }
-      //});
-    if(!booksByName.length) return {messageError: `No se encontraron resultados para "${name}".`}
+    const booksByName = allBooks.length && allBooks.filter(b => b.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
+      
+    if(!booksByName.length) return {messageError: `No se encontraron resultados para ${name}.`}
     return booksByName;
     
   }catch(error){

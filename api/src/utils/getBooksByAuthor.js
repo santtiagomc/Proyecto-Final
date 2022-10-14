@@ -1,18 +1,12 @@
-const { Books, Genres } = require('../db');
+const { getAllBooks } = require("./getAllBooks");
 
 async function getBooksByAuthor(author){
     try{
-        const allBooks = await Books.findAll({
-            include: [{
-                model: Genres,
-                attributes: ["name"],
-                through: { attributes: [] }
-              }]
-        });
+        const allBooks = await getAllBooks();
 
-        const booksByAuthor = allBooks.filter(b => b.author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
-        
-        if(!booksByAuthor.length) return {messageError: `No se encontraron resultados para "${author}".`}
+        const booksByAuthor = allBooks.length && allBooks.filter(b => b.author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
+
+        if(!booksByAuthor.length) return {messageError: `No se encontraron resultados para ${author}.`}
         return booksByAuthor;
 
     }catch(error){
