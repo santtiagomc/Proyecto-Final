@@ -10,18 +10,15 @@ async function getBooksByName(name) {
       }]
     });
 
-    if(name){
-      const booksByName = allBooks.filter(b => b.name.toLowerCase().includes(name.toLowerCase()));
+    const booksByName = allBooks.filter(b => b.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
       //{
         // if(!b.eliminated){
         //     return b.name.toLowerCase().includes(name.toLowerCase())
         // }
       //});
-      if(!booksByName.length) return {messageError: `No se encontraron resultados para "${name}".`}
-      return booksByName;
-    }else{
-      return allBooks;
-    }
+    if(!booksByName.length) return {messageError: `No se encontraron resultados para "${name}".`}
+    return booksByName;
+    
   }catch(error){
     return {messageError: "Se ha producido un error."}
   };
