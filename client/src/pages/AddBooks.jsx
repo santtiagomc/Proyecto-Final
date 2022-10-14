@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link ,useHistory } from "react-router-dom";
-import { addBooks, getAllBooks } from "../Redux/Actions";
+import { addBooks, getAllBooks } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function validation(input) {
@@ -20,6 +20,15 @@ function validation(input) {
     if (!input.price) {
       errors.price = 'Price is required'
     }
+    if (!input.stock) {
+        errors.stock = 'Stock is required'
+    }
+    if (!input.editorial) {
+        errors.editorial = 'Editorial is required'
+    }
+    if (!input.edition) {
+        errors.edition = 'Edition is required'
+    }
     if (input.genre.length === 0) {
       errors.genre = 'Must have at least one genre'
     }
@@ -34,10 +43,13 @@ export default function CreateBook() {
 
     const [input, setInput] = useState({
         name: "",
-        author: "",
-        description: "description",
-        price: "price",
         image: "",
+        author: "",
+        description: "",
+        price: "",
+        stock: "",
+        editorial: "",
+        edition: "",
         genre: []
     });
 
@@ -69,10 +81,13 @@ export default function CreateBook() {
             alert("Congrats! Your new breed was created")
             setInput({
                 name: "",
+                image: "",
                 author: "",
                 description: "",
                 price: "",
-                image: "",
+                stock: "",
+                editorial: "",
+                edition: "",
                 genre: []
             })
             history.push("/books")
@@ -109,15 +124,27 @@ export default function CreateBook() {
                         <label>Name </label>
                         <input
                             type= "text"
+                            placeholder="Book Name"
                             value= {input.name.toUpperCase()}
                             name="name" 
                             onChange = {(e) => handleChange(e)} />
                             {errors.name && (<p>{errors.name}</p>)}
                     </div>  
                     <div>
+                        <label>Picture   </label>
+                        <input
+                        type= "url"
+                        placeholder="Url image"
+                        value= {input.image}
+                        name="image" 
+                        onChange = {(e) => handleChange(e)}
+                        />
+                    </div>
+                    <div>
                         <label>Author </label>
                         <input
                             type= "text"
+                            placeholder="Name Author"
                             value= {input.author}
                             name="author" 
                             onChange = {(e) => handleChange(e)}/>
@@ -127,24 +154,67 @@ export default function CreateBook() {
                         <label>Description</label>
                         <input
                             type= "text"
+                            placeholder="Book Description"
                             value= {input.description}
                             name="description" 
                             onChange = {(e) => handleChange(e)}/>
                             {errors.description && (<p >{errors.description}</p>)}
                     </div>
-                    <div>
-                        <label>Picture   </label>
+                    <div>   
+                        <label>Price</label>
                         <input
-                        type= "url"
-                        value= {input.image}
-                        name="image" 
-                        onChange = {(e) => handleChange(e)}
-                        />
+                            type= "number"
+                            placeholder="Price Max 99999"
+                            value= {input.price}
+                            name="price"
+                            min="1" max="99999"
+                            onChange = {(e) => handleChange(e)}/>
+                            {errors.price && (<p >{errors.price}</p>)}
                     </div>
-                    <div>
+                    <div>   
+                        <label>Stock</label>
+                        <input
+                            type= "text"
+                            placeholder="Stock"
+                            value= {input.stock}
+                            name="stock" 
+                            onChange = {(e) => handleChange(e)}/>
+                            {errors.stock && (<p >{errors.stock}</p>)}
+                    </div>
+                    <div>   
+                        <label>Editorial</label>
+                        <input
+                            type= "text"
+                            placeholder="Editorial Name"
+                            value= {input.editorial}
+                            name="editorial" 
+                            onChange = {(e) => handleChange(e)}/>
+                            {errors.editorial && (<p >{errors.editorial}</p>)}
+                    </div>
+                    <div>   
+                        <label>Edition</label>
+                        <input
+                            type= "text"
+                            placeholder="Edition Name"
+                            value= {input.edition}
+                            name="edition" 
+                            onChange = {(e) => handleChange(e)}/>
+                            {errors.edition && (<p >{errors.edition}</p>)}
+                    </div>
+                    {/* <div>
                         <label> Genres   </label> 
                         <select value= {input.genre}  onChange = {(e)=> handleSelect(e)}>
                         {genres.map((el) => (<option value={el.name} key={el.id}> {el.name} </option>))}
+                        </select>
+                    </div> */}
+                    <div>
+                    <label>Genres: </label>
+                        <select onChange={e => handleSelect(e)}>
+                            <option value={""}>Chose a Genre</option>
+                            <option value="Spring">Historietas</option>
+                            <option value="Summer">Cocina</option>
+                            <option value="Autumn">Filosofía</option>
+                            <option value="Winter">Misterio</option>
                         </select>
                     </div>
                     <div>
@@ -154,7 +224,7 @@ export default function CreateBook() {
                         </ul>
                     </div>
                     <div >
-                        <button disabled={Object.keys(errors).length > 0 || input.genre.length === 0 ? true : false} type ='submit'> CREATE </button>          
+                        <button /* disabled={Object.keys(errors).length > 0 || input.genre.length === 0 ? true : false} */ type ='submit'> CREATE </button>          
                         <Link to="/books">
                         <button>BACK</button>
                         </Link>

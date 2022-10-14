@@ -3,6 +3,8 @@ import axios from "axios";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
+export const POST_BOOKS = "POST_BOOKS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 
 export function searchBook(name) {
   return async function (dispatch) {
@@ -41,5 +43,33 @@ export function getDetail(id) {
 export function clearDetail() {
   return {
     type: CLEAR_DETAIL,
+  }
+}
+
+export function addBooks (payload) {
+  return async (dispatch) => {
+      try{
+          await axios.post('http://localhost:3001/books', payload);
+          return {
+              type: POST_BOOKS,
+              }
+      } 
+      catch(error){
+            alert("Post failed")
+      }
+  } 
+}
+
+export function getAllBooks () {
+  return async function (dispatch){
+      try {
+          var json = await axios.get("http://localhost:3001/books")
+          return dispatch ({
+              type: GET_ALL_BOOKS,
+              payload: json.data
+          })
+      } catch (error) {
+          alert("Don't have any connections 😫")
+      }
   }
 }
