@@ -13,7 +13,7 @@ export default function Home() {
   const allBooks = api.books;
 
   useEffect(() => {
-    /* if(!allBooks.length) dispatch(getBooks()) */
+    /* if (!allBooks.length) dispatch(getBooks()); */
   }, []);
 
   return (
@@ -29,6 +29,7 @@ export default function Home() {
             return (
               <Card
                 key={index}
+                id={el.id}
                 image={el.image}
                 price={el.price}
                 name={el.name}
