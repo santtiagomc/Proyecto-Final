@@ -1,15 +1,60 @@
-.grid {
-  display: grid;
-  place-items: center;
-  /*  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 25% 25% 25% 25%; */
-
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+.home {
+    position: relative;
+    width: 1440px;
+    height: 2711px;
+    background: #181818;
 }
 
-.span {
-  background-color: wheat;
+.categoryOneContainer{
+    position: absolute;
+    width: 302px;
+    height: 156px;
+    left: 376px;
+    top: 194px;
+    background: #D97197;
+    border-radius: 25px;
+}
+
+.categoryTwoContainer {
+    position: absolute;
+    width: 302px;
+    height: 156px;
+    left: 720px;
+    top: 194px;
+    background: #2D0FF2;
+    border-radius: 25px;
+}
+
+.categoryThreeContainer {
+    position: absolute;
+    width: 302px;
+    height: 156px;
+    left: 1063px;
+    top: 194px;
+    background: #4BA4F2;
+    border-radius: 25px;
+}
+
+.categoryFourContainer {
+    position: absolute;
+    width: 987px;
+    height: 156px;
+    left: 376px;
+    top: 394px;
+    background: #084259;
+    border-radius: 25px;
+}
+
+.categoriesTitle {
+    position: absolute;
+    width: 114px;
+    height: 37px;
+    left: 468px;
+    top: 254px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 43px;
+    color: #FFFFFF;
 }
