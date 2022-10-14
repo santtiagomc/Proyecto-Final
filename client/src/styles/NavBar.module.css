@@ -1,0 +1,49 @@
+.nav {
+    position: absolute;
+    width: 289px;
+    height: 1063px;
+    left: 43px;
+    top: 18px;
+    background: #181818;
+}
+
+.logo {
+    position: absolute;
+    width: 153px;
+    height: 153px;
+    left: 116px;
+    top: 41px;
+    background: url(Logo);
+}
+
+.button {
+    position: absolute;
+    width: 250px;
+    height: 35px;
+    left: 64px;
+    top: 248px;
+    background: #101010;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.filters {
+    position: absolute;
+    width: 76px;
+    height: 27px;
+    left: 145px;
+    top: 636px;
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 34px;
+    color: #FFFFFF;
+}
+
