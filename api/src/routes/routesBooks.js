@@ -8,6 +8,7 @@ const { getBooksByEditorial } = require("../utils/getBooksByEditorial");
 const { postBook } = require("../utils/postBook");
 const { postAllBooks } = require("../utils/postAllBooks");
 const {getBooksByAll} = require("../utils/getBooksByAll")
+const {getBooks} = require("../utils/pagination")
 
 const router = Router();
 
@@ -47,6 +48,20 @@ router.post("/all", async (req, res) => {
 
   res.status(statusCode).json(response)
 })
+
+
+
+
+router.get("/page", async (req, res) => {
+    const {page } = req.query;
+
+    let books = await getBooks(page)
+    
+    
+    books.messageError ? res.status(404).json(books) : res.status(201).json(books);
+});
+
+
 
 module.exports = router;
 
