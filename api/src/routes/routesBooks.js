@@ -17,7 +17,22 @@ router.get('/', async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const response = await postBook(req.body);
 
+  let statusCode
+  response.messageError ? statusCode = 404 : statusCode = 201
+
+  res.status(statusCode).json(response)
 });
 
+router.post("/all", async (req, res) => {
+  const response = await postAllBooks(req.body);
+
+  let statusCode
+  response.messageError ? statusCode = 404 : statusCode = 201
+
+  res.status(statusCode).json(response)
+})
+
 module.exports = router;
+
