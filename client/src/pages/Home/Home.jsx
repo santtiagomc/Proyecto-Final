@@ -17,7 +17,7 @@ export default function Home() {
   useEffect(() => {
     if (filtersApplied.sort !== "A-Z" || filtersApplied.genres !== "none" || filtersApplied.author !== "none") {
       dispatch(getFilteredBooks(filtersApplied))
-    } else {
+    } else if (!filteredBooks.length) {
       dispatch(searchBook());
     }
   }, [filtersApplied]);
@@ -33,6 +33,8 @@ export default function Home() {
       return acc;
     }, []);
   console.log(authorsFiltered);
+
+
 
   return (
     <>

@@ -31,9 +31,9 @@ export default function SearchBar() {
         placeholder="Ingrese un título, autor o editorial"
         onChange={(e) => setBook(e.target.value)}
       />
-      <select 
-      defaultValue= 'none' 
-      onChange={(e) => setOptions(e.target.value)}
+      <select
+        defaultValue='none'
+        onChange={(e) => setOptions(e.target.value)}
       >
         <option disabled value='none'>Seleccione una opción</option>
         <option value="all">Todos</option>
@@ -43,7 +43,7 @@ export default function SearchBar() {
       </select>
 
       {!options ? <button disabled>Buscar</button> : <button type="submit">Buscar</button>}
-      
+
     </form>
   );
 }

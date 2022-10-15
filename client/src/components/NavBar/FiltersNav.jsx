@@ -32,33 +32,33 @@ export default function FiltersNav({ authors }) {
         <h2>Filters</h2>
         <select
           name="sort"
-          defaultValue={filtersApplied.sort}
+          // defaultValue={filtersApplied.sort}
           onChange={(e) => handleChange(e)}
         >
           <option disabled>-- Alphabetical order --</option>
-          <option value="A-Z"  >A to Z</option>
-          <option value="Z-A" >Z to A</option>
+          <option value="A-Z" selected={filtersApplied.sort === "A-Z" ? true : false}>A to Z</option>
+          <option value="Z-A" selected={filtersApplied.sort === "Z-A" ? true : false}>Z to A</option>
           <option disabled>-- Order by price --</option>
-          <option value="min-max" >Price: Min. to Máx.</option>
-          <option value="max-min" >Price: Máx. to Min.</option>
+          <option value="min-max" selected={filtersApplied.sort === "min-max" ? true : false}>Price: Min. to Máx.</option>
+          <option value="max-min" selected={filtersApplied.sort === "max-min" ? true : false}>Price: Máx. to Min.</option>
         </select>
 
         <select
           name="author"
-          defaultValue={filtersApplied.author !== "none" ? filtersApplied.author : "default"}
+          // defaultValue={filtersApplied.author !== "none" ? filtersApplied.author : "default"}
           onChange={(e) => handleChange(e)}>
-          <option value="default" disabled> -- Filter by author --</option>
-          {authors && authors.map((el) => <option value={el}>{el}</option>)}
+          <option disabled selected={filtersApplied.author === "none" ? true : false}> -- Filter by author --</option>
+          {authors && authors.map((el) => <option value={el} selected={filtersApplied.author === el ? true : false}>{el}</option>)}
         </select>
 
         <select
           name="genres"
-          defaultValue={filtersApplied.genres !== "none" ? filtersApplied.genres : "default"}
+          // defaultValue={filtersApplied.genres !== "none" ? filtersApplied.genres : "default"}
           onChange={(e) => handleChange(e)}
         >
-          <option value="default" disabled>-- Filter by genres --</option>
+          <option disabled selected={filtersApplied.genres === "none" ? true : false}>-- Filter by genres --</option>
           {allGenres &&
-            allGenres.sort().map((el) => <option value={el}>{el}</option>)}
+            allGenres.sort().map((el) => <option value={el} selected={filtersApplied.genres === el ? true : false}>{el}</option>)}
         </select>
       </nav>
     </>
