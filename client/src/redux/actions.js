@@ -5,9 +5,10 @@ export const GET_GENRES = "GET_GENRES";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
-export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const GET_FILTERED = "GET_FILTERED";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
+export const POST_BOOKS = "POST_BOOKS";
+export const RESET_CREATE = "RESET_CREATE"
 
 export function getBooks() {
   return async function (dispatch) {
@@ -25,6 +26,30 @@ export function getBooks() {
     }
   };
 }
+
+export function searchBook(option, name) {
+  return async function (dispatch) {
+    try {
+      let json
+      if (option) {
+        json = await axios(`http://localhost:3001/books?${option}=${name}`);
+      } else {
+        json = await axios("http://localhost:3001/books");
+      }
+      return dispatch({
+        type: GET_SEARCH,
+        payload: json.data,
+      });
+
+    } catch (err) {
+      return dispatch({
+        type: GET_SEARCH,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
 export function getGenres() {
   return async function (dispatch) {
     try {
@@ -64,33 +89,6 @@ export function getFilteredBooks({ sort, genres, author }) {
 export function changeFilter(filters) {
   return { type: CHANGE_FILTERS, payload: filters };
 }
-export const POST_BOOKS = "POST_BOOKS";
-export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
-export const GET_GENRE = "GET_GENRE"
-export const RESET_CREATE = "RESET_CREATE"
-
-export function searchBook(option, name) {
-  return async function (dispatch) {
-    try {
-      let json
-      if (option) {
-        json = await axios(`http://localhost:3001/books?${option}=${name}`);
-      } else {
-        json = await axios("http://localhost:3001/books");
-      }
-      return dispatch({
-        type: GET_SEARCH,
-        payload: json.data,
-      });
-
-    } catch (err) {
-      return dispatch({
-        type: GET_SEARCH,
-        payload: err.response.data,
-      });
-    }
-  };
-}
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -126,17 +124,10 @@ export function getReview() {
   };
 }
 
-export function clearDetail() {
-  return {
-    type: CLEAR_DETAIL,
-  };
-}
-
 export function addBooks(input) {
   return async function (dispatch) {
     try {
       const response = await axios.post('http://localhost:3001/books', input);
-
       return dispatch({
         type: POST_BOOKS,
         payload: response.data
@@ -150,30 +141,6 @@ export function addBooks(input) {
     }
   }
 }
-
-export function getAllBooks() {
-  return async function (dispatch) {
-    try {
-      var json = await axios.get("http://localhost:3001/books")
-      return dispatch({
-        type: GET_ALL_BOOKS,
-        payload: json.data
-      })
-    } catch (error) {
-      alert("Don't have any connections 😫")
-    }
-  }
-}
-
-export function getGenres() {
-  return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/genres");
-    return dispatch({
-      type: GET_GENRE,
-      payload: json.data
-    })
-  }
-};
 
 export function resetCreate() {
   return {
