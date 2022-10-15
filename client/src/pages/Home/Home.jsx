@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
@@ -20,6 +21,9 @@ export default function Home() {
     <>
       <header>
         <SearchBar />
+        <Link to="/create">
+      <button>CREAR</button>
+    </Link>
       </header>
       {/* //aca el navbar */}
 
