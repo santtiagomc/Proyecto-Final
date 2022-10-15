@@ -29,7 +29,8 @@ export default function rootReducer(state = initialState, action) {
     
     case GET_GENRE:
       return{ ...state, genres: action.payload}
-    
+    case POST_BOOKS:
+      return {...state}
     default:
       return { ...state };
   }

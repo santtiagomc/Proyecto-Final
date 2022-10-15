@@ -66,7 +66,7 @@ export function clearDetail() {
 }
 
 export function addBooks (payload) {
-  return async (dispatch) => {
+  return async function(dispatch)  {
       try{
           await axios.post('http://localhost:3001/books', payload);
           return {
