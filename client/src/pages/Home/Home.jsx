@@ -3,18 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
+import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
 
-import style from "./Home.module.css";
+import { getBooks } from "../../redux/actions.js";
+
+import style from "./HomePrueba.module.css";
 import api from "../../api.js";
 
 export default function Home() {
-  //const allBooks = useSelector((state) => state.books);
+  const allBooks = useSelector((state) => state.books);
   const dispatch = useDispatch();
-  const allBooks = api.books;
+  //const allBooks = api.books;
 
   useEffect(() => {
-    /* if (!allBooks.length) dispatch(getBooks()); */
+    dispatch(getBooks());
   }, []);
+
+  let allAuthors = allBooks && allBooks.map((el) => el.author);
+  console.log(allAuthors);
+  let authorsFiltered =
+    allAuthors &&
+    allAuthors.reduce((acc, item) => {
+      if (!acc.includes(item)) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+  console.log(authorsFiltered);
 
   return (
     <>
@@ -22,6 +37,7 @@ export default function Home() {
         <SearchBar />
       </header>
       {/* //aca el navbar */}
+      <FiltersNav authors={authorsFiltered.sort()} />
 
       <div className={style.grid}>
         {allBooks.length ? (
