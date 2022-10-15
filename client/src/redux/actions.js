@@ -7,6 +7,7 @@ export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const POST_BOOKS = "POST_BOOKS";
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const GET_GENRE = "GET_GENRE"
+export const RESET_CREATE = "RESET_CREATE"
 
 export function searchBook(name) {
   return async function (dispatch) {
@@ -65,16 +66,21 @@ export function clearDetail() {
   };
 }
 
-export function addBooks (payload) {
+export function addBooks (input) {
   return async function(dispatch)  {
       try{
-          await axios.post('http://localhost:3001/books', payload);
-          return {
+        const response = await axios.post('http://localhost:3001/books', input); 
+          
+          return dispatch ({
               type: POST_BOOKS,
-              }
+              payload: response.data
+              })
       } 
       catch(error){
-            alert("Post failed")
+            return dispatch ({
+              type: POST_BOOKS,
+              payload: error.response.data
+            })
       }
   } 
 }
@@ -102,3 +108,10 @@ export function getGenres (){
       })
   }
 };
+
+export function resetCreate () {
+  return {
+    type: RESET_CREATE,
+    payload: []
+  }
+}

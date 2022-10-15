@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link ,useHistory } from "react-router-dom";
-import { addBooks, getGenres } from "../../redux/actions";
+import { addBooks, getGenres, resetCreate } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./AddBooks.module.css"
 
@@ -23,8 +23,12 @@ function validation(input) {
     }
     if (!input.price) {
         errors.price = 'Precio es requerido'
-    } else if (input.price > 1000) {
-        errors.price = "El precio debe ser igual o menor a 1000"
+    } else if (input.price > 10000) {
+        errors.price = "El precio debe ser igual o menor a 10000,00"
+    } else if (input.price < 0) {
+        errors.price = "El precio debe ser mayor a 0"
+    } else if (!input.price.match(/^\d{3}(.\d{1,2})?$/)) {
+        errors.price = 'Precio debe tener como maximo dos decimales'
     }
     if (!input.stock) {
         errors.stock = 'Stock es requerido'
@@ -48,7 +52,7 @@ function validation(input) {
 export default function CreateBook() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const genres = useSelector(state => state.genres)
+    const {genres, create} = useSelector(state => state)
     const [ errors, setErrors ] = useState({})
 
     const [input, setInput] = useState({
@@ -86,10 +90,22 @@ export default function CreateBook() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setErrors(validation(input))
         if (Object.keys(errors).length === 0) {
             dispatch(addBooks(input))
-            alert("Felicidades, has creado un nuevo libro")
+            console.log(create)
+            
+        } 
+        else{
+            alert ("Creacion no realizada!")
+        }
+    }
+
+
+
+    useEffect (() => {
+        if (create.message) {
+            alert(create.message)
+            dispatch(resetCreate())
             setInput({
                 name: "",
                 image: "",
@@ -102,12 +118,12 @@ export default function CreateBook() {
                 genre: []
             })
             history.push("/")
-        }
-        else{
-            alert ("Creacion no realizada!")
-        }
-    }
-
+        } else if (create.messageError) {
+            alert(create.messageError)
+            dispatch(resetCreate())
+        }  
+    }, [create])
+    
     function handleChange(e) {
         setInput({
             ...input,
@@ -175,8 +191,9 @@ export default function CreateBook() {
                             placeholder="Precio"
                             value= {input.price}
                             name="price"
-                            min="1" 
-                            max="1000"
+                            min="1,00"
+                            
+                            max="1000,00"
                             onChange = {(e) => handleChange(e)}/>
                             {errors.price && (<p className={style.err}>{errors.price}</p>)}
                     </div>
@@ -188,7 +205,7 @@ export default function CreateBook() {
                             placeholder="Stock"
                             value= {input.stock}
                             min= "1"
-                            max= "20"
+                            max= "50"
                             name="stock"
                             onChange = {(e) => handleChange(e)}/>
                             {errors.stock && (<p className={style.err}>{errors.stock}</p>)}
@@ -216,16 +233,14 @@ export default function CreateBook() {
                             {errors.edition && (<p className={style.err}>{errors.edition}</p>)}
                     </div>
                     <div className={style.incontainer}>   
-                        <label >Descripción</label><p>
-                        <input
-                            className={style.descripcion}
-                            type= "text"
-                            placeholder="Descripción del libro"
-                            value= {input.description}
-                            name="description" 
-                            onChange = {(e) => handleChange(e)}
+                        <label >Descripción</label>
+                        <textarea className={style.descripcion} name="description" id="" cols="30" rows="100"
+                        type= "text"
+                        placeholder="Descripción del libro"
+                        value= {input.description}
+                        onChange = {(e) => handleChange(e)}>
                             
-                            /></p>
+                        </textarea>
                         {errors.description && (<p className={style.err}>{errors.description}</p>)}
                     </div>
                     <div className={style.incontainer}>

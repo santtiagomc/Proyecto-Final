@@ -1,4 +1,4 @@
-import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, POST_BOOKS, GET_ALL_BOOKS, GET_REVIEWS, GET_GENRE } from "./actions";
+import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, POST_BOOKS, GET_ALL_BOOKS, GET_REVIEWS, GET_GENRE, RESET_CREATE } from "./actions";
 
 const initialState = {
   books: [],
@@ -6,6 +6,7 @@ const initialState = {
   book: [],
   detail: [],
   reviews: [],
+  create: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -30,7 +31,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_GENRE:
       return{ ...state, genres: action.payload}
     case POST_BOOKS:
-      return {...state}
+      return {...state, create: action.payload}
+    case RESET_CREATE:
+      return {...state, create: action.payload}
     default:
       return { ...state };
   }
