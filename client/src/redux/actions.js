@@ -9,14 +9,20 @@ export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const GET_GENRE = "GET_GENRE"
 export const RESET_CREATE = "RESET_CREATE"
 
-export function searchBook(name) {
+export function searchBook(option, name) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/books?name=${name}`);
+      let json
+      if(option){
+        json = await axios(`http://localhost:3001/books?${option}=${name}`);
+      }else{
+        json = await axios("http://localhost:3001/books");
+      }
       return dispatch({
         type: GET_SEARCH,
         payload: json.data,
       });
+
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
