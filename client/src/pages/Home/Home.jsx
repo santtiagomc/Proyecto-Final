@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
+import { searchBook } from "../../redux/actions";
 
 import { getBooks, getFilteredBooks } from "../../redux/actions.js";
 
 import style from "./HomePrueba.module.css";
-import api from "../../api.js";
+//import api from "../../api.js";
 
 export default function Home() {
   const allBooks = useSelector((state) => state.books);
@@ -41,13 +43,16 @@ export default function Home() {
     <>
       <header>
         <SearchBar />
+        <Link to="/create">
+          <button>CREAR</button>
+        </Link>
       </header>
       {/* //aca el navbar */}
       <FiltersNav authors={authorsFiltered.sort()} />
 
       <div className={style.grid}>
-        {allBooks.length ? (
-          allBooks.map((el, index) => {
+        {filteredBooks.length ? (
+          filteredBooks.map((el, index) => {
             return (
               <Card
                 key={index}
@@ -60,9 +65,11 @@ export default function Home() {
             );
           })
         ) : (
-          <span className={style.span}>404 not found</span>
+
+          <span className={style.span}>{filteredBooks.messageError}</span>
+
         )}
       </div>
     </>
   );
-}
+};

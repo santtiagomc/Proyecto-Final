@@ -2,7 +2,7 @@ import {
   GET_SEARCH,
   GET_DETAIL,
   CLEAR_DETAIL,
-  GET_REVIEWS,
+  POST_BOOKS, GET_ALL_BOOKS, GET_REVIEWS, GET_GENRE, RESET_CREATE,
   CHANGE_FILTERS,
   GET_FILTERED,
   GET_GENRES,
@@ -21,6 +21,7 @@ const initialState = {
     genres: "none",
     author: "none",
   },
+  create: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -49,6 +50,12 @@ export default function rootReducer(state = initialState, action) {
     case CLEAR_DETAIL:
       return { ...state, detail: [] };
 
+    case GET_GENRE:
+      return { ...state, genres: action.payload }
+    case POST_BOOKS:
+      return { ...state, create: action.payload }
+    case RESET_CREATE:
+      return { ...state, create: action.payload }
     default:
       return { ...state };
   }
