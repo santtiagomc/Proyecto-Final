@@ -5,14 +5,20 @@ export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 
-export function searchBook(name) {
+export function searchBook(option, name) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/books?name=${name}`);
+      let json
+      if(option){
+        json = await axios(`http://localhost:3001/books?${option}=${name}`);
+      }else{
+        json = await axios("http://localhost:3001/books");
+      }
       return dispatch({
         type: GET_SEARCH,
         payload: json.data,
       });
+
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
