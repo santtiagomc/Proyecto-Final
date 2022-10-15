@@ -5,6 +5,8 @@ import {
   GET_REVIEWS,
   CHANGE_FILTERS,
   GET_FILTERED,
+  GET_GENRES,
+  GET_BOOKS,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +24,12 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_BOOKS:
+      return { ...state, books: action.payload };
+
+    case GET_GENRES:
+      return { ...state, genres: action.payload };
+
     case GET_FILTERED:
       return { ...state, books: action.payload };
 
