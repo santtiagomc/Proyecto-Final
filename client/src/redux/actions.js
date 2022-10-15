@@ -4,15 +4,25 @@ export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
+export const POST_BOOKS = "POST_BOOKS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const GET_GENRE = "GET_GENRE"
+export const RESET_CREATE = "RESET_CREATE"
 
-export function searchBook(name) {
+export function searchBook(option, name) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/books?name=${name}`);
+      let json
+      if(option){
+        json = await axios(`http://localhost:3001/books?${option}=${name}`);
+      }else{
+        json = await axios("http://localhost:3001/books");
+      }
       return dispatch({
         type: GET_SEARCH,
         payload: json.data,
       });
+
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
@@ -60,4 +70,54 @@ export function clearDetail() {
   return {
     type: CLEAR_DETAIL,
   };
+}
+
+export function addBooks (input) {
+  return async function(dispatch)  {
+      try{
+        const response = await axios.post('http://localhost:3001/books', input); 
+          
+          return dispatch ({
+              type: POST_BOOKS,
+              payload: response.data
+              })
+      } 
+      catch(error){
+            return dispatch ({
+              type: POST_BOOKS,
+              payload: error.response.data
+            })
+      }
+  } 
+}
+
+export function getAllBooks () {
+  return async function (dispatch){
+      try {
+          var json = await axios.get("http://localhost:3001/books")
+          return dispatch ({
+              type: GET_ALL_BOOKS,
+              payload: json.data
+          })
+      } catch (error) {
+          alert("Don't have any connections 😫")
+      }
+  }
+}
+
+export function getGenres (){
+  return async function (dispatch){
+      var json = await axios.get("http://localhost:3001/genres");
+      return dispatch ({
+          type: GET_GENRE, 
+          payload: json.data
+      })
+  }
+};
+
+export function resetCreate () {
+  return {
+    type: RESET_CREATE,
+    payload: []
+  }
 }
