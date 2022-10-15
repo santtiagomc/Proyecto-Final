@@ -34,7 +34,8 @@ router.get("/", async (req, res) => {
 router.get("/filters", async (req, res) => {
   // const { filters } = req.body;
 
-  const response = await getBooksByFilters(req.body);
+  console.log(req.query)
+  const response = await getBooksByFilters(req.query);
 
   let statusCode
   response.messageError ? statusCode = 404 : statusCode = 201

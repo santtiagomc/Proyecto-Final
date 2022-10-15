@@ -4,27 +4,6 @@ const { Books, Genres } = require('../db');
 
 async function getBooksByFilters(filters) {
   try {
-
-    // let booksFiltereds
-    // if (filters.genres !== "none" && filters.author !== "none") {
-    //   booksFiltereds = await Books.findAll({
-    //     where: {
-    //       visible: true,
-    //       stock: {
-    //         [Op.gt]: 0
-    //       },
-    //       author: filters.author
-    //     },
-    //     include: [{
-    //       model: Genres,
-    //       where: { name: filters.genres },
-    //       // attributes: ["name"],
-    //       through: { attributes: [] }
-    //     }]
-    //   });
-    // }
-
-
     let booksFiltereds = await getAllBooks()
     booksFiltereds = booksFiltereds.map(book => {
       let genres = []
@@ -53,11 +32,15 @@ async function getBooksByFilters(filters) {
       booksFiltereds = booksFiltereds.filter(b => b.author === filters.author)
     }
 
-    // if (filters.editorial !== "none") {
-    //   booksFiltereds = booksFiltereds.filter
-    // }
+    if (filters.sort === "A-Z")
+      booksFiltereds.sort((a, b) => a.name.localeCompare(b.name))
+    if (filters.sort === "Z-A")
+      booksFiltereds.sort((b, a) => a.name.localeCompare(b.name))
+    if (filters.sort === "min-max")
+      booksFiltereds.sort((a, b) => a.price - b.price)
+    if (filters.sort === "max-min")
+      booksFiltereds.sort((b, a) => a.price - b.price)
 
-    // console.log(booksFiltereds, "Este es")
     return booksFiltereds
 
   } catch (error) {

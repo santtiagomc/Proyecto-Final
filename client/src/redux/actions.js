@@ -42,13 +42,12 @@ export function getGenres() {
   };
 }
 
-export function getFilteredBooks(filters) {
+export function getFilteredBooks({ sort, genres, author }) {
   return async function (dispatch) {
     try {
       const json = await axios.get(
-        `http://localhost:3001/books/filters`,
-        filters
-      );
+        `http://localhost:3001/books/filters?sort=${sort}&genres=${genres}&author=${author}`);
+      console.log(json.data)
       return dispatch({
         type: GET_FILTERED,
         payload: json.data,

@@ -5,21 +5,27 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
 
-import { getBooks } from "../../redux/actions.js";
+import { getBooks, getFilteredBooks } from "../../redux/actions.js";
 
 import style from "./HomePrueba.module.css";
 import api from "../../api.js";
 
 export default function Home() {
   const allBooks = useSelector((state) => state.books);
+  const { filtersApplied, booksCopy } = useSelector(state => state);
   const dispatch = useDispatch();
   //const allBooks = api.books;
 
-  useEffect(() => {
-    dispatch(getBooks());
-  }, []);
 
-  let allAuthors = allBooks && allBooks.map((el) => el.author);
+  useEffect(() => {
+    if (filtersApplied.sort !== "A-Z" || filtersApplied.genres !== "none" || filtersApplied.author !== "none") {
+      dispatch(getFilteredBooks(filtersApplied))
+    } else {
+      dispatch(getBooks());
+    }
+  }, [filtersApplied]);
+
+  let allAuthors = booksCopy && booksCopy.map((el) => el.author);
   console.log(allAuthors);
   let authorsFiltered =
     allAuthors &&

@@ -11,6 +11,7 @@ import {
 
 const initialState = {
   books: [],
+  booksCopy: [],
   genres: [],
   book: [],
   detail: [],
@@ -25,7 +26,7 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BOOKS:
-      return { ...state, books: action.payload };
+      return { ...state, books: action.payload, booksCopy: action.payload };
 
     case GET_GENRES:
       return { ...state, genres: action.payload };
