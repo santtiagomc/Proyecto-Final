@@ -43,12 +43,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: action.payload,
-        booksCopy: action.payload,
-        filtersApplied: {
-          sort: "A-Z",
-          genres: "none",
-          author: "none",
-        }
+        booksCopy: state.booksCopy.length ? state.booksCopy : action.payload,
       };
 
     case GET_DETAIL:

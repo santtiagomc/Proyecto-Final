@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { searchBook } from "../../redux/actions";
+import { changeFilter, searchBook } from "../../redux/actions";
 
 import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
+  const filtersApplied = useSelector(state => state.filtersApplied)
   let [book, setBook] = useState("");
   let [options, setOptions] = useState("");
 
   const handleSubmit = (e) => {
     if (book.trim().length !== 0) {
       e.preventDefault();
-      dispatch(searchBook(options, book));
-      //e.target.reset();
-      //setOptions("")
-      //setBook("");
+      dispatch(changeFilter())
+      dispatch(searchBook(filtersApplied, options, book));
+      setBook("");
     } else {
       alert("Valor incorrecto");
     }

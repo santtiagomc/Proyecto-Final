@@ -13,22 +13,24 @@ const { getBooksByFilters } = require("../utils/getBooksByFilters");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, author, editorial, all } = req.query;
+  const { name, author, editorial, all, genres, sort } = req.query;
 
   let books
   if (all) {
     books = await getBooksByAll(all)
   } else if (name) {
     books = await getBooksByName(name);
-  } else if (author) {
+  } /*else if (author) {
     books = await getBooksByAuthor(author);
-  } else if (editorial) {
+  } */else if (editorial) {
     books = await getBooksByEditorial(editorial);
   } else {
     books = await getAllBooks();
   }
 
-  books.messageError ? res.status(404).json(books) : res.status(201).json(books);
+  let booksFiltereds = books.messageError ? books : await getBooksByFilters(books, req.query)
+
+  booksFiltereds.messageError ? res.status(404).json(booksFiltereds) : res.status(201).json(booksFiltereds);
 });
 
 router.get("/filters", async (req, res) => {

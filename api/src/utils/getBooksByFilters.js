@@ -2,9 +2,8 @@ const { getAllBooks } = require("./getAllBooks");
 const { Op } = require("sequelize");
 const { Books, Genres } = require('../db');
 
-async function getBooksByFilters(filters) {
+async function getBooksByFilters(booksFiltereds, filters) {
   try {
-    let booksFiltereds = await getAllBooks()
     booksFiltereds = booksFiltereds.map(book => {
       let genres = []
       book.Genres.length && book.Genres.forEach(g => genres.push(g.name))

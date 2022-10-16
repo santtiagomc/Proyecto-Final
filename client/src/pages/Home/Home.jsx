@@ -15,24 +15,23 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filtersApplied.sort !== "A-Z" || filtersApplied.genres !== "none" || filtersApplied.author !== "none") {
-      dispatch(getFilteredBooks(filtersApplied))
-    } else if (!filteredBooks.length) {
-      dispatch(searchBook());
-    }
-  }, [filtersApplied]);
+    dispatch(searchBook(filtersApplied));
+  }, []);
 
-  let allAuthors = booksCopy && booksCopy.map((el) => el.author);
-  console.log(allAuthors);
-  let authorsFiltered =
-    allAuthors &&
-    allAuthors.reduce((acc, item) => {
+  console.log(booksCopy)
+
+  let allAuthors
+  if (!booksCopy.messageError) {
+    allAuthors = booksCopy.map((el) => el.author);
+    allAuthors = allAuthors.reduce((acc, item) => {
       if (!acc.includes(item)) {
         acc.push(item);
       }
       return acc;
-    }, []);
-  console.log(authorsFiltered);
+    }, []).sort();
+  }
+
+  // console.log(authorsFiltered);
 
 
 
@@ -45,7 +44,7 @@ export default function Home() {
         </Link>
       </header>
       {/* //aca el navbar */}
-      <FiltersNav authors={authorsFiltered.sort()} />
+      <FiltersNav authors={allAuthors} />
 
       <div className={style.grid}>
         {filteredBooks.length ? (
