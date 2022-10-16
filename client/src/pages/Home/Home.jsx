@@ -4,21 +4,22 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
-import { searchBook } from "../../redux/actions";
-import { getBooks, getFilteredBooks } from "../../redux/actions.js";
+import { getGenres, searchBook } from "../../redux/actions";
 
 import style from "./HomePrueba.module.css";
 
 export default function Home() {
   const filteredBooks = useSelector((state) => state.books);
-  const { filtersApplied, booksCopy, searchApplied } = useSelector(state => state);
+  const { filtersApplied, booksCopy, searchApplied, genres } = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(searchBook(filtersApplied, searchApplied));
+    if (!genres.length) dispatch(getGenres());;
   }, []);
 
-  console.log(booksCopy)
+  useEffect(() => {
+    dispatch(searchBook(filtersApplied, searchApplied))
+  }, [filtersApplied])
 
   let allAuthors
   if (!booksCopy.messageError) {
@@ -30,10 +31,6 @@ export default function Home() {
       return acc;
     }, []).sort();
   }
-
-  // console.log(authorsFiltered);
-
-
 
   return (
     <>

@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, getFilteredBooks, getGenres, searchBook } from "../../redux/actions";
+import { changeFilter } from "../../redux/actions";
 
 import style from "../../styles/FiltersNav.module.css";
 
 export default function FiltersNav({ authors }) {
 
-  const { filtersApplied, searchApplied } = useSelector((state) => state);
-  const allGenres = useSelector((state) => state.genres);
-
+  const { filtersApplied, genres } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!allGenres.length) {
-      dispatch(getGenres());
-    }
-  }, []);
+  function handleFilterGenres(e) {
+    dispatch(changeFilter({ sort: filtersApplied.sort, author: filtersApplied.author, genres: e.target.value }))
+  }
 
-  let [filtersLocal, setFiltersLocal] = useState(filtersApplied);
+  function handleFilterAuthor(e) {
+    dispatch(changeFilter({ sort: filtersApplied.sort, author: e.target.value, genres: filtersApplied.genres }))
+  }
 
-  const handleChange = (e) => {
-    setFiltersLocal({ ...filtersLocal, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    dispatch(changeFilter(filtersLocal));
-    dispatch(searchBook(filtersLocal, searchApplied))
-  }, [filtersLocal])
+  function handleFilterSort(e) {
+    dispatch(changeFilter({ sort: e.target.value, author: filtersApplied.author, genres: filtersApplied.genres }))
+  }
 
   return (
     <>
@@ -35,7 +28,7 @@ export default function FiltersNav({ authors }) {
         <label>Ordenar:</label>
         <select
           name="sort"
-          onChange={(e) => handleChange(e)}
+          onChange={handleFilterSort}
         >
           <option disabled>-- Alphabetical order --</option>
           <option value="A-Z" selected={filtersApplied.sort === "A-Z" ? true : false}>A to Z</option>
@@ -48,7 +41,7 @@ export default function FiltersNav({ authors }) {
         <label>Filtrar por autor:</label>
         <select
           name="author"
-          onChange={(e) => handleChange(e)}>
+          onChange={handleFilterAuthor}>
           <option disabled > -- Filtrar por autor --</option>
           <option value="none" selected={filtersApplied.author === "none" ? true : false}> Todos los autores</option>
           {authors && authors.map((el) => <option value={el} selected={filtersApplied.author === el ? true : false}>{el}</option>)}
@@ -57,12 +50,12 @@ export default function FiltersNav({ authors }) {
         <label>Filtrar por género:</label>
         <select
           name="genres"
-          onChange={(e) => handleChange(e)}
+          onChange={handleFilterGenres}
         >
           <option disabled>-- Filtrar por género --</option>
           <option value="none" selected={filtersApplied.genres === "none" ? true : false}> Todos los géneros</option>
-          {allGenres &&
-            allGenres.sort().map((el) => <option value={el} selected={filtersApplied.genres === el ? true : false}>{el}</option>)}
+          {genres &&
+            genres.sort().map((el) => <option value={el} selected={filtersApplied.genres === el ? true : false}>{el}</option>)}
         </select>
       </nav>
     </>
