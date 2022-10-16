@@ -191,7 +191,7 @@
   {
     "name": "Deja de ser Tú",
     "author": "Dispenza Joe",
-    "description": "Joe Dispenza se ha convertido en un must para los que saben que la realidad se empieza a fraguar en la mente. A diferencia de otros autores que se pierden en libros demasiado teóricos, el creador de "Deja de ser tú" es capaz de explicar los procesos mentales y cómo incidir en ellos de forma clara, fresca e inspiradora a partir de los últimos avances en neurociencia, biología y genética. ",
+    "description": "Joe Dispenza se ha convertido en un must para los que saben que la realidad se empieza a fraguar en la mente. A diferencia de otros autores que se pierden en libros demasiado teóricos, el creador de 'Deja de ser tú' es capaz de explicar los procesos mentales y cómo incidir en ellos de forma clara, fresca e inspiradora a partir de los últimos avances en neurociencia, biología y genética. ",
     "price": 37.84,
     "image": "https://contentv2.tap-commerce.com/cover/large/9789507883248_1.jpg?id_com=1113",
     "genres": ["Autoayuda", "Desarrollo personal"],
@@ -220,5 +220,5 @@
     "stock": 28,
     "editorial": "EDITORIAL VERBUM",
     "edition": 2021
-  },
+  }
 ]

@@ -1,32 +1,47 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
-import { searchBook } from "../../redux/actions";
+import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
+import { getGenres, searchBook } from "../../redux/actions";
 
-import style from "./Home.module.css";
-//import api from "../../api.js";
+import style from "./HomePrueba.module.css";
 
 export default function Home() {
   const filteredBooks = useSelector((state) => state.books);
+  const { filtersApplied, booksCopy, searchApplied, genres } = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    /* if (!allBooks.length) dispatch(getBooks()); */
-    dispatch(searchBook())
+    if (!genres.length) dispatch(getGenres());;
   }, []);
+
+  useEffect(() => {
+    dispatch(searchBook(filtersApplied, searchApplied))
+  }, [filtersApplied])
+
+  let allAuthors
+  if (!booksCopy.messageError) {
+    allAuthors = booksCopy.map((el) => el.author);
+    allAuthors = allAuthors.reduce((acc, item) => {
+      if (!acc.includes(item)) {
+        acc.push(item);
+      }
+      return acc;
+    }, []).sort();
+  }
 
   return (
     <>
       <header>
         <SearchBar />
         <Link to="/create">
-      <button>CREAR</button>
-    </Link>
+          <button>CREAR</button>
+        </Link>
       </header>
       {/* //aca el navbar */}
+      <FiltersNav authors={allAuthors} />
 
       <div className={style.grid}>
         {filteredBooks.length ? (
@@ -43,9 +58,9 @@ export default function Home() {
             );
           })
         ) : (
-          
-        <span className={style.span}>{filteredBooks.messageError}</span>
-            
+
+          <span className={style.span}>{filteredBooks.messageError}</span>
+
         )}
       </div>
     </>
