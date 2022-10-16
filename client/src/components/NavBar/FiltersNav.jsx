@@ -42,7 +42,7 @@ export default function FiltersNav({ editorials }) {
           <option value="price-min-max" selected={filtersApplied.sort === "price-min-max" ? true : false}>Menor a mayor</option>
           <option value="price-max-min" selected={filtersApplied.sort === "price-max-min" ? true : false}>Mayor a menor</option>
           <option disabled>-- Año de edición --</option>
-          <option value="edition-max-min" selected={filtersApplied.sort === "edition-max-min" ? true : false}>Menor a mayor</option>
+          <option value="edition-min-max" selected={filtersApplied.sort === "edition-min-max" ? true : false}>Menor a mayor</option>
           <option value="edition-max-min" selected={filtersApplied.sort === "edition-max-min" ? true : false}>Mayor a menor</option>
         </select>
 
