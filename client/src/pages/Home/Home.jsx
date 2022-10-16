@@ -56,10 +56,6 @@ export default function Home() {
     pages.push(i);
   }
 
-  // {pages.map(page => (
-  //   <button className={currentPage === page ? numButton currentButton : numButton} onClick={() => paginated(page)} key={page} >{page}</button>
-  // ))}
-
   return (
     <>
       <header>

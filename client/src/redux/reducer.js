@@ -7,7 +7,6 @@ import {
   CHANGE_FILTERS,
   GET_FILTERED,
   GET_GENRES,
-  GET_BOOKS,
   CHANGE_SEARCH,
   CHANGE_PAGE,
 } from "./actions";
@@ -35,9 +34,7 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BOOKS:
-      return { ...state, books: action.payload, booksCopy: action.payload };
-
+  
     case GET_GENRES:
       return { ...state, genres: action.payload };
 
@@ -49,8 +46,10 @@ export default function rootReducer(state = initialState, action) {
 
     case CHANGE_SEARCH:
       return { ...state, searchApplied: action.payload };
+      
     case CHANGE_PAGE:
       return { ...state, page: action.payload };
+      
     case GET_SEARCH:
       return {
         ...state,
@@ -72,6 +71,7 @@ export default function rootReducer(state = initialState, action) {
 
     case RESET_CREATE:
       return { ...state, create: action.payload };
+      
     default:
       return { ...state };
   }

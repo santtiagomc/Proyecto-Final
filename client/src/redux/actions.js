@@ -1,6 +1,5 @@
 import axios from "axios";
 
-export const GET_BOOKS = "GET_BOOKS";
 export const GET_GENRES = "GET_GENRES";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
@@ -11,23 +10,6 @@ export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
 export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
-
-export function getBooks() {
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(`http://localhost:3001/books`);
-      return dispatch({
-        type: GET_BOOKS,
-        payload: json.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: GET_BOOKS,
-        payload: err.response.data,
-      });
-    }
-  };
-}
 
 export function searchBook(filters, search, page) {
   return async function (dispatch) {
