@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearDetail, getDetail, GET_DETAIL } from "../../redux/actions";
+import { getDetail, GET_DETAIL } from "../../redux/actions";
 // import Card from "../../components/Card/Card";
 
 import style from "./Detail.module.css";
@@ -16,7 +16,6 @@ export default function Detail() {
   console.log(id);
 
   useEffect(() => {
-    //dispatch(clearDetail());
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -58,24 +57,24 @@ export default function Detail() {
           <h3 className={style.author}>{myBook.author}</h3>
 
           <h3 className={style.edition}>{myBook.edition}</h3>
-          {/* <p className={style.genre}>{myBook.Genre.join(" | ")}</p> */}
+          {/* <p className={style.genre}>{myBook.genres.map(g => g.name)}</p> */}
           <h3 className={style.editorial}>{myBook.editorial}</h3>
           <p className={style.description}>{myBook.description}</p>
-          <div className={style.container}>
+          <div className={style.containerPC}>
             <h3 className={style.price}>USD {myBook.price}</h3>
             <button className={style.cart}>Add to cart</button>
           </div>
-          <Link className={style.home} to="/" > {/*onChange={() => handleChange()}*/}
-            <button>Home</button>
-          </Link>
         </div>
       </div>
-      <div>
+      <div className={style.reviews}>
         {/* MEGA provisional, hacer componente reviews! */}
         <h2>Reviews:</h2>
         <h3>User1234</h3>
         <span>💛💛💛💛</span>
         <p>La verdad es que tremendo</p>
+        <Link className={style.home} to="/" > {/*onChange={() => handleChange()}*/}
+          <button>Home</button>
+        </Link>
       </div>
     </>
   );
