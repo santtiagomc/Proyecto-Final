@@ -6,45 +6,56 @@ import style from "./AddBooks.module.css"
 
 function validation(input) {
   let errors = {}
+
+  const regexDecimal = /^\d{1,3}(\.\d{1,2})?$/
+
   if (!input.name) {
     errors.name = 'Ingresa un nombre'
   }
   else if (!input.name.match(/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g)) {
-    errors.name = 'Solo letras, por favor'
+    errors.name = 'El nombre solo puede contener letras'
   }
   if (!input.image) {
     errors.image = "Ingresa una imagen"
   }
+
   if (!input.author) {
-    errors.author = 'Autor es requerido'
+    errors.author = 'El campo autor es requerido'
   }
   if (!input.description) {
-    errors.description = 'Descripción es requerida'
+    errors.description = 'El campo descripción es requerido'
+  } else if (input.description.length > 1500) {
+    errors.description = 'La descripción puede tener un máximo de 1500 caracteres'
   }
+
   if (!input.price) {
-    errors.price = 'Precio es requerido'
-  } else if (input.price > 10000) {
-    errors.price = "El precio debe ser igual o menor a 10000,00"
+    errors.price = 'El campo precio es requerido'
+  } else if (input.price > 1000) {
+    errors.price = "El precio debe ser menor a 1000"
   } else if (input.price < 0) {
     errors.price = "El precio debe ser mayor a 0"
-  } else if (!input.price.match(/^\d{3}(.\d{1,2})?$/)) {
-    errors.price = 'Precio debe tener como máximo dos decimales'
+  } else if (!regexDecimal.test(input.price)) {
+    errors.price = 'El precio debe tener como máximo dos decimales'
   }
   if (!input.stock) {
-    errors.stock = 'Stock es requerido'
+    errors.stock = 'El campo stock es requerido'
+  } else if (input.stock < 0) {
+    errors.stock = "El stock tiene que ser mayor o igual a 0"
   }
+
+
   if (!input.editorial) {
-    errors.editorial = 'Editorial es requerdio'
+    errors.editorial = 'El campo editorial es requerdio'
   }
   if (!input.edition) {
-    errors.edition = 'Edicion es requerido'
+    errors.edition = 'El campo edicion es requerido'
   } else if (input.edition < 1800) {
     errors.edition = "El año debe ser mayor a 1800"
   } else if (input.edition > 2023) {
-    errors.edition = "el año debe ser menor a 2023"
+    errors.edition = "El año debe ser menor a 2023"
   }
   if (input.genre.length === 0) {
-    errors.genre = 'Deberias seleccionar un genero'
+    errors.genre = 'Debes agregar al menos un género'
   }
   return errors;
 }
@@ -89,11 +100,9 @@ export default function CreateBook() {
     e.preventDefault()
     if (Object.keys(errors).length === 0) {
       dispatch(addBooks(input))
-      console.log(create)
-
     }
     else {
-      alert("Creacion no realizada!")
+      alert("Verifica que no haya errores en ningún campo")
     }
   }
 
@@ -131,7 +140,7 @@ export default function CreateBook() {
   }
 
   useEffect(() => {
-    dispatch(getGenres())
+    if (!genres.length) dispatch(getGenres())
     setErrors(validation(input))
   }, [dispatch, input])
 
