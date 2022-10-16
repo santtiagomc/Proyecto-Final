@@ -1,13 +1,13 @@
 const { getAllBooks } = require("./getAllBooks");
 
-async function getAllAuthors() {
+async function getAllEditorials() {
   try {
     const allBooks = await getAllBooks();
 
-    let allAuthors;
+    let allEditorials;
     if (!allBooks.messageError) {
-      allAuthors = allBooks.map((el) => el.author);
-      allAuthors = allAuthors
+      allEditorials = allBooks.map((el) => el.editorial);
+      allEditorials = allEditorials
         .reduce((acc, item) => {
           if (!acc.includes(item)) {
             acc.push(item);
@@ -19,7 +19,7 @@ async function getAllAuthors() {
 
     if (allBooks.messageError) return allBooks.messageError
 
-    return allAuthors;
+    return allEditorials;
 
   } catch (error) {
     return { messageError: "Se ha producido un error." }
@@ -27,5 +27,5 @@ async function getAllAuthors() {
 };
 
 module.exports = {
-  getAllAuthors
+  getAllEditorials
 };

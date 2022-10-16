@@ -5,7 +5,7 @@ export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_FILTERED = "GET_FILTERED";
-export const GET_AUTHORS = "GET_AUTHORS";
+export const GET_EDITORIALS = "GET_EDITORIALS";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
@@ -18,11 +18,11 @@ export function searchBook(filters, search, page) {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}&page=${page}`
+          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
         );
       } else {
         json = await axios(
-          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}&page=${page}`
+          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
         );
       }
       return dispatch({
@@ -38,7 +38,7 @@ export function searchBook(filters, search, page) {
   };
 }
 
-export function changeFilter(filters = { sort: "A-Z", genres: "none", author: "none" }) {
+export function changeFilter(filters = { sort: "A-Z", genres: "none", editorial: "none" }) {
   return { type: CHANGE_FILTERS, payload: filters };
 }
 
@@ -50,17 +50,17 @@ export function changePage(page = 0) {
   return { type: CHANGE_PAGE, payload: page };
 }
 
-export function getAuthors() {
+export function getEditorials() {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/authors`);
+      const json = await axios.get(`http://localhost:3001/editorials`);
       return dispatch({
-        type: GET_AUTHORS,
+        type: GET_EDITORIALS,
         payload: json.data,
       });
     } catch (err) {
       return dispatch({
-        type: GET_AUTHORS,
+        type: GET_EDITORIALS,
         payload: err.response.data,
       });
     }
@@ -78,26 +78,6 @@ export function getGenres() {
     } catch (err) {
       return dispatch({
         type: GET_GENRES,
-        payload: err.response.data,
-      });
-    }
-  };
-}
-
-export function getFilteredBooks({ sort, genres, author }) {
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(
-        `http://localhost:3001/books/filters?sort=${sort}&genres=${genres}&author=${author}`
-      );
-      console.log(json.data);
-      return dispatch({
-        type: GET_FILTERED,
-        payload: json.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: GET_FILTERED,
         payload: err.response.data,
       });
     }

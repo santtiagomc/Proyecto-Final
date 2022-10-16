@@ -14,17 +14,15 @@ const { pagination } = require("../utils/pagination");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, author, editorial, all, genres, sort, page } = req.query;
+  const { name, author, all, page } = req.query;
 
   let books;
   if (all) {
     books = await getBooksByAll(all);
   } else if (name) {
     books = await getBooksByName(name);
-  } /*else if (author) {
+  } else if (author) {
     books = await getBooksByAuthor(author);
-  } */ else if (editorial) {
-    books = await getBooksByEditorial(editorial);
   } else {
     books = await getAllBooks();
   }
@@ -43,7 +41,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/filters", async (req, res) => {
-  // const { filters } = req.body;
 
   console.log(req.query);
   const response = await getBooksByFilters(req.query);

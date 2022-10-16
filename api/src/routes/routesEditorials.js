@@ -2,13 +2,13 @@
 const { Router } = require("express");
 
 // Traigo las funciones necesarias
-const { getAllAuthors } = require("../utils/getAllAuthors");
+const { getAllEditorials } = require("../utils/getAllEditorials");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
 
-  const response = await getAllAuthors()
+  const response = await getAllEditorials()
 
   let statusCode;
   response.messageError ? (statusCode = 404) : (statusCode = 201);

@@ -4,27 +4,19 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
-import { getGenres, searchBook, changePage, changeFilter, changeSearch, getAuthors } from "../../redux/actions";
+import { getGenres, searchBook, changePage, changeFilter, changeSearch, getEditorials } from "../../redux/actions";
 
 import style from "./HomePrueba.module.css";
 
 export default function Home() {
-  const { filtersApplied, booksCopy, searchApplied, genres, page, total, authors, books } =
+  const { filtersApplied, searchApplied, genres, page, total, editorials, books } =
     useSelector((state) => state);
   const dispatch = useDispatch();
   const pages = [];
 
-  // useEffect(() => {
-  //   if (!genres.length) dispatch(getGenres());
-  // }, []);
-
-  // if (condition) {
-
-  // }
-
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
-    if (!authors.length) dispatch(getAuthors());
+    if (!editorials.length) dispatch(getEditorials());
     dispatch(searchBook(filtersApplied, searchApplied, page));
   }, [filtersApplied, page, searchApplied]);
 
@@ -52,18 +44,15 @@ export default function Home() {
     <>
       <header>
         <SearchBar />
-        <Link to="/create">
-          <button>CREAR</button>
-        </Link>
       </header>
       {/* //aca el navbar */}
-      <FiltersNav authors={authors} />
+      <FiltersNav editorials={editorials} />
       <div>
-        <button onClick={prevPage}>prev</button>
+        <button onClick={prevPage}>Anterior</button>
         {pages.map((page) => (
           <button onClick={() => handlePage(page)}>{page}</button>
         ))}
-        <button onClick={nextPage}>next</button>
+        <button onClick={nextPage}>Siguiente</button>
       </div>
       <div className={style.grid}>
         {books.length ? (

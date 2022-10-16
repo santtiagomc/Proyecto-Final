@@ -27,18 +27,22 @@ async function getBooksByFilters(booksFiltereds, filters) {
       booksFiltereds = booksFiltereds.filter(b => b.Genres.includes(filters.genres))
     }
 
-    if (filters.author !== "none") {
-      booksFiltereds = booksFiltereds.filter(b => b.author === filters.author)
+    if (filters.editorial !== "none") {
+      booksFiltereds = booksFiltereds.filter(b => b.editorial === filters.editorial)
     }
 
     if (filters.sort === "A-Z")
       booksFiltereds.sort((a, b) => a.name.localeCompare(b.name))
     if (filters.sort === "Z-A")
       booksFiltereds.sort((b, a) => a.name.localeCompare(b.name))
-    if (filters.sort === "min-max")
+    if (filters.sort === "price-min-max")
       booksFiltereds.sort((a, b) => a.price - b.price)
-    if (filters.sort === "max-min")
+    if (filters.sort === "price-max-min")
       booksFiltereds.sort((b, a) => a.price - b.price)
+    if (filters.sort === "edition-min-max")
+      booksFiltereds.sort((a, b) => a.edition - b.edition)
+    if (filters.sort === "edition-max-min")
+      booksFiltereds.sort((b, a) => a.edition - b.edition)
 
     return booksFiltereds
 
