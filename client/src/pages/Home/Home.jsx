@@ -4,37 +4,29 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
-import { getGenres, searchBook, changePage } from "../../redux/actions";
+import { getGenres, searchBook, changePage, changeFilter, changeSearch, getAuthors } from "../../redux/actions";
 
 import style from "./HomePrueba.module.css";
 
 export default function Home() {
-  const filteredBooks = useSelector((state) => state.books);
-  const { filtersApplied, booksCopy, searchApplied, genres, page, total } =
+  const { filtersApplied, booksCopy, searchApplied, genres, page, total, authors, books } =
     useSelector((state) => state);
   const dispatch = useDispatch();
   const pages = [];
 
+  // useEffect(() => {
+  //   if (!genres.length) dispatch(getGenres());
+  // }, []);
+
+  // if (condition) {
+
+  // }
+
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
-  }, []);
-
-  useEffect(() => {
+    if (!authors.length) dispatch(getAuthors());
     dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page]);
-
-  let allAuthors;
-  if (!booksCopy.messageError) {
-    allAuthors = booksCopy.map((el) => el.author);
-    allAuthors = allAuthors
-      .reduce((acc, item) => {
-        if (!acc.includes(item)) {
-          acc.push(item);
-        }
-        return acc;
-      }, [])
-      .sort();
-  }
+  }, [filtersApplied, page, searchApplied]);
 
   const nextPage = () => {
     if (page + 10 < total) {
@@ -65,7 +57,7 @@ export default function Home() {
         </Link>
       </header>
       {/* //aca el navbar */}
-      <FiltersNav authors={allAuthors} />
+      <FiltersNav authors={authors} />
       <div>
         <button onClick={prevPage}>prev</button>
         {pages.map((page) => (
@@ -74,8 +66,8 @@ export default function Home() {
         <button onClick={nextPage}>next</button>
       </div>
       <div className={style.grid}>
-        {filteredBooks.length ? (
-          filteredBooks.map((el, index) => {
+        {books.length ? (
+          books.map((el, index) => {
             return (
               <Card
                 key={index}
@@ -88,7 +80,7 @@ export default function Home() {
             );
           })
         ) : (
-          <span className={style.span}>{filteredBooks.messageError}</span>
+          <span className={style.span}>{books.messageError}</span>
         )}
       </div>
     </>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter } from "../../redux/actions";
+import { changeFilter, changePage, changeSearch } from "../../redux/actions";
 
 import style from "../../styles/FiltersNav.module.css";
 
@@ -20,6 +20,11 @@ export default function FiltersNav({ authors }) {
   function handleFilterSort(e) {
     dispatch(changeFilter({ sort: e.target.value, author: filtersApplied.author, genres: filtersApplied.genres }))
   }
+
+  const reset = () => {
+    dispatch(changeFilter())
+    dispatch(changeSearch())
+  };
 
   return (
     <>
@@ -57,6 +62,9 @@ export default function FiltersNav({ authors }) {
           {genres &&
             genres.sort().map((el) => <option value={el} selected={filtersApplied.genres === el ? true : false}>{el}</option>)}
         </select>
+
+        <label>Filtrar por género:</label>
+        <button onClick={reset}>Resetear todo</button>
       </nav>
     </>
   );

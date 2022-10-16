@@ -5,6 +5,7 @@ export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_FILTERED = "GET_FILTERED";
+export const GET_AUTHORS = "GET_AUTHORS";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
@@ -37,9 +38,7 @@ export function searchBook(filters, search, page) {
   };
 }
 
-export function changeFilter(
-  filters = { sort: "A-Z", genres: "none", author: "none" }
-) {
+export function changeFilter(filters = { sort: "A-Z", genres: "none", author: "none" }) {
   return { type: CHANGE_FILTERS, payload: filters };
 }
 
@@ -47,8 +46,25 @@ export function changeSearch(search = { option: "all", name: "" }) {
   return { type: CHANGE_SEARCH, payload: search };
 }
 
-export function changePage(page) {
+export function changePage(page = 0) {
   return { type: CHANGE_PAGE, payload: page };
+}
+
+export function getAuthors() {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`http://localhost:3001/authors`);
+      return dispatch({
+        type: GET_AUTHORS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_AUTHORS,
+        payload: err.response.data,
+      });
+    }
+  };
 }
 
 export function getGenres() {

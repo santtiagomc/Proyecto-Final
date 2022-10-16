@@ -6,6 +6,7 @@ const { Router } = require('express');
 const routesBookId = require('./routesBookId');
 const routesBooks = require('./routesBooks');
 const routesGenres = require('./routesGenres');
+const routesAuthors = require('./routesAuthors');
 
 const router = Router();
 
@@ -14,5 +15,6 @@ const router = Router();
 router.use('/book', routesBookId);
 router.use('/books', routesBooks);
 router.use('/genres', routesGenres);
+router.use('/authors', routesAuthors);
 
 module.exports = router;
