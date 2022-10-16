@@ -38,7 +38,6 @@ export default function SearchBar() {
         <option value="all">Todos</option>
         <option value="name">Título</option>
         <option value="author">Autor</option>
-        <option value="editorial">Editorial</option>
       </select>
 
       {!options ? <button disabled>Buscar</button> : <button type="submit">Buscar</button>}

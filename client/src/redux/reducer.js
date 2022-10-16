@@ -7,13 +7,14 @@ import {
   CHANGE_FILTERS,
   GET_FILTERED,
   GET_GENRES,
-  GET_BOOKS,
   CHANGE_SEARCH,
+  CHANGE_PAGE,
+  GET_EDITORIALS,
 } from "./actions";
 
 const initialState = {
   books: [],
-  booksCopy: [],
+  editorials: [],
   genres: [],
   book: [],
   detail: [],
@@ -21,37 +22,43 @@ const initialState = {
   filtersApplied: {
     sort: "A-Z",
     genres: "none",
-    author: "none",
+    editorial: "none",
   },
   searchApplied: {
     option: "",
     name: "",
   },
-  create: []
+  create: [],
+  page: 0,
+  total: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BOOKS:
-      return { ...state, books: action.payload, booksCopy: action.payload };
 
     case GET_GENRES:
       return { ...state, genres: action.payload };
+
+    case GET_EDITORIALS:
+      return { ...state, editorials: action.payload };
 
     case GET_FILTERED:
       return { ...state, books: action.payload };
 
     case CHANGE_FILTERS:
-      return { ...state, filtersApplied: action.payload };
+      return { ...state, filtersApplied: action.payload, page: 0 };
 
     case CHANGE_SEARCH:
-      return { ...state, searchApplied: action.payload };
+      return { ...state, searchApplied: action.payload, page: 0 };
+
+    case CHANGE_PAGE:
+      return { ...state, page: action.payload };
 
     case GET_SEARCH:
       return {
         ...state,
-        books: action.payload,
-        booksCopy: state.booksCopy.length ? state.booksCopy : action.payload,
+        books: action.payload.messageError ? action.payload : action.payload.books,
+        total: action.payload.messageError ? action.payload : action.payload.total,
       };
 
     case GET_DETAIL:
@@ -61,10 +68,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, reviews: action.payload };
 
     case POST_BOOKS:
-      return { ...state, create: action.payload }
+      return { ...state, create: action.payload };
 
     case RESET_CREATE:
-      return { ...state, create: action.payload }
+      return { ...state, create: action.payload };
+
     default:
       return { ...state };
   }

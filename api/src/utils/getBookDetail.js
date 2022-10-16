@@ -14,14 +14,19 @@ async function getBookDetail(idBook) {
         },
       ],
     });
-    if (!idDb) return { messageError: "This book does not exist" };
+    if (!idDb) return { messageError: "No existe ningun libro con ese ID" };
 
     return idDb;
   } catch (error) {
-    return { messageError: "This book does not exist" };
+    return { messageError: "No existe ningun libro con ese ID" };
   }
 }
 
 module.exports = {
-  getBookDetail,
-};
+  getBookDetail
+}
+
+
+
+
+
