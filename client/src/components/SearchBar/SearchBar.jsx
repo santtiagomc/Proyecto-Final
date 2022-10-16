@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { searchBook } from "../../redux/actions";
+import { changeFilter, changeSearch } from "../../redux/actions";
 
 import style from "./SearchBar.module.css";
 
@@ -13,10 +13,9 @@ export default function SearchBar() {
   const handleSubmit = (e) => {
     if (book.trim().length !== 0) {
       e.preventDefault();
-      dispatch(searchBook(options, book));
-      //e.target.reset();
-      //setOptions("")
-      //setBook("");
+      dispatch(changeSearch({ option: options, name: book }))
+      dispatch(changeFilter())
+      setBook("");
     } else {
       alert("Valor incorrecto");
     }
@@ -31,9 +30,9 @@ export default function SearchBar() {
         placeholder="Ingrese un título, autor o editorial"
         onChange={(e) => setBook(e.target.value)}
       />
-      <select 
-      defaultValue= 'none' 
-      onChange={(e) => setOptions(e.target.value)}
+      <select
+        defaultValue='none'
+        onChange={(e) => setOptions(e.target.value)}
       >
         <option disabled value='none'>Seleccione una opción</option>
         <option value="all">Todos</option>
@@ -43,7 +42,7 @@ export default function SearchBar() {
       </select>
 
       {!options ? <button disabled>Buscar</button> : <button type="submit">Buscar</button>}
-      
+      {/* <button type="submit">Buscar</button> */}
     </form>
   );
 }
