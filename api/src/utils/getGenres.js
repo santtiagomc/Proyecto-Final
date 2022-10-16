@@ -7,7 +7,7 @@ async function getGenres() {
   try {
     let genresDb = await Genres.findAll();
 
-    if (!genresDb.length) return { messageError: "Genres not found" }
+    if (!genresDb.length) return { messageError: "No se encontraron géneros" }
 
     return genresDb.map(genre => genre.name)
 
