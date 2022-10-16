@@ -3,12 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { clearDetail, getDetail, GET_DETAIL } from "../../redux/actions";
+// import Card from "../../components/Card/Card";
 
 import style from "./Detail.module.css";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
+  // const filteredBooks = useSelector((state) => state.books);
 
   const { id } = useParams();
   console.log(id);
@@ -20,6 +22,21 @@ export default function Detail() {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
   }, []);
+
+  // function handleChange(e){
+  //   if(filteredBooks.length) filteredBooks.map((el, index) => {
+  //     return (
+  //       <Card
+  //         key={index}
+  //         id={el.id}
+  //         image={el.image}
+  //         price={el.price}
+  //         name={el.name}
+  //         author={el.author}
+  //       />
+  //     );
+  //   })
+  // }
 
   /* if (myBook) {
     const aux = myBook.Genre;
@@ -48,7 +65,7 @@ export default function Detail() {
             <h3 className={style.price}>USD {myBook.price}</h3>
             <button className={style.cart}>Add to cart</button>
           </div>
-          <Link className={style.home} to="/">
+          <Link className={style.home} to="/" > {/*onChange={() => handleChange()}*/}
             <button>Home</button>
           </Link>
         </div>

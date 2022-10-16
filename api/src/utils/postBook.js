@@ -18,7 +18,7 @@ async function postBook({ name, image, author, description, price, stock, editor
       },
     });
 
-    if (!created) return { messageError: "Book already exist" };
+    if (!created) return { messageError: "Ya existe un libro con ese nombre, por favor elige otro y vuelva a intentar!" };
 
     let genresDb = await Genres.findAll()
 
@@ -26,7 +26,7 @@ async function postBook({ name, image, author, description, price, stock, editor
       newBook.addGenres(genres)
     }
 
-    return { message: "Success" };
+    return { message: "El libro ha sido agregado con éxito!" };
   } catch (error) {
     return { messageError: "Error" };
   }

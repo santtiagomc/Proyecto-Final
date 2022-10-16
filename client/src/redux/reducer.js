@@ -1,17 +1,65 @@
-import { GET_SEARCH, GET_DETAIL, CLEAR_DETAIL, GET_REVIEWS } from "./actions";
+import {
+  GET_SEARCH,
+  GET_DETAIL,
+  POST_BOOKS,
+  GET_REVIEWS,
+  RESET_CREATE,
+  CHANGE_FILTERS,
+  GET_FILTERED,
+  GET_GENRES,
+  CHANGE_SEARCH,
+  CHANGE_PAGE,
+  GET_EDITORIALS,
+} from "./actions";
 
 const initialState = {
   books: [],
+  editorials: [],
   genres: [],
   book: [],
   detail: [],
   reviews: [],
+  filtersApplied: {
+    sort: "A-Z",
+    genres: "none",
+    editorial: "none",
+  },
+  searchApplied: {
+    option: "",
+    name: "",
+  },
+  create: [],
+  page: 0,
+  total: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_SEARCH:
+
+    case GET_GENRES:
+      return { ...state, genres: action.payload };
+
+    case GET_EDITORIALS:
+      return { ...state, editorials: action.payload };
+
+    case GET_FILTERED:
       return { ...state, books: action.payload };
+
+    case CHANGE_FILTERS:
+      return { ...state, filtersApplied: action.payload, page: 0 };
+
+    case CHANGE_SEARCH:
+      return { ...state, searchApplied: action.payload, page: 0 };
+
+    case CHANGE_PAGE:
+      return { ...state, page: action.payload };
+
+    case GET_SEARCH:
+      return {
+        ...state,
+        books: action.payload.messageError ? action.payload : action.payload.books,
+        total: action.payload.messageError ? action.payload : action.payload.total,
+      };
 
     case GET_DETAIL:
       return { ...state, detail: action.payload };
@@ -19,8 +67,11 @@ export default function rootReducer(state = initialState, action) {
     case GET_REVIEWS:
       return { ...state, reviews: action.payload };
 
-    case CLEAR_DETAIL:
-      return { ...state, detail: [] };
+    case POST_BOOKS:
+      return { ...state, create: action.payload };
+
+    case RESET_CREATE:
+      return { ...state, create: action.payload };
 
     default:
       return { ...state };
