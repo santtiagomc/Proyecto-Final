@@ -9,6 +9,7 @@ import {
   GET_GENRES,
   GET_BOOKS,
   CHANGE_SEARCH,
+  CHANGE_PAGE,
 } from "./actions";
 
 const initialState = {
@@ -27,7 +28,9 @@ const initialState = {
     option: "",
     name: "",
   },
-  create: []
+  create: [],
+  page: 0,
+  total: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -46,12 +49,16 @@ export default function rootReducer(state = initialState, action) {
 
     case CHANGE_SEARCH:
       return { ...state, searchApplied: action.payload };
-
+    case CHANGE_PAGE:
+      return { ...state, page: action.payload };
     case GET_SEARCH:
       return {
         ...state,
-        books: action.payload,
-        booksCopy: state.booksCopy.length ? state.booksCopy : action.payload,
+        books: action.payload.books,
+        booksCopy: state.booksCopy.length
+          ? state.booksCopy
+          : action.payload.books,
+        total: action.payload.total,
       };
 
     case GET_DETAIL:
@@ -61,10 +68,10 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, reviews: action.payload };
 
     case POST_BOOKS:
-      return { ...state, create: action.payload }
+      return { ...state, create: action.payload };
 
     case RESET_CREATE:
-      return { ...state, create: action.payload }
+      return { ...state, create: action.payload };
     default:
       return { ...state };
   }

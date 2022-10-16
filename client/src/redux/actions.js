@@ -9,7 +9,8 @@ export const GET_FILTERED = "GET_FILTERED";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
-export const RESET_CREATE = "RESET_CREATE"
+export const RESET_CREATE = "RESET_CREATE";
+export const CHANGE_PAGE = "CHANGE_PAGE";
 
 export function getBooks() {
   return async function (dispatch) {
@@ -28,20 +29,23 @@ export function getBooks() {
   };
 }
 
-export function searchBook(filters, search) {
+export function searchBook(filters, search, page) {
   return async function (dispatch) {
     try {
-      let json
+      let json;
       if (search.option && search.name) {
-        json = await axios(`http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}`);
+        json = await axios(
+          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}&page=${page}`
+        );
       } else {
-        json = await axios(`http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}`);
+        json = await axios(
+          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}&page=${page}`
+        );
       }
       return dispatch({
         type: GET_SEARCH,
         payload: json.data,
       });
-
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
@@ -51,12 +55,18 @@ export function searchBook(filters, search) {
   };
 }
 
-export function changeFilter(filters = { sort: "A-Z", genres: "none", author: "none" }) {
+export function changeFilter(
+  filters = { sort: "A-Z", genres: "none", author: "none" }
+) {
   return { type: CHANGE_FILTERS, payload: filters };
 }
 
 export function changeSearch(search = { option: "all", name: "" }) {
   return { type: CHANGE_SEARCH, payload: search };
+}
+
+export function changePage(page) {
+  return { type: CHANGE_PAGE, payload: page };
 }
 
 export function getGenres() {
@@ -80,8 +90,9 @@ export function getFilteredBooks({ sort, genres, author }) {
   return async function (dispatch) {
     try {
       const json = await axios.get(
-        `http://localhost:3001/books/filters?sort=${sort}&genres=${genres}&author=${author}`);
-      console.log(json.data)
+        `http://localhost:3001/books/filters?sort=${sort}&genres=${genres}&author=${author}`
+      );
+      console.log(json.data);
       return dispatch({
         type: GET_FILTERED,
         payload: json.data,
@@ -132,24 +143,23 @@ export function getReview() {
 export function addBooks(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.post('http://localhost:3001/books', input);
+      const response = await axios.post("http://localhost:3001/books", input);
       return dispatch({
         type: POST_BOOKS,
-        payload: response.data
-      })
-    }
-    catch (error) {
+        payload: response.data,
+      });
+    } catch (error) {
       return dispatch({
         type: POST_BOOKS,
-        payload: error.response.data
-      })
+        payload: error.response.data,
+      });
     }
-  }
+  };
 }
 
 export function resetCreate() {
   return {
     type: RESET_CREATE,
-    payload: []
-  }
+    payload: [],
+  };
 }

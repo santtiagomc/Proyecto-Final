@@ -9,11 +9,12 @@ const { postBook } = require("../utils/postBook");
 const { postAllBooks } = require("../utils/postAllBooks");
 const { getBooksByAll } = require("../utils/getBooksByAll");
 const { getBooksByFilters } = require("../utils/getBooksByFilters");
+const { pagination } = require("../utils/pagination");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, author, editorial, all, genres, sort } = req.query;
+  const { name, author, editorial, all, genres, sort, page } = req.query;
 
   let books;
   if (all) {
@@ -31,6 +32,10 @@ router.get("/", async (req, res) => {
   let booksFiltereds = books.messageError
     ? books
     : await getBooksByFilters(books, req.query);
+
+  booksFiltereds = books.messageError
+    ? books
+    : pagination(booksFiltereds, page);
 
   booksFiltereds.messageError
     ? res.status(404).json(booksFiltereds)
