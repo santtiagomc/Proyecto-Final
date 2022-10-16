@@ -57,8 +57,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_SEARCH:
       return {
         ...state,
-        books: action.payload.books,
-        total: action.payload.total,
+        books: action.payload.messageError ? action.payload : action.payload.books,
+        total: action.payload.messageError ? action.payload : action.payload.total,
       };
 
     case GET_DETAIL:

@@ -6,7 +6,7 @@ async function getBooksByName(name) {
 
     const booksByName = allBooks.length && allBooks.filter(b => b.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 
-    if (!booksByName.length) return { messageError: `No se encontraron resultados para ${name}.` }
+    if (!booksByName.length) return { messageError: `No se encontraron resultados para el nombre: ${name}.` }
     return booksByName;
 
   } catch (error) {

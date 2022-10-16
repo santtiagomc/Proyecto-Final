@@ -31,8 +31,8 @@ router.get("/", async (req, res) => {
     ? books
     : await getBooksByFilters(books, req.query);
 
-  booksFiltereds = books.messageError
-    ? books
+  booksFiltereds = booksFiltereds.messageError
+    ? booksFiltereds
     : pagination(booksFiltereds, page);
 
   booksFiltereds.messageError

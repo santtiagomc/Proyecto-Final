@@ -7,12 +7,12 @@ async function putBookVisibility({ id }) {
   try {
     const book = await Books.findByPk(id);
     console.log(book);
-    if (book === null) return { messageError: "This book does not exist" };
+    if (book === null) return { messageError: "No existe ningun libro con ese ID" };
 
     book.visible ? (book.visible = false) : (book.visible = true);
     await book.save();
 
-    return { message: "Success" };
+    return { message: "El estado del libro ha sido modificado!" };
   } catch (error) {
     return { messageError: "Error" };
   }

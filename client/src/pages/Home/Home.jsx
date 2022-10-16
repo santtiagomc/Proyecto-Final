@@ -55,7 +55,7 @@ export default function Home() {
         <button onClick={nextPage}>Siguiente</button>
       </div>
       <div className={style.grid}>
-        {books.length ? (
+        {!books.messageError ? (
           books.map((el, index) => {
             return (
               <Card
