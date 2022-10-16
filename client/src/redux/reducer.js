@@ -8,6 +8,7 @@ import {
   GET_FILTERED,
   GET_GENRES,
   GET_BOOKS,
+  CHANGE_SEARCH,
 } from "./actions";
 
 const initialState = {
@@ -21,6 +22,10 @@ const initialState = {
     sort: "A-Z",
     genres: "none",
     author: "none",
+  },
+  searchApplied: {
+    option: "",
+    name: "",
   },
   create: []
 };
@@ -38,6 +43,9 @@ export default function rootReducer(state = initialState, action) {
 
     case CHANGE_FILTERS:
       return { ...state, filtersApplied: action.payload };
+
+    case CHANGE_SEARCH:
+      return { ...state, searchApplied: action.payload };
 
     case GET_SEARCH:
       return {

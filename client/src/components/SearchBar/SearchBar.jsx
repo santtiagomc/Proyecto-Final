@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { changeFilter, searchBook } from "../../redux/actions";
+import { changeFilter, changeSearch, searchBook } from "../../redux/actions";
 
 import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const filtersApplied = useSelector(state => state.filtersApplied)
+  const { filtersApplied, searchApplied } = useSelector(state => state)
   let [book, setBook] = useState("");
   let [options, setOptions] = useState("");
 
@@ -15,12 +15,16 @@ export default function SearchBar() {
     if (book.trim().length !== 0) {
       e.preventDefault();
       dispatch(changeFilter())
-      dispatch(searchBook(filtersApplied, options, book));
-      setBook("");
+      dispatch(searchBook(filtersApplied, searchApplied));
+      // setBook("");
     } else {
       alert("Valor incorrecto");
     }
   };
+
+  useEffect(() => {
+    dispatch(changeSearch({ option: options, name: book }))
+  }, [book, options])
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>

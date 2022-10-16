@@ -11,11 +11,11 @@ import style from "./HomePrueba.module.css";
 
 export default function Home() {
   const filteredBooks = useSelector((state) => state.books);
-  const { filtersApplied, booksCopy } = useSelector(state => state);
+  const { filtersApplied, booksCopy, searchApplied } = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(searchBook(filtersApplied));
+    dispatch(searchBook(filtersApplied, searchApplied));
   }, []);
 
   console.log(booksCopy)

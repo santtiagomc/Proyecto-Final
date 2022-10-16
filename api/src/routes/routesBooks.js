@@ -15,6 +15,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   const { name, author, editorial, all, genres, sort } = req.query;
 
+  console.log(req.query)
   let books
   if (all) {
     books = await getBooksByAll(all)

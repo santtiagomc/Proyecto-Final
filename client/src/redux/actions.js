@@ -7,6 +7,7 @@ export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_FILTERED = "GET_FILTERED";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
+export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
 export const RESET_CREATE = "RESET_CREATE"
 
@@ -27,12 +28,12 @@ export function getBooks() {
   };
 }
 
-export function searchBook(filters, option, name) {
+export function searchBook(filters, search) {
   return async function (dispatch) {
     try {
       let json
-      if (option) {
-        json = await axios(`http://localhost:3001/books?${option}=${name}&sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}`);
+      if (search.option) {
+        json = await axios(`http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}`);
       } else {
         json = await axios(`http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&author=${filters.author}`);
       }
@@ -88,6 +89,10 @@ export function getFilteredBooks({ sort, genres, author }) {
 
 export function changeFilter(filters = { sort: "A-Z", genres: "none", author: "none" }) {
   return { type: CHANGE_FILTERS, payload: filters };
+}
+
+export function changeSearch(search = { option: "", name: "" }) {
+  return { type: CHANGE_SEARCH, payload: search };
 }
 
 export function getDetail(id) {

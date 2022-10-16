@@ -6,7 +6,7 @@ import style from "../../styles/FiltersNav.module.css";
 
 export default function FiltersNav({ authors }) {
 
-  const filtersApplied = useSelector((state) => state.filtersApplied);
+  const { filtersApplied, searchApplied } = useSelector((state) => state);
   const allGenres = useSelector((state) => state.genres);
 
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function FiltersNav({ authors }) {
 
   useEffect(() => {
     dispatch(changeFilter(filtersLocal));
-    dispatch(searchBook(filtersLocal))
+    dispatch(searchBook(filtersLocal, searchApplied))
   }, [filtersLocal])
 
   return (
