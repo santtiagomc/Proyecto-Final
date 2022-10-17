@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
-import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
+import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
 import {
   getGenres,
   searchBook,
   changePage,
-  changeFilter,
-  changeSearch,
   getEditorials,
 } from "../../redux/actions";
 
@@ -55,39 +51,45 @@ export default function Home() {
   }
 
   return (
-    <>
-      <header>
-        <SearchBar />
-      </header>
-      {/* //aca el navbar */}
+    <div className={style.homeContainer}>
       <FiltersNav editorials={editorials} />
-      <div>
-        <button onClick={prevPage}>Anterior</button>
-        {pages.map((page) => (
-          <button key={page} onClick={() => handlePage(page)}>
-            {page}
+      <div className={style.cardsContainer}>
+        <div className={style.pagination}>
+          <button className={style.button} onClick={prevPage}>
+            Anterior
           </button>
-        ))}
-        <button onClick={nextPage}>Siguiente</button>
+          {pages.map((page) => (
+            <button
+              className={style.button}
+              key={page}
+              onClick={() => handlePage(page)}
+            >
+              {page}
+            </button>
+          ))}
+          <button className={style.button} onClick={nextPage}>
+            Siguiente
+          </button>
+        </div>
+        <div className={style.grid}>
+          {!books.messageError ? (
+            books.map((book) => {
+              return (
+                <Card
+                  key={book.id}
+                  id={book.id}
+                  image={book.image}
+                  price={book.price}
+                  name={book.name}
+                  author={book.author}
+                />
+              );
+            })
+          ) : (
+            <span className={style.span}>{books.messageError}</span>
+          )}
+        </div>
       </div>
-      <div className={style.grid}>
-        {!books.messageError ? (
-          books.map((book) => {
-            return (
-              <Card
-                key={book.id}
-                id={book.id}
-                image={book.image}
-                price={book.price}
-                name={book.name}
-                author={book.author}
-              />
-            );
-          })
-        ) : (
-          <span className={style.span}>{books.messageError}</span>
-        )}
-      </div>
-    </>
+    </div>
   );
 }

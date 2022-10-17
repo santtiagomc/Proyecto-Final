@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilter, changePage, changeSearch } from "../../redux/actions";
-
-import style from "../../styles/FiltersNav.module.css";
+import style from "./FiltersNav.module.css";
 
 export default function FiltersNav({ editorials }) {
   const { filtersApplied, genres } = useSelector((state) => state);
@@ -45,10 +44,14 @@ export default function FiltersNav({ editorials }) {
 
   return (
     <>
-      <nav>
-        <h2>Filtros</h2>
-        <label>Ordenar:</label>
-        <select name="sort" onChange={handleFilterSort}>
+      <nav className={style.navContainer}>
+        <h2 className={style.filters}>Filtros</h2>
+        <label className={style.typeFilter}>Ordenar:</label>
+        <select
+          className={style.select}
+          name="sort"
+          onChange={handleFilterSort}
+        >
           <option disabled>-- Nombre del libro --</option>
           <option
             value="A-Z"
@@ -90,8 +93,12 @@ export default function FiltersNav({ editorials }) {
           </option>
         </select>
 
-        <label>Filtrar por editoriales:</label>
-        <select name="editorial" onChange={handleFilterEditorial}>
+        <label className={style.typeFilter}>Filtrar por editoriales:</label>
+        <select
+          className={style.select}
+          name="editorial"
+          onChange={handleFilterEditorial}
+        >
           <option disabled> -- Filtrar por editorial --</option>
           <option
             value="none"
@@ -112,8 +119,12 @@ export default function FiltersNav({ editorials }) {
             ))}
         </select>
 
-        <label>Filtrar por género:</label>
-        <select name="genres" onChange={handleFilterGenres}>
+        <label className={style.typeFilter}>Filtrar por género:</label>
+        <select
+          className={style.select}
+          name="genres"
+          onChange={handleFilterGenres}
+        >
           <option disabled>-- Filtrar por género --</option>
           <option
             value="none"
@@ -133,9 +144,10 @@ export default function FiltersNav({ editorials }) {
               </option>
             ))}
         </select>
-
-        <label>Filtrar por género:</label>
-        <button onClick={reset}>Resetear todo</button>
+        <label className={style.typeFilter}>Todos los libros</label>
+        <button className={style.resetButton} onClick={reset}>
+          Resetear
+        </button>
       </nav>
     </>
   );

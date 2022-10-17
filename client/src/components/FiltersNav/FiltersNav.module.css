@@ -1,0 +1,51 @@
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Helvetica';
+  width: 300px;
+}
+
+.filters {
+  font-weight: bolder;
+  font-size: 28px;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.typeFilter {
+  text-align: center;
+  font-size: 20px;
+  color: #FFFFFF;
+  margin: 20px 0 20px 0;
+}
+
+.select {
+  background-color: #101010;
+  padding: 5px 17px;
+  border: none;
+  border-radius: 25px;
+  height: fit-content;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  width: 200px;
+  box-shadow: #101010 1px 3px 2px;
+  cursor: pointer;
+}
+
+.resetButton {
+  background-color: #101010;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 25px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  width: 200px;
+  box-shadow: #101010 1px 3px 2px;
+  cursor: pointer;
+}

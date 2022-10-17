@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getDetail, GET_DETAIL } from "../../redux/actions";
-// import Card from "../../components/Card/Card";
 
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
