@@ -7,6 +7,7 @@ import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
 import { getGenres, searchBook, changePage, changeFilter, changeSearch, getEditorials } from "../../redux/actions";
 
 import style from "./HomePrueba.module.css";
+import style2 from "./Pagination.module.css"
 
 export default function Home() {
   const { filtersApplied, searchApplied, genres, page, total, editorials, books } =
@@ -47,12 +48,12 @@ export default function Home() {
       </header>
       {/* //aca el navbar */}
       <FiltersNav editorials={editorials} />
-      <div>
-        <button onClick={prevPage}>Anterior</button>
+      <div className={style2.div_paginado}>
+        <button className={style2.boton} onClick={prevPage}>Anterior</button>
         {pages.map((page) => (
-          <button onClick={() => handlePage(page)}>{page}</button>
+          <button className={style2.boton} onClick={() => handlePage(page)}>{page}</button>
         ))}
-        <button onClick={nextPage}>Siguiente</button>
+        <button className={style2.boton} onClick={nextPage}>Siguiente</button>
       </div>
       <div className={style.grid}>
         {!books.messageError ? (
