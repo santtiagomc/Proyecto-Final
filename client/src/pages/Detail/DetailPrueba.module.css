@@ -1,0 +1,115 @@
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+} 
+
+.container {
+  display: flex;
+  padding: 50px 100px;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.info {
+  padding: 0 40px;
+}
+
+.image {
+  border-radius: 25px;
+  width: 361px;
+  height: 554px;
+}
+
+.name {
+  color: #ffffff;
+  font-size: 36px;
+  margin: 0px;
+  text-transform: capitalize;
+}
+
+.author {
+  color: rgb(216, 208, 208);
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.rating {
+  color: #ffbd07;
+  font-size: 28px;
+  background-color: #303030;
+  border-radius: 30px;
+  padding: 0 3px;
+}
+
+.edition {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 15px 0 5px 0;
+}
+
+.genre {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: 8px;
+}
+
+.editorial {
+  color: rgb(216, 208, 208);
+  font-size: 14px;
+  font-weight: 300;
+  margin: 5px 0;
+  text-transform: capitalize;
+}
+
+.description {
+  color: rgb(216, 208, 208);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.containerBuy {
+  display: flex;
+  margin-top: 30px;
+  align-content: center;
+}
+
+.price {
+  color: #ffffff;
+  font-size: 32px;
+  margin: 0 25px 0 0;
+}
+
+.cart {
+  height: fit-content;
+  background-color: #101010;
+  padding: 5px 75px;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
