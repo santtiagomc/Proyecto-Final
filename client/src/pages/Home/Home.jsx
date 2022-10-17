@@ -4,13 +4,27 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/NavBar/FiltersNav.jsx";
-import { getGenres, searchBook, changePage, changeFilter, changeSearch, getEditorials } from "../../redux/actions";
+import {
+  getGenres,
+  searchBook,
+  changePage,
+  changeFilter,
+  changeSearch,
+  getEditorials,
+} from "../../redux/actions";
 
 import style from "./HomePrueba.module.css";
 
 export default function Home() {
-  const { filtersApplied, searchApplied, genres, page, total, editorials, books } =
-    useSelector((state) => state);
+  const {
+    filtersApplied,
+    searchApplied,
+    genres,
+    page,
+    total,
+    editorials,
+    books,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   const pages = [];
 
@@ -50,21 +64,23 @@ export default function Home() {
       <div>
         <button onClick={prevPage}>Anterior</button>
         {pages.map((page) => (
-          <button onClick={() => handlePage(page)}>{page}</button>
+          <button key={page} onClick={() => handlePage(page)}>
+            {page}
+          </button>
         ))}
         <button onClick={nextPage}>Siguiente</button>
       </div>
       <div className={style.grid}>
         {!books.messageError ? (
-          books.map((el, index) => {
+          books.map((book) => {
             return (
               <Card
-                key={index}
-                id={el.id}
-                image={el.image}
-                price={el.price}
-                name={el.name}
-                author={el.author}
+                key={book.id}
+                id={book.id}
+                image={book.image}
+                price={book.price}
+                name={book.name}
+                author={book.author}
               />
             );
           })
