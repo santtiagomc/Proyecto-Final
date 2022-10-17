@@ -23,10 +23,5 @@ async function getBookDetail(idBook) {
 }
 
 module.exports = {
-  getBookDetail
-}
-
-
-
-
-
+  getBookDetail,
+};

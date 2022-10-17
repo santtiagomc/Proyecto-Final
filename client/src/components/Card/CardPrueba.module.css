@@ -1,80 +1,29 @@
-/* .container {
-    position: absolute;
-    width: 480px;
-    height: 280px;
-    left: 356px;
-    top: 681px;
-    background: linear-gradient(180deg, #D97197 0%, rgba(217, 113, 151, 0) 100%);
-    border-radius: 50px;
-}
-
-.titulo {
-    position: absolute;
-    width: 214px;
-    height: 66px;
-    left: 578px;
-    top: 713px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 38px;
-    color: #FFFFFF;
-}
-    
-.autor {
-    position: absolute;
-    width: 214px;
-    height: 15px;
-    left: 580px;
-    top: 791px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 29px;
-    color: #FFFFFF;
-}
-    
-.precio {
-    position: absolute;
-    width: 232px;
-    height: 47px;
-    left: 580px;
-    top: 828px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 48px;
-    color: #FFFFFF;
-}
-       */
 .navLink {
   text-decoration: none;
 }
 
 .container {
-  width: 300px;
+  width: 400px;
   height: 240px;
   background-color: #a35873;
   background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
   padding: 0 20px;
-  border-radius: 30px;
+  border-radius: 50px;
 }
 
 .imageContainer {
-  width: 135px;
-  height: 200px;
+  width: 155px;
+  height: 230px;
+  margin-left: 15px;
 }
 
 .bookCover {
   position: relative;
-  top: -40px;
+  top: -60px;
   border-radius: 20px;
-  width: 135px;
-  height: 200px;
+  width: 155px;
+  height: 230px;
 }
 
 .information {
@@ -85,8 +34,9 @@
   margin: 0px;
   color: #fff;
   font-weight: bolder;
-  font-size: 22px;
+  font-size: 27px;
   margin-bottom: 5px;
+  text-transform: capitalize;
 }
 
 .author {
@@ -94,12 +44,12 @@
   color: #fff;
   margin-bottom: 10px;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 19px;
 }
 
 .price {
   margin: 0px;
-  font-size: 28px;
+  font-size: 33px;
   color: #fff;
   font-weight: 600;
 }

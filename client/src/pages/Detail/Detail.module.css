@@ -1,111 +1,117 @@
-.detail {
+.container {
     position: relative;
-    width: 1440px;
-    height: 1473px;
+    /* width: 1440px;
+    height: 1473px; */
     background: #181818;
 }
 
 .image {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     width: 361px;
     height: 554px;
-    left: 151px;
-    top: 195px;
+    left: 5vh;
+    top: 5vh;
     border-radius: 25px;
 }
 
-.title {
-    position: absolute;
-    width: 291px;
+.info {
+    position: relative;
     height: 38px;
     left: 553px;
-    top: 237px;
+    top: 5vh;
+
     font-family: 'Helvetica LT Std';
     font-style: normal;
     font-weight: 700;
-    font-size: 36px;
-    line-height: 43px;
-    color: #FFFFFF;
+    /* font-size: 36px;
+    line-height: 43px;  */
 }
 
-.textDetail {
-    position: absolute;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 300;
+.name {
+    color: white;
+    font-family: Helvetica LT Std;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.author {
+    color: rgb(216, 208, 208);
+    font-family: Helvetica LT Std;
     font-size: 14px;
-    color: #FFFFFF;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.edition {
+    color: white;
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.editorial {
+    color: rgb(216, 208, 208)white;
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.description {
+    color: rgb(216, 208, 208);
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    width: 70vh;
 }
 
 .price {
-    position: absolute;
-    width: 183px;
-    height: 35px;
-    left: 561px;
-    top: 661px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
+    color: white;
+    font-size: 30px;
     line-height: 43px;
-    color: #FFFFFF;
 }
 
-.buttonCart {
-    position: absolute;
-    width: 250px;
-    height: 35px;
-    left: 769px;
-    top: 662px;
-    background: #101010;
+.cart{
+    height: 4vh;
+    width: 23vh;
     border-radius: 25px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
+    background-color: #101010;
+    border-color: transparent;
+    color: white;
+    font-family: Helvetica LT Std;
     font-size: 18px;
+    font-weight: 700;
     line-height: 22px;
-    color: #FFFFFF;
+    letter-spacing: 0em;
 }
 
-.reviewTitle {
-    position: absolute;
-    width: 146px;
-    height: 44px;
-    left: 274px;
-    top: 881px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 38px;
-    color: #FFFFFF;
+.cart:hover{
+    cursor: pointer;
 }
 
-.person {
-    position: absolute;
-    width: 100px;
-    height: 25px;
-    left: 275px;
-    top: 951px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 21px;
-    line-height: 25px;
-    color: #FFFFFF;
+.containerPC{
+    display: flex;
+    align-items: center;
 }
 
-.review {
-    position: absolute;
-    width: 867px;
-    height: 61px;
-    left: 274px;
-    top: 988px;
-    font-family: 'Helvetica LT Std';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 17px;
-    color: #FFFFFF;
+.reviews{
+    display: grid;
+    color: white;
 }
-
