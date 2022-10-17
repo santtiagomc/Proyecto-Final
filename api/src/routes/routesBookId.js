@@ -7,8 +7,8 @@ const { putBookVisibility } = require("../utils/putBookVisibility");
 const router = Router();
 
 router.get("/:id", async (req, res) => {
-  const {id}= req.params
-  const response = await getBookDetail(id)
+  const { id } = req.params;
+  const response = await getBookDetail(id);
   let statusCode;
   response.messageError ? (statusCode = 404) : (statusCode = 201);
 

@@ -1,0 +1,37 @@
+.container {
+    padding: 20px 180px;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: bolder;
+    margin: 20px 0;
+}
+
+.reviewContainer {
+    margin: 45px 0;
+}
+
+.userContainer {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.star {
+    color: #ffbd07;
+    font-size: 32px;
+}
+
+.user {
+    color: #ffffff;
+    font-size: 21px;
+    margin: 0px;
+    line-height: 25px;
+}
+
+.review {
+    color: #ffffff;
+    font-size: 14px;
+}

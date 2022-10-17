@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import style from "./Card.module.css";
+import style from "./CardPrueba.module.css";
 
 export default function Card({ id, image, price, name, author }) {
   //console.log(name.length);
