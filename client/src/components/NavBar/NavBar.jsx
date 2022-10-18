@@ -22,7 +22,7 @@ export default function NavBar() {
 					</Link>
 				</div>
 				<div>
-					<Link to="">
+					<Link to="/login">
 						<button className={style.userBtn}>👤</button>
 					</Link>
 				</div>
