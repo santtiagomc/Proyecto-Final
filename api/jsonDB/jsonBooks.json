@@ -178,6 +178,17 @@
     "edition": 2012
   },
   {
+    "name": "Los siete pecados capitales (6)",
+    "author": "Suzuki Nakaba",
+    "description": "Esta es la leyenda de los Siete Pecados Capitales, un grupo de caballeros protectores del reino de Liones, que diez años atrás fueron acusados de asesinos y traidores por, aparentemente, tratar de matar a Zaratras, el Gran Caballero Sagrado. Cada uno de ellos fue acusado de un pecado capital, al que está asociado. Luego de intentar organizar una revuelta para derrocar al rey de Britannia, que se vio frustrada porque fueron vencidos por los Caballeros Sagrados, deciden dispersarse y desaparecer. Pero la situación es algo diferente en el presente, ya que el rey fue derrocado por los mismos Caballeros Sagrados, quienes tomaron a toda la familia real como prisionera y se autoproclamaron como los nuevos dueños de Britannia. La princesa Elizabeth logra escapar y decide ir en busca de aquellos Siete Pecados Capitales, los únicos capaces de hacerle frente a los Caballeros Sagrados.",
+    "price": 6.30,
+    "image": "https://contentv2.tap-commerce.com/cover/large/9788417920562_1.jpg?id_com=1113",
+    "genres": ["Manga"],
+    "stock": 16,
+    "editorial": "Ivrea",
+    "edition": 2019
+  },
+  {
     "name": "Cuento de Hadas",
     "author": "King Stephen",
     "description": "Estoy seguro de que puedo contar esta historia. También estoy seguro de que nadie se la creerá. Eso me da igual. Me basta con contarla. Para mí -y está claro que para muchos escritores, no solo los novatos como yo-, el problema es decidir por dónde empezar. (...) Y ahora, mientras pienso en esas cosas, veo un claro hilo que conduce a lo largo de los años hasta el señor Bowditch y el cobertizo cerrado con candado detrás de su vieja y ruinosa casa victoriana. Aunque un hilo puede romperse fácilmente. Por tanto, no un hilo, sino una cadena. Una cadena sólida. Y yo era el chico con el grillete en torno a la muñeca. ",
@@ -222,17 +233,6 @@
     "edition": 2021
   },
   {
-    "name": "6. Los siete pecados capitales",
-    "author": "Suzuki Nakaba",
-    "description": "Esta es la leyenda de los Siete Pecados Capitales, un grupo de caballeros protectores del reino de Liones, que diez años atrás fueron acusados de asesinos y traidores por, aparentemente, tratar de matar a Zaratras, el Gran Caballero Sagrado. Cada uno de ellos fue acusado de un pecado capital, al que está asociado. Luego de intentar organizar una revuelta para derrocar al rey de Britannia, que se vio frustrada porque fueron vencidos por los Caballeros Sagrados, deciden dispersarse y desaparecer. Pero la situación es algo diferente en el presente, ya que el rey fue derrocado por los mismos Caballeros Sagrados, quienes tomaron a toda la familia real como prisionera y se autoproclamaron como los nuevos dueños de Britannia. La princesa Elizabeth logra escapar y decide ir en busca de aquellos Siete Pecados Capitales, los únicos capaces de hacerle frente a los Caballeros Sagrados.",
-    "price": 6.30,
-    "image": "https://contentv2.tap-commerce.com/cover/large/9788417920562_1.jpg?id_com=1113",
-    "genres": ["Manga"],
-    "stock": 16,
-    "editorial": "Ivrea",
-    "edition": 2019
-  },
-  {
     "name": "La Montaña Mágica",
     "author": "Mann",
     "description": "La estancia que preveía corta se dilata en el tiempo y acaba formando parte de esta nueva forma de vida en la que se relativiza el transcurso del tiempo. Sentado en el balcón del sanatorio y envuelto en una manta, Hans reflexiona acerca de la vida, la muerte y el amor.",
@@ -266,7 +266,18 @@
     "edition": 2017
   },
   {
-    "name": "5. Naruto",
+    "name": "Los siete pecados capitales (18)",
+    "author": "Suzuki Nakaba",
+    "description": "Esta es la leyenda de los Siete Pecados Capitales, un grupo de caballeros protectores del reino de Liones, que diez años atrás fueron acusados de asesinos y traidores por, aparentemente, tratar de matar a Zaratras, el Gran Caballero Sagrado. Cada uno de ellos fue acusado de un pecado capital, al que está asociado. Luego de intentar organizar una revuelta para derrocar al rey de Britannia, que se vio frustrada porque fueron vencidos por los Caballeros Sagrados, deciden dispersarse y desaparecer. Pero la situación es algo diferente en el presente, ya que el rey fue derrocado por los mismos Caballeros Sagrados, quienes tomaron a toda la familia real como prisionera y se autoproclamaron como los nuevos dueños de Britannia. La princesa Elizabeth logra escapar y decide ir en busca de aquellos Siete Pecados Capitales, los únicos capaces de hacerle frente a los Caballeros Sagrados. Cada miembro de los SDS representa a un animal o bestia, a la que se asocia uno de los siete pecados capitales de los que fueron erróneamente acusados. La serie juega todo el tiempo con el tema de manera general y poco ortodoxa, diferenciándose de otras que los han tomado de una forma más lineal. También hay algunos guiños al asunto de los pecados capitales en cómo es que obtuvieron sus poderes. Así Meliodas lleva al Dragón (la ira), Diane a la serpiente (la envidia), Ban al zorro (la codicia), King al oso Grizzly (la pereza), Gowther la cabra (la lujuria), Merlín al jabalí (la gula) y Escanor al león (la soberbia). La historia mezcla aventura, fantasía, acción y misterio, y está repleta de referencias a historias clásicas, tropos y temáticas tradicionales en las historias de caballeros y espadas.",
+    "price": 6.30,
+    "image": "https://contentv2.tap-commerce.com/cover/large/9788418837098_1.jpg?id_com=1113",
+    "genres": ["Manga"],
+    "stock": 7,
+    "editorial": "Ivrea",
+    "edition": 2021
+  },
+  {
+    "name": "Naruto (5)",
     "author": "Kishimoto Masashi",
     "description": "Por recomendación de Kakashi, Naruto y los demás van a dar los exámenes para Chuunin! Pero antes de entrar a la sala de exámenes Sasuke es desafiado por un chico... Y parece ser muy problemático! Ahora que los más fuertes y peligrosos están todos reunidos... La prueba finalmente puede comenzar!.",
     "price": 7.00,
@@ -321,18 +332,7 @@
     "edition": 2019
   },
   {
-    "name": "18. Los siete pecados capitales",
-    "author": "Suzuki Nakaba",
-    "description": "Esta es la leyenda de los Siete Pecados Capitales, un grupo de caballeros protectores del reino de Liones, que diez años atrás fueron acusados de asesinos y traidores por, aparentemente, tratar de matar a Zaratras, el Gran Caballero Sagrado. Cada uno de ellos fue acusado de un pecado capital, al que está asociado. Luego de intentar organizar una revuelta para derrocar al rey de Britannia, que se vio frustrada porque fueron vencidos por los Caballeros Sagrados, deciden dispersarse y desaparecer. Pero la situación es algo diferente en el presente, ya que el rey fue derrocado por los mismos Caballeros Sagrados, quienes tomaron a toda la familia real como prisionera y se autoproclamaron como los nuevos dueños de Britannia. La princesa Elizabeth logra escapar y decide ir en busca de aquellos Siete Pecados Capitales, los únicos capaces de hacerle frente a los Caballeros Sagrados. Cada miembro de los SDS representa a un animal o bestia, a la que se asocia uno de los siete pecados capitales de los que fueron erróneamente acusados. La serie juega todo el tiempo con el tema de manera general y poco ortodoxa, diferenciándose de otras que los han tomado de una forma más lineal. También hay algunos guiños al asunto de los pecados capitales en cómo es que obtuvieron sus poderes. Así Meliodas lleva al Dragón (la ira), Diane a la serpiente (la envidia), Ban al zorro (la codicia), King al oso Grizzly (la pereza), Gowther la cabra (la lujuria), Merlín al jabalí (la gula) y Escanor al león (la soberbia). La historia mezcla aventura, fantasía, acción y misterio, y está repleta de referencias a historias clásicas, tropos y temáticas tradicionales en las historias de caballeros y espadas.",
-    "price": 6.30,
-    "image": "https://contentv2.tap-commerce.com/cover/large/9788418837098_1.jpg?id_com=1113",
-    "genres": ["Manga"],
-    "stock": 7,
-    "editorial": "Ivrea",
-    "edition": 2021
-  },
-  {
-    "name": "3. El puño de la estrella del norte",
+    "name": "El puño de la estrella del norte (3)",
     "author": "Hara Tetsuo",
     "description": "Kenshiro conoce a Rei, maestro del Nanto Suicho-ken que viaja en busca de su hermana Airi. Tras ofrecerse a ayudar al pueblo de Mamiya y conseguirlo, se ganan el rencor del clan del Colmillo, que captura a Airi como rehén.",
     "price": 15.90,

@@ -1,8 +1,10 @@
 require('dotenv').config();
 const { Books, Genres } = require('../db');
+const { capitalize } = require('./capitalize');
 
 async function postBook({ name, image, author, description, price, stock, editorial, edition, genres }) {
   try {
+    let capitalizeEditorial = await capitalize(editorial);
     let [newBook, created] = await Books.findOrCreate({
       where: {
         name: name.toLowerCase(),
@@ -13,7 +15,7 @@ async function postBook({ name, image, author, description, price, stock, editor
         description,
         price,
         stock,
-        editorial,
+        editorial: capitalizeEditorial,
         edition,
       },
     });
@@ -26,7 +28,7 @@ async function postBook({ name, image, author, description, price, stock, editor
       newBook.addGenres(genres)
     }
 
-    return { message: "El libro ha sido agregado con éxito!" };
+    return { newBook, message: "El libro ha sido agregado con éxito!" };
   } catch (error) {
     return { messageError: "Error" };
   }
