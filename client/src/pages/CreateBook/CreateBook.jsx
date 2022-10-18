@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { addBooks, getGenres, resetCreate } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import style from "./AddBooks.module.css"
+import style from "./CreateBook.module.css"
 import Swal from 'sweetalert2';
 
 function validation(input) {
@@ -10,7 +10,7 @@ function validation(input) {
 
   const regexDecimal = /^\d{1,3}(\.\d{1,2})?$/
   const regexNotNumbers = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g
-  const regexUrl = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/
+  const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/
   const regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!*:;]{2,30}$/
   const regexAutor = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 .]{2,30}$/
 
@@ -29,7 +29,7 @@ function validation(input) {
   } else if (!input.author.match(regexAutor)) {
     errors.author = 'El autor solo puede contener letras'
   }
-  if (input.description.length <= 2) {
+  if (input.description.length <= 1) {
     errors.description = 'Mínimo 2 caracteres'
   } else if (input.description.length > 2000) {
     errors.description = 'Máximo 2000 caracteres'
