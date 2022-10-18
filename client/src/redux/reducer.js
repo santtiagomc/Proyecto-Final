@@ -69,7 +69,15 @@ export default function rootReducer(state = initialState, action) {
 			return { ...state, detail: action.payload };
 
 		case PUT_STATUS:
-			return { ...state, detail: action.payload };
+			let aux = state.books;
+
+			aux.forEach((el, index) => {
+				if (el.id === action.payload.id) {
+					aux.splice(index, 1, action.payload);
+				}
+			});
+
+			return { ...state, detail: action.payload, books: aux };
 
 		case GET_REVIEWS:
 			return { ...state, reviews: action.payload };
