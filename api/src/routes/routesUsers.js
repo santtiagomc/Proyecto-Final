@@ -6,7 +6,6 @@ const { postUser } = require("../utils/postUser");
 const router = Router();
 
 router.get("/:id", async (req, res) => {
-	console.log(req.params);
 	const response = await getUser(req.params);
 
 	let statusCode;
