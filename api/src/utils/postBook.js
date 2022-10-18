@@ -28,7 +28,7 @@ async function postBook({ name, image, author, description, price, stock, editor
       newBook.addGenres(genres)
     }
 
-    return { newBook, message: "El libro ha sido agregado con éxito!" };
+    return { message: "El libro ha sido agregado con éxito!" };
   } catch (error) {
     return { messageError: "Error" };
   }
