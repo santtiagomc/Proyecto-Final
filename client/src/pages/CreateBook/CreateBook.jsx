@@ -18,7 +18,7 @@ function validation(input) {
     errors.name = 'Mínimo 2 caracteres'
   }
   else if (!input.name.match(regexName)) {
-    errors.name = 'Solo puede contener letras, números y los siguientes caracteres: .,!*:-()'
+    errors.name = 'Sólo puede contener letras, números y los siguientes caracteres: .,!*:-()'
   }
   if (!input.image.match(regexUrl)) {
     errors.image = "Ingresa url de una imagen"
@@ -27,7 +27,7 @@ function validation(input) {
   if (input.author.length <= 1) {
     errors.author = 'Mínimo 2 caracteres'
   } else if (!input.author.match(regexAutor)) {
-    errors.author = 'El autor solo puede contener letras'
+    errors.author = 'El autor sólo puede contener letras'
   }
   if (input.description.length <= 1) {
     errors.description = 'Mínimo 2 caracteres'
@@ -50,11 +50,11 @@ function validation(input) {
   if (input.editorial.length <= 1) {
     errors.editorial = 'El campo editorial debe ser mayor a una letra'
   } else if (!input.editorial.match(regexNotNumbers)) {
-    errors.editorial = 'La editorial solo puede contener letras'
+    errors.editorial = 'La editorial sólo puede contener letras'
   }
 
   if (!input.edition) {
-    errors.edition = 'El campo edicion es requerido'
+    errors.edition = 'El campo edición es requerido'
   } else if (input.edition < 1800) {
     errors.edition = "El año debe ser mayor a 1800"
   } else if (input.edition > 2023) {
@@ -84,8 +84,8 @@ export default function CreateBook() {
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
       Swal.fire({
-        title: "El género seleccionado ya se encuentra en la lista",
-        text: "selecciono otro genero diferente",
+        title: "La categoría seleccionada ya se encuentra en la lista",
+        text: "Seleccione otra categoría",
         icon: "warning",
         timer: 4000,
       });
@@ -112,7 +112,7 @@ export default function CreateBook() {
      else {
       Swal.fire({
         title:"Todos los campos son requeridos",
-        text:"Te hacen falta campos por llenar",
+        text:"Faltan campos por llenar",
         icon: "info",
         timer: 4000
       })
@@ -269,9 +269,9 @@ export default function CreateBook() {
               {input.description && (<p className={style.err}>{errors.description}</p>)}
             </div>
             <div className={style.incontainer}>
-              <label> Géneros   </label>
+              <label> Categorías   </label>
               <select value="0" onChange={e => handleSelect(e)} className={style.selectGenre}>
-                <option selected disabled value="0">Géneros</option>
+                <option selected disabled value="0">Categorías</option>
                 {genres.map(el => {
                   return (
                     <option key={el} value={el}> {el} </option>)
