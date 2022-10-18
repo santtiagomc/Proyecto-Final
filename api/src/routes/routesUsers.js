@@ -6,7 +6,7 @@ const { postUser } = require("../utils/postUser");
 const router = Router();
 
 router.get("/", async (req, res) => {
-	const response = await getUser();
+	const response = await getUser(req.body);
 
 	let statusCode;
 	response.messageError ? (statusCode = 404) : (statusCode = 201);

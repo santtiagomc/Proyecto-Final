@@ -21,10 +21,10 @@ async function postUser({
 				name,
 				lastName,
 				password,
-				// province,
-				// city,
-				// address,
-				// zipCode,
+				province,
+				city,
+				address,
+				zipCode,
 			},
 		});
 		console.log(user, created);
