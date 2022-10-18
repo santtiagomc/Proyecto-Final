@@ -113,3 +113,19 @@
   font-size: 18px;
   font-weight: 700;
 }
+
+.disponible {
+  color: rgb(25, 228, 201);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
+.noDisponible {
+  color: rgb(245, 15, 111);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  margin: 5px 0;
+}
