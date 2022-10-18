@@ -27,7 +27,7 @@ export default function NavBar() {
 					</Link>
 				</div>
 				<div>
-					<Link to="">
+					<Link to="/cart">
 						<button className={style.cart}>🛒</button>
 					</Link>
 				</div>
