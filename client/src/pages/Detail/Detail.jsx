@@ -39,12 +39,16 @@ export default function Detail() {
                 &#9733; &#9733; &#9733; &#9733;
               </span>
               <h3 className={style.edition}>{myBook.edition}</h3>
-              <span className={style.genre}>Terror</span>
-              <span className={style.genre}>Accion</span>
-              {/* {myBook.genres?.map((genre) => (
-          <span key={genre.name}>{genre.name}</span>
-        ))} */}
+              {myBook.Genres?.map((genre) => (
+              <span className={style.genre} key={genre.name}>
+                •{genre.name}
+              </span>
+              ))};
               <h3 className={style.editorial}>{myBook.editorial}</h3>
+              { myBook.stock > 0 ? 
+              <span className={style.disponible}>Disponible</span> : 
+              <span className={style.noDisponible}>No disponible</span> 
+              }
               <p className={style.description}>{myBook.description}</p>
               <div className={style.containerBuy}>
                 <h3 className={style.price}>USD {myBook.price}</h3>
