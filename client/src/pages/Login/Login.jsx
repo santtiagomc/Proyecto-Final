@@ -26,10 +26,12 @@ export default function Login() {
 		onAuthStateChanged(auth, handleChangeUser);
 	}, []);
 
-	const handleChangeUser = (user) => {
+	const handleChangeUser = async (user) => {
 		if (user) {
-			const isRegister = userExist(user.uid);
-			if (isRegister) {
+			const isRegister = await userExist(user.uid);
+			// console.log(isRegister.response.data.messageError);
+			// console.log(isRegister);
+			if (isRegister.id) {
 				setCurrentState(2);
 			} else {
 				setCurrentState(3);
@@ -62,12 +64,20 @@ export default function Login() {
 	};
 
 	if (state === 1) {
-		return <div className={style.container}>Loading...</div>;
+		return <div className={`${style.container} ${style.ver}`}>Loading...</div>;
+	}
+
+	if (state === 2) {
+		return (
+			<div className={`${style.container} ${style.ver}`}>Ya estas logueado</div>
+		);
 	}
 
 	if (state === 3) {
 		return (
-			<div className={style.container}>Autenticado pero no registardo</div>
+			<div className={`${style.container} ${style.ver}`}>
+				Autenticado pero no registardo
+			</div>
 		);
 	}
 

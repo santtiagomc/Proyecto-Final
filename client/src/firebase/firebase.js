@@ -32,7 +32,12 @@ const storage = getStorage(app);
 // const analytics = getAnalytics(app);
 
 export const userExist = async (uid) => {
-	const res = await axios.get(`http://localhost:3001/user/${uid}`);
-	console.log(res.data);
-	return res.data;
+	try {
+		const res = await axios.get(`http://localhost:3001/user/${uid}`);
+		console.log(res.data);
+		return res.data;
+	} catch (error) {
+		console.log(error);
+		return error;
+	}
 };
