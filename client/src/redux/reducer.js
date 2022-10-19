@@ -1,79 +1,94 @@
 import {
-  GET_SEARCH,
-  GET_DETAIL,
-  POST_BOOKS,
-  GET_REVIEWS,
-  RESET_CREATE,
-  CHANGE_FILTERS,
-  GET_FILTERED,
-  GET_GENRES,
-  CHANGE_SEARCH,
-  CHANGE_PAGE,
-  GET_EDITORIALS,
+	GET_SEARCH,
+	GET_DETAIL,
+	POST_BOOKS,
+	GET_REVIEWS,
+	RESET_CREATE,
+	CHANGE_FILTERS,
+	GET_FILTERED,
+	GET_GENRES,
+	CHANGE_SEARCH,
+	CHANGE_PAGE,
+	GET_EDITORIALS,
+	PUT_STATUS,
 } from "./actions";
 
 const initialState = {
-  books: [],
-  editorials: [],
-  genres: [],
-  book: [],
-  detail: [],
-  reviews: [],
-  filtersApplied: {
-    sort: "A-Z",
-    genres: "none",
-    editorial: "none",
-  },
-  searchApplied: {
-    option: "",
-    name: "",
-  },
-  create: [],
-  page: 0,
-  total: 0,
+	books: [],
+	editorials: [],
+	genres: [],
+	book: [],
+	detail: [],
+	reviews: [],
+	filtersApplied: {
+		sort: "A-Z",
+		genres: "none",
+		editorial: "none",
+	},
+	searchApplied: {
+		option: "",
+		name: "",
+	},
+	create: [],
+	page: 0,
+	total: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
-  switch (action.type) {
+	switch (action.type) {
+		case GET_GENRES:
+			return { ...state, genres: action.payload };
 
-    case GET_GENRES:
-      return { ...state, genres: action.payload };
+		case GET_EDITORIALS:
+			return { ...state, editorials: action.payload };
 
-    case GET_EDITORIALS:
-      return { ...state, editorials: action.payload };
+		case GET_FILTERED:
+			return { ...state, books: action.payload };
 
-    case GET_FILTERED:
-      return { ...state, books: action.payload };
+		case CHANGE_FILTERS:
+			return { ...state, filtersApplied: action.payload, page: 0 };
 
-    case CHANGE_FILTERS:
-      return { ...state, filtersApplied: action.payload, page: 0 };
+		case CHANGE_SEARCH:
+			return { ...state, searchApplied: action.payload, page: 0 };
 
-    case CHANGE_SEARCH:
-      return { ...state, searchApplied: action.payload, page: 0 };
+		case CHANGE_PAGE:
+			return { ...state, page: action.payload };
 
-    case CHANGE_PAGE:
-      return { ...state, page: action.payload };
+		case GET_SEARCH:
+			return {
+				...state,
+				books: action.payload.messageError
+					? action.payload
+					: action.payload.books,
+				total: action.payload.messageError
+					? action.payload
+					: action.payload.total,
+			};
 
-    case GET_SEARCH:
-      return {
-        ...state,
-        books: action.payload.messageError ? action.payload : action.payload.books,
-        total: action.payload.messageError ? action.payload : action.payload.total,
-      };
+		case GET_DETAIL:
+			return { ...state, detail: action.payload };
 
-    case GET_DETAIL:
-      return { ...state, detail: action.payload };
+		case PUT_STATUS:
+			let aux = state.books;
 
-    case GET_REVIEWS:
-      return { ...state, reviews: action.payload };
+			aux.forEach((el, index) => {
+				if (el.id === action.payload.id) {
+					aux.splice(index, 1, action.payload);
+				}
+			});
 
-    case POST_BOOKS:
-      return { ...state, create: action.payload };
+			return { ...state, detail: action.payload, books: aux };
 
-    case RESET_CREATE:
-      return { ...state, create: action.payload };
+		case GET_REVIEWS:
+			return { ...state, reviews: action.payload };
 
-    default:
-      return { ...state };
-  }
+		case POST_BOOKS:
+			return { ...state, create: action.payload };
+
+		case RESET_CREATE:
+			return { ...state, create: action.payload };
+
+		default:
+			return { ...state };
+	}
 }
