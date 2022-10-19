@@ -51,12 +51,9 @@ export default function Login() {
 			const res = await signInWithPopup(auth, googleProvider);
 			console.log(res.user.email, res.user.displayName, res.user.uid);
 			const response = await axios.post("http://localhost:3001/user", {
-				// id: auth.id,
-				// fullName: auth.displayName,
+				id: res.user.uid,
+				fullName: res.user.displayName,
 				email: res.user.email,
-				name: res.user.displayName.split(" ")[0],
-				lastName: res.user.displayName.split(" ")[1],
-				password: "nose",
 			});
 			console.log(res, response.data);
 		} catch (error) {

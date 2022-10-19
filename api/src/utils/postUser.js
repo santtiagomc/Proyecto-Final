@@ -1,12 +1,9 @@
 const { Users } = require("../db");
 
 async function postUser({
-	// id,
-	// fullName,
-	name,
-	lastName,
+	id,
+	fullName,
 	email,
-	password,
 	province,
 	city,
 	address,
@@ -18,17 +15,16 @@ async function postUser({
 				email,
 			},
 			defaults: {
-				name,
-				lastName,
-				password,
+				id,
+				fullName,
 				province,
 				city,
 				address,
 				zipCode,
 			},
 		});
-		console.log(user, created);
-		return { message: "Usuario creado correctamente" };
+		if (created) return { message: "Usuario creado correctamente" };
+		return { message: "Usuario ya existente" };
 	} catch (e) {
 		return { messageError: "Error" };
 	}
