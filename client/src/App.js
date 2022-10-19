@@ -11,11 +11,8 @@ import Detail from "./pages/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
-<<<<<<< HEAD
 import ProfileUser from "./pages/ProfileUser/ProfileUser"
-=======
 import Register from "./pages/Register/Register";
->>>>>>> 14ff7d6c670c75a8abcacafa84a9922a3b1d8e97
 
 function App() {
 	const dispatch = useDispatch();
