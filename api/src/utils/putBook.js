@@ -3,13 +3,13 @@ const axios = require("axios");
 const { Books } = require("../db");
 const { API_KEY } = process.env;
 
-async function putBookVisibility({ id }) {
+async function putBook({ id }, body) {
 	try {
 		const book = await Books.findByPk(id);
 		if (book === null)
 			return { messageError: "No existe ningun libro con ese ID" };
 
-		book.visible ? (book.visible = false) : (book.visible = true);
+		book.set(body);
 		await book.save();
 
 		return book;
@@ -19,5 +19,5 @@ async function putBookVisibility({ id }) {
 }
 
 module.exports = {
-	putBookVisibility,
+	putBook,
 };
