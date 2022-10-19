@@ -6,21 +6,21 @@ const { postUser } = require("../utils/postUser");
 const router = Router();
 
 router.get("/:id", async (req, res) => {
-	const response = await getUser(req.params);
+  const response = await getUser(req.params);
 
-	let statusCode;
-	response.messageError ? (statusCode = 404) : (statusCode = 201);
+  let statusCode;
+  response.messageError ? (statusCode = 404) : (statusCode = 201);
 
-	res.status(statusCode).json(response);
+  res.status(statusCode).json(response);
 });
 
 router.post("/", async (req, res) => {
-	console.log(req.body);
-	const response = await postUser(req.body);
-	let statusCode;
-	response.messageError ? (statusCode = 404) : (statusCode = 201);
+  const response = await postUser(req.body);
 
-	res.status(statusCode).json(response);
+  let statusCode;
+  response.messageError ? (statusCode = 404) : (statusCode = 201);
+
+  res.status(statusCode).json(response);
 });
 
 module.exports = router;
