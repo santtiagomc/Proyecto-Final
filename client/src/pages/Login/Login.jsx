@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { auth } from "../../firebase/firebase";
+import { auth, userExist } from "../../firebase/firebase";
 import {
 	GoogleAuthProvider,
 	onAuthStateChanged,
@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 
 import style from "./Login.module.css";
+import axios from "axios";
 
 export default function Login() {
 	const [currentUser, setCurrentUser] = useState(null);
@@ -27,7 +28,12 @@ export default function Login() {
 
 	const handleChangeUser = (user) => {
 		if (user) {
-			setCurrentState(3);
+			const isRegister = userExist(user.uid);
+			if (isRegister) {
+				setCurrentState(2);
+			} else {
+				setCurrentState(3);
+			}
 			console.log(user.displayName);
 		} else {
 			setCurrentState(4);
@@ -43,7 +49,16 @@ export default function Login() {
 	const singInGoogle = async (googleProvider) => {
 		try {
 			const res = await signInWithPopup(auth, googleProvider);
-			console.log(res);
+			console.log(res.user.email, res.user.displayName, res.user.uid);
+			const response = await axios.post("http://localhost:3001/user", {
+				// id: auth.id,
+				// fullName: auth.displayName,
+				email: res.user.email,
+				name: res.user.displayName.split(" ")[0],
+				lastName: res.user.displayName.split(" ")[1],
+				password: "nose",
+			});
+			console.log(res, response.data);
 		} catch (error) {
 			console.error(error);
 		}
