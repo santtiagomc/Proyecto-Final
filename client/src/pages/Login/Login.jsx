@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
-import { auth, userExist } from "../../firebase/firebase";
+import { auth } from "../../firebase/firebase";
 import {
 	GoogleAuthProvider,
 	onAuthStateChanged,
 	signInWithPopup,
 } from "firebase/auth";
+import { singIn, userExist } from "../../firebase/auth";
 
 import style from "./Login.module.css";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [user, setUser] = useState({
+		email: "",
+		password: "",
+	});
+	const [currentState, setCurrentState] = useState(0);
+	const userrrr = useSelector((state) => state.user);
+	console.log(userrrr);
 	/*
 		State
 		0: inicializando
@@ -19,28 +28,23 @@ export default function Login() {
 		3: login no registrado
 		4: guest 
 	*/
-	const [state, setCurrentState] = useState(0);
 
-	useEffect(() => {
-		setCurrentState(1);
-		onAuthStateChanged(auth, handleChangeUser);
-	}, []);
-
-	const handleChangeUser = async (user) => {
-		if (user) {
-			const isRegister = await userExist(user.uid);
-			// console.log(isRegister.response.data.messageError);
-			// console.log(isRegister);
-			if (isRegister.id || isRegister.message) {
-				setCurrentState(2);
-			} else {
-				setCurrentState(3);
-			}
-		} else {
-			setCurrentState(4);
-			console.log("noHay");
-		}
-	};
+	// const handleChangeUser = async (user) => {
+	// 	console.log(user);
+	// 	if (user) {
+	// 		const isRegister = await userExist(user.uid);
+	// 		// console.log(isRegister.response.data.messageError);
+	// 		// console.log(isRegister);
+	// 		if (isRegister.id || isRegister.message) {
+	// 			setCurrentState(2);
+	// 		} else {
+	// 			setCurrentState(3);
+	// 		}
+	// 	} else {
+	// 		setCurrentState(4);
+	// 		console.log("noHay");
+	// 	}
+	// };
 
 	const handleSesionGoogle = async () => {
 		const googleProvider = new GoogleAuthProvider();
@@ -62,37 +66,36 @@ export default function Login() {
 		}
 	};
 
-	if (state === 1) {
-		return <div className={`${style.container} ${style.ver}`}>Loading...</div>;
-	}
+	const handleChange = ({ target: { name, value } }) => {
+		setUser({ ...user, [name]: value });
+	};
 
-	if (state === 2) {
-		return (
-			<div className={`${style.container} ${style.ver}`}>Ya estas logueado</div>
-		);
-	}
-
-	if (state === 3) {
-		return (
-			<div className={`${style.container} ${style.ver}`}>
-				Autenticado pero no registardo
-			</div>
-		);
-	}
-
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const userLog = await singIn(user.email, user.password);
+			console.log(userLog);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	// if (state === 4) {
 	// 	return <div>.</div>;
 	// }
 
 	return (
-		<div className={style.container}>
+		<form onSubmit={handleSubmit} className={style.container}>
+			<h2>Login</h2>
 			<label>Correo</label>
-			<input type="text"></input>
+			<input onChange={handleChange} type="text" name="email"></input>
 			<label>Contrasena</label>
-			<input type="text"></input>
-			<button>Crear</button>
+			<input onChange={handleChange} type="password" name="password"></input>
+			<button>Log in</button>
 			<hr />
 			<button onClick={handleSesionGoogle}>Con google</button>
-		</div>
+			<Link to="register">
+				<p className={style.ver}>No tienes una cuenta?</p>
+			</Link>
+		</form>
 	);
 }

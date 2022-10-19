@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./Logo.png";
+import { useSelector } from "react-redux";
+import { logOut } from "../../firebase/auth";
+
 import SearchBar from "../SearchBar/SearchBar";
+import Logo from "./Logo.png";
 import style from "./NavBar.module.css";
 
 export default function NavBar() {
+	const user = useSelector((state) => state.user);
+
 	return (
 		<>
 			<nav className={style.nav}>
@@ -21,11 +26,19 @@ export default function NavBar() {
 						<button className={style.button}>Crear</button>
 					</Link>
 				</div>
-				<div>
-					<Link to="/login">
-						<button className={style.userBtn}>👤</button>
-					</Link>
-				</div>
+				{!user ? (
+					<div>
+						<Link to="/login">
+							<button className={style.userBtn}>👤</button>
+						</Link>
+					</div>
+				) : (
+					<div>
+						<button onClick={logOut} className={style.userBtn}>
+							👤 logOut
+						</button>
+					</div>
+				)}
 				<div>
 					<Link to="/cart">
 						<button className={style.cart}>🛒</button>

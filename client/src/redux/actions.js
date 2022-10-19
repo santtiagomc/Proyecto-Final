@@ -12,6 +12,14 @@ export const POST_BOOKS = "POST_BOOKS";
 export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const PUT_STATUS = "PUT_STATUS";
+export const USER_EXIST = "USER_EXIST ";
+
+export function userExist(payload) {
+	return {
+		type: USER_EXIST,
+		payload,
+	};
+}
 
 export function searchBook(filters, search, page) {
 	return async function (dispatch) {
