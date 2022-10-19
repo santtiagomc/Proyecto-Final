@@ -1,55 +1,93 @@
 .navLink {
-  text-decoration: none;
+	text-decoration: none;
+}
+
+.admin {
+	display: flex;
+	justify-content: right;
+
+	margin: 2px 20px;
+}
+
+.btnStatusT {
+	margin-right: 10px;
+	background-color: rgb(25, 228, 201);
+	padding: 5px;
+	border: none;
+	border-radius: 25px;
+	color: black;
+	font-weight: 700;
+	cursor: pointer;
+}
+.btnStatusF {
+	margin-right: 10px;
+	background-color: rgb(245, 15, 111);
+	padding: 5px;
+	border: none;
+	border-radius: 25px;
+	color: black;
+	font-weight: 700;
+	cursor: pointer;
 }
 
 .container {
-  width: 400px;
-  height: 240px;
-  background-color: #a35873;
-  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
-  display: flex;
-  padding: 0 20px;
-  border-radius: 50px;
+	width: 400px;
+	height: 240px;
+	background-color: #a35873;
+	background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+	display: flex;
+	padding: 0 20px;
+	border-radius: 50px;
+}
+.containerF {
+	width: 400px;
+	height: 240px;
+	background-color: #a35873;
+	background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+	display: flex;
+	padding: 0 20px;
+	border-radius: 50px;
+	opacity: 0.5;
 }
 
 .imageContainer {
-  width: 155px;
-  height: 230px;
-  margin-left: 15px;
+	width: 155px;
+	height: 230px;
+	margin-left: 15px;
 }
 
 .bookCover {
-  position: relative;
-  top: -60px;
-  border-radius: 20px;
-  width: 155px;
-  height: 230px;
+	position: relative;
+	top: -60px;
+	border-radius: 20px;
+	width: 155px;
+	height: 230px;
 }
 
 .information {
-  padding: 25px 10px;
+	padding: 25px 10px;
 }
 
 .name {
-  margin: 0px;
-  color: #fff;
-  font-weight: bolder;
-  font-size: 27px;
-  margin-bottom: 5px;
-  text-transform: capitalize;
+	margin: 0px;
+	color: #fff;
+	font-weight: bolder;
+	font-size: 27px;
+	margin-bottom: 5px;
+	text-transform: capitalize;
 }
 
 .author {
-  margin: 0px;
-  color: #fff;
-  margin-bottom: 10px;
-  font-weight: 300;
-  font-size: 19px;
+	margin: 0px;
+	color: #fff;
+	margin-bottom: 10px;
+	font-weight: 300;
+	font-size: 19px;
 }
 
 .price {
-  margin: 0px;
-  font-size: 33px;
-  color: #fff;
-  font-weight: 600;
+	margin: 0px;
+	font-size: 33px;
+	color: #fff;
+	font-weight: 600;
 }

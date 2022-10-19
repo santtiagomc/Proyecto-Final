@@ -46,6 +46,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: true,
     },
+    visits: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {
     timestamps: false,
   });
