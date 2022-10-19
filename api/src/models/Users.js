@@ -35,12 +35,14 @@ module.exports = (sequelize) => {
 				allowNull: true,
 			},
 			role: {
-				type: DataTypes.STRING,
-				allowNull: true,
+				type: DataTypes.ENUM("Administrador", "Usuario"),
+				allowNull: false,
+				defaultValue: "Usuario",
 			},
 			status: {
-				type: DataTypes.BOOLEAN,
+				type: DataTypes.ENUM("Activo", "Inactivo"),
 				allowNull: true,
+				defaultValue: "Activo",
 			},
 		},
 		{
