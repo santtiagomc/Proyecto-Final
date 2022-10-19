@@ -31,12 +31,11 @@ export default function Login() {
 			const isRegister = await userExist(user.uid);
 			// console.log(isRegister.response.data.messageError);
 			// console.log(isRegister);
-			if (isRegister.id) {
+			if (isRegister.id || isRegister.message) {
 				setCurrentState(2);
 			} else {
 				setCurrentState(3);
 			}
-			console.log(user.displayName);
 		} else {
 			setCurrentState(4);
 			console.log("noHay");
