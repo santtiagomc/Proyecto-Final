@@ -4,7 +4,7 @@ async function getUser({ id }) {
 	try {
 		const user = await Users.findByPk(id);
 
-		if (!user) return { messageError: "Usuario no existente." };
+		if (!user) return { message: "Usuario no existente." };
 
 		return user;
 	} catch (error) {

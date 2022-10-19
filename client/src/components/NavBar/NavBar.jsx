@@ -10,6 +10,14 @@ import style from "./NavBar.module.css";
 export default function NavBar() {
 	const user = useSelector((state) => state.user);
 
+	const handleLogOut = async () => {
+		try {
+			await logOut();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			<nav className={style.nav}>
@@ -34,7 +42,7 @@ export default function NavBar() {
 					</div>
 				) : (
 					<div>
-						<button onClick={logOut} className={style.userBtn}>
+						<button onClick={handleLogOut} className={style.userBtn}>
 							👤 logOut
 						</button>
 					</div>

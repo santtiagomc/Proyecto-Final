@@ -20,7 +20,7 @@ function App() {
 		onAuthStateChanged(auth, (user) => {
 			dispatch(userExist(user));
 		});
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<BrowserRouter>

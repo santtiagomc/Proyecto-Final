@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { singUp } from "../../firebase/auth";
+import { sessionGoogle, singUp } from "../../firebase/auth";
 
 import style from "./Register.module.css";
 
@@ -29,48 +29,53 @@ export default function Register() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const userAuth = await singUp(user.email, user.password);
+	};
+
+	const handleSignInGoogle = async () => {
 		try {
-			const userAuth = await singUp(user.email, user.password);
-			console.log(userAuth);
+			await sessionGoogle();
 		} catch (error) {
-			console.log(error.message);
+			console.log(error);
 		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className={style.container}>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Email</label>
-				<input onChange={handleChange} type="text" name="email"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Contrasena</label>
-				<input onChange={handleChange} type="text" name="password"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Nombre Completo</label>
-				<input onChange={handleChange} type="text" name="fullName"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Provincia</label>
-				<input onChange={handleChange} type="text" name="province"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Ciudad</label>
-				<input onChange={handleChange} type="text" name="city"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Codigo Postal</label>
-				<input onChange={handleChange} type="text" name="zipCode"></input>
-			</div>
-			<div className={style.inputContainer}>
-				<label className={style.label}>Direccion</label>
-				<input onChange={handleChange} type="text" name="address"></input>
-			</div>
+		<>
+			<form onSubmit={handleSubmit} className={style.container}>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Email</label>
+					<input onChange={handleChange} type="text" name="email"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Contrasena</label>
+					<input onChange={handleChange} type="text" name="password"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Nombre Completo</label>
+					<input onChange={handleChange} type="text" name="fullName"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Provincia</label>
+					<input onChange={handleChange} type="text" name="province"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Ciudad</label>
+					<input onChange={handleChange} type="text" name="city"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Codigo Postal</label>
+					<input onChange={handleChange} type="text" name="zipCode"></input>
+				</div>
+				<div className={style.inputContainer}>
+					<label className={style.label}>Direccion</label>
+					<input onChange={handleChange} type="text" name="address"></input>
+				</div>
+				<button>Crear</button>
+			</form>
 			<div className={style.register}>
-				<button>Crear</button>O<button>Con google</button>
+				<button onClick={handleSignInGoogle}>Con google</button>
 			</div>
-			{/* <button onClick={handleSesionGoogle}>Con google</button> */}
-		</form>
+		</>
 	);
 }
