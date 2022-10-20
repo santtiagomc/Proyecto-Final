@@ -56,7 +56,9 @@ export default function NavBar() {
 							>
 								<ul className={style.list}>
 									<Link to="profile">
-										<li className={style.text}>Cuenta</li>
+										<li onClick={() => setShow(false)} className={style.text}>
+											Cuenta
+										</li>
 									</Link>
 									<li onClick={handleLogOut} className={style.text}>
 										Cerrar sesion
