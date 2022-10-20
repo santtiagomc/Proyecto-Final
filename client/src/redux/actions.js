@@ -4,7 +4,6 @@ export const GET_GENRES = "GET_GENRES";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
-export const GET_FILTERED = "GET_FILTERED";
 export const GET_EDITORIALS = "GET_EDITORIALS";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";

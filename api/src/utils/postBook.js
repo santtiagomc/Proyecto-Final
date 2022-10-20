@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { Books, Genres } = require('../db');
 const { capitalize } = require('./capitalize');
 

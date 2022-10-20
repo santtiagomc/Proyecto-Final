@@ -7,7 +7,6 @@ import {
 	searchBook,
 	changePage,
 	getEditorials,
-	resetBooks,
 	changeFilter,
 	changeSearch
 } from "../../redux/actions";

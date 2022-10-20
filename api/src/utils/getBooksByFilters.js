@@ -1,7 +1,3 @@
-const { getAllBooks } = require("./getAllBooks");
-const { Op } = require("sequelize");
-const { Books, Genres } = require('../db');
-
 async function getBooksByFilters(booksFiltereds, filters) {
   try {
     booksFiltereds = booksFiltereds.map(book => {
