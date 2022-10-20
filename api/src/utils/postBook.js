@@ -21,7 +21,7 @@ async function postBook({ name, image, author, description, price, stock, editor
       },
     });
 
-    if (!created) return { messageError: "Ya existe un libro con ese nombre, por favor elige otro y vuelva a intentar!" };
+    if (!created) return { messageError: "Ya existe un libro con ese nombre, por favor eliga otro y vuelva a intentar!" };
 
     let genresDb = await Genres.findAll()
 

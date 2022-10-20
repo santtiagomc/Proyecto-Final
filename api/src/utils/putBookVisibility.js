@@ -7,7 +7,7 @@ async function putBookVisibility({ id }) {
 	try {
 		const book = await Books.findByPk(id);
 		if (book === null)
-			return { messageError: "No existe ningun libro con ese ID" };
+			return { messageError: "No existe ningún libro con ese ID" };
 
 		book.visible ? (book.visible = false) : (book.visible = true);
 		await book.save();
