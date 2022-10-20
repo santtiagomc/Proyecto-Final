@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getDetail, GET_DETAIL, putStatus } from "../../redux/actions";
+import { getDetail, GET_DETAIL, putStatus, addToCart } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
 
+// const cartLS = JSON.parse(localStorage.getItem("cart"))
+
 export default function Detail() {
 	const dispatch = useDispatch();
 	const myBook = useSelector((state) => state.detail);
+	const [ cart, setCart ] = useState([])
 
 	const { id } = useParams();
 
@@ -25,11 +28,17 @@ export default function Detail() {
 		e.preventDefault();
 		dispatch(putStatus(myBook.id));
 	};
+
 	const handleEdit = (e) => {
 		e.preventDefault();
 		console.log("xdddd");
 	};
-	console.log(myBook);
+
+	const handleCart = (e) => {
+		e.preventDefault();
+		dispatch(addToCart(myBook.id))
+		// localStorage.setItem("cart", JSON.stringify(cart))
+	}
 	let contador;
 
 	return (
@@ -82,9 +91,11 @@ export default function Detail() {
 								<button
 									className={myBook.visible ? style.cart : style.cartF}
 									disabled={myBook.visible ? false : true}
-									onClick={(e) => handleEdit(e)}
+									value="cart"
+									type="button"
+									onClick={(e) => handleCart(e)}
 								>
-									Add to cart
+									Agregar al carrito
 								</button>
 							</div>
 						</div>

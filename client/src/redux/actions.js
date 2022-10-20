@@ -12,6 +12,7 @@ export const POST_BOOKS = "POST_BOOKS";
 export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const PUT_STATUS = "PUT_STATUS";
+export const ADD_TO_CART = "ADD_TO_CART";
 
 export function searchBook(filters, search, page) {
 	return async function (dispatch) {
@@ -162,3 +163,13 @@ export function putStatus(id) {
 		}
 	};
 }
+
+export function addToCart(id) {
+	return function (dispatch) {
+			dispatch({
+					type: ADD_TO_CART,
+					payload: id
+			})
+	}
+}
+

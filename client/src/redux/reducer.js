@@ -11,6 +11,7 @@ import {
 	CHANGE_PAGE,
 	GET_EDITORIALS,
 	PUT_STATUS,
+	ADD_TO_CART,
 } from "./actions";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
 	create: [],
 	page: 0,
 	total: 0,
+	cart: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -87,6 +89,13 @@ export default function rootReducer(state = initialState, action) {
 
 		case RESET_CREATE:
 			return { ...state, create: action.payload };
+
+		case ADD_TO_CART:
+			const newCart = new Set([ ...state.cart, action.payload ]);
+			return{
+				...state,
+				cart: [...newCart]
+			}
 
 		default:
 			return { ...state };
