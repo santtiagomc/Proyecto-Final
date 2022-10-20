@@ -4,12 +4,12 @@ const { Books, Genres } = require("../db");
 async function getAllBooks() {
 	try {
 		const allBooksDb = await Books.findAll({
-			where: {
-				/* visible: true, */
-				stock: {
-					[Op.gt]: 0,
-				},
-			},
+			// where: {
+			// 	/* visible: true, */
+			// 	stock: {
+			// 		[Op.gt]: 0,
+			// 	},
+			// },
 			include: [
 				{
 					model: Genres,

@@ -27,7 +27,7 @@ export default function SearchBar() {
 				className={style.input}
 				value={book}
 				type="text"
-				placeholder="Ingrese un título, autor o editorial"
+				placeholder="Ingrese un título o autor"
 				onChange={(e) => setBook(e.target.value)}
 			/>
 			<select
