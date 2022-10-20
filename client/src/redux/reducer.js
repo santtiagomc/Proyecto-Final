@@ -12,9 +12,11 @@ import {
   GET_EDITORIALS,
   PUT_STATUS,
   PUT_BOOK,
+  USER_EXIST,
 } from "./actions";
 
 const initialState = {
+  user: {},
   books: [],
   editorials: [],
   genres: [],
@@ -37,6 +39,9 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case USER_EXIST:
+      return { ...state, user: action.payload };
+
     case GET_GENRES:
       return { ...state, genres: action.payload };
 

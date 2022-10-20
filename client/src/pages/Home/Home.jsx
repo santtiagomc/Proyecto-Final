@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
 import {
