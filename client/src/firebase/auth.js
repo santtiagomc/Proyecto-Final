@@ -8,7 +8,15 @@ import {
 import { auth } from "./firebase";
 import axios from "axios";
 
-export const singUp = async (email, password) => {
+export const singUp = async ({
+	email,
+	password,
+	fullName,
+	province,
+	city,
+	address,
+	zipCode,
+}) => {
 	try {
 		const userAuth = await createUserWithEmailAndPassword(
 			auth,
@@ -18,8 +26,12 @@ export const singUp = async (email, password) => {
 		console.log(userAuth);
 		await axios.post("http://localhost:3001/user", {
 			id: userAuth.user.uid,
-			fullName: "Facundo Gonzalez",
-			email: email,
+			email,
+			fullName,
+			province,
+			city,
+			address,
+			zipCode: Number(zipCode),
 		});
 	} catch (error) {
 		console.log(error.message);
