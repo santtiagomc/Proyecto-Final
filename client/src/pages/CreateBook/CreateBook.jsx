@@ -5,6 +5,7 @@ import {
   getDetail,
   getGenres,
   GET_DETAIL,
+  putBook,
   resetCreate,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,8 +89,6 @@ export default function CreateBook() {
     };
   }, []);
 
-  console.log();
-
   const { genres, create } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
 
@@ -125,8 +124,6 @@ export default function CreateBook() {
       });
     }
   }, [detail]);
-
-  console.table(input);
 
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
@@ -166,8 +163,8 @@ export default function CreateBook() {
       }
     } else {
       if (Object.keys(errors).length === 0) {
-        console.log("anda bien");
-        //dispatch(la action de editar libros (input));
+        console.log(input);
+        dispatch(putBook(params.id, input));
       } else {
         Swal.fire({
           title: "Todos los campos son requeridos",
@@ -227,7 +224,6 @@ export default function CreateBook() {
 
   return (
     <>
-      {/*  {params.id && !Array.isArray(detail) ? ( */}
       <div className={style.container}>
         <div className={style.containerForm}>
           <div>
@@ -240,11 +236,11 @@ export default function CreateBook() {
               }}
             >
               <div className={style.incontainer}>
-                <label>Nombre </label>
+                <h3 className={style.h3}>Nombre</h3>
                 <input
                   className={style.input}
                   type="text"
-                  placeholder="Nombre del libro"
+                  placeholder={params.id ? detail.name : "Nombre del libro"}
                   value={input.name.toLowerCase()}
                   name="name"
                   onChange={(e) => handleChange(e)}
@@ -253,7 +249,7 @@ export default function CreateBook() {
                 {/* {errors.name ? (<p className={style.err}>{errors.name}</p>) : ""} */}
               </div>
               <div className={style.incontainer}>
-                <label>Portada </label>
+                <h3 className={style.h3}>Portada</h3>
                 <input
                   className={style.input}
                   type="url"
@@ -265,7 +261,7 @@ export default function CreateBook() {
                 {input.image && <p className={style.err}>{errors.image}</p>}
               </div>
               <div className={style.incontainer}>
-                <label>Autor </label>
+                <h3 className={style.h3}>Autor</h3>
                 <input
                   className={style.input}
                   type="text"
@@ -277,35 +273,31 @@ export default function CreateBook() {
                 {input.author && <p className={style.err}>{errors.author}</p>}
               </div>
               <div className={style.incontainer}>
-                <label>Precio</label>
+                <h3 className={style.h3}>Precio</h3>
                 <input
                   className={style.input}
                   type="number"
                   placeholder="Precio"
                   value={input.price}
                   name="price"
-                  min="1,00"
-                  max="1000,00"
                   onChange={(e) => handleChange(e)}
                 />
                 {input.price && <p className={style.err}>{errors.price}</p>}
               </div>
               <div className={style.incontainer}>
-                <label>Stock</label>
+                <h3 className={style.h3}>Stock</h3>
                 <input
                   className={style.input}
                   type="number"
                   placeholder="Stock"
                   value={input.stock}
-                  min="1"
-                  max="50"
                   name="stock"
                   onChange={(e) => handleChange(e)}
                 />
                 {input.stock && <p className={style.err}>{errors.stock}</p>}
               </div>
               <div className={style.incontainer}>
-                <label>Editorial</label>
+                <h3 className={style.h3}>Editorial</h3>
                 <input
                   className={style.input}
                   type="text"
@@ -319,7 +311,7 @@ export default function CreateBook() {
                 )}
               </div>
               <div className={style.incontainer}>
-                <label>Año de edición</label>
+                <h3 className={style.h3}>Año de edición</h3>
                 <input
                   className={style.input}
                   type="number"
@@ -331,9 +323,9 @@ export default function CreateBook() {
                 {input.edition && <p className={style.err}>{errors.edition}</p>}
               </div>
               <div className={style.incontainer}>
-                <label>Descripción</label>
+                <h3 className={style.h3}>Descripción</h3>
                 <textarea
-                  className={style.descripcion}
+                  className={style.textArea}
                   name="description"
                   id=""
                   cols="30"
@@ -348,7 +340,7 @@ export default function CreateBook() {
                 )}
               </div>
               <div className={style.incontainer}>
-                <label> Categorías </label>
+                <h3 className={style.h3}>Categorías</h3>
                 <select
                   value="0"
                   onChange={(e) => handleSelect(e)}
@@ -389,8 +381,7 @@ export default function CreateBook() {
               {
                 <div>
                   <button className={style.btn} type="submit">
-                    {" "}
-                    Crear{" "}
+                    {params.id ? "Completar edición" : "Crear"}
                   </button>
                   <Link to="/">
                     <button className={style.btn}>Volver</button>
@@ -401,31 +392,6 @@ export default function CreateBook() {
           </div>
         </div>
       </div>
-      {/* ) : (
-        <div>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, ipsa.
-          Odit sunt libero numquam ratione veritatis, iusto incidunt alias ipsum
-          earum praesentium quam, tempora in neque accusamus perspiciatis
-          corrupti recusandae. Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Ipsum, ipsa. Odit sunt libero numquam ratione
-          veritatis, iusto incidunt alias ipsum earum praesentium quam, tempora
-          in neque accusamus perspiciatis corrupti recusandae. Lorem ipsum dolor
-          sit amet consectetur, adipisicing elit. Ipsum, ipsa. Odit sunt libero
-          numquam ratione veritatis, iusto incidunt alias ipsum earum
-          praesentium quam, tempora in neque accusamus perspiciatis corrupti
-          recusandae. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          Ipsum, ipsa. Odit sunt libero numquam ratione veritatis, iusto
-          incidunt alias ipsum earum praesentium quam, tempora in neque
-          accusamus perspiciatis corrupti recusandae. Lorem ipsum dolor sit amet
-          consectetur, adipisicing elit. Ipsum, ipsa. Odit sunt libero numquam
-          ratione veritatis, iusto incidunt alias ipsum earum praesentium quam,
-          tempora in neque accusamus perspiciatis corrupti recusandae. Lorem
-          ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, ipsa. Odit
-          sunt libero numquam ratione veritatis, iusto incidunt alias ipsum
-          earum praesentium quam, tempora in neque accusamus perspiciatis
-          corrupti recusandae.
-        </div>
-      )} */}
     </>
   );
 }

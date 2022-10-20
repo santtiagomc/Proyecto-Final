@@ -3,7 +3,15 @@ import { NavLink } from "react-router-dom";
 import { putStatus } from "../../redux/actions";
 import style from "./CardPrueba.module.css";
 
-export default function Card({ id, image, price, name, author, visible }) {
+export default function Card({
+  id,
+  image,
+  price,
+  name,
+  author,
+  edition,
+  visible,
+}) {
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -36,6 +44,7 @@ export default function Card({ id, image, price, name, author, visible }) {
           <div className={style.information}>
             <p className={style.name}>{name}</p>
             <p className={style.author}>{author}</p>
+            <p className={style.edition}>{edition}</p>
             <p className={style.price}>USD {price}</p>
           </div>
         </div>
