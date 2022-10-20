@@ -11,6 +11,7 @@ import Detail from "./pages/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
+import ProfileUser from "./pages/ProfileUser/ProfileUser"
 import Register from "./pages/Register/Register";
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
 			<Route exact path="/register" component={Register} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/detail/:id" component={Detail} />
-			<Route path="/cart" component={Cart} />
+			<Route path="/cart" component={Cart}/>
+			<Route path="/profile" component={ProfileUser} />
 		</BrowserRouter>
 	);
 }
