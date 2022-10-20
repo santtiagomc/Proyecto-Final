@@ -7,6 +7,7 @@ import {
 	// getDownloadURL,
 	// getBytes,
 } from "firebase/storage";
+import axios from "axios";
 // import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -30,6 +31,13 @@ export const auth = getAuth(app);
 const storage = getStorage(app);
 // const analytics = getAnalytics(app);
 
-// export const userExist = async (uid) => {
-//   const docRef = // consulta a db
-// }
+export const userExist = async (uid) => {
+	try {
+		const res = await axios.get(`http://localhost:3001/user/${uid}`);
+		console.log(res.data);
+		return res.data;
+	} catch (error) {
+		console.log(error);
+		return error;
+	}
+};
