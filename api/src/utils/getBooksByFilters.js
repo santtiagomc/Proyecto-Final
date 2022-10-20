@@ -46,7 +46,7 @@ async function getBooksByFilters(booksFiltereds, filters) {
         booksFiltereds.sort((b, a) => a.edition - b.edition)
     }
 
-    if (!booksFiltereds.length) return { messageError: "No se encontraron libros con esos filtros" }
+    if (!booksFiltereds.length) return { messageError: "No se encontraron resultados" }
     return booksFiltereds
 
   } catch (error) {

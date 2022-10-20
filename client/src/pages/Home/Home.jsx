@@ -7,7 +7,11 @@ import {
 	searchBook,
 	changePage,
 	getEditorials,
+	resetBooks,
+	changeFilter,
+	changeSearch
 } from "../../redux/actions";
+import Swal from 'sweetalert2';
 
 import style from "./HomePrueba.module.css";
 
@@ -29,6 +33,23 @@ export default function Home() {
 		if (!editorials.length) dispatch(getEditorials());
 		dispatch(searchBook(filtersApplied, searchApplied, page));
 	}, [filtersApplied, page, searchApplied]);
+
+	useEffect(()=> {
+		if(books.messageError) {
+			Swal.fire({
+				title: 'Oops...',
+				text:books.messageError,
+				icon: "error",
+				timer: 4000,
+				background: "#2d0f48",
+				color: "#fff",
+				iconColor: "#8c105c",
+				confirmButtonColor: "#10668c"
+			})
+			dispatch(changeFilter());
+			dispatch(changeSearch());
+		}
+	}, [books]);
 
 	const nextPage = () => {
 		if (page + 10 < total) {
@@ -72,24 +93,24 @@ export default function Home() {
 					</button>
 				</div>
 				<div className={style.grid}>
-					{!books.messageError ? (
-						books.map((book) => {
-							return (
-								<Card
-									key={book.id}
-									id={book.id}
-									image={book.image}
-									price={book.price}
-									name={book.name}
-									author={book.author}
-									visible={book.visible}
-								/>
-							);
-						})
-					) : (
-						<span className={style.span}>{books.messageError}</span>
-					)}
-				</div>
+                    {!books.messageError && (
+                        books.map((book) => {
+                            return (
+                                <Card
+                                    key={book.id}
+                                    id={book.id}
+                                    image={book.image}
+                                    price={book.price}
+                                    name={book.name}
+                                    author={book.author}
+                                    visible={book.visible}
+                                />
+                            );
+                        })
+                    // ) : (
+                    //     <span className={style.span}>{books.messageError}</span>
+                    )}
+                </div>
 			</div>
 		</div>
 	);

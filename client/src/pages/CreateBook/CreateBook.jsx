@@ -112,7 +112,7 @@ export default function CreateBook() {
      else {
       Swal.fire({
         title:"Todos los campos son requeridos",
-        text:"Faltan campos por llenar",
+        // text:"Faltan campos por llenar",
         icon: "info",
         timer: 4000
       })
