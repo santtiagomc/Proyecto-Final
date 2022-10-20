@@ -1,5 +1,3 @@
-require('dotenv').config();
-const axios = require('axios');
 const { Books, Genres } = require('../db');
 const { capitalize } = require('./capitalize');
 
