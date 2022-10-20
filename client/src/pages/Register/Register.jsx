@@ -41,13 +41,13 @@ export default function Register() {
 						<p className={style.error}>Obligatorio</p>
 					)}
 					{errors.email?.type === "pattern" && (
-						<p className={style.error}>Ingresa un email valido</p>
+						<p className={style.error}>Ingresa un email válido</p>
 					)}
 				</div>
 				<div className={style.inputContainer}>
 					<input
 						className={style.input}
-						placeholder="Contrasena"
+						placeholder="Contraseña"
 						type="password"
 						{...register("password", {
 							required: true,
@@ -59,7 +59,7 @@ export default function Register() {
 					)}
 					{errors.password?.type === "pattern" && (
 						<p className={style.error}>
-							Minimo 8 caracteres, al menos una letra y un numero
+							Mínimo 8 caracteres, al menos una letra y un número
 						</p>
 					)}
 				</div>
@@ -106,7 +106,7 @@ export default function Register() {
 				<div className={style.inputContainer}>
 					<input
 						className={style.input}
-						placeholder="Codigo Postal"
+						placeholder="Código Postal"
 						type="text"
 						{...register("zipCode", {
 							required: true,
@@ -118,16 +118,16 @@ export default function Register() {
 						<p className={style.error}>Obligatorio</p>
 					)}
 					{errors.zipCode?.type === "pattern" && (
-						<p className={style.error}>Solo numeros</p>
+						<p className={style.error}>Sólo números</p>
 					)}
 					{errors.zipCode?.type === "maxLength" && (
-						<p className={style.error}>Maximo 5 numeros</p>
+						<p className={style.error}>Máximo 5 números</p>
 					)}
 				</div>
 				<div className={style.inputContainer}>
 					<input
 						className={style.input}
-						placeholder="Direccion"
+						placeholder="Dirección"
 						type="text"
 						{...register("address", {
 							required: true,
