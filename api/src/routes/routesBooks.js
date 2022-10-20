@@ -40,17 +40,6 @@ router.get("/", async (req, res) => {
     : res.status(201).json(booksFiltereds);
 });
 
-router.get("/filters", async (req, res) => {
-
-  console.log(req.query);
-  const response = await getBooksByFilters(req.query);
-
-  let statusCode;
-  response.messageError ? (statusCode = 404) : (statusCode = 201);
-
-  res.status(statusCode).json(response);
-});
-
 router.post("/", async (req, res) => {
   const response = await postBook(req.body);
 

@@ -4,49 +4,49 @@ import { changeFilter, changePage, changeSearch } from "../../redux/actions";
 import style from "./FiltersNav.module.css";
 
 export default function FiltersNav({ editorials }) {
-  const { filtersApplied, genres } = useSelector((state) => state);
-  const dispatch = useDispatch();
+	const { filtersApplied, genres } = useSelector((state) => state);
+	const dispatch = useDispatch();
 
-  function handleFilterGenres(e) {
-    dispatch(
-      changeFilter({
-        sort: filtersApplied.sort,
-        editorial: filtersApplied.editorial,
-        genres: e.target.value,
-      })
-    );
-  }
+	function handleFilterGenres(e) {
+		dispatch(
+			changeFilter({
+				sort: filtersApplied.sort,
+				editorial: filtersApplied.editorial,
+				genres: e.target.value,
+			})
+		);
+	}
 
-  function handleFilterEditorial(e) {
-    dispatch(
-      changeFilter({
-        sort: filtersApplied.sort,
-        editorial: e.target.value,
-        genres: filtersApplied.genres,
-      })
-    );
-  }
+	function handleFilterEditorial(e) {
+		dispatch(
+			changeFilter({
+				sort: filtersApplied.sort,
+				editorial: e.target.value,
+				genres: filtersApplied.genres,
+			})
+		);
+	}
 
-  function handleFilterSort(e) {
-    dispatch(
-      changeFilter({
-        sort: e.target.value,
-        editorial: filtersApplied.editorial,
-        genres: filtersApplied.genres,
-      })
-    );
-  }
+	function handleFilterSort(e) {
+		dispatch(
+			changeFilter({
+				sort: e.target.value,
+				editorial: filtersApplied.editorial,
+				genres: filtersApplied.genres,
+			})
+		);
+	}
 
-  const reset = () => {
-    dispatch(changeFilter());
-    dispatch(changeSearch());
-  };
+	const reset = () => {
+		dispatch(changeFilter());
+		dispatch(changeSearch());
+	};
 
   return (
     <>
       <nav className={style.navContainer}>
-        <h2 className={style.filters}>Filtros</h2>
-        <label className={style.typeFilter}>Ordenar:</label>
+        <h2 className={style.filters}>Filtrar resultados</h2>
+        <label className={style.typeFilter}>Ordenar por:</label>
         <select
           className={style.select}
           name="sort"
@@ -93,11 +93,12 @@ export default function FiltersNav({ editorials }) {
           </option>
         </select>
 
-        <label className={style.typeFilter}>Filtrar por editoriales:</label>
+        <label className={style.typeFilter}>Editoriales</label>
         <select
           className={style.select}
           name="editorial"
           onChange={handleFilterEditorial}
+          required='false'
         >
           <option disabled> -- Filtrar por editorial --</option>
           <option
@@ -105,7 +106,7 @@ export default function FiltersNav({ editorials }) {
             selected={filtersApplied.editorial === "none" ? true : false}
           >
             {" "}
-            Todas las editoriales
+            Todas
           </option>
           {editorials &&
             editorials.map((el) => (
@@ -119,19 +120,19 @@ export default function FiltersNav({ editorials }) {
             ))}
         </select>
 
-        <label className={style.typeFilter}>Filtrar por género:</label>
+        <label className={style.typeFilter}>Categorías</label>
         <select
           className={style.select}
           name="genres"
           onChange={handleFilterGenres}
         >
-          <option disabled>-- Filtrar por género --</option>
+          <option disabled>-- Filtrar por categoría --</option>
           <option
             value="none"
             selected={filtersApplied.genres === "none" ? true : false}
           >
             {" "}
-            Todos los géneros
+            Todas
           </option>
           {genres &&
             genres.sort().map((el) => (
@@ -144,9 +145,9 @@ export default function FiltersNav({ editorials }) {
               </option>
             ))}
         </select>
-        <label className={style.typeFilter}>Todos los libros</label>
+        {/* <label className={style.typeFilter}>Todos los libros</label> */}
         <button className={style.resetButton} onClick={reset}>
-          Resetear
+          Ver todos
         </button>
       </nav>
     </>
