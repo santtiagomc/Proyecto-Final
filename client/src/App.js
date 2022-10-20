@@ -9,16 +9,17 @@ import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<NavBar />
-			<Route exact path="/" component={Home} />
-			<Route exact path="/create" component={CreateBook} />
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/detail/:id" component={Detail} />
-			<Route path="/cart" component={Cart}/>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <NavBar />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/create" component={CreateBook} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/detail/:id" component={Detail} />
+      <Route path="/cart" component={Cart} />
+      <Route path="/edit/:id" component={CreateBook} />
+    </BrowserRouter>
+  );
 }
 
 export default App;
