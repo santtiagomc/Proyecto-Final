@@ -7,7 +7,7 @@ import style from "./ProfileUser.module.css";
 
 export default function ProfileUser() {
 	const [dataUser, setDataUser] = useState({});
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
@@ -18,7 +18,6 @@ export default function ProfileUser() {
 	const getUser = async (userId) => {
 		try {
 			console.log(userId);
-			setLoading(true);
 			const res = await axios.get(`http://localhost:3001/user/${userId}`);
 			setDataUser(res.data);
 			console.log(res);

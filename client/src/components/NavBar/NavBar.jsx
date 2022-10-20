@@ -55,7 +55,7 @@ export default function NavBar() {
 								className={`${style.menu} ${show ? style.show : style.hide}`}
 							>
 								<ul className={style.list}>
-									<Link to="profile">
+									<Link to="/profile">
 										<li onClick={() => setShow(false)} className={style.text}>
 											Cuenta
 										</li>

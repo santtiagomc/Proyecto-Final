@@ -1,35 +1,18 @@
 import { useState } from "react";
 import { sessionGoogle, singUp } from "../../firebase/auth";
+import { appendErrors, useForm } from "react-hook-form";
 
 import style from "./Register.module.css";
 
 export default function Register() {
-	const [user, setUser] = useState({
-		email: "",
-		password: "",
-		fullName: "",
-		province: "",
-		city: "",
-		zipCode: "",
-		address: "",
-	});
-	const [error, setError] = useState({
-		email: "",
-		password: "",
-		fullName: "",
-		province: "",
-		city: "",
-		zipCode: "",
-		address: "",
-	});
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm();
 
-	const handleChange = ({ target: { name, value } }) => {
-		setUser({ ...user, [name]: value });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const userAuth = await singUp(user.email, user.password);
+	const onSubmit = async (data) => {
+		await singUp(data);
 	};
 
 	const handleSignInGoogle = async () => {
@@ -39,43 +22,127 @@ export default function Register() {
 			console.log(error);
 		}
 	};
-
+	console.log(errors.email?.type);
 	return (
 		<>
-			<form onSubmit={handleSubmit} className={style.container}>
+			<form onSubmit={handleSubmit(onSubmit)} className={style.container}>
+				<h2 className={style.title}>Crear cuenta</h2>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Email</label>
-					<input onChange={handleChange} type="text" name="email"></input>
+					<input
+						className={style.input}
+						placeholder="Email"
+						type="text"
+						{...register("email", {
+							required: true,
+							pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+						})}
+					></input>
+					{errors.email?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
+					{errors.email?.type === "pattern" && (
+						<p className={style.error}>Ingresa un email válido</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Contrasena</label>
-					<input onChange={handleChange} type="text" name="password"></input>
+					<input
+						className={style.input}
+						placeholder="Contraseña"
+						type="password"
+						{...register("password", {
+							required: true,
+							pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+						})}
+					></input>
+					{errors.password?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
+					{errors.password?.type === "pattern" && (
+						<p className={style.error}>
+							Mínimo 8 caracteres, al menos una letra y un número
+						</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Nombre Completo</label>
-					<input onChange={handleChange} type="text" name="fullName"></input>
+					<input
+						className={style.input}
+						placeholder="Nombre Completo"
+						type="text"
+						{...register("fullName", {
+							required: true,
+							maxLength: 20,
+						})}
+					></input>
+					{errors.fullName?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Provincia</label>
-					<input onChange={handleChange} type="text" name="province"></input>
+					<input
+						className={style.input}
+						placeholder="Provincia"
+						type="text"
+						{...register("province", {
+							required: true,
+						})}
+					></input>
+					{errors.province?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Ciudad</label>
-					<input onChange={handleChange} type="text" name="city"></input>
+					<input
+						className={style.input}
+						placeholder="Ciudad"
+						type="text"
+						{...register("city", {
+							required: true,
+						})}
+					></input>
+					{errors.city?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Codigo Postal</label>
-					<input onChange={handleChange} type="text" name="zipCode"></input>
+					<input
+						className={style.input}
+						placeholder="Código Postal"
+						type="text"
+						{...register("zipCode", {
+							required: true,
+							maxLength: 5,
+							pattern: /^[0-9]*$/,
+						})}
+					></input>
+					{errors.zipCode?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
+					{errors.zipCode?.type === "pattern" && (
+						<p className={style.error}>Sólo números</p>
+					)}
+					{errors.zipCode?.type === "maxLength" && (
+						<p className={style.error}>Máximo 5 números</p>
+					)}
 				</div>
 				<div className={style.inputContainer}>
-					<label className={style.label}>Direccion</label>
-					<input onChange={handleChange} type="text" name="address"></input>
+					<input
+						className={style.input}
+						placeholder="Dirección"
+						type="text"
+						{...register("address", {
+							required: true,
+							minLength: 5,
+						})}
+					></input>
+					{errors.address?.type === "required" && (
+						<p className={style.error}>Obligatorio</p>
+					)}
 				</div>
-				<button>Crear</button>
+				<div className={style.register}>
+					<button className={style.registerButton}>Crear</button>
+					<span onClick={handleSignInGoogle}>Con google</span>
+				</div>
 			</form>
-			<div className={style.register}>
-				<button onClick={handleSignInGoogle}>Con google</button>
-			</div>
 		</>
 	);
 }
