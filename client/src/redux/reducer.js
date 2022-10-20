@@ -97,10 +97,10 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
       
 		case ADD_TO_CART:
-			const newCart = new Set([ ...state.cart, action.payload ]);
+			// const newCart = new Set([ ...state.cart, action.payload ]);
 			return{
 				...state,
-				cart: [...newCart]
+				cart: action.payload
 			}
 
 		default:

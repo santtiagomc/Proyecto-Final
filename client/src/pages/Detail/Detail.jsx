@@ -12,7 +12,7 @@ import {
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
 
-// const cartLS = JSON.parse(localStorage.getItem("cart"))
+const cartLS = localStorage.getItem("cart")
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -40,9 +40,9 @@ export default function Detail() {
   const handleCart = (e) => {
     e.preventDefault();
     dispatch(addToCart(myBook.id));
-    // localStorage.setItem("cart", JSON.stringify(cart))
+    localStorage.setItem("cart", [myBook.id])
   };
-
+  console.log(cartLS)
   let contador;
 
   return (
