@@ -202,9 +202,10 @@ export function putBook(id, body) {
 // 	}
 // }
 
-export function addToCart(id) {
+export function addToCart(localStorage) {
+  //proximamente modificar para mandar datos al back
   return {
     type: ADD_TO_CART,
-    payload: id,
+    payload: localStorage,
   };
 }

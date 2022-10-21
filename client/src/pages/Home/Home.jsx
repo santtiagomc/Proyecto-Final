@@ -103,6 +103,7 @@ export default function Home() {
                   price={book.price}
                   name={book.name}
                   author={book.author}
+                  edition={book.edition}
                   visible={book.visible}
                 />
               );

@@ -38,7 +38,6 @@ const initialState = {
   cart: [],
 };
 
-
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case USER_EXIST:
@@ -50,8 +49,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_EDITORIALS:
       return { ...state, editorials: action.payload };
 
-		case CHANGE_FILTERS:
-			return { ...state, filtersApplied: action.payload, page: 0 };
+    case CHANGE_FILTERS:
+      return { ...state, filtersApplied: action.payload, page: 0 };
 
     case CHANGE_SEARCH:
       return { ...state, searchApplied: action.payload, page: 0 };
@@ -95,15 +94,11 @@ export default function rootReducer(state = initialState, action) {
 
     case RESET_CREATE:
       return { ...state, create: action.payload };
-      
-		case ADD_TO_CART:
-			// const newCart = new Set([ ...state.cart, action.payload ]);
-			return{
-				...state,
-				cart: action.payload
-			}
 
-		default:
-			return { ...state };
-	}
+    case ADD_TO_CART:
+      return { ...state, cart: action.payload };
+
+    default:
+      return { ...state };
+  }
 }
