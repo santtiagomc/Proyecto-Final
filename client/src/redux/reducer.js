@@ -3,7 +3,6 @@ import {
   GET_DETAIL,
   POST_BOOKS,
   POST_REVIEWS,
-  GET_REVIEWS,
   RESET_CREATE,
   CHANGE_FILTERS,
   GET_GENRES,
@@ -22,7 +21,6 @@ const initialState = {
   genres: [],
   book: [],
   detail: [],
-  reviews: [],
   filtersApplied: {
     sort: "A-Z",
     genres: "none",
@@ -85,9 +83,6 @@ export default function rootReducer(state = initialState, action) {
 
     case PUT_BOOK:
       return { ...state, create: action.payload };
-
-    case GET_REVIEWS:
-      return { ...state, reviews: action.payload };
 
     case POST_REVIEWS:
       return { ...state, createReview: action.payload }
