@@ -101,7 +101,7 @@ export default function Review({ id }) {
         ?
         <Link to="/login" className={style.see_form}>
           <p>Inicia sesión para añadir una reseña</p>
-          <i class="fa-solid fa-user"></i>
+          <i className="fa-solid fa-user"></i>
         </Link>
         : !addReviewActive
           ? <span className={style.see_form} onClick={() => setAddReviewActive(true)}>
@@ -153,7 +153,7 @@ export default function Review({ id }) {
       {detail.Reviews.length
         ? detail.Reviews.map(review => (
           <div className={style.single_review}>
-            <h6 className={style.user_single_review}>{review.User.fullName}</h6>
+            {review.User && <h6 className={style.user_single_review}>{review.User.fullName}</h6>}
             <div className={style.header_single_review}>
               <h3 className={style.title_single_review}> {review.title} </h3>
               <div className={style.stars_single_review}>
