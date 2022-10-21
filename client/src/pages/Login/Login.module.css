@@ -1,8 +1,34 @@
 .container {
-  margin-top: 100px;
+  margin: 20px auto;
+  width: 500px;
+}
+
+.containerInput {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.login {
+  color: #fff;
+}
+
+.inputLogin {
+  width: 250px;
+}
+
+.labelText {
+  color: #fff;
+  font-size: 17px;
 }
 
 .ver {
   color: #fff;
   font-size: 20px;
+}
+
+.error {
+  position: absolute;
+  color: #878e95;
+  top: 10px;
+  font-size: 14px;
 }
