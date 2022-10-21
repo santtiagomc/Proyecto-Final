@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,38 +12,45 @@ import {
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
 
-// const cartLS = JSON.parse(localStorage.getItem("cart"))
-
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const [cart, setCart] = useState([]);
+  const { user } = useSelector((state) => state);
+  const cartGlobal = useSelector((state) => state.cart);
 
   const { id } = useParams();
 
   useEffect(() => {
+    console.log(cartGlobal);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, []);
-  // intente usar el object.keys pero no funciono no se por que
+  }, [user]);
+  // EL USER NO SE TOCA -> (Mati, Gman)
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(putStatus(myBook.id));
   };
-  const handleEdit = (e) => {
-    e.preventDefault();
-  };
 
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCart(myBook.id));
-    // localStorage.setItem("cart", JSON.stringify(cart))
-  };
+    const cartLS = localStorage.getItem("cart");
 
-  let contador;
+    if (cartLS) {
+      let aux = `${cartLS},${id}`;
+
+      localStorage.setItem("cart", aux);
+    } else {
+      localStorage.setItem("cart", id);
+    }
+
+    if (localStorage) {
+      let datos = localStorage.getItem("cart").split(",");
+      dispatch(addToCart(datos));
+    }
+  };
 
   return (
     <>
@@ -84,7 +91,7 @@ export default function Detail() {
                 </span>
               ))}
               <h3 className={style.editorial}>{myBook.editorial}</h3>
-              {myBook.stock > 0 ? (
+              {myBook.stock > 0 && myBook.visible ? (
                 <span className={style.disponible}>Disponible</span>
               ) : (
                 <span className={style.noDisponible}>No disponible</span>
@@ -104,7 +111,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Review />
+          <Review id={id} />
         </div>
       ) : (
         <div className={style.loaderContainer}>

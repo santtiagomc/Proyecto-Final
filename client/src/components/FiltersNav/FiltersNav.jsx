@@ -4,43 +4,43 @@ import { changeFilter, changePage, changeSearch } from "../../redux/actions";
 import style from "./FiltersNav.module.css";
 
 export default function FiltersNav({ editorials }) {
-	const { filtersApplied, genres } = useSelector((state) => state);
-	const dispatch = useDispatch();
+  const { filtersApplied, genres } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-	function handleFilterGenres(e) {
-		dispatch(
-			changeFilter({
-				sort: filtersApplied.sort,
-				editorial: filtersApplied.editorial,
-				genres: e.target.value,
-			})
-		);
-	}
+  function handleFilterGenres(e) {
+    dispatch(
+      changeFilter({
+        sort: filtersApplied.sort,
+        editorial: filtersApplied.editorial,
+        genres: e.target.value,
+      })
+    );
+  }
 
-	function handleFilterEditorial(e) {
-		dispatch(
-			changeFilter({
-				sort: filtersApplied.sort,
-				editorial: e.target.value,
-				genres: filtersApplied.genres,
-			})
-		);
-	}
+  function handleFilterEditorial(e) {
+    dispatch(
+      changeFilter({
+        sort: filtersApplied.sort,
+        editorial: e.target.value,
+        genres: filtersApplied.genres,
+      })
+    );
+  }
 
-	function handleFilterSort(e) {
-		dispatch(
-			changeFilter({
-				sort: e.target.value,
-				editorial: filtersApplied.editorial,
-				genres: filtersApplied.genres,
-			})
-		);
-	}
+  function handleFilterSort(e) {
+    dispatch(
+      changeFilter({
+        sort: e.target.value,
+        editorial: filtersApplied.editorial,
+        genres: filtersApplied.genres,
+      })
+    );
+  }
 
-	const reset = () => {
-		dispatch(changeFilter());
-		dispatch(changeSearch());
-	};
+  const reset = () => {
+    dispatch(changeFilter());
+    dispatch(changeSearch());
+  };
 
   return (
     <>
@@ -98,7 +98,7 @@ export default function FiltersNav({ editorials }) {
           className={style.select}
           name="editorial"
           onChange={handleFilterEditorial}
-          required='false'
+          required={false}
         >
           <option disabled> -- Filtrar por editorial --</option>
           <option
@@ -108,7 +108,7 @@ export default function FiltersNav({ editorials }) {
             {" "}
             Todas
           </option>
-          {editorials &&
+          {editorials.length &&
             editorials.map((el) => (
               <option
                 key={el}
@@ -134,7 +134,7 @@ export default function FiltersNav({ editorials }) {
             {" "}
             Todas
           </option>
-          {genres &&
+          {genres.length &&
             genres.sort().map((el) => (
               <option
                 key={el}
