@@ -109,10 +109,10 @@ export default function CreateBook() {
     if (Object.keys(errors).length === 0) {
       dispatch(addBooks(input))
     }
-     else {
+    else {
       Swal.fire({
-        title:"Todos los campos son requeridos",
-        text:"Faltan campos por llenar",
+        title: "Todos los campos son requeridos",
+        text: "Faltan campos por llenar",
         icon: "info",
         timer: 4000
       })
@@ -122,8 +122,8 @@ export default function CreateBook() {
   useEffect(() => {
     if (create.message) {
       Swal.fire({
-        title:create.message,
-        icon:"success"
+        title: create.message,
+        icon: "success"
       })
       dispatch(resetCreate())
       setInput({
@@ -140,7 +140,7 @@ export default function CreateBook() {
       history.push("/")
     } else if (create.messageError) {
       Swal.fire({
-        title:create.messageError,
+        title: create.messageError,
         icon: "warning"
       })
       dispatch(resetCreate())
@@ -180,8 +180,8 @@ export default function CreateBook() {
                 value={input.name.toLowerCase()}
                 name="name"
                 onChange={(e) => handleChange(e)}
-                
-                />
+
+              />
               {input.name && (<p className={style.err}>{errors.name}</p>)}
               {/* {errors.name ? (<p className={style.err}>{errors.name}</p>) : ""} */}
             </div>
@@ -280,7 +280,7 @@ export default function CreateBook() {
               </select>
               {/* {errors.genre && (<p className={style.err}>{errors.genre}</p>)} */}
             </div>
-            
+
             <div className={style.genreContain}>
               {input.genre.map(c => {
 

@@ -107,7 +107,7 @@ export default function FiltersNav({ editorials }) {
             {" "}
             Todas las editoriales
           </option>
-          {editorials &&
+          {editorials.length &&
             editorials.map((el) => (
               <option
                 key={el}
@@ -133,7 +133,7 @@ export default function FiltersNav({ editorials }) {
             {" "}
             Todos los géneros
           </option>
-          {genres &&
+          {genres.length &&
             genres.sort().map((el) => (
               <option
                 key={el}

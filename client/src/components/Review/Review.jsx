@@ -1,108 +1,174 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Review.module.css";
+import { getDetail, postReviews, POST_REVIEWS } from "../../redux/actions";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export default function Review() {
+export default function Review({ id }) {
+  const { user, createReview, detail } = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  const [addReviewActive, setAddReviewActive] = useState(false)
+  const [errors, setErrors] = useState({})
+
+  const [input, setInput] = useState({
+    title: "",
+    description: "",
+    rating: 0,
+    UserId: user ? user.uid : "",
+    BookId: id
+  })
+
+  function validate(input) {
+    let error = {}
+
+    const regexText = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!*:;]{2,2000}$/
+
+    if (input.title.length <= 1) {
+      error.title = 'Mínimo 2 caracteres'
+    } else if (input.title.length > 80) {
+      error.title = 'Máximo 80 caracteres'
+    } else if (!input.title.match(regexText)) {
+      error.title = 'Sólo puede contener letras, números y los siguientes caracteres: .,!*:-()'
+    }
+
+    if (input.description.length <= 1) {
+      error.description = 'Mínimo 2 caracteres'
+    } else if (input.description.length > 1500) {
+      error.description = 'Máximo 1500 caracteres'
+    }
+
+    if (input.rating === 0) {
+      error.rating = "Debes darle un puntaje a tu reseña"
+    }
+
+    setErrors(error);
+  }
+
+  useEffect(() => {
+    if (!detail) return;
+    validate(input)
+  }, [input])
+
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  function handleRating(value) {
+    setInput({ ...input, rating: Number(value) })
+  }
+
+  function onSubmit(e) {
+    e.preventDefault()
+    dispatch(postReviews(input))
+  }
+
+  useEffect(() => {
+    if (Array.isArray(createReview)) return
+    if (createReview.messageError) {
+      Swal.fire({
+        title: createReview.messageError,
+        icon: "warning",
+        timer: 4000
+      })
+      dispatch({ type: POST_REVIEWS, payload: [] })
+    } else {
+      Swal.fire({
+        title: createReview.message,
+        icon: "success",
+        timer: 4000
+      })
+      setInput({
+        title: "",
+        description: "",
+        rating: 0,
+        UserId: user ? user.uid : "",
+        BookId: id
+      })
+      dispatch({ type: POST_REVIEWS, payload: [] });
+      dispatch(getDetail(id))
+    }
+  }, [createReview])
+
   return (
-    <div className={style.container}>
-      <h2 className={style.title}>Reviews</h2>
-      <div className={style.reviewContainer}>
-        <div className={style.userContainer}>
-          <h3 className={style.user}>Jane Doe</h3>
+    <div className={`container ${style.reviews_container}`}>
+      <h1 className={style.container_title}>Reseñas</h1>
+      {!user
+        ?
+        <Link to="/login" className={style.see_form}>
+          <p>Inicia sesión para añadir una reseña</p>
+          <i class="fa-solid fa-user"></i>
+        </Link>
+        : !addReviewActive
+          ? <span className={style.see_form} onClick={() => setAddReviewActive(true)}>
+            <p>Añadir reseña</p>
+            <i className="fa-solid fa-arrow-down"></i></span>
+          :
           <div>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
+
+            <span className={style.see_form} onClick={() => setAddReviewActive(false)}>
+              <p>Ocultar formulario</p>
+              <i className="fa-solid fa-arrow-up"></i>
+            </span>
+            <form className="row" onSubmit={onSubmit}>
+
+              <div className="col-10 mb-3">
+                <label for="title" className="form-label">Título*</label>
+                <input className={`form-control ${!input.title ? "" : errors.title ? "is-invalid" : "is-valid"}`} type="text" name="title" id="title" placeholder="Agregue un título a su reseña" value={input.title} onChange={handleChange} />
+                {input.title && (<div className="invalid-feedback">{errors.title}</div>)}
+              </div>
+
+              <div className="col-2 mb-3">
+                <label for="rating" className={` ${style.label_rating}`}>Rating*</label>
+                <div id="rating" className={`col-3 ${style.stars}`}>
+                  <div className={style.star}><i className={input.rating >= 1 ? `fa-solid fa-star` : `fa-regular fa-star`} onClick={() => handleRating(1)}></i></div>
+
+                  <div className={style.star}><i className={input.rating >= 2 ? `fa-solid fa-star` : `fa-regular fa-star`} onClick={() => handleRating(2)}></i></div>
+
+                  <div className={style.star}><i className={input.rating >= 3 ? `fa-solid fa-star` : `fa-regular fa-star`} onClick={() => handleRating(3)}></i></div>
+
+                  <div className={style.star}><i className={input.rating >= 4 ? `fa-solid fa-star` : `fa-regular fa-star`} onClick={() => handleRating(4)}></i></div>
+
+                  <div className={style.star}><i className={input.rating >= 5 ? `fa-solid fa-star` : `fa-regular fa-star`} onClick={() => handleRating(5)}></i></div>
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <label for="description" className="form-label">Descripción*</label>
+                <textarea rows="11" type="text" name="description" id="description" className={`form-control ${!input.description ? "" : errors.description ? "is-invalid" : "is-valid"}`} placeholder="Agregue su reseña" value={input.description} onChange={handleChange} />
+                {input.description && (<div className="invalid-feedback">{errors.description}</div>)}
+              </div>
+
+              <div className="mb-3">
+                <button className="btn btn-primary col-1" disabled={Object.keys(errors).length ? true : false}>Enviar</button>
+              </div>
+            </form>
           </div>
-        </div>
-        <p className={style.review}>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-          ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-          qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et
-          accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-          voluptatum deleniti atque corrupti quos dolores et quas molestias
-          excepturi sint occaecati cupiditate non provident, similique sunt in
-          culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-          fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
-          libero tempore, cum soluta nobis est eligendi optio cumque nihil
-          impedit quo minus id quod maxime placeat facere
-        </p>
-      </div>
-      <div className={style.reviewContainer}>
-        <div className={style.userContainer}>
-          <h3 className={style.user}>Jonh Doe</h3>
-          <div>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
+      }
+      <hr></hr>
+      {detail.Reviews.length
+        ? detail.Reviews.map(review => (
+          <div className={style.single_review}>
+            <h6 className={style.user_single_review}>{review.User.fullName}</h6>
+            <div className={style.header_single_review}>
+              <h3 className={style.title_single_review}> {review.title} </h3>
+              <div className={style.stars_single_review}>
+                {
+                  Array(review.rating).fill(1).map(e => (
+                    <div className={style.star_single_review} ><i className={`fa-solid fa-star`}></i></div>
+                  ))
+                }
+              </div>
+            </div>
+            <p className={style.description_single_review}> {review.description} </p>
+            <hr></hr>
           </div>
-        </div>
-        <p className={style.review}>
-          Reina en mi espíritu una alegría admirable, muy parecida a las dulces
-          alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y
-          me felicito de vivir en este país, el más a propósito para almas como
-          la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la
-          idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar,
-          ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he
-          sido mejor pintor Cuando el valle se vela en torno mío con un encaje
-          de vapores; cuando el sol de
-        </p>
-      </div>
-      <div className={style.reviewContainer}>
-        <div className={style.userContainer}>
-          <h3 className={style.user}>no se</h3>
-          <div>
-            <span className={style.star}>&#9733;</span>
-            <span className={style.star}>&#9733;</span>
-          </div>
-        </div>
-        <p className={style.review}>
-          Muy lejos, más allá de las montañas de palabras, alejados de los
-          países de las vocales y las consonantes, viven los textos simulados.
-          Viven aislados en casas de letras, en la costa de la semántica, un
-          gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo
-          y los abastece con las normas necesarias. Hablamos de un país
-          paraisomático en el que a uno le caen pedazos de frases asadas en la
-          boca. Ni siquiera los todopoderosos signos de puntuación dominan a los
-          textos simulados; una vida, se puede decir, poco ortográfica. Pero un
-          buen día, una pequeña línea de texto simulado, llamada Lorem Ipsum,
-          decidió aventurarse y salir al vasto mundo de la gramática. El gran
-          Oxmox le desanconsejó hacerlo, ya que esas tierras estaban llenas de
-          comas malvadas, signos de interrogación salvajes y puntos y coma
-          traicioneros, pero el texto simulado no se dejó atemorizar. Empacó sus
-          siete versales, enfundó su inicial en el cinturón y se puso en camino.
-          Cuando ya había escalado las primeras colinas de las montañas
-          cursivas, se dio media vuelta para dirigir su mirada por última vez,
-          hacia su ciudad natal Letralandia, el encabezamiento del pueblo
-          Alfabeto y el subtítulo de su propia calle, la calle del renglón. Una
-          pregunta retórica se le pasó por la mente y le puso melancólico, pero
-          enseguida reemprendió su marcha. De nuevo en camino, se encontró con
-          una copia. La copia advirtió al pequeño texto simulado de que en el
-          lugar del que ella venía, la habían reescrito miles de veces y que
-          todo lo que había quedado de su original era la palabra "y", así que
-          más le valía al pequeño texto simulado volver a su país, donde estaría
-          mucho más seguro. Pero nada de lo dicho por la copia pudo convencerlo,
-          de manera que al cabo de poco tiempo, unos pérfidos redactores
-          publicitarios lo encontraron y emborracharon con Longe y Parole para
-          llevárselo después a su agencia, donde abusaron de él para sus
-          proyectos, una y otra vez. Y si aún no lo han reescrito, lo siguen
-          utilizando hasta ahora.Muy lejos, más allá de las montañas de
-          palabras, alejados de los países de las vocales y las consonantes,
-          viven los textos simulados. Viven aislados en casas de letras, en la
-          costa de la semántica, un gran océano de lenguas. Un riachuelo llamado
-          Pons fluye por su pueblo y los abastece con las normas
-        </p>
-      </div>
+        ))
+        : ""}
     </div>
-  );
+  )
 }
