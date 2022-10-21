@@ -1,23 +1,28 @@
-require("dotenv").config();
-const axios = require("axios");
-const { Books } = require("../db");
-const { API_KEY } = process.env;
+const { Books, Genres, Books_Genres } = require("../db");
 
 async function putBook({ id }, body) {
-	try {
-		const book = await Books.findByPk(id);
-		if (book === null)
-			return { messageError: "No existe ningun libro con ese ID" };
+  try {
+    const book = await Books.findByPk(id);
+    if (book === null)
+      return { messageError: "No existe ningun libro con ese ID" };
 
-		book.set(body);
-		await book.save();
+    let allGenres = await Genres.findAll({
+      attributes: ["name"],
+      through: { attributes: [] },
+    });
 
-		return book;
-	} catch (error) {
-		return { messageError: "Error" };
-	}
+    book.set(body);
+    book.removeGenres(allGenres);
+    book.addGenres(body.genre);
+
+    await book.save();
+
+    return { message: "Libro editado con éxito!" };
+  } catch (error) {
+    return { messageError: "Error" };
+  }
 }
 
 module.exports = {
-	putBook,
+  putBook,
 };

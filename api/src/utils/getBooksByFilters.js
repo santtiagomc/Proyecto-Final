@@ -1,7 +1,3 @@
-const { getAllBooks } = require("./getAllBooks");
-const { Op } = require("sequelize");
-const { Books, Genres } = require('../db');
-
 async function getBooksByFilters(booksFiltereds, filters) {
   try {
     booksFiltereds = booksFiltereds.map(book => {
@@ -46,7 +42,7 @@ async function getBooksByFilters(booksFiltereds, filters) {
         booksFiltereds.sort((b, a) => a.edition - b.edition)
     }
 
-    if (!booksFiltereds.length) return { messageError: "No se encontraron libros con esos filtros" }
+    if (!booksFiltereds.length) return { messageError: "No se encontraron resultados" }
     return booksFiltereds
 
   } catch (error) {

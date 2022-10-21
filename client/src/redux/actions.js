@@ -4,9 +4,7 @@ export const GET_GENRES = "GET_GENRES";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
 export const GET_REVIEWS = "GET_REVIEWS";
-export const GET_FILTERED = "GET_FILTERED";
 export const GET_EDITORIALS = "GET_EDITORIALS";
-export const GET_USER = "GET_USER";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
@@ -14,6 +12,7 @@ export const POST_REVIEWS = "POST_REVIEWS";
 export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const PUT_STATUS = "PUT_STATUS";
+export const PUT_BOOK = "PUT_BOOK";
 export const USER_EXIST = "USER_EXIST ";
 
 export function userExist(payload) {
@@ -147,6 +146,7 @@ export function addBooks(input) {
     }
   };
 }
+
 export function postReviews(input) {
   return async function (dispatch) {
     try {
@@ -175,7 +175,6 @@ export function putStatus(id) {
   return async function (dispatch) {
     try {
       const json = await axios.put(`http://localhost:3001/book/${id}`);
-      console.log(json);
       return dispatch({
         type: PUT_STATUS,
         payload: json.data,
@@ -183,6 +182,28 @@ export function putStatus(id) {
     } catch (err) {
       return dispatch({
         type: PUT_STATUS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function putBook(id, body) {
+  console.log(body);
+  return async function (dispatch) {
+    try {
+      const json = await axios.put(
+        `http://localhost:3001/book/details/${id}`,
+        body
+      );
+      console.log(json);
+      return dispatch({
+        type: PUT_BOOK,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: PUT_BOOK,
         payload: err.response.data,
       });
     }

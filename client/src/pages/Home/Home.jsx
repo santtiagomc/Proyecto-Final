@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
 import {
@@ -7,7 +8,10 @@ import {
   searchBook,
   changePage,
   getEditorials,
+  changeFilter,
+  changeSearch,
 } from "../../redux/actions";
+import Swal from "sweetalert2";
 
 import style from "./HomePrueba.module.css";
 
@@ -29,6 +33,23 @@ export default function Home() {
     if (!editorials.length) dispatch(getEditorials());
     dispatch(searchBook(filtersApplied, searchApplied, page));
   }, [filtersApplied, page, searchApplied]);
+
+  useEffect(() => {
+    if (books.messageError) {
+      Swal.fire({
+        title: "Oops...",
+        text: books.messageError,
+        icon: "error",
+        timer: 4000,
+        background: "#2d0f48",
+        color: "#fff",
+        iconColor: "#8c105c",
+        confirmButtonColor: "#10668c",
+      });
+      dispatch(changeFilter());
+      dispatch(changeSearch());
+    }
+  }, [books]);
 
   const nextPage = () => {
     if (page + 10 < total) {

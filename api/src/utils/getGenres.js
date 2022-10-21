@@ -1,7 +1,4 @@
-require("dotenv").config();
-// const axios = require('axios');
 const { Genres } = require("../db");
-
 
 async function getGenres() {
   try {

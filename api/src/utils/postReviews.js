@@ -1,4 +1,4 @@
-const { Books, Genres, Reviews } = require('../db');
+const { Reviews } = require('../db');
 const { capitalize } = require('./capitalize');
 
 async function postReviews({ title, description, rating, UserId, BookId }) {

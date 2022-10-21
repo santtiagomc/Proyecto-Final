@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getDetail, GET_DETAIL, putStatus } from "../../redux/actions";
@@ -29,9 +29,8 @@ export default function Detail() {
   };
   const handleEdit = (e) => {
     e.preventDefault();
-    console.log("xdddd");
   };
-  console.log(myBook);
+
   let contador;
 
   return (
@@ -91,7 +90,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Review id={id} />
+          <Review />
         </div>
       ) : (
         <div className={style.loaderContainer}>

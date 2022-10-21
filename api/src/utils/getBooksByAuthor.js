@@ -6,7 +6,7 @@ async function getBooksByAuthor(author) {
 
     const booksByAuthor = allBooks.length && allBooks.filter(b => b.author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 
-    if (!booksByAuthor.length) return { messageError: `No se encontraron resultados para el autor: ${author}.` }
+    if (!booksByAuthor.length) return { messageError: `No se encontraron resultados para: ${author}.` }
     return booksByAuthor;
 
   } catch (error) {

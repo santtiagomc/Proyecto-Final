@@ -1,7 +1,4 @@
 const { getAllBooks } = require("./getAllBooks");
-const { getBooksByName } = require("./getBooksByName");
-const { getBooksByAuthor } = require("./getBooksByAuthor");
-const { getBooksByEditorial } = require("./getBooksByEditorial");
 
 async function getBooksByAll(all) {
   try {
@@ -13,9 +10,6 @@ async function getBooksByAll(all) {
       const booksByAuthor = allBooks.filter(b => b.author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(all.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 
       const booksByEditorial = allBooks.filter(b => b.editorial.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(all.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
-      // const booksByName = await getBooksByName();
-      // const booksByAuthor = await getBooksByAuthor();
-      // const booksByEditorial = await getBooksByEditorial();
 
       const bookNames = [...new Set([...booksByName, ...booksByAuthor, ...booksByEditorial].map(b => b.name))];
 

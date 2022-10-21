@@ -6,12 +6,12 @@ import {
   GET_REVIEWS,
   RESET_CREATE,
   CHANGE_FILTERS,
-  GET_FILTERED,
   GET_GENRES,
   CHANGE_SEARCH,
   CHANGE_PAGE,
   GET_EDITORIALS,
   PUT_STATUS,
+  PUT_BOOK,
   USER_EXIST,
 } from "./actions";
 
@@ -48,9 +48,6 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_EDITORIALS:
       return { ...state, editorials: action.payload };
-
-    case GET_FILTERED:
-      return { ...state, books: action.payload };
 
     case CHANGE_FILTERS:
       return { ...state, filtersApplied: action.payload, page: 0 };
