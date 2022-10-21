@@ -83,6 +83,9 @@ export default function rootReducer(state = initialState, action) {
 
       return { ...state, detail: action.payload, books: aux };
 
+    case PUT_BOOK:
+      return { ...state, create: action.payload };
+
     case GET_REVIEWS:
       return { ...state, reviews: action.payload };
 
