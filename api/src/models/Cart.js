@@ -16,6 +16,9 @@ module.exports = (sequelize) => {
 				allowNull: false,
 				defaultValue: "Abierto"
 			},
+			books: {
+				type: DataTypes.ARRAY(DataTypes.STRING)
+			}
 		},
 		{
 			timestamps: false,
