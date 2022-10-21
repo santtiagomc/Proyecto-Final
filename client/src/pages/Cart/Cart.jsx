@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import style from "./Cart.module.css";

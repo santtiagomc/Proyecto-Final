@@ -15,6 +15,7 @@ import style from "./DetailPrueba.module.css";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
+  const { user } = useSelector((state) => state);
   const cartGlobal = useSelector((state) => state.cart);
 
   const { id } = useParams();
@@ -25,7 +26,8 @@ export default function Detail() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, []);
+  }, [user]);
+  // EL USER NO SE TOCA -> (Mati, Gman)
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -109,7 +111,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Review />
+          <Review id={id} />
         </div>
       ) : (
         <div className={style.loaderContainer}>

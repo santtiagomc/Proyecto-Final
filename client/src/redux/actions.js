@@ -3,11 +3,11 @@ import axios from "axios";
 export const GET_GENRES = "GET_GENRES";
 export const GET_SEARCH = "GET_SEARCH";
 export const GET_DETAIL = "GET_DETAIL";
-export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_EDITORIALS = "GET_EDITORIALS";
 export const CHANGE_FILTERS = "CHANGE_FILTERS";
 export const CHANGE_SEARCH = "CHANGE_SEARCH";
 export const POST_BOOKS = "POST_BOOKS";
+export const POST_REVIEWS = "POST_REVIEWS";
 export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const PUT_STATUS = "PUT_STATUS";
@@ -113,23 +113,6 @@ export function getDetail(id) {
   };
 }
 
-export function getReview() {
-  return async function (dispatch) {
-    try {
-      const json = await axios.get(`http://localhost:3001/reviews`);
-      return dispatch({
-        type: GET_REVIEWS,
-        payload: json.data,
-      });
-    } catch (err) {
-      return dispatch({
-        type: GET_REVIEWS,
-        payload: err.response.data,
-      });
-    }
-  };
-}
-
 export function addBooks(input) {
   return async function (dispatch) {
     try {
@@ -141,6 +124,23 @@ export function addBooks(input) {
     } catch (error) {
       return dispatch({
         type: POST_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function postReviews(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post("http://localhost:3001/reviews", input);
+      return dispatch({
+        type: POST_REVIEWS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_REVIEWS,
         payload: error.response.data,
       });
     }

@@ -17,7 +17,7 @@ async function getAllEditorials() {
         .sort();
     }
 
-    if (allBooks.messageError) return allBooks.messageError
+    if (allBooks.messageError) return allBooks
 
     return allEditorials;
 
