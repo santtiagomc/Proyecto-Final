@@ -14,6 +14,7 @@ module.exports = (sequelize) => {
 			status: {
 				type: DataTypes.ENUM("Abierto", "Cerrado", "Entregado"),
 				allowNull: false,
+				defaultValue: "Abierto"
 			},
 		},
 		{

@@ -24,7 +24,7 @@ async function postUser({
 			},
 		});
 		if (created) return { message: "Usuario creado correctamente" };
-		return { message: "Usuario ya existente" };
+		return { messageError: "Usuario ya existente" };
 	} catch (e) {
 		return { messageError: "Error" };
 	}

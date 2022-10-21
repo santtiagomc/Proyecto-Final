@@ -8,14 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body a:link, a:visited, a:active {
-  text-decoration:none;
+body a:link,
+a:visited,
+a:active {
+  text-decoration: none;
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
 }
+
 select {
   font-family: inherit;
 }

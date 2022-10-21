@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getDetail, GET_DETAIL, putStatus } from "../../redux/actions";
+import {
+  getDetail,
+  GET_DETAIL,
+  putStatus,
+  addToCart,
+} from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
@@ -10,26 +15,42 @@ import style from "./DetailPrueba.module.css";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
+  const { user } = useSelector((state) => state);
+  const cartGlobal = useSelector((state) => state.cart);
 
   const { id } = useParams();
 
   useEffect(() => {
+    console.log(cartGlobal);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, []);
-  // intente usar el object.keys pero no funciono no se por que
+  }, [user]);
+  // EL USER NO SE TOCA -> (Mati, Gman)
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(putStatus(myBook.id));
   };
-  const handleEdit = (e) => {
-    e.preventDefault();
-  };
 
-  let contador;
+  const handleCart = (e) => {
+    e.preventDefault();
+    const cartLS = localStorage.getItem("cart");
+
+    if (cartLS) {
+      let aux = `${cartLS},${id}`;
+
+      localStorage.setItem("cart", aux);
+    } else {
+      localStorage.setItem("cart", id);
+    }
+
+    if (localStorage) {
+      let datos = localStorage.getItem("cart").split(",");
+      dispatch(addToCart(datos));
+    }
+  };
 
   return (
     <>
@@ -70,7 +91,7 @@ export default function Detail() {
                 </span>
               ))}
               <h3 className={style.editorial}>{myBook.editorial}</h3>
-              {myBook.stock > 0 ? (
+              {myBook.stock > 0 && myBook.visible ? (
                 <span className={style.disponible}>Disponible</span>
               ) : (
                 <span className={style.noDisponible}>No disponible</span>
@@ -81,14 +102,16 @@ export default function Detail() {
                 <button
                   className={myBook.visible ? style.cart : style.cartF}
                   disabled={myBook.visible ? false : true}
-                  onClick={(e) => handleEdit(e)}
+                  value="cart"
+                  type="button"
+                  onClick={(e) => handleCart(e)}
                 >
-                  Add to cart
+                  Agregar al carrito
                 </button>
               </div>
             </div>
           </div>
-          <Review />
+          <Review id={id} />
         </div>
       ) : (
         <div className={style.loaderContainer}>
