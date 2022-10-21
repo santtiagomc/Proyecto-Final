@@ -48,13 +48,13 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
           {errors.email?.type === "pattern" && (
-            <p className={style.error}>Ingresa un email valido</p>
+            <p className={style.error}>Ingresa un email válido</p>
           )}
         </div>
         <div className={style.inputContainer}>
           <input
             className={style.input}
-            placeholder="Contrasena"
+            placeholder="Contraseña"
             type="password"
             {...register("password", {
               required: true,
