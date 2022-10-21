@@ -16,13 +16,27 @@ async function getUserCart({userId}){
       }]
     });
 
-    if(!userCart.length) return { messageError: "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!" };
+    if(!userCart) return { messageError: "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!" };
     return userCart;
+
     
   }catch(error){
     return { messageError: "Se ha producido un error." };
   }
 };
+
+async function getGuestCart({books}){
+  try{
+    // const guestCart = books.forEach(b => 
+    //   // await Books.findOne({
+    //   // where: {
+
+    //   // }
+    // )
+  }catch(error){
+
+  }
+}
 
 module.exports = { 
   getUserCart 

@@ -10,10 +10,10 @@ router.get('/:userId', async (req, res) => {
   userCart.messageError ? res.status(404).json(userCart) : res.status(201).json(userCart);
 });
 
-router.post("/:userId", async (req, res) => {
-  const userCart = await postCart(req.params, req.body);
+router.post("/", async (req, res) => {
+  const userCart = await postCart(req.body);
 
-  userCart.length ? res.status(201).json(userCart) : res.status(404).json({message: "MAL"})
+  userCart.messageError ? res.status(404).json(userCart) : res.status(201).json(userCart)
 });
 
 module.exports = router;
