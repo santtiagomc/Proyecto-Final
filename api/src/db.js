@@ -55,7 +55,7 @@ Reviews.belongsTo(Users)
 Books.hasMany(Reviews)
 Reviews.belongsTo(Books)
 
-Users.hasOne(Cart)
+Users.hasMany(Cart)
 Cart.belongsTo(Users)
 
 Users.hasOne(Wishlist)

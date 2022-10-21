@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
 import {
@@ -93,7 +92,7 @@ export default function Home() {
           </button>
         </div>
         <div className={style.grid}>
-          {!books.messageError &&
+          {!books.messageError ? (
             books.map((book) => {
               return (
                 <Card
@@ -103,10 +102,14 @@ export default function Home() {
                   price={book.price}
                   name={book.name}
                   author={book.author}
+                  edition={book.edition}
                   visible={book.visible}
                 />
               );
-            })}
+            })
+          ) : (
+            <span className={style.span}>{books.messageError}</span>
+          )}
         </div>
       </div>
     </div>
