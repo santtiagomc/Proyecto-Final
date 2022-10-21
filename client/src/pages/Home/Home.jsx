@@ -93,7 +93,7 @@ export default function Home() {
           </button>
         </div>
         <div className={style.grid}>
-          {!books.messageError &&
+          {!books.messageError ? (
             books.map((book) => {
               return (
                 <Card
@@ -106,7 +106,10 @@ export default function Home() {
                   visible={book.visible}
                 />
               );
-            })}
+            })
+          ) : (
+            <span className={style.span}>{books.messageError}</span>
+          )}
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import style from "./DetailPrueba.module.css";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
+  const { user } = useSelector((state) => state);
 
   const { id } = useParams();
 
@@ -18,8 +19,9 @@ export default function Detail() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, []);
+  }, [user]);
   // intente usar el object.keys pero no funciono no se por que
+  // Puse que mire al user para que cuando alguien cierra sesión se recargue y no pueda mandar reseña -> (Mati)
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -40,9 +42,9 @@ export default function Detail() {
         >
           {myBook.visible ? "Ocultar producto" : "Mostrar producto"}
         </button>
-        <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>Editar producto</button>
-        </NavLink>
+        <button className={style.btnStatusT} onClick={(e) => handleEdit(e)}>
+          Editar producto
+        </button>
       </div>
       {myBook.name ? (
         <div>

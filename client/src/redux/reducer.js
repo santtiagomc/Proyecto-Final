@@ -2,7 +2,7 @@ import {
   GET_SEARCH,
   GET_DETAIL,
   POST_BOOKS,
-  GET_REVIEWS,
+  POST_REVIEWS,
   RESET_CREATE,
   CHANGE_FILTERS,
   GET_GENRES,
@@ -21,7 +21,6 @@ const initialState = {
   genres: [],
   book: [],
   detail: [],
-  reviews: [],
   filtersApplied: {
     sort: "A-Z",
     genres: "none",
@@ -32,6 +31,7 @@ const initialState = {
     name: "",
   },
   create: [],
+  createReview: [],
   page: 0,
   total: 0,
 };
@@ -47,8 +47,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_EDITORIALS:
       return { ...state, editorials: action.payload };
 
-		case CHANGE_FILTERS:
-			return { ...state, filtersApplied: action.payload, page: 0 };
+    case CHANGE_FILTERS:
+      return { ...state, filtersApplied: action.payload, page: 0 };
 
     case CHANGE_SEARCH:
       return { ...state, searchApplied: action.payload, page: 0 };
@@ -84,8 +84,8 @@ export default function rootReducer(state = initialState, action) {
     case PUT_BOOK:
       return { ...state, create: action.payload };
 
-    case GET_REVIEWS:
-      return { ...state, reviews: action.payload };
+    case POST_REVIEWS:
+      return { ...state, createReview: action.payload }
 
     case POST_BOOKS:
       return { ...state, create: action.payload };
