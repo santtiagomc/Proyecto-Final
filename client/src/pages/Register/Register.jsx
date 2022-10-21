@@ -18,6 +18,7 @@ export default function Register() {
       history.push("/");
     } catch (error) {
       console.log(error);
+      // "Un error ha ocurrido"
     }
   };
 
@@ -27,6 +28,7 @@ export default function Register() {
       history.push("/");
     } catch (error) {
       console.log(error);
+      // "Un error ha ocurrido"
     }
   };
 
