@@ -17,6 +17,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
+  console.log(req.params);
   let response = await putBookVisibility(req.params);
 
   let statusCode;

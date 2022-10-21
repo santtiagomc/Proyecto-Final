@@ -20,6 +20,7 @@ export function userExist(payload) {
     payload,
   };
 }
+export const ADD_TO_CART = "ADD_TO_CART";
 
 export function searchBook(filters, search, page) {
   return async function (dispatch) {
@@ -189,5 +190,22 @@ export function putBook(id, body) {
         payload: err.response.data,
       });
     }
+  };
+}
+
+// export function addToCart(id) {
+// 	return function (dispatch) {
+// 			dispatch({
+// 					type: ADD_TO_CART,
+// 					payload: id
+// 			})
+// 	}
+// }
+
+export function addToCart(localStorage) {
+  //proximamente modificar para mandar datos al back
+  return {
+    type: ADD_TO_CART,
+    payload: localStorage,
   };
 }
