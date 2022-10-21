@@ -147,7 +147,9 @@ export default function Register() {
         </div> */}
         <div className={style.register}>
           <button className={style.registerButton}>Crear</button>
-          <span onClick={handleSignInGoogle}>Con google</span>
+          <span className={style.span} onClick={handleSignInGoogle}>
+            Con google
+          </span>
         </div>
       </form>
     </>
