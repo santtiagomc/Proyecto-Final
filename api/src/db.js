@@ -2,10 +2,10 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(
-  `postgresql://postgres:qkU2qe0YbFrpMwkUrv3l@containers-us-west-62.railway.app:6032/railway`,
+  `postgresql://${process.env.PGUSER }:${ process.env.PGPASSWORD }@${ process.env.PGHOST }:${ process.env.PGPORT }/${ process.env.PGDATABASE }`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
@@ -43,8 +43,9 @@ const { Books, Genres, Users, Cart, Reviews, Wishlist } = sequelize.models;
 Books.belongsToMany(Genres, { through: "Books_Genres", timestamps: false });
 Genres.belongsToMany(Books, { through: "Books_Genres", timestamps: false });
 
-Books.belongsToMany(Cart, { through: "Books_Cart", timestamps: false });
-Cart.belongsToMany(Books, { through: "Books_Cart", timestamps: false });
+const Books_Carts = sequelize.define("Books_Carts", { quantity: { type: DataTypes.INTEGER, defaultValue: 1} }, { timestamps: false });
+Books.belongsToMany(Cart, { through: Books_Carts });
+Cart.belongsToMany(Books, { through: Books_Carts });
 
 Books.belongsToMany(Wishlist, { through: "Books_Wishlist", timestamps: false });
 Wishlist.belongsToMany(Books, { through: "Books_Wishlist", timestamps: false });
