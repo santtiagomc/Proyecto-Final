@@ -1,5 +1,4 @@
-require("dotenv").config();
-const { Books, Genres } = require("../db");
+const { Books, Genres, Reviews, Users } = require("../db");
 
 async function getBookDetail(idBook) {
   try {
@@ -11,6 +10,16 @@ async function getBookDetail(idBook) {
           through: {
             attributes: [],
           },
+        },
+        {
+          model: Reviews,
+          attributes: ["title", "description", "rating"],
+          include: [
+            {
+              model: Users,
+              attributes: ["fullName"]
+            }
+          ],
         },
       ],
     });

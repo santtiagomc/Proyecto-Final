@@ -1,21 +1,22 @@
-require('dotenv').config();
-const axios = require('axios');
 const { Books, Genres } = require('../db');
+const { capitalize } = require('./capitalize');
 
 async function postAllBooks(allBooks) {
   try {
     allBooks.forEach(async (book) => {
+      let capitalizeEditorial = await capitalize(book.editorial);
+      let capitalizeAuthor = await capitalize(book.author);
       let [newBook, created] = await Books.findOrCreate({
         where: {
           name: book.name.toLowerCase(),
         },
         defaults: {
           image: book.image,
-          author: book.author,
+          author: capitalizeAuthor,
           description: book.description,
           price: book.price,
           stock: book.stock,
-          editorial: book.editorial,
+          editorial: capitalizeEditorial,
           edition: book.edition,
         }
       })

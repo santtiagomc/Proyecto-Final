@@ -1,0 +1,67 @@
+.container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 600px;
+  height: 400px;
+  padding: 20px 40px;
+  background: #232323;
+  border-radius: 5px;
+}
+
+.title {
+  color: #ffffff;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 30px;
+}
+
+.inputContainer {
+  display: inline;
+  position: relative;
+}
+
+.input {
+  width: 270px;
+  height: 30px;
+  background-color: #222222;
+  border: none;
+  color: #fff;
+  border-bottom: 1px solid #388dd6;
+  margin-right: 25px;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #fff;
+  font-size: 15px;
+}
+
+.error {
+  position: absolute;
+  color: #878e95;
+  top: 14px;
+  left: 5px;
+  font-size: 14px;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.registerButton {
+  background-color: #fff;
+}
+
+.span {
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+}

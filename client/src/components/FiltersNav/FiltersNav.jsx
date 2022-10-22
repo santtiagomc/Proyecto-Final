@@ -45,8 +45,8 @@ export default function FiltersNav({ editorials }) {
   return (
     <>
       <nav className={style.navContainer}>
-        <h2 className={style.filters}>Filtros</h2>
-        <label className={style.typeFilter}>Ordenar:</label>
+        <h2 className={style.filters}>Filtrar resultados</h2>
+        <label className={style.typeFilter}>Ordenar por:</label>
         <select
           className={style.select}
           name="sort"
@@ -93,11 +93,12 @@ export default function FiltersNav({ editorials }) {
           </option>
         </select>
 
-        <label className={style.typeFilter}>Filtrar por editoriales:</label>
+        <label className={style.typeFilter}>Editoriales</label>
         <select
           className={style.select}
           name="editorial"
           onChange={handleFilterEditorial}
+          required={false}
         >
           <option disabled> -- Filtrar por editorial --</option>
           <option
@@ -105,9 +106,9 @@ export default function FiltersNav({ editorials }) {
             selected={filtersApplied.editorial === "none" ? true : false}
           >
             {" "}
-            Todas las editoriales
+            Todas
           </option>
-          {editorials &&
+          {editorials.length &&
             editorials.map((el) => (
               <option
                 key={el}
@@ -119,21 +120,21 @@ export default function FiltersNav({ editorials }) {
             ))}
         </select>
 
-        <label className={style.typeFilter}>Filtrar por género:</label>
+        <label className={style.typeFilter}>Categorías</label>
         <select
           className={style.select}
           name="genres"
           onChange={handleFilterGenres}
         >
-          <option disabled>-- Filtrar por género --</option>
+          <option disabled>-- Filtrar por categoría --</option>
           <option
             value="none"
             selected={filtersApplied.genres === "none" ? true : false}
           >
             {" "}
-            Todos los géneros
+            Todas
           </option>
-          {genres &&
+          {genres.length &&
             genres.sort().map((el) => (
               <option
                 key={el}
@@ -144,9 +145,9 @@ export default function FiltersNav({ editorials }) {
               </option>
             ))}
         </select>
-        <label className={style.typeFilter}>Todos los libros</label>
+        {/* <label className={style.typeFilter}>Todos los libros</label> */}
         <button className={style.resetButton} onClick={reset}>
-          Resetear
+          Ver todos
         </button>
       </nav>
     </>

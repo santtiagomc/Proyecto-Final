@@ -1,18 +1,37 @@
-require("dotenv").config();
-const axios = require("axios");
-const { Books } = require("../db");
-const { API_KEY } = process.env;
+const { Books, Genres, Reviews, Users } = require("../db");
 
 async function putBookVisibility({ id }) {
   try {
-    const book = await Books.findByPk(id);
+    console.log(id);
+    const book = await Books.findByPk(id, {
+      include: [
+        {
+          model: Genres,
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          model: Reviews,
+          attributes: ["title", "description", "rating"],
+          include: [
+            {
+              model: Users,
+              attributes: ["fullName"],
+            },
+          ],
+        },
+      ],
+    });
     console.log(book);
-    if (book === null) return { messageError: "No existe ningun libro con ese ID" };
+    if (book === null)
+      return { messageError: "No existe ningún libro con ese ID" };
 
     book.visible ? (book.visible = false) : (book.visible = true);
     await book.save();
 
-    return { message: "El estado del libro ha sido modificado!" };
+    return book;
   } catch (error) {
     return { messageError: "Error" };
   }
