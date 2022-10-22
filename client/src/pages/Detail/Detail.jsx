@@ -149,6 +149,8 @@ export default function Detail() {
         });
       }
 
+      repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+      uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
       dispatch(getGuestCart(uniqueIdArrayCart.toString()))
     }
   };
