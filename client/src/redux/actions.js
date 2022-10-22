@@ -12,7 +12,8 @@ export const RESET_CREATE = "RESET_CREATE";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const PUT_STATUS = "PUT_STATUS";
 export const PUT_BOOK = "PUT_BOOK";
-export const USER_EXIST = "USER_EXIST ";
+export const USER_EXIST = "USER_EXIST";
+export const POST_CART = "POST_CART";
 
 export function userExist(payload) {
   return {
@@ -207,5 +208,22 @@ export function addToCart(localStorage) {
   return {
     type: ADD_TO_CART,
     payload: localStorage,
+  };
+}
+
+export function postCart(cart) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post("http://localhost:3001/cart", cart);
+      return dispatch({
+        type: POST_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_CART,
+        payload: error.response.data,
+      });
+    }
   };
 }

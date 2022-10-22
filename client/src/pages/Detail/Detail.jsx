@@ -7,6 +7,7 @@ import {
   GET_DETAIL,
   putStatus,
   addToCart,
+  postCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -36,21 +37,48 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-    const cartLS = localStorage.getItem("cart");
 
-    if (cartLS) {
-      let aux = `${cartLS},${id}`;
-
-      localStorage.setItem("cart", aux);
+    if (user) {
+      dispatch(postCart({ userId: user.uid, bookId: id }));
     } else {
-      localStorage.setItem("cart", id);
-    }
+      const cartLS = localStorage.getItem("cart");
 
-    if (localStorage) {
-      let datos = localStorage.getItem("cart").split(",");
-      dispatch(addToCart(datos));
+      if (cartLS) {
+        let aux = `${cartLS},${id}`;
+
+        if (cartLS.split(",")) {
+          let uniqueArray = cartLS.split(",").filter((item, pos) => {
+            return cartLS.indexOf(item) === pos;
+          });
+        }
+        localStorage.setItem("cart", aux);
+      } else {
+        if (localStorage) localStorage.setItem("cart", id);
+      }
+
+      /* if (localStorage) {
+        let datos = localStorage.getItem("cart").split(",");
+        dispatch(addToCart(datos));
+      } */
+      if (localStorage) {
+        let datos = localStorage.getItem("cart").split(",");
+        //let carrito = datos.map(el =)
+        datos.length <= 10
+          ? dispatch(addToCart(datos))
+          : alert("nao nao amigao");
+      }
     }
   };
+
+  // ? En el boton de iniciar sesión ya había un localStorage con libros, ponemos un
+  /* 
+  if(localStorage && user){
+
+    localStorage.forEach(el=>{
+      dispatch(postCart({id:user, book:el}))
+    })
+  }
+  */
 
   return (
     <>

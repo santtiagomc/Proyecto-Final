@@ -6,9 +6,21 @@ import style from "./Cart.module.css";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  //const cart = useSelector((state) => state.cart); //? Por si el usuario esta logeado
 
   const cartLS = localStorage.getItem("cart");
+
+  let filteredBooks;
+  if (cartLS) {
+    let arrbooks = cartLS.split(",");
+    filteredBooks = arrbooks.reduce((acc, el) => {
+      if (!acc.includes(el)) {
+        acc.push(el);
+      }
+      return acc;
+    }, []);
+    console.log(filteredBooks);
+  }
 
   useEffect(() => {
     // ? action que trae los libros que le pasamos por argumento
@@ -21,13 +33,13 @@ export default function Cart() {
         }
       }
     }); */
-  }, [cart]);
+  }, []); //? cart dependency
 
   return (
     <>
       <h1 className={style.h1}>Carrito WIP</h1>
       {cartLS &&
-        cartLS.split(",").map((el, index) => {
+        filteredBooks.map((el, index) => {
           return (
             <div key={index}>
               <Link to={`/detail/${el}`}>
