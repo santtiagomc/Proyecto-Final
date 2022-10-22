@@ -14,6 +14,7 @@ export const PUT_STATUS = "PUT_STATUS";
 export const PUT_BOOK = "PUT_BOOK";
 export const USER_EXIST = "USER_EXIST";
 export const POST_CART = "POST_CART";
+export const GET_CART = "GET_CART";
 
 export function userExist(payload) {
   return {
@@ -222,6 +223,26 @@ export function postCart(cart) {
     } catch (error) {
       return dispatch({
         type: POST_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function getGuestCart(localStorage) {
+  console.log(localStorage);
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/cart?localS=${localStorage}`
+      );
+      return dispatch({
+        type: GET_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_CART,
         payload: error.response.data,
       });
     }

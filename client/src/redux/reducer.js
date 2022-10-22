@@ -14,6 +14,7 @@ import {
   USER_EXIST,
   ADD_TO_CART,
   POST_CART,
+  GET_CART,
 } from "./actions";
 
 const initialState = {
@@ -96,8 +97,8 @@ export default function rootReducer(state = initialState, action) {
     case RESET_CREATE:
       return { ...state, create: action.payload };
 
-    /* case ADD_TO_CART:
-      return { ...state, cart: action.payload }; */
+    case GET_CART:
+      return { ...state, cart: action.payload };
 
     case POST_CART:
       return { ...state, cart: action.payload };

@@ -8,21 +8,22 @@ import {
   putStatus,
   addToCart,
   postCart,
+  getGuestCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
 import style from "./DetailPrueba.module.css";
+import Swal from "sweetalert2";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user } = useSelector((state) => state);
-  const cartGlobal = useSelector((state) => state.cart);
+  const { user, cart } = useSelector((state) => state);
 
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(cartGlobal);
+    //console.log(cart);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -37,6 +38,7 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
+    alert("Producto agregado al carrito!");
 
     if (user) {
       dispatch(postCart({ userId: user.uid, bookId: id }));
@@ -46,25 +48,22 @@ export default function Detail() {
       if (cartLS) {
         let aux = `${cartLS},${id}`;
 
-        if (cartLS.split(",")) {
-          let uniqueArray = cartLS.split(",").filter((item, pos) => {
-            return cartLS.indexOf(item) === pos;
-          });
-        }
         localStorage.setItem("cart", aux);
       } else {
-        if (localStorage) localStorage.setItem("cart", id);
+        localStorage.setItem("cart", id);
       }
 
-      /* if (localStorage) {
-        let datos = localStorage.getItem("cart").split(",");
-        dispatch(addToCart(datos));
-      } */
       if (localStorage) {
         let datos = localStorage.getItem("cart").split(",");
-        //let carrito = datos.map(el =)
-        datos.length <= 10
-          ? dispatch(addToCart(datos))
+        console.log(datos);
+
+        let uniqueArray = datos.filter(function (item, pos) {
+          return datos.indexOf(item) == pos;
+        });
+        console.log(uniqueArray);
+
+        uniqueArray.length <= 10
+          ? dispatch(getGuestCart(uniqueArray.toString()))
           : alert("nao nao amigao");
       }
     }
