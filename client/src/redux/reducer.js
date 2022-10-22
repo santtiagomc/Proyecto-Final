@@ -15,6 +15,7 @@ import {
   ADD_TO_CART,
   POST_CART,
   GET_CART,
+  GET_USER_CART,
 } from "./actions";
 
 const initialState = {
@@ -99,6 +100,11 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_CART:
       return { ...state, cart: action.payload };
+
+    case GET_USER_CART:
+      console.log(action.payload);
+      console.log(action.payload.Books);
+      return { ...state, cart: action.payload.Books };
 
     case POST_CART:
       return { ...state, cart: action.payload };

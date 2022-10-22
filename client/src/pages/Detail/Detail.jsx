@@ -6,7 +6,6 @@ import {
   getDetail,
   GET_DETAIL,
   putStatus,
-  addToCart,
   postCart,
   getGuestCart,
 } from "../../redux/actions";
@@ -19,7 +18,7 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart } = useSelector((state) => state);
+  const { user } = useSelector((state) => state);
 
   const { id } = useParams();
 
@@ -36,15 +35,17 @@ export default function Detail() {
     dispatch(putStatus(myBook.id));
   };
 
-  let repeatedIdArrayCart = []
-  let uniqueIdArrayCart = []
-  let quantity = {}
+  let repeatedIdArrayCart = [];
+  let uniqueIdArrayCart = [];
+  let quantity = {};
+
   if (localStorage.length) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
-    repeatedIdArrayCart.length && repeatedIdArrayCart.forEach((el) => {
-      quantity[el] = (quantity[el] || 0) + 1;
-    });
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+    repeatedIdArrayCart.length &&
+      repeatedIdArrayCart.forEach((el) => {
+        quantity[el] = (quantity[el] || 0) + 1;
+      });
   }
 
   const handleCart = (e) => {
@@ -58,74 +59,73 @@ export default function Detail() {
       if (cartLS) {
         if (uniqueIdArrayCart.includes(id)) {
           if (quantity[id] < 5) {
-            localStorage.setItem("cart", `${cartLS},${id}`)
+            localStorage.setItem("cart", `${cartLS},${id}`);
 
             const Toast = Swal.mixin({
               toast: true,
-              position: 'top-end',
+              position: "top-end",
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
               didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            Toast.fire({
-              icon: 'success',
-              title: 'Producto agregado al carrito'
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+              },
             });
-
+            Toast.fire({
+              icon: "success",
+              title: "Producto agregado al carrito",
+            });
           } else {
             const Toast = Swal.mixin({
               toast: true,
-              position: 'top-end',
+              position: "top-end",
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
               didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+              },
+            });
             Toast.fire({
-              icon: 'error',
-              title: 'Has alcanzado el límite de este producto'
-            })
-          };
+              icon: "error",
+              title: "Has alcanzado el límite de este producto",
+            });
+          }
         } else if (uniqueIdArrayCart.length < 10) {
           localStorage.setItem("cart", `${cartLS},${id}`);
 
           const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
           Toast.fire({
-            icon: 'success',
-            title: 'Producto agregado al carrito'
+            icon: "success",
+            title: "Producto agregado al carrito",
           });
         } else {
           const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
           Toast.fire({
-            icon: 'error',
-            title: 'Has alcanzado el límite de productos distintos'
+            icon: "error",
+            title: "Has alcanzado el límite de productos distintos",
           });
         }
       } else {
@@ -133,25 +133,25 @@ export default function Detail() {
 
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
           didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
 
         Toast.fire({
-          icon: 'success',
-          title: 'Producto agregado al carrito'
+          icon: "success",
+          title: "Producto agregado al carrito",
         });
       }
 
       repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-      uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
-      dispatch(getGuestCart(uniqueIdArrayCart.toString()))
+      uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+      dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
   };
 
@@ -209,7 +209,8 @@ export default function Detail() {
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito --- {quantity && quantity[id] ? quantity[id] : 0}
+                  Agregar al carrito ---{" "}
+                  {quantity && quantity[id] ? quantity[id] : 0}
                 </button>
               </div>
             </div>
