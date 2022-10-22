@@ -14,7 +14,7 @@ export default function NavBar() {
   const history = useHistory();
 
   let uniqueIdArrayCart
-  if (localStorage.length) {
+  if (localStorage.cart) {
     let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
   }
