@@ -7,21 +7,23 @@ import {
   GET_DETAIL,
   putStatus,
   addToCart,
+  postCart,
+  getGuestCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
+
 import style from "./DetailPrueba.module.css";
+import Swal from "sweetalert2";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user } = useSelector((state) => state);
-  const cartGlobal = useSelector((state) => state.cart);
+  const { user, cart } = useSelector((state) => state);
 
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(cartGlobal);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -34,21 +36,122 @@ export default function Detail() {
     dispatch(putStatus(myBook.id));
   };
 
+  let repeatedIdArrayCart = []
+  let uniqueIdArrayCart = []
+  let quantity = {}
+  if (localStorage.length) {
+    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
+    repeatedIdArrayCart.length && repeatedIdArrayCart.forEach((el) => {
+      quantity[el] = (quantity[el] || 0) + 1;
+    });
+  }
+
   const handleCart = (e) => {
     e.preventDefault();
-    const cartLS = localStorage.getItem("cart");
 
-    if (cartLS) {
-      let aux = `${cartLS},${id}`;
-
-      localStorage.setItem("cart", aux);
+    if (user) {
+      dispatch(postCart({ userId: user.uid, bookId: id, suma: true }));
     } else {
-      localStorage.setItem("cart", id);
-    }
+      const cartLS = localStorage.getItem("cart");
 
-    if (localStorage) {
-      let datos = localStorage.getItem("cart").split(",");
-      dispatch(addToCart(datos));
+      if (cartLS) {
+        if (uniqueIdArrayCart.includes(id)) {
+          if (quantity[id] < 5) {
+            localStorage.setItem("cart", `${cartLS},${id}`)
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Producto agregado al carrito'
+            });
+
+          } else {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'error',
+              title: 'Has alcanzado el límite de este producto'
+            })
+          };
+        } else if (uniqueIdArrayCart.length < 10) {
+          localStorage.setItem("cart", `${cartLS},${id}`);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Producto agregado al carrito'
+          });
+        } else {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'Has alcanzado el límite de productos distintos'
+          });
+        }
+      } else {
+        localStorage.setItem("cart", id);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Producto agregado al carrito'
+        });
+      }
+
+      repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+      uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
+      dispatch(getGuestCart(uniqueIdArrayCart.toString()))
     }
   };
 
@@ -106,7 +209,7 @@ export default function Detail() {
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito
+                  Agregar al carrito --- {quantity && quantity[id] ? quantity[id] : 0}
                 </button>
               </div>
             </div>

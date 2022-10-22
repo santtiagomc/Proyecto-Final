@@ -1,78 +1,47 @@
-const { Cart, Users, Books } = require("../db");
+const { Cart, Users, Books_Carts } = require("../db");
 
-async function postCart({ userId, bookId }) {
+async function postCart({ userId, bookId, suma }) {
     try {
-        if (userId && bookId) {
-            const userCart = await Cart.findOne({
-                where: {
-                    UserId: userId,
-                    status: "Abierto"
-                }
-            })
-            console.log(userCart)
+        const userCart = await Cart.findOne({
+            where: {
+                UserId: userId,
+                status: "Abierto"
+            }
+        });
+        if (!userCart) {
+            const newCart = await Cart.create({
+                UserId: userId
+            });
+            await newCart.addBook(bookId);
+            // return newCart;
+            return { message: "Su libro ha sido añadido al carrito exitosamente!" }
+        };
 
-            //if(userCart.length) userCart.addBooks(books)
-            if (!userCart) {
-                const newCart = await Cart.create({
-                    UserId: userId,
-                    status: "Abierto"
-                });
-                // bookId.forEach(b => {
-
-                // })
-                newCart.addBooks(bookId);
-                return newCart;
-            };
-
-            return userCart;
+        const booksCart = await Books_Carts.findOne({
+            where: {
+                CartId: userCart.id,
+                BookId: bookId
+            }
+        });
+        if (!booksCart) {
+            userCart.addBook(bookId);
+            return { message: "Su libro ha sido añadido al carrito exitosamente!" }
+        };
+        if(suma){
+            booksCart.quantity = booksCart.quantity + 1;
+            await booksCart.save();
+        }else {
+            booksCart.quantity = booksCart.quantity - 1;
+            await booksCart.save();
         }
-    }catch(error){
+        return { message: "Su libro ha sido modificado exitosamente!" }
+
+    } catch (error) {
         console.log(error);
         return { messageError: "Se ha producido un error." };
-    }
-
-    //else if (userId && !books) {
-    //     const findCart = await Cart.findAll({
-    //         where: {
-    //             UserId: userId,
-    //             status: "Abierto"
-    //         },
-    //         include: [{
-    //             model: Users,
-    //             attributes: ["id"],
-    //             through: { attributes: [] }
-    //         }, {
-    //             model: Books,
-    //             attributes: ["name", "image", "author", "price"],
-    //             through: { attributes: [] },
-    //         }]
-    //     });
-
-    //     return findCart;
-    // };
-
+    };
 };
 
 module.exports = {
     postCart
-}
-
-// const newCart = await Cart.create({
-            //     UserId: userId,
-            //     books: [...books]
-            // })
-            // const [newCart, boolean] = await Cart.findOrCreate({
-            //     where: {
-            //         UserId: userId,
-            //         status: "Abierto"
-            //     },
-            //     // include: [{
-            //     //     model: Users
-            //     // }]
-            // });
-
-            // if (boolean) {
-            //     allBooks.length && newCart.addBooks(books)
-            // } else {
-            //     allBooks.length && newCart.addBooks(books)
-            // }
+};
