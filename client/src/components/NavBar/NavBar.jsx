@@ -14,10 +14,10 @@ export default function NavBar() {
   const history = useHistory();
 
   let uniqueIdArrayCart
-  if (localStorage.length) {
-    let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
-  }
+  if (localStorage.cart && localStorage.cart.length) {
+			let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+			uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+		}
 
   const handleLogOut = async () => {
     try {
