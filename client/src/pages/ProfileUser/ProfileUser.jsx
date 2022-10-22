@@ -138,6 +138,11 @@ export default function ProfileUser() {
                   <p className={style.error}>Solo numeros</p>
                 )}
                 <button>Confirmar</button>
+                <span onClick={() => setEdit(!edit)}>
+                  Cancelar(es un span porque sino me activa el onsubmit) faltan
+                  estilos o puede ser un boton pero hay que poner afuera del
+                  form
+                </span>
               </form>
             )}
             <button
