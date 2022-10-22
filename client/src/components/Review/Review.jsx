@@ -126,9 +126,8 @@ export default function Review({ id }) {
                 Título*
               </label>
               <input
-                className={`form-control ${
-                  !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
-                }`}
+                className={`form-control ${!input.title ? "" : errors.title ? "is-invalid" : "is-valid"
+                  }`}
                 type="text"
                 name="title"
                 id="title"
@@ -212,13 +211,12 @@ export default function Review({ id }) {
                 type="text"
                 name="description"
                 id="description"
-                className={`form-control ${
-                  !input.description
+                className={`form-control ${!input.description
                     ? ""
                     : errors.description
-                    ? "is-invalid"
-                    : "is-valid"
-                }`}
+                      ? "is-invalid"
+                      : "is-valid"
+                  }`}
                 placeholder="Agregue su reseña"
                 value={input.description}
                 onChange={handleChange}
@@ -242,31 +240,31 @@ export default function Review({ id }) {
       <hr></hr>
       {detail.Reviews.length
         ? detail.Reviews.map((review, index) => (
-            <div className={style.single_review} key={index}>
-              {review.User && (
-                <h6 className={style.user_single_review}>
-                  {review.User.fullName}
-                </h6>
-              )}
-              <div className={style.header_single_review}>
-                <h3 className={style.title_single_review}> {review.title} </h3>
-                <div className={style.stars_single_review}>
-                  {Array(review.rating)
-                    .fill(1)
-                    .map((e, index) => (
-                      <div className={style.star_single_review} key={index}>
-                        <i className={`fa-solid fa-star`}></i>
-                      </div>
-                    ))}
-                </div>
+          <div className={style.single_review} key={index}>
+            {review.User && (
+              <h6 className={style.user_single_review}>
+                {review.User.fullName}
+              </h6>
+            )}
+            <div className={style.header_single_review}>
+              <h3 className={style.title_single_review}> {review.title} </h3>
+              <div className={style.stars_single_review}>
+                {Array(review.rating)
+                  .fill(1)
+                  .map((e, index) => (
+                    <div className={style.star_single_review} key={index}>
+                      <i className={`fa-solid fa-star`}></i>
+                    </div>
+                  ))}
               </div>
-              <p className={style.description_single_review}>
-                {" "}
-                {review.description}{" "}
-              </p>
-              <hr></hr>
             </div>
-          ))
+            <p className={style.description_single_review}>
+              {" "}
+              {review.description}{" "}
+            </p>
+            <hr></hr>
+          </div>
+        ))
         : ""}
     </div>
   );

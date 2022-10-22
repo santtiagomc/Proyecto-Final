@@ -230,7 +230,6 @@ export function postCart(cart) {
 }
 
 export function getGuestCart(localStorage) {
-  console.log(localStorage);
   return async function (dispatch) {
     try {
       const response = await axios.get(
