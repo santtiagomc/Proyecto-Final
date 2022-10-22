@@ -1,7 +1,7 @@
-const { Cart, Users, Books } = require('../db');
+const { Cart, Users, Books, Books_Carts } = require('../db');
 
-async function getUserCart({userId}){
-  try{
+async function getUserCart({ userId }) {
+  try {
     const userCart = await Cart.findOne({
       where: {
         UserId: userId,
@@ -12,18 +12,19 @@ async function getUserCart({userId}){
       }, {
         model: Books,
         attributes: ["name", "image", "author", "price"],
-				through: { attributes: [] },
+        through: { attributes: {} },
       }]
     });
 
-    if(!userCart.length) return { messageError: "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!" };
+    if (!userCart) return { messageError: "¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!" };
     return userCart;
-    
-  }catch(error){
+
+
+  } catch (error) {
     return { messageError: "Se ha producido un error." };
   }
 };
 
-module.exports = { 
-  getUserCart 
+module.exports = {
+  getUserCart
 };
