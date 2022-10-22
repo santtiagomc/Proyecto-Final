@@ -6,20 +6,22 @@ import style from "./Cart.module.css";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  //const cart = useSelector((state) => state.cart); //? Por si el usuario esta logeado
+  const cart = useSelector((state) => state.cart); //? Por si el usuario esta logeado
 
   const cartLS = localStorage.getItem("cart");
 
   let filteredBooks;
+  const counts = {};
+
   if (cartLS) {
-    let arrbooks = cartLS.split(",");
-    filteredBooks = arrbooks.reduce((acc, el) => {
-      if (!acc.includes(el)) {
-        acc.push(el);
-      }
-      return acc;
-    }, []);
-    console.log(filteredBooks);
+    let cartLSarray = cartLS.split(",");
+    filteredBooks = [...new Set(cartLSarray)];
+
+    cartLSarray.forEach(function (x) {
+      counts[x] = (counts[x] || 0) + 1;
+    });
+
+    console.log(counts);
   }
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function Cart() {
           return (
             <div key={index}>
               <Link to={`/detail/${el}`}>
-                <h1>{el}</h1>
+                <h1>{`Producto: ${el} | Cantidad: ${counts[el]}`}</h1>
               </Link>
             </div>
           );

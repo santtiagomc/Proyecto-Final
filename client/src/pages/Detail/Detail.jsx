@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
+
 import style from "./DetailPrueba.module.css";
 import Swal from "sweetalert2";
 
@@ -38,19 +39,55 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-    alert("Producto agregado al carrito!");
 
     if (user) {
-      dispatch(postCart({ userId: user.uid, bookId: id }));
+      dispatch(postCart({ userId: user.uid, bookId: id, suma: true }));
     } else {
       const cartLS = localStorage.getItem("cart");
 
-      if (cartLS) {
-        let aux = `${cartLS},${id}`;
+      let cartLSarray;
+      let uniq;
+      const counts = {};
 
-        localStorage.setItem("cart", aux);
+      if (cartLS) {
+        cartLSarray = cartLS.split(",");
+        uniq = [...new Set(cartLSarray)];
+
+        cartLSarray.forEach((el) => {
+          counts[el] = (counts[el] || 0) + 1;
+        });
+
+        Object.values(counts).every((el) => el < 5);
+        console.log(Object.values(counts).every((el) => el < 5));
+      }
+
+      if (cartLS) {
+        if (uniq.includes(id)) {
+          counts[id] < 5
+            ? localStorage.setItem("cart", `${cartLS},${id}`)
+            : Swal.fire(
+                "Error",
+                "Alcanzaste el máximo de este producto",
+                "warning"
+              );
+        } else if (uniq.length < 10) {
+          localStorage.setItem("cart", `${cartLS},${id}`);
+        } else {
+          Swal.fire(
+            "Error",
+            "Alcanzaste el máximo de productos distintos!",
+            "warning"
+          );
+        }
+        /* console.log(aux);
+
+        let arr = aux.split(",");
+        console.log(arr);
+
+        let uniq = [...new Set(arr)];
+        console.log(uniq); */
       } else {
-        localStorage.setItem("cart", id);
+        if (!cartLS) localStorage.setItem("cart", id);
       }
 
       if (localStorage) {
@@ -58,7 +95,7 @@ export default function Detail() {
         console.log(datos);
 
         let uniqueArray = datos.filter(function (item, pos) {
-          return datos.indexOf(item) == pos;
+          return datos.indexOf(item) === pos;
         });
         console.log(uniqueArray);
 
