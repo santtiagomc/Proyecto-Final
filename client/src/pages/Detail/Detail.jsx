@@ -24,7 +24,6 @@ export default function Detail() {
   const { id } = useParams();
 
   useEffect(() => {
-    //console.log(cart);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -37,6 +36,17 @@ export default function Detail() {
     dispatch(putStatus(myBook.id));
   };
 
+  let repeatedIdArrayCart = []
+  let uniqueIdArrayCart = []
+  let quantity = {}
+  if (localStorage.length) {
+    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
+    repeatedIdArrayCart.length && repeatedIdArrayCart.forEach((el) => {
+      quantity[el] = (quantity[el] || 0) + 1;
+    });
+  }
+
   const handleCart = (e) => {
     e.preventDefault();
 
@@ -45,76 +55,105 @@ export default function Detail() {
     } else {
       const cartLS = localStorage.getItem("cart");
 
-      let cartLSarray;
-      let uniq;
-      const counts = {};
-
       if (cartLS) {
-        cartLSarray = cartLS.split(",");
-        uniq = [...new Set(cartLSarray)];
+        if (uniqueIdArrayCart.includes(id)) {
+          if (quantity[id] < 5) {
+            localStorage.setItem("cart", `${cartLS},${id}`)
 
-        cartLSarray.forEach((el) => {
-          counts[el] = (counts[el] || 0) + 1;
-        });
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Producto agregado al carrito'
+            });
 
-        Object.values(counts).every((el) => el < 5);
-        console.log(Object.values(counts).every((el) => el < 5));
-      }
-
-      if (cartLS) {
-        if (uniq.includes(id)) {
-          counts[id] < 5
-            ? localStorage.setItem("cart", `${cartLS},${id}`)
-            : Swal.fire(
-                "Error",
-                "Alcanzaste el máximo de este producto",
-                "warning"
-              );
-        } else if (uniq.length < 10) {
+          } else {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'error',
+              title: 'Has alcanzado el límite de este producto'
+            })
+          };
+        } else if (uniqueIdArrayCart.length < 10) {
           localStorage.setItem("cart", `${cartLS},${id}`);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Producto agregado al carrito'
+          });
         } else {
-          Swal.fire(
-            "Error",
-            "Alcanzaste el máximo de productos distintos!",
-            "warning"
-          );
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'error',
+            title: 'Has alcanzado el límite de productos distintos'
+          });
         }
-        /* console.log(aux);
-
-        let arr = aux.split(",");
-        console.log(arr);
-
-        let uniq = [...new Set(arr)];
-        console.log(uniq); */
       } else {
-        if (!cartLS) localStorage.setItem("cart", id);
-      }
+        localStorage.setItem("cart", id);
 
-      if (localStorage) {
-        let datos = localStorage.getItem("cart").split(",");
-        console.log(datos);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
 
-        let uniqueArray = datos.filter(function (item, pos) {
-          return datos.indexOf(item) === pos;
+        Toast.fire({
+          icon: 'success',
+          title: 'Producto agregado al carrito'
         });
-        console.log(uniqueArray);
-
-        uniqueArray.length <= 10
-          ? dispatch(getGuestCart(uniqueArray.toString()))
-          : alert("nao nao amigao");
       }
+
+      repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+      uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
+      dispatch(getGuestCart(uniqueIdArrayCart.toString()))
     }
   };
-
-  // ? En el boton de iniciar sesión ya había un localStorage con libros, ponemos un
-  /* 
-  if(localStorage && user){
-
-    localStorage.forEach(el=>{
-      dispatch(postCart({id:user, book:el}))
-    })
-  }
-  */
 
   return (
     <>
@@ -170,7 +209,7 @@ export default function Detail() {
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito
+                  Agregar al carrito --- {quantity && quantity[id] ? quantity[id] : 0}
                 </button>
               </div>
             </div>

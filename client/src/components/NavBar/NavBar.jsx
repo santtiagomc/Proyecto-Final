@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
@@ -9,9 +9,15 @@ import Logo from "./Logo.png";
 import style from "./NavBar.module.css";
 
 export default function NavBar() {
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector(state => state);
   const [show, setShow] = useState(false);
   const history = useHistory();
+
+  let uniqueIdArrayCart
+  if (localStorage.length) {
+    let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)]
+  }
 
   const handleLogOut = async () => {
     try {
@@ -68,7 +74,7 @@ export default function NavBar() {
           )}
           <div>
             <Link to="/cart">
-              <button className={style.cart}>🛒</button>
+              <button className={style.cart}>🛒{uniqueIdArrayCart && uniqueIdArrayCart.length}</button>
             </Link>
           </div>
         </div>
