@@ -7,21 +7,24 @@ import {
   GET_DETAIL,
   putStatus,
   addToCart,
+  postCart,
+  getGuestCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
+
 import style from "./DetailPrueba.module.css";
+import Swal from "sweetalert2";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user } = useSelector((state) => state);
-  const cartGlobal = useSelector((state) => state.cart);
+  const { user, cart } = useSelector((state) => state);
 
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(cartGlobal);
+    //console.log(cart);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -36,21 +39,82 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-    const cartLS = localStorage.getItem("cart");
 
-    if (cartLS) {
-      let aux = `${cartLS},${id}`;
-
-      localStorage.setItem("cart", aux);
+    if (user) {
+      dispatch(postCart({ userId: user.uid, bookId: id, suma: true }));
     } else {
-      localStorage.setItem("cart", id);
-    }
+      const cartLS = localStorage.getItem("cart");
 
-    if (localStorage) {
-      let datos = localStorage.getItem("cart").split(",");
-      dispatch(addToCart(datos));
+      let cartLSarray;
+      let uniq;
+      const counts = {};
+
+      if (cartLS) {
+        cartLSarray = cartLS.split(",");
+        uniq = [...new Set(cartLSarray)];
+
+        cartLSarray.forEach((el) => {
+          counts[el] = (counts[el] || 0) + 1;
+        });
+
+        Object.values(counts).every((el) => el < 5);
+        console.log(Object.values(counts).every((el) => el < 5));
+      }
+
+      if (cartLS) {
+        if (uniq.includes(id)) {
+          counts[id] < 5
+            ? localStorage.setItem("cart", `${cartLS},${id}`)
+            : Swal.fire(
+                "Error",
+                "Alcanzaste el máximo de este producto",
+                "warning"
+              );
+        } else if (uniq.length < 10) {
+          localStorage.setItem("cart", `${cartLS},${id}`);
+        } else {
+          Swal.fire(
+            "Error",
+            "Alcanzaste el máximo de productos distintos!",
+            "warning"
+          );
+        }
+        /* console.log(aux);
+
+        let arr = aux.split(",");
+        console.log(arr);
+
+        let uniq = [...new Set(arr)];
+        console.log(uniq); */
+      } else {
+        if (!cartLS) localStorage.setItem("cart", id);
+      }
+
+      if (localStorage) {
+        let datos = localStorage.getItem("cart").split(",");
+        console.log(datos);
+
+        let uniqueArray = datos.filter(function (item, pos) {
+          return datos.indexOf(item) === pos;
+        });
+        console.log(uniqueArray);
+
+        uniqueArray.length <= 10
+          ? dispatch(getGuestCart(uniqueArray.toString()))
+          : alert("nao nao amigao");
+      }
     }
   };
+
+  // ? En el boton de iniciar sesión ya había un localStorage con libros, ponemos un
+  /* 
+  if(localStorage && user){
+
+    localStorage.forEach(el=>{
+      dispatch(postCart({id:user, book:el}))
+    })
+  }
+  */
 
   return (
     <>
