@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useUser } from "../../helpers/useUser";
-
 import axios from "axios";
+import Error from "../../components/Error/Error";
 
 import style from "./ProfileUser.module.css";
-import Error from "../../components/Error/Error";
 
 export default function ProfileUser() {
   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState({ change: false, edited: false });
   const [user, load] = useUser();
   const {
     register,
@@ -31,7 +30,7 @@ export default function ProfileUser() {
     };
 
     if (!load) getUser(user);
-  }, [load]);
+  }, [load, edit.edited]);
 
   const onSubmit = async (data) => {
     try {
@@ -39,7 +38,7 @@ export default function ProfileUser() {
         ...data,
         id: user,
       });
-      setEdit(!edit);
+      setEdit({ ...edit, change: !edit.change, edited: !edit.edited });
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +78,7 @@ export default function ProfileUser() {
           <div className={style.option}>
             <h1 className={style.title}> Vista general de la Cuenta </h1>
             <h2>Perfil</h2>
-            {!edit ? (
+            {!edit.change ? (
               <div>
                 <h4>Nombre: {dataUser.fullName}</h4>
                 <h4>Correo Electrónico: {dataUser.email} </h4>
@@ -139,7 +138,9 @@ export default function ProfileUser() {
                   <p className={style.error}>Solo numeros</p>
                 )}
                 <button>Confirmar</button>
-                <span onClick={() => setEdit(!edit)}>
+                <span
+                  onClick={() => setEdit({ ...edit, change: !edit.change })}
+                >
                   Cancelar(es un span porque sino me activa el onsubmit) faltan
                   estilos o puede ser un boton pero hay que poner afuera del
                   form
@@ -147,8 +148,8 @@ export default function ProfileUser() {
               </form>
             )}
             <button
-              className={`${edit && style.disable}`}
-              onClick={() => setEdit(!edit)}
+              className={`${edit.change && style.disable}`}
+              onClick={() => setEdit({ ...edit, change: !edit.change })}
             >
               Editar perfil
             </button>
