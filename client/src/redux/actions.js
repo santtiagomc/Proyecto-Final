@@ -31,11 +31,11 @@ export function searchBook(filters, search, page) {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
         );
       } else {
         json = await axios(
-          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
         );
       }
       return dispatch({
@@ -68,7 +68,7 @@ export function changePage(page = 0) {
 export function getEditorials() {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/editorials`);
+      const json = await axios.get(`/editorials`);
       return dispatch({
         type: GET_EDITORIALS,
         payload: json.data,
@@ -85,7 +85,7 @@ export function getEditorials() {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/genres`);
+      const json = await axios.get(`/genres`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,
@@ -102,7 +102,7 @@ export function getGenres() {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/book/${id}`);
+      const json = await axios.get(`/book/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: json.data,
@@ -119,7 +119,7 @@ export function getDetail(id) {
 export function addBooks(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/books", input);
+      const response = await axios.post("/books", input);
       return dispatch({
         type: POST_BOOKS,
         payload: response.data,
@@ -136,7 +136,7 @@ export function addBooks(input) {
 export function postReviews(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/reviews", input);
+      const response = await axios.post("/reviews", input);
       return dispatch({
         type: POST_REVIEWS,
         payload: response.data,
@@ -160,7 +160,7 @@ export function resetCreate() {
 export function putStatus(id) {
   return async function (dispatch) {
     try {
-      const json = await axios.put(`http://localhost:3001/book/${id}`);
+      const json = await axios.put(`/book/${id}`);
       return dispatch({
         type: PUT_STATUS,
         payload: json.data,
@@ -179,7 +179,7 @@ export function putBook(id, body) {
   return async function (dispatch) {
     try {
       const json = await axios.put(
-        `http://localhost:3001/book/details/${id}`,
+        `/book/details/${id}`,
         body
       );
       console.log(json);
@@ -199,7 +199,7 @@ export function putBook(id, body) {
 export function postCart(cart) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/cart", cart);
+      const response = await axios.post("/cart", cart);
       return dispatch({
         type: POST_CART,
         payload: response.data,
@@ -217,7 +217,7 @@ export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart?localS=${localStorage}`
+        `/cart?localS=${localStorage}`
       );
       return dispatch({
         type: GET_CART,
@@ -235,7 +235,7 @@ export function getGuestCart(localStorage) {
 export function getUserCart(userId) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/${userId}`);
+      const response = await axios.get(`/cart/${userId}`);
       console.log(response.data);
 
       return dispatch({

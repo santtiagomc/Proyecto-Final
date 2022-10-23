@@ -21,7 +21,7 @@ export default function ProfileUser() {
     const getUser = async (userId) => {
       try {
         console.log(userId);
-        const res = await axios.get(`http://localhost:3001/user/${userId}`);
+        const res = await axios.get(`/user/${userId}`);
         setDataUser(res.data);
         console.log(res);
         setLoading(false);
@@ -37,7 +37,7 @@ export default function ProfileUser() {
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      const a = await axios.put("http://localhost:3001/user", {
+      const a = await axios.put("/user", {
         ...data,
         id: user.uid,
       });
