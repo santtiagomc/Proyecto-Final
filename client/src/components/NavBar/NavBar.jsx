@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "./Logo.png";
 import style from "./NavBar.module.css";
-import { getGuestCart, getUserCart } from "../../redux/actions";
+import { getGuestCart, getUserCart, postCart } from "../../redux/actions";
 
 export default function NavBar() {
   const { user, cart, postCartResponse } = useSelector(state => state);
@@ -34,7 +34,10 @@ export default function NavBar() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch(getUserCart(user.uid));
+      setTimeout(function () {
+        dispatch(getUserCart(user.uid));
+      }, 400);
+
     } else if (uniqueIdArrayCart.length) {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }

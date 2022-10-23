@@ -108,7 +108,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, cart: action.payload };
 
     case POST_CART:
-      return { ...state, postCartResponse: action.payload };
+      if (Array.isArray(action.payload)) {
+        return { ...state };
+      } else {
+        return { ...state, postCartResponse: action.payload };
+      }
 
     default:
       return { ...state };
