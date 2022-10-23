@@ -20,7 +20,18 @@ export default function Detail() {
   const myBook = useSelector((state) => state.detail);
   const { user, cart } = useSelector((state) => state);
 
-  let [buttonDisabled, setButtonDisabled] = useState(false)
+  let avarageRating =
+    myBook.Reviews &&
+    Math.round(
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).reduce((a, b) => a + b, 0) /
+        myBook.Reviews.map((el) => {
+          return el.rating;
+        }).length
+    );
+
+  let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const { id } = useParams();
 
@@ -49,18 +60,18 @@ export default function Detail() {
       });
   }
 
-  let quantityUser
+  let quantityUser;
   if (user && user.uid && cart.length && !cart.messageError) {
-    quantityUser = cart.find(b => b.id === id)
-    quantityUser = quantityUser && quantityUser.quantity
-    console.log(quantityUser)
+    quantityUser = cart.find((b) => b.id === id);
+    quantityUser = quantityUser && quantityUser.quantity;
+    console.log(quantityUser);
   }
 
   const handleCart = (e) => {
     e.preventDefault();
 
     if (user) {
-      let { quantity } = cart.find(b => b.id === id)
+      let { quantity } = cart.find((b) => b.id === id);
       if (quantity < 5) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
@@ -200,10 +211,10 @@ export default function Detail() {
       uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     setTimeout(function () {
-      setButtonDisabled(false)
+      setButtonDisabled(false);
     }, 2000);
   };
 
@@ -236,15 +247,65 @@ export default function Detail() {
             <div className={style.info}>
               <h2 className={style.name}>{myBook.name}</h2>
               <h3 className={style.author}>{myBook.author}</h3>
-              <span className={style.rating}>
-                &#9733; &#9733; &#9733; &#9733;
-              </span>
               <h3 className={style.edition}>{myBook.edition}</h3>
-              {myBook.Genres?.map((genre) => (
-                <span className={style.genre} key={genre.name}>
-                  {genre.name}
-                </span>
-              ))}
+              <div className={style.stars}>
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 1
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 2
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 3
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 4
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 5
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+              </div>
+              <div>
+                {myBook.Genres?.map((genre) => (
+                  <span className={style.genre} key={genre.name}>
+                    {genre.name}
+                  </span>
+                ))}
+              </div>
               <h3 className={style.editorial}>{myBook.editorial}</h3>
               {myBook.stock > 0 && myBook.visible ? (
                 <span className={style.disponible}>Disponible</span>
@@ -255,13 +316,22 @@ export default function Detail() {
               <div className={style.containerBuy}>
                 <h3 className={style.price}>USD {myBook.price}</h3>
                 <button
-                  className={myBook.visible && !buttonDisabled ? style.cart : `${style.cart} ${style.cartF} `}
+                  className={
+                    myBook.visible && !buttonDisabled
+                      ? style.cart
+                      : `${style.cart} ${style.cartF} `
+                  }
                   disabled={myBook.visible && !buttonDisabled ? false : true}
                   value={id}
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito --- {!user ? quantity && quantity[id] ? quantity[id] : 0 : quantityUser}
+                  Agregar al carrito ---{" "}
+                  {!user
+                    ? quantity && quantity[id]
+                      ? quantity[id]
+                      : 0
+                    : quantityUser}
                 </button>
               </div>
             </div>
