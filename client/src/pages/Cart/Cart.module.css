@@ -91,3 +91,15 @@ a {
   color: rgb(169, 169, 169);
   text-decoration: none;
 }
+
+.button_disabled {
+  opacity: 20%;
+}
+
+.button_disabled:hover {
+  opacity: 20%;
+}
+
+.button_disabled:active {
+  transform: none;
+}

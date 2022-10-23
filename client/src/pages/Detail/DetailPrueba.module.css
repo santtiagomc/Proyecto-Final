@@ -104,19 +104,11 @@
   margin: 8px 0;
 }
 
-.rating {
-  color: #ffbd07;
-  font-size: 28px;
-  background-color: #303030;
-  border-radius: 30px;
-  padding: 0 3px;
-}
-
 .edition {
   color: #ffffff;
   font-size: 14px;
   font-weight: 300;
-  margin: 15px 0 5px 0;
+  margin: 0;
 }
 
 .genre {
@@ -166,14 +158,7 @@
 }
 
 .cartF {
-  height: fit-content;
-  background-color: #101010;
-  padding: 5px 75px;
-  border: none;
-  border-radius: 25px;
-  color: white;
-  font-size: 18px;
-  font-weight: 700;
+  opacity: 40%;
   cursor: not-allowed;
 }
 
@@ -191,4 +176,25 @@
   font-style: italic;
   font-weight: 300;
   margin: 5px 0;
+}
+
+.stars {
+  display: flex;
+  height: 41px;
+  min-width: 150px;
+  width: 100%;
+  border-radius: 8px;
+  opacity: 80%;
+}
+
+.star {
+  display: flex;
+  align-items: center;
+  margin: 0px 2px;
+  height: 100%;
+}
+
+.star i {
+  font-size: 22px;
+  color: rgb(243, 249, 93);
 }

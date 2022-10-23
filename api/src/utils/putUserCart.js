@@ -36,6 +36,8 @@ async function putUserCart({ cartId, bookId }) {
     //       "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!",
     //   };
 
+    //------puse los mjes juntos para que en el caso que haya un solo libro y lo elimine se vea el message y quede en la pantalla el messageError.
+    //------si hay más libros y elimina uno solo, que muestre el message nomás.
     return {
       message: `Se eliminó '${bookName}' de tu carrito`,
       messageError:

@@ -15,6 +15,7 @@ export const PUT_BOOK = "PUT_BOOK";
 export const USER_EXIST = "USER_EXIST";
 export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
+export const GET_USER_CART = "GET_USER_CART";
 
 export function userExist(payload) {
   return {
@@ -195,23 +196,6 @@ export function putBook(id, body) {
   };
 }
 
-// export function addToCart(id) {
-// 	return function (dispatch) {
-// 			dispatch({
-// 					type: ADD_TO_CART,
-// 					payload: id
-// 			})
-// 	}
-// }
-
-export function addToCart(localStorage) {
-  //proximamente modificar para mandar datos al back
-  return {
-    type: ADD_TO_CART,
-    payload: localStorage,
-  };
-}
-
 export function postCart(cart) {
   return async function (dispatch) {
     try {
@@ -242,6 +226,25 @@ export function getGuestCart(localStorage) {
     } catch (error) {
       return dispatch({
         type: GET_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function getUserCart(userId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/cart/${userId}`);
+      console.log(response.data);
+
+      return dispatch({
+        type: GET_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_USER_CART,
         payload: error.response.data,
       });
     }
