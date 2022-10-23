@@ -5,11 +5,11 @@ const path = require("path");
 const { DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(
-	`postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`,
-	{
-		logging: false, // set to console.log to see the raw SQL queries
-		native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-	}
+  `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
 );
 const basename = path.basename(__filename);
 
@@ -43,24 +43,28 @@ const { Books, Genres, Users, Cart, Reviews, Wishlist } = sequelize.models;
 Books.belongsToMany(Genres, { through: "Books_Genres", timestamps: false });
 Genres.belongsToMany(Books, { through: "Books_Genres", timestamps: false });
 
-const Books_Carts = sequelize.define("Books_Carts", { quantity: { type: DataTypes.INTEGER, defaultValue: 1} }, { timestamps: false });
+const Books_Carts = sequelize.define(
+  "Books_Carts",
+  { quantity: { type: DataTypes.INTEGER, defaultValue: 1 } },
+  { timestamps: false }
+);
 Books.belongsToMany(Cart, { through: Books_Carts });
 Cart.belongsToMany(Books, { through: Books_Carts });
 
 Books.belongsToMany(Wishlist, { through: "Books_Wishlist", timestamps: false });
 Wishlist.belongsToMany(Books, { through: "Books_Wishlist", timestamps: false });
 
-Users.hasMany(Reviews)
-Reviews.belongsTo(Users)
+Users.hasMany(Reviews);
+Reviews.belongsTo(Users);
 
-Books.hasMany(Reviews)
-Reviews.belongsTo(Books)
+Books.hasMany(Reviews);
+Reviews.belongsTo(Books);
 
-Users.hasMany(Cart)
-Cart.belongsTo(Users)
+Users.hasMany(Cart);
+Cart.belongsTo(Users);
 
-Users.hasOne(Wishlist)
-Wishlist.belongsTo(Users)
+Users.hasOne(Wishlist);
+Wishlist.belongsTo(Users);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
