@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,6 +8,7 @@ import {
   putStatus,
   postCart,
   getGuestCart,
+  getUserCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -18,16 +19,21 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user } = useSelector((state) => state);
+  const { user, cart, postCartResponse } = useSelector((state) => state);
+
+  let [buttonDisabled, setButtonDisabled] = useState(false)
 
   const { id } = useParams();
 
   useEffect(() => {
+    if (user && user.uid) {
+      dispatch(getUserCart(user.uid));
+    }
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [user]);
+  }, [user, postCartResponse]);
   // EL USER NO SE TOCA -> (Mati, Gman)
 
   const handleClick = (e) => {
@@ -48,11 +54,35 @@ export default function Detail() {
       });
   }
 
+
+
   const handleCart = (e) => {
     e.preventDefault();
 
     if (user) {
-      dispatch(postCart({ userId: user.uid, bookId: id, suma: true }));
+      let { quantity } = cart.find(b => b.id === id)
+      if (quantity < 5) {
+        dispatch(
+          postCart({ userId: user.uid, bookId: e.target.value, suma: true })
+        );
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "error",
+          title: "Alcanzaste el máximo de este producto",
+        });
+      }
     } else {
       const cartLS = localStorage.getItem("cart");
 
@@ -153,6 +183,11 @@ export default function Detail() {
       uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
+    setButtonDisabled(true)
+
+    setTimeout(function () {
+      setButtonDisabled(false)
+    }, 2000);
   };
 
   return (
@@ -203,14 +238,13 @@ export default function Detail() {
               <div className={style.containerBuy}>
                 <h3 className={style.price}>USD {myBook.price}</h3>
                 <button
-                  className={myBook.visible ? style.cart : style.cartF}
-                  disabled={myBook.visible ? false : true}
-                  value="cart"
+                  className={myBook.visible && !buttonDisabled ? style.cart : `${style.cart} ${style.cartF} `}
+                  disabled={myBook.visible && !buttonDisabled ? false : true}
+                  value={id}
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito ---{" "}
-                  {quantity && quantity[id] ? quantity[id] : 0}
+                  Agregar al carrito --- {!user ? quantity && quantity[id] ? quantity[id] : 0 : ""}
                 </button>
               </div>
             </div>

@@ -15,9 +15,9 @@ export default function NavBar() {
 
   let uniqueIdArrayCart
   if (localStorage.cart && localStorage.cart.length) {
-			let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-			uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
-		}
+    let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+  }
 
   const handleLogOut = async () => {
     try {
@@ -74,7 +74,7 @@ export default function NavBar() {
           )}
           <div>
             <Link to="/cart">
-              <button className={style.cart}>🛒{uniqueIdArrayCart && uniqueIdArrayCart.length}</button>
+              <button className={style.cart}>🛒{!user ? uniqueIdArrayCart && uniqueIdArrayCart.length : ""}</button>
             </Link>
           </div>
         </div>

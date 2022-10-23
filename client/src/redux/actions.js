@@ -233,11 +233,10 @@ export function getGuestCart(localStorage) {
 }
 
 export function getUserCart(userId) {
-  console.log(userId);
   return async function (dispatch) {
     try {
       const response = await axios.get(`http://localhost:3001/cart/${userId}`);
-      console.log(response.data.Books);
+      console.log(response.data);
 
       return dispatch({
         type: GET_USER_CART,
