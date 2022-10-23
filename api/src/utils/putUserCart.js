@@ -24,6 +24,13 @@ async function putUserCart({ cartId, bookId }) {
       ],
     });
 
+    const bookName = await Books.findOne({
+      where: {
+        id: bookId,
+      },
+    });
+    console.log(bookName);
+
     // if (!userCart.Books.length)
     //   return {
     //     messageError:
