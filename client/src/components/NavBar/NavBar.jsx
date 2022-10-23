@@ -1,17 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
 import { useHistory } from "react-router-dom";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "./Logo.png";
 import style from "./NavBar.module.css";
+import { getGuestCart, getUserCart } from "../../redux/actions";
 
 export default function NavBar() {
-  const user = useSelector((state) => state.user);
+  const { user, cart, postCartResponse } = useSelector(state => state);
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch()
+
+  let repeatedIdArrayCart = [];
+  let uniqueIdArrayCart = [];
+  let quantity = {};
+  if (localStorage.length) {
+    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+    repeatedIdArrayCart.length &&
+      repeatedIdArrayCart.forEach((el) => {
+        quantity[el] = (quantity[el] || 0) + 1;
+      });
+  }
+
+  let quantityCart
+  if (user && user.uid && cart.length && !cart.messageError) {
+    quantityCart = cart.length
+  }
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(getUserCart(user.uid));
+    } else if (uniqueIdArrayCart.length) {
+      dispatch(getGuestCart(uniqueIdArrayCart.toString()));
+    }
+  }, [user, postCartResponse])
 
   const handleLogOut = async () => {
     try {
@@ -68,7 +95,7 @@ export default function NavBar() {
           )}
           <div>
             <Link to="/cart">
-              <button className={style.cart}>🛒</button>
+              <button className={style.cart}>🛒{!user ? uniqueIdArrayCart && uniqueIdArrayCart.length : quantityCart}</button>
             </Link>
           </div>
         </div>
