@@ -1,4 +1,5 @@
 const { Cart, Books, Books_Carts } = require("../db");
+const { capitalize } = require("./capitalize");
 
 async function putUserCart({ cartId, bookId }) {
   try {
@@ -11,35 +12,34 @@ async function putUserCart({ cartId, bookId }) {
     await booksCart.destroy();
     await booksCart.save();
 
-    const userCart = await Cart.findOne({
-      where: {
-        id: cartId,
-      },
-      include: [
-        {
-          model: Books,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-      ],
-    });
-
-    const bookName = await Books.findOne({
+    // const userCart = await Cart.findOne({
+    //   where: {
+    //     id: cartId,
+    //   },
+    //   include: [
+    //     {
+    //       model: Books,
+    //       attributes: ["name"],
+    //       through: { attributes: [] },
+    //     },
+    //   ],
+    // });
+    const book = await Books.findOne({
       where: {
         id: bookId,
       },
     });
-    console.log(bookName);
-
+    const bookName = await capitalize(book.name);
     // if (!userCart.Books.length)
     //   return {
     //     messageError:
     //       "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!",
     //   };
+
     return {
-      message: "El libro ha sido eliminado del carrito",
+      message: `Se eliminó '${bookName}' de tu carrito`,
       messageError:
-        "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!",
+        "¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!",
     };
   } catch (error) {
     return { messageError: "Se ha producido un error." };
