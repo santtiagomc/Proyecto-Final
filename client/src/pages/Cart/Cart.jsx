@@ -33,6 +33,23 @@ export default function Cart() {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Has modificado la cantidad del producto",
+        });
       } else {
         const Toast = Swal.mixin({
           toast: true,
@@ -58,6 +75,23 @@ export default function Cart() {
           "cart",
           `${repeatedIdArrayCart.toString()},${e.target.value}`
         );
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Has modificado la cantidad del producto",
+        });
       } else {
         const Toast = Swal.mixin({
           toast: true,
@@ -94,6 +128,23 @@ export default function Cart() {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
         );
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Has modificado la cantidad del producto",
+        });
       } else {
         const Toast = Swal.mixin({
           toast: true,
@@ -119,6 +170,23 @@ export default function Cart() {
         let filtered = repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Has modificado la cantidad del producto",
+        });
       } else {
         const Toast = Swal.mixin({
           toast: true,

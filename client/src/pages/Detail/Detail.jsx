@@ -54,7 +54,12 @@ export default function Detail() {
       });
   }
 
-
+  let quantityUser
+  if (user && user.uid && cart.length && !cart.messageError) {
+    quantityUser = cart.find(b => b.id === id)
+    quantityUser = quantityUser && quantityUser.quantity
+    console.log(quantityUser)
+  }
 
   const handleCart = (e) => {
     e.preventDefault();
@@ -65,6 +70,23 @@ export default function Detail() {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Producto agregado al carrito",
+        });
       } else {
         const Toast = Swal.mixin({
           toast: true,
@@ -244,7 +266,7 @@ export default function Detail() {
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito --- {!user ? quantity && quantity[id] ? quantity[id] : 0 : ""}
+                  Agregar al carrito --- {!user ? quantity && quantity[id] ? quantity[id] : 0 : quantityUser}
                 </button>
               </div>
             </div>
