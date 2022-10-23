@@ -9,6 +9,8 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
+  postCart,
+  getUserCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 
@@ -23,9 +25,34 @@ export default function Home() {
     total,
     editorials,
     books,
+    user,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const pages = [];
+
+  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
+  let repeatedIdArrayCart = [];
+  let uniqueIdArrayCart = [];
+  if (localStorage.length) {
+    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+  }
+
+  useEffect(() => {
+    if (user && user.uid) {
+      if (uniqueIdArrayCart.length) {
+
+        dispatch(postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true }))
+
+        setTimeout(function () {
+          dispatch(getUserCart(user.uid));
+          localStorage.clear()
+        }, 2500);
+      }
+    }
+  }, [])
+  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
+
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
@@ -40,15 +67,13 @@ export default function Home() {
         text: books.messageError,
         icon: "error",
         timer: 4000,
-        background: "#2d0f48",
-        color: "#fff",
-        iconColor: "#8c105c",
-        confirmButtonColor: "#10668c",
       });
       dispatch(changeFilter());
       dispatch(changeSearch());
     }
   }, [books]);
+
+
 
   const nextPage = () => {
     if (page + 10 < total) {
@@ -113,7 +138,7 @@ export default function Home() {
               );
             })
           ) : (
-            <span className={style.span}>{books.messageError}</span>
+            <span className={style.span}></span>
           )}
         </div>
 

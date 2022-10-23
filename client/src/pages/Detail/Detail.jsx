@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart } = useSelector((state) => state);
+  const { user, cart, postCartResponse } = useSelector((state) => state);
 
   let avarageRating =
     myBook.Reviews &&
@@ -26,10 +26,12 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-        myBook.Reviews.map((el) => {
-          return el.rating;
-        }).length
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).length
     );
+
+  console.log(postCartResponse)
 
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -71,8 +73,40 @@ export default function Detail() {
     e.preventDefault();
 
     if (user) {
-      let { quantity } = cart.find((b) => b.id === id);
-      if (quantity < 5) {
+      let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
+      if (quantityObject) {
+        if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
+          dispatch(
+            postCart({ userId: user.uid, bookId: e.target.value, suma: true })
+          );
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Producto agregado al carrito",
+          });
+        } else {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+
+          Toast.fire({
+            icon: "error",
+            title: "Alcanzaste el máximo de este producto",
+          });
+        }
+      } else {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
@@ -83,32 +117,11 @@ export default function Detail() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
           icon: "success",
           title: "Producto agregado al carrito",
-        });
-      } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
         });
       }
     } else {
@@ -125,10 +138,6 @@ export default function Detail() {
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
             });
             Toast.fire({
               icon: "success",
@@ -141,10 +150,6 @@ export default function Detail() {
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
             });
             Toast.fire({
               icon: "error",
@@ -160,10 +165,6 @@ export default function Detail() {
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
           });
           Toast.fire({
             icon: "success",
@@ -176,10 +177,6 @@ export default function Detail() {
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
           });
           Toast.fire({
             icon: "error",
@@ -195,10 +192,6 @@ export default function Detail() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -215,7 +208,7 @@ export default function Detail() {
 
     setTimeout(function () {
       setButtonDisabled(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (
