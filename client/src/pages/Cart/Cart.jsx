@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import style from "./Cart.module.css";
-import { getGuestCart, getUserCart, postCart } from "../../redux/actions";
-
+import { getGuestCart, postCart } from "../../redux/actions";
 import Swal from "sweetalert2";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const { cart, user, postCartResponse } = useSelector((state) => state);
+  const { cart, user } = useSelector((state) => state);
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -213,14 +211,6 @@ export default function Cart() {
       setButtonDisabled(false)
     }, 2000);
   };
-
-  useEffect(() => {
-    if (user && user.uid) {
-      dispatch(getUserCart(user.uid));
-    } else if (uniqueIdArrayCart.length && !cart.length) {
-      dispatch(getGuestCart(uniqueIdArrayCart.toString()));
-    }
-  }, [user, postCartResponse]);
 
   return (
     <>

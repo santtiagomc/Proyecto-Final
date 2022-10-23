@@ -9,8 +9,6 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
-  getUserCart,
-  getGuestCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 
@@ -25,32 +23,9 @@ export default function Home() {
     total,
     editorials,
     books,
-    user,
-    cart,
-    postCartResponse
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const pages = [];
-
-  let repeatedIdArrayCart = [];
-  let uniqueIdArrayCart = [];
-  let quantity = {};
-  if (localStorage.length) {
-    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
-    repeatedIdArrayCart.length &&
-      repeatedIdArrayCart.forEach((el) => {
-        quantity[el] = (quantity[el] || 0) + 1;
-      });
-  }
-
-  useEffect(() => {
-    if (user && user.uid) {
-      dispatch(getUserCart(user.uid));
-    } else if (uniqueIdArrayCart.length && !cart.length) {
-      dispatch(getGuestCart(uniqueIdArrayCart.toString()));
-    }
-  }, [user, postCartResponse])
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());

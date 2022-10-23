@@ -8,7 +8,6 @@ import {
   putStatus,
   postCart,
   getGuestCart,
-  getUserCart,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -19,22 +18,18 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart, postCartResponse } = useSelector((state) => state);
+  const { user, cart } = useSelector((state) => state);
 
   let [buttonDisabled, setButtonDisabled] = useState(false)
 
   const { id } = useParams();
 
   useEffect(() => {
-    if (user && user.uid) {
-      dispatch(getUserCart(user.uid));
-    }
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [user, postCartResponse]);
-  // EL USER NO SE TOCA -> (Mati, Gman)
+  }, [user]);
 
   const handleClick = (e) => {
     e.preventDefault();
