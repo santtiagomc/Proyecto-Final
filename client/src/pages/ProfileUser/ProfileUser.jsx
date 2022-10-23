@@ -34,7 +34,7 @@ export default function ProfileUser() {
 
   const onSubmit = async (data) => {
     try {
-      const a = await axios.put("http://localhost:3001/user", {
+      await axios.put("http://localhost:3001/user", {
         ...data,
         id: user,
       });
@@ -43,6 +43,10 @@ export default function ProfileUser() {
       console.log(error);
     }
   };
+
+  if (user === undefined && !loading) {
+    return <div>Inicia sesion</div>;
+  }
 
   return (
     <>

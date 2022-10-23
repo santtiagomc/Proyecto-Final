@@ -11,6 +11,6 @@ export function useUser() {
       setLoad(false);
     });
   }, []);
-  console.log(user);
-  return [user.uid, load];
+
+  return [user?.uid, load];
 }
