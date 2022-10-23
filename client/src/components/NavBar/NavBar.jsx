@@ -34,11 +34,12 @@ export default function NavBar() {
 
   useEffect(() => {
     if (user && user.uid) {
+
       setTimeout(function () {
         dispatch(getUserCart(user.uid));
       }, 400);
 
-    } else if (uniqueIdArrayCart.length) {
+    } else {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
   }, [user, postCartResponse])
