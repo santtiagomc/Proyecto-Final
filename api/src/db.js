@@ -3,44 +3,14 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DataTypes } = require("sequelize");
-const {
-  DB_USER, DB_PASSWORD, DB_HOST,DB_NAME
-} = process.env;
-let sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize({
-        database: DB_NAME,
-        dialect: "postgres",
-        host: DB_HOST,
-        port: 6980,
-        username: DB_USER,
-        password: DB_PASSWORD,
-        pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
-        },
-        dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          keepAlive: true,
-        },
-        ssl: true,
-      })
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ebookDB`,
-        { logging: false, native: false }
-      );
-// const sequelize = new Sequelize(
-//   `postgresql://${process.env.PGUSER }:${ process.env.PGPASSWORD }@${ process.env.PGHOST }:${ process.env.PGPORT }/${ process.env.PGDATABASE }`,
-//   {
-//     logging: false, // set to console.log to see the raw SQL queries
-//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-//   }
-// );
+
+const sequelize = new Sequelize(
+  `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
+);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -73,24 +43,28 @@ const { Books, Genres, Users, Cart, Reviews, Wishlist } = sequelize.models;
 Books.belongsToMany(Genres, { through: "Books_Genres", timestamps: false });
 Genres.belongsToMany(Books, { through: "Books_Genres", timestamps: false });
 
-const Books_Carts = sequelize.define("Books_Carts", { quantity: { type: DataTypes.INTEGER, defaultValue: 1} }, { timestamps: false });
+const Books_Carts = sequelize.define(
+  "Books_Carts",
+  { quantity: { type: DataTypes.INTEGER, defaultValue: 1 } },
+  { timestamps: false }
+);
 Books.belongsToMany(Cart, { through: Books_Carts });
 Cart.belongsToMany(Books, { through: Books_Carts });
 
 Books.belongsToMany(Wishlist, { through: "Books_Wishlist", timestamps: false });
 Wishlist.belongsToMany(Books, { through: "Books_Wishlist", timestamps: false });
 
-Users.hasMany(Reviews)
-Reviews.belongsTo(Users)
+Users.hasMany(Reviews);
+Reviews.belongsTo(Users);
 
-Books.hasMany(Reviews)
-Reviews.belongsTo(Books)
+Books.hasMany(Reviews);
+Reviews.belongsTo(Books);
 
-Users.hasMany(Cart)
-Cart.belongsTo(Users)
+Users.hasMany(Cart);
+Cart.belongsTo(Users);
 
-Users.hasOne(Wishlist)
-Wishlist.belongsTo(Users)
+Users.hasOne(Wishlist);
+Wishlist.belongsTo(Users);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

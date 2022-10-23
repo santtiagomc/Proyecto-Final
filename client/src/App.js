@@ -13,6 +13,7 @@ import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
 import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
+import Footer from "./components/Footer/Footer"
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
       <Route path="/cart" component={Cart} />
       <Route path="/profile" component={ProfileUser} />
       <Route path="/edit/:id" component={CreateBook} />
+      <Footer />
     </BrowserRouter>
   );
 }
