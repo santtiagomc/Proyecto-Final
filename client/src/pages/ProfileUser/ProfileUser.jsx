@@ -6,6 +6,7 @@ import { useUser } from "../../helpers/useUser";
 import axios from "axios";
 
 import style from "./ProfileUser.module.css";
+import Error from "../../components/Error/Error";
 
 export default function ProfileUser() {
   const [dataUser, setDataUser] = useState({});
@@ -45,7 +46,7 @@ export default function ProfileUser() {
   };
 
   if (user === undefined && !loading) {
-    return <div>Inicia sesion</div>;
+    return <Error error="No estas autenticado" />;
   }
 
   return (
