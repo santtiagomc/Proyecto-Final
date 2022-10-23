@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useUser } from "../../helpers/useUser";
+
 import axios from "axios";
 
 import style from "./ProfileUser.module.css";
@@ -10,39 +11,34 @@ export default function ProfileUser() {
   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState(false);
-  const user = useSelector((state) => state.user);
+  const [user, load] = useUser();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  useEffect(async () => {
+  useEffect(() => {
     const getUser = async (userId) => {
       try {
-        console.log(userId);
         const res = await axios.get(`http://localhost:3001/user/${userId}`);
         setDataUser(res.data);
-        console.log(res);
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    console.log(user);
-    getUser(user.uid);
-  }, []);
+    if (!load) getUser(user);
+  }, [load]);
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       const a = await axios.put("http://localhost:3001/user", {
         ...data,
-        id: user.uid,
+        id: user,
       });
       setEdit(!edit);
-      console.log(a);
     } catch (error) {
       console.log(error);
     }
