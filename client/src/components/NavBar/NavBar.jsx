@@ -9,15 +9,20 @@ import Logo from "./Logo.png";
 import style from "./NavBar.module.css";
 
 export default function NavBar() {
-  const { user } = useSelector(state => state);
+  const { user, cart } = useSelector(state => state);
   const [show, setShow] = useState(false);
   const history = useHistory();
 
   let uniqueIdArrayCart
   if (localStorage.cart && localStorage.cart.length) {
-			let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-			uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
-		}
+    let repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+  }
+
+  let quantityCart
+  if (user && user.uid && cart.length && !cart.messageError) {
+    quantityCart = cart.length
+  }
 
   const handleLogOut = async () => {
     try {
@@ -74,7 +79,7 @@ export default function NavBar() {
           )}
           <div>
             <Link to="/cart">
-              <button className={style.cart}>🛒{uniqueIdArrayCart && uniqueIdArrayCart.length}</button>
+              <button className={style.cart}>🛒{!user ? uniqueIdArrayCart && uniqueIdArrayCart.length : quantityCart}</button>
             </Link>
           </div>
         </div>
