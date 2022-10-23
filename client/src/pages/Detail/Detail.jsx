@@ -248,7 +248,10 @@ export default function Detail() {
               <h2 className={style.name}>{myBook.name}</h2>
               <h3 className={style.author}>{myBook.author}</h3>
               <h3 className={style.edition}>{myBook.edition}</h3>
-              <div className={style.stars}>
+              <div
+                className={style.stars}
+                hidden={!avarageRating ? true : false}
+              >
                 <div className={style.star}>
                   <i
                     className={

@@ -3,8 +3,7 @@
   place-items: center;
   /*  grid-template-columns: 33% 33% 33%;
   grid-template-rows: 25% 25% 25% 25%; */
-  margin-top: 80px;
-  margin-bottom: 30px;
+  margin: 50px 0;
   gap: 4.8rem 1.2rem;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
@@ -22,18 +21,47 @@
   width: 100%;
 }
 
-.button {
+.btnNextPrev {
   color: aliceblue;
   background-color: #181818;
-  border-radius: 8px;
-  border: 1px solid #D97197;
+  border-radius: 5px;
+  border: 2px solid #d97197;
   margin: 20px 5px 0 5px;
   cursor: pointer;
+  width: 90px;
+}
 
+.btnNextPrev:hover {
+  background-color: #d97197;
+}
+.btnNumbers {
+  color: aliceblue;
+  background-color: #181818;
+  border-radius: 5px;
+  border: 2px solid #d97197;
+  margin: 20px 5px 0 5px;
+  cursor: pointer;
+  width: 30px;
+}
+
+.btnNumbers:hover {
+  background-color: #d97197;
+  border: 2px solid #d72466;
+}
+
+.btnNumbersSelected {
+  color: aliceblue;
+  background-color: #181818;
+  border-radius: 5px;
+  background-color: #d97197;
+  border: 2px solid #d72466;
+  margin: 20px 5px 0 5px;
+  cursor: pointer;
+  width: 30px;
 }
 
 .pagination {
-  justify-content: center;
   display: flex;
+  justify-content: center;
   width: 100%;
 }

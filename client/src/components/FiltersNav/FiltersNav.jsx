@@ -46,7 +46,7 @@ export default function FiltersNav({ editorials }) {
     <>
       <nav className={style.navContainer}>
         <h2 className={style.filters}>Filtrar resultados</h2>
-        <label className={style.typeFilter}>Ordenar por:</label>
+        <label className={style.label}>Ordenar por:</label>
         <select
           className={style.select}
           name="sort"
@@ -93,7 +93,7 @@ export default function FiltersNav({ editorials }) {
           </option>
         </select>
 
-        <label className={style.typeFilter}>Editoriales</label>
+        <label className={style.label}>Editoriales</label>
         <select
           className={style.select}
           name="editorial"
@@ -120,7 +120,7 @@ export default function FiltersNav({ editorials }) {
             ))}
         </select>
 
-        <label className={style.typeFilter}>Categorías</label>
+        <label className={style.label}>Categorías</label>
         <select
           className={style.select}
           name="genres"
