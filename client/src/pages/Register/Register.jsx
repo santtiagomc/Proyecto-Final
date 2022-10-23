@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
 import style from "./Register.module.css";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { postCart } from "../../redux/actions";
 
 export default function Register() {
   const history = useHistory();
@@ -11,11 +15,32 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { user } = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+    }
+  }, [user])
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
-      history.push("/");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Te has registrado con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     } catch (error) {
       console.log(error);
       // "Un error ha ocurrido"
@@ -25,7 +50,20 @@ export default function Register() {
   const handleSignInGoogle = async () => {
     try {
       await sessionGoogle();
-      history.push("/");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Te has registrado con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     } catch (error) {
       console.log(error);
       // "Un error ha ocurrido"

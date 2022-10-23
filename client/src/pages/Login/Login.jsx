@@ -1,24 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sessionGoogle, singIn } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
 import style from "./Login.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { postCart } from "../../redux/actions";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [error, setError] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch()
+  const { user } = useSelector(state => state)
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+    }
+  }, [user])
+
   const handleGoogle = async () => {
     try {
       await sessionGoogle();
-      history.push("/");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Has iniciado sesión con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +51,20 @@ export default function Login() {
   const onSubmit = async (user) => {
     try {
       const userLog = await singIn(user.email, user.password);
-      history.push("/");
-      console.log(userLog);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Has iniciado sesión con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     } catch (error) {
       setError("Usuario o contrasena incorrecto");
       console.log(error);
@@ -37,7 +73,7 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.container}>
-      <h2 className={style.login}>Login</h2>
+      <h2 className={style.login}>Ingresar</h2>
       <div className={style.containerInput}>
         <label className={style.labelText}>Correo</label>
         <input
@@ -52,7 +88,7 @@ export default function Login() {
         )}
       </div>
       <div className={style.containerInput}>
-        <label className={style.labelText}>Contrasena</label>
+        <label className={style.labelText}>Contraseña</label>
         <input
           className={style.inputLogin}
           type="password"
@@ -64,13 +100,13 @@ export default function Login() {
           <p className={style.error}>Obligatorio</p>
         )}
       </div>
-      <button>Log in</button>
+      <button>Iniciar sesión</button>
       {error && <p className={style.ver}>{error}</p>}
       <span className={style.labelText} onClick={handleGoogle}>
-        Con google
+        Iniciar sesión con google
       </span>
       <Link to="register">
-        <p className={style.ver}>No tienes una cuenta?</p>
+        <p className={style.ver}>Registrarse</p>
       </Link>
     </form>
   );
