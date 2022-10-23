@@ -1,0 +1,117 @@
+.container {
+    position: relative;
+    /* width: 1440px;
+    height: 1473px; */
+    background: #181818;
+}
+
+.image {
+    /* position: absolute; */
+    position: relative;
+    width: 361px;
+    height: 554px;
+    left: 5vh;
+    top: 5vh;
+    border-radius: 25px;
+}
+
+.info {
+    position: relative;
+    height: 38px;
+    left: 553px;
+    top: 5vh;
+
+    font-family: 'Helvetica LT Std';
+    font-style: normal;
+    font-weight: 700;
+    /* font-size: 36px;
+    line-height: 43px;  */
+}
+
+.name {
+    color: white;
+    font-family: Helvetica LT Std;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.author {
+    color: rgb(216, 208, 208);
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.edition {
+    color: white;
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.editorial {
+    color: rgb(216, 208, 208)white;
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.description {
+    color: rgb(216, 208, 208);
+    font-family: Helvetica LT Std;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    width: 70vh;
+}
+
+.price {
+    color: white;
+    font-size: 30px;
+    line-height: 43px;
+}
+
+.cart{
+    height: 4vh;
+    width: 23vh;
+    border-radius: 25px;
+    background-color: #101010;
+    border-color: transparent;
+    color: white;
+    font-family: Helvetica LT Std;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0em;
+}
+
+.cart:hover{
+    cursor: pointer;
+}
+
+.containerPC{
+    display: flex;
+    align-items: center;
+}
+
+.reviews{
+    display: grid;
+    color: white;
+}

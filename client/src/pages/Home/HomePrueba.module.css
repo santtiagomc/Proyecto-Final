@@ -1,0 +1,39 @@
+.grid {
+  display: grid;
+  place-items: center;
+  /*  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 25% 25% 25% 25%; */
+  margin-top: 80px;
+  margin-bottom: 30px;
+  gap: 4.8rem 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.span {
+  background-color: wheat;
+}
+
+.homeContainer {
+  display: flex;
+  margin-top: 20px;
+}
+
+.cardsContainer {
+  width: 100%;
+}
+
+.button {
+  color: aliceblue;
+  background-color: #181818;
+  border-radius: 8px;
+  border: 1px solid #D97197;
+  margin: 20px 5px 0 5px;
+  cursor: pointer;
+
+}
+
+.pagination {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}

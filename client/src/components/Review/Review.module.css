@@ -1,0 +1,151 @@
+.label_rating {
+  margin-bottom: 6px;
+}
+
+.stars {
+  display: flex;
+  height: 41px;
+  justify-content: center;
+  min-width: 150px;
+  width: 100%;
+  border: 1px solid rgb(243, 249, 93);
+  border-radius: 8px;
+  opacity: 80%;
+}
+
+.star {
+  display: flex;
+  align-items: center;
+  margin: 0px 2px;
+  height: 100%;
+}
+
+.star i {
+  font-size: 22px;
+  cursor: pointer;
+  color: rgb(243, 249, 93);
+}
+
+.star i:hover {
+  transform: scale(1.2);
+}
+
+label {
+  color: white;
+}
+
+.container_title {
+  color: white;
+}
+
+.see_form {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(88, 152, 202);
+  border-bottom: 1px solid rgb(88, 152, 202);
+  margin-bottom: 20px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.see_form:hover {
+  color: rgb(43, 131, 198);
+  border-bottom: 1px solid rgb(43, 131, 198);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(88, 152, 202);
+}
+
+.see_form i {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.see_form p {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  padding: 20px 180px;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bolder;
+  margin: 20px 0;
+}
+
+.reviews_container {
+  margin: 120px 0;
+}
+
+hr {
+  color: white;
+}
+
+.single_review {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: white;
+  margin: 0;
+}
+
+.user_single_review {
+  display: flex;
+  margin: 0 20px;
+  justify-content: flex-end;
+}
+
+.header_single_review {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px 5px 12px;
+  margin-bottom: 15px;
+}
+
+.title_single_review {
+  display: flex;
+  height: 100%;
+  margin: 0;
+}
+
+.stars_single_review {
+  display: flex;
+  height: 41px;
+  justify-content: center;
+  border-radius: 8px;
+  opacity: 80%;
+}
+
+.star_single_review {
+  display: flex;
+  align-items: center;
+  margin: 0px 2px;
+  height: 100%;
+}
+
+.star_single_review i {
+  font-size: 22px;
+  color: rgb(243, 249, 93);
+}
+
+.description_single_review {
+  padding: 0 12px;
+  text-align: justify;
+}
