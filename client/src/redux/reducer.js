@@ -15,6 +15,7 @@ import {
   ADD_TO_CART,
   POST_CART,
   GET_CART,
+  GET_USER_CART,
 } from "./actions";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   page: 0,
   total: 0,
   cart: [],
+  postCartResponse: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -100,8 +102,13 @@ export default function rootReducer(state = initialState, action) {
     case GET_CART:
       return { ...state, cart: action.payload };
 
-    case POST_CART:
+    case GET_USER_CART:
+      // console.log(action.payload);
+      // console.log(action.payload.Books);
       return { ...state, cart: action.payload };
+
+    case POST_CART:
+      return { ...state, postCartResponse: action.payload };
 
     default:
       return { ...state };
