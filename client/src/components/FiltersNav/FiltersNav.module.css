@@ -9,7 +9,7 @@
 
 .filters {
   font-weight: bolder;
-  font-size: 28px;
+  font-size: 21px;
   color: #ffffff;
   text-align: center;
   margin: 15px 0;
@@ -17,7 +17,7 @@
 
 .label {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   color: #ffffff;
   margin: 20px 0 10px 0;
 }
@@ -26,11 +26,11 @@
   background-color: #101010;
   padding: 5px 17px;
   border: none;
-  border-radius: 25px;
+  border-radius: 5px;
   height: fit-content;
   text-align: center;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   width: 200px;
   box-shadow: #101010 1px 3px 2px;
@@ -38,16 +38,17 @@
 }
 
 .resetButton {
-  margin-top: 20px;
+  margin-top: 30px;
   background-color: #101010;
   padding: 5px 20px;
   border: none;
-  border-radius: 25px;
+  border-radius: 5px;
   text-align: center;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   width: 200px;
   box-shadow: #101010 1px 3px 2px;
   cursor: pointer;
+
 }
