@@ -21,12 +21,12 @@ export default function Cart() {
       });
   }
 
-  let [buttonDisabled, setButtonDisabled] = useState(false)
+  let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleCartAdd = (e) => {
     e.preventDefault();
     if (user) {
-      let { quantity } = cart.find(b => b.id === e.target.value)
+      let { quantity } = cart.find((b) => b.id === e.target.value);
       if (quantity < 5) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
@@ -38,10 +38,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -55,10 +51,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -66,7 +58,6 @@ export default function Cart() {
           title: "Alcanzaste el máximo de este producto",
         });
       }
-
     } else {
       if (quantity[e.target.value] < 5) {
         localStorage.setItem(
@@ -80,10 +71,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -97,10 +84,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -110,18 +93,17 @@ export default function Cart() {
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     setTimeout(function () {
-      setButtonDisabled(false)
-    }, 2000);
-    console.log(buttonDisabled)
+      setButtonDisabled(false);
+    }, 1000);
   };
 
   const handleCartSubs = (e) => {
     e.preventDefault();
     if (user) {
-      let { quantity } = cart.find(b => b.id === e.target.value)
+      let { quantity } = cart.find((b) => b.id === e.target.value);
       if (quantity > 1) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
@@ -133,10 +115,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -150,10 +128,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -161,7 +135,6 @@ export default function Cart() {
           title: "Alcanzaste el máximo de este producto",
         });
       }
-
     } else {
       if (quantity[e.target.value] > 1) {
         let index = repeatedIdArrayCart.indexOf(e.target.value);
@@ -175,10 +148,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -192,10 +161,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -205,11 +170,11 @@ export default function Cart() {
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     setTimeout(function () {
-      setButtonDisabled(false)
-    }, 2000);
+      setButtonDisabled(false);
+    }, 1000);
   };
 
   return (
@@ -253,7 +218,11 @@ export default function Cart() {
                     <button
                       value={book.id}
                       onClick={handleCartSubs}
-                      className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                      className={
+                        buttonDisabled
+                          ? `${style.detail_quantity_button} ${style.button_disabled}`
+                          : style.detail_quantity_button
+                      }
                       disabled={buttonDisabled}
                     >
                       -
@@ -264,7 +233,11 @@ export default function Cart() {
                     <button
                       value={book.id}
                       onClick={handleCartAdd}
-                      className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                      className={
+                        buttonDisabled
+                          ? `${style.detail_quantity_button} ${style.button_disabled}`
+                          : style.detail_quantity_button
+                      }
                       disabled={buttonDisabled}
                     >
                       +
@@ -278,36 +251,40 @@ export default function Cart() {
               </div>
             ))}
           </div>
-        ) : !uniqueIdArrayCart.length
-          ? (
-            <h1 className={style.message}>
-              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!
-            </h1>
-          ) : (
-            <h1 className={style.message}>Cargando...</h1>
-          )
-      ) : Object.keys(cart) || cart.length
-        ? cart.messageError
-          ? <h1 className={style.message}>{cart.messageError}</h1>
-          : (
-            <div className={style.cart_container}>
-              <div className={`${style.attributes}`}>
-                <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
-                <h4 className={`col-2 text-center ${style.attributes_h2}`}>
-                  Precio unitario
-                </h4>
-                <h4 className={`col-1 text-center ${style.attributes_h2}`}>
-                  Cantidad
-                </h4>
-                <h4 className={`col-2 text-center ${style.attributes_h2}`}>
-                  Precio total
-                </h4>
-              </div>
-              <hr></hr>
-              {cart && cart.length && cart.map((book) => (
+        ) : !uniqueIdArrayCart.length ? (
+          <h1 className={style.message}>
+            ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
+            muchos que te van a encantar!
+          </h1>
+        ) : (
+          <h1 className={style.message}>Cargando...</h1>
+        )
+      ) : Object.keys(cart) || cart.length ? (
+        cart.messageError ? (
+          <h1 className={style.message}>{cart.messageError}</h1>
+        ) : (
+          <div className={style.cart_container}>
+            <div className={`${style.attributes}`}>
+              <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
+              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+                Precio unitario
+              </h4>
+              <h4 className={`col-1 text-center ${style.attributes_h2}`}>
+                Cantidad
+              </h4>
+              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+                Precio total
+              </h4>
+            </div>
+            <hr></hr>
+            {cart &&
+              cart.length &&
+              cart.map((book) => (
                 <div key={book.id}>
                   <div className={style.detail}>
-                    <div className={`col-7 text-center ${style.detail_product}`}>
+                    <div
+                      className={`col-7 text-center ${style.detail_product}`}
+                    >
                       <img
                         src={book.image}
                         alt="Portada"
@@ -323,11 +300,17 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {book.price}
                     </h3>
-                    <div className={`col-1 text-center ${style.detail_quantity}`}>
+                    <div
+                      className={`col-1 text-center ${style.detail_quantity}`}
+                    >
                       <button
                         value={book.id}
                         onClick={handleCartSubs}
-                        className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                        className={
+                          buttonDisabled
+                            ? `${style.detail_quantity_button} ${style.button_disabled}`
+                            : style.detail_quantity_button
+                        }
                         disabled={buttonDisabled}
                       >
                         -
@@ -338,7 +321,11 @@ export default function Cart() {
                       <button
                         value={book.id}
                         onClick={handleCartAdd}
-                        className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                        className={
+                          buttonDisabled
+                            ? `${style.detail_quantity_button} ${style.button_disabled}`
+                            : style.detail_quantity_button
+                        }
                         disabled={buttonDisabled}
                       >
                         +
@@ -351,9 +338,11 @@ export default function Cart() {
                   <hr></hr>
                 </div>
               ))}
-            </div>
-          )
-        : <h1 className={style.message}>Cargando...</h1>}
+          </div>
+        )
+      ) : (
+        <h1 className={style.message}>Cargando...</h1>
+      )}
     </>
   );
 }

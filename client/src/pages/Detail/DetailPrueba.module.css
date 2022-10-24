@@ -33,9 +33,10 @@
 }
 
 .h2alert {
-  background-color: #ffbd07;
+  color: rgb(200, 200, 200);
+  background-color: #154557;
   padding: 10px;
-  border-radius: 25px;
+  border-radius: 10px;
   text-align: center;
   margin: 15px 100px;
 }
@@ -43,38 +44,32 @@
 .btnStatusT {
   margin-left: 10px;
   height: fit-content;
-  background-color: rgb(25, 228, 201);
+  background-color: #50a7ed;
   padding: 5px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   color: black;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+  width: 180px;
 }
 
 .btnStatusF {
   margin-left: 10px;
   height: fit-content;
-  background-color: rgb(245, 15, 111);
+  background-color: #d56a93;
   padding: 5px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   color: black;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+  width: 180px;
 }
 
-.containerT {
-  display: flex;
-  padding: 50px 0px;
-  margin: 0px 100px;
-  align-items: center;
-}
-
-.containerF {
-  opacity: 0.5;
+.container {
   display: flex;
   padding: 50px 0px;
   margin: 0px 100px;
@@ -142,6 +137,7 @@
 .price {
   color: #ffffff;
   font-size: 32px;
+  font-weight: 600;
   margin: 0 25px 0 0;
 }
 
@@ -150,11 +146,12 @@
   background-color: #101010;
   padding: 5px 75px;
   border: none;
-  border-radius: 25px;
+  border-radius: 5px;
   color: white;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+  border: 1px solid #d97197;
 }
 
 .cartF {
@@ -163,7 +160,7 @@
 }
 
 .disponible {
-  color: rgb(25, 228, 201);
+  color: #50a7ed;
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
@@ -171,7 +168,7 @@
 }
 
 .noDisponible {
-  color: rgb(245, 15, 111);
+  color: #d56a93;
   font-size: 16px;
   font-style: italic;
   font-weight: 300;

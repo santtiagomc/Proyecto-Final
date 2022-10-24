@@ -1,31 +1,58 @@
 .nav {
-  height: 70px;
-  background-color: #181818;
   display: flex;
+  position: fixed;
+  height: 7.5vh;
+  width: 100%;
+  z-index: 1000;
+  background-color: #101010;
   justify-content: space-around;
   align-items: center;
+  top: 0%;
+  left: 0%;
+  bottom: 5%;
+  flex-flow: row;
+}
+
+.navbar nav {
+  height: 100%;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 150px;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  align-self: center;
+  flex-flow: row;
 }
 
 .userBtn {
-  width: 80px;
-  height: 35px;
-  border-radius: 25px;
-  background: #101010;
-  color: #FFFFFF;
+  display: flex;
+  width: 60px;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid #d97197;
+  padding: 5px 10px 5px 10px;
 }
 
 .cart {
-  width: 80px;
-  height: 35px;
+  display: flex;
+  width: 60px;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  position: relative;
   background: #101010;
-  border-radius: 25px;
-  font-size: 18px;
-  color: #FFFFFF;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid #d97197;
+  padding: 5px 10px 5px 10px;
 }
 
 .forms {
@@ -36,12 +63,18 @@
 }
 
 .button {
-  width: 75px;
-  height: 35px;
+  display: flex;
+  position: relative;
+  width: 60px;
+  height: auto;
+  text-align: center;
+  justify-content: center;
   background: #101010;
-  border-radius: 25px;
+  border-radius: 5px;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #ffffff;
+  border: 1px solid #d97197;
+  padding: 5px 10px 5px 10px;
 }
 
 .menu {
@@ -62,8 +95,6 @@
   visibility: visible;
 }
 
-
-
 .list {
   list-style: none;
   padding: 0;
@@ -71,8 +102,8 @@
 }
 
 .text {
-  color:#dedede;
-  font-size: 13px;
+  color: #dedede;
+  font-size: 12px;
   padding: 12px;
   cursor: pointer;
 }

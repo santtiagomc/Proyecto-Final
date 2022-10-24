@@ -1,52 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useUser } from "../../helpers/useUser";
 import axios from "axios";
+import Error from "../../components/Error/Error";
 
 import style from "./ProfileUser.module.css";
 
 export default function ProfileUser() {
   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [edit, setEdit] = useState(false);
-  const user = useSelector((state) => state.user);
+  const [edit, setEdit] = useState({ change: false, edited: false });
+  const [user, load] = useUser();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  useEffect(async () => {
+  useEffect(() => {
     const getUser = async (userId) => {
       try {
         console.log(userId);
         const res = await axios.get(`/user/${userId}`);
         setDataUser(res.data);
-        console.log(res);
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    console.log(user);
-    getUser(user.uid);
-  }, []);
+    if (!load) getUser(user);
+  }, [load, edit.edited]);
 
   const onSubmit = async (data) => {
     try {
       console.log(data);
       const a = await axios.put("/user", {
         ...data,
-        id: user.uid,
+        id: user,
       });
-      setEdit(!edit);
-      console.log(a);
+      setEdit({ ...edit, change: !edit.change, edited: !edit.edited });
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (user === undefined && !loading) {
+    return <Error error="No estas autenticado" />;
+  }
 
   return (
     <>
@@ -78,7 +80,7 @@ export default function ProfileUser() {
           <div className={style.option}>
             <h1 className={style.title}> Vista general de la Cuenta </h1>
             <h2>Perfil</h2>
-            {!edit ? (
+            {!edit.change ? (
               <div>
                 <h4>Nombre: {dataUser.fullName}</h4>
                 <h4>Correo Electrónico: {dataUser.email} </h4>
@@ -138,7 +140,9 @@ export default function ProfileUser() {
                   <p className={style.error}>Solo numeros</p>
                 )}
                 <button>Confirmar</button>
-                <span onClick={() => setEdit(!edit)}>
+                <span
+                  onClick={() => setEdit({ ...edit, change: !edit.change })}
+                >
                   Cancelar(es un span porque sino me activa el onsubmit) faltan
                   estilos o puede ser un boton pero hay que poner afuera del
                   form
@@ -146,8 +150,8 @@ export default function ProfileUser() {
               </form>
             )}
             <button
-              className={`${edit && style.disable}`}
-              onClick={() => setEdit(!edit)}
+              className={`${edit.change && style.disable}`}
+              onClick={() => setEdit({ ...edit, change: !edit.change })}
             >
               Editar perfil
             </button>

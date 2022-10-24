@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
 import style from "./Register.module.css";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { postCart } from "../../redux/actions";
 
 export default function Register() {
   const history = useHistory();
@@ -11,11 +15,34 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { user } = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+    }
+  }, [user])
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
-      history.push("/");
+      const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Te has registrado con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
     } catch (error) {
       console.log(error);
       // "Un error ha ocurrido"
@@ -25,7 +52,22 @@ export default function Register() {
   const handleSignInGoogle = async () => {
     try {
       await sessionGoogle();
-      history.push("/");
+      const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Te has registrado con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push("/");
+      }, 4000);
     } catch (error) {
       console.log(error);
       // "Un error ha ocurrido"
@@ -33,60 +75,74 @@ export default function Register() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className={style.container}>
-        <h2 className={style.title}>Crear cuenta</h2>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Email"
-            type="text"
-            {...register("email", {
-              required: true,
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-            })}
-          ></input>
-          {errors.email?.type === "required" && (
-            <p className={style.error}>Obligatorio</p>
-          )}
-          {errors.email?.type === "pattern" && (
-            <p className={style.error}>Ingresa un email válido</p>
-          )}
-        </div>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Contraseña"
-            type="password"
-            {...register("password", {
-              required: true,
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-            })}
-          ></input>
-          {errors.password?.type === "required" && (
-            <p className={style.error}>Obligatorio</p>
-          )}
-          {errors.password?.type === "pattern" && (
-            <p className={style.error}>
-              Minimo 8 caracteres, al menos una letra y un numero
-            </p>
-          )}
-        </div>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Nombre Completo"
-            type="text"
-            {...register("fullName", {
-              required: true,
-              maxLength: 20,
-            })}
-          ></input>
-          {errors.fullName?.type === "required" && (
-            <p className={style.error}>Obligatorio</p>
-          )}
-        </div>
-        {/* <div className={style.inputContainer}>
+    <div className={style.login_body}>
+      <div className={style.container}>
+        <h2 className={style.login}>Crear cuenta</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+          <div className={style.container_input}>
+            <input
+              required
+              className={style.input}
+              // placeholder="Email"
+              type="text"
+              {...register("email", {
+                required: true,
+                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+              })}
+            ></input>
+            <span></span>
+            <label className={style.labelText}>Correo</label>
+            {errors.email?.type === "required" && (
+              <p className={style.error}>Obligatorio</p>
+            )}
+            {errors.email?.type === "pattern" && (
+              <div className={style.error}>
+                <p>Ingresa un correo válido</p>
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </div>
+            )}
+          </div>
+          <div className={style.container_input}>
+            <input
+              required
+              className={style.input}
+              // placeholder="Contraseña"
+              type="password"
+              {...register("password", {
+                required: true,
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              })}
+            ></input>
+            <span></span>
+            <label className={style.labelText}>Contraseña</label>
+            {errors.password?.type === "required" && (
+              <p className={style.error}>Obligatorio</p>
+            )}
+            {errors.password?.type === "pattern" && (
+              <div className={style.error}>
+                <p >Mínimo 8 caracteres, (letras y números)</p>
+                <i class="fa-solid fa-circle-exclamation"></i>
+              </div>
+            )}
+          </div>
+          <div className={style.container_input}>
+            <input
+              required
+              className={style.input}
+              // placeholder="Nombre Completo"
+              type="text"
+              {...register("fullName", {
+                required: true,
+                maxLength: 20,
+              })}
+            ></input>
+            <span></span>
+            <label className={style.labelText}>Nombre completo</label>
+            {errors.fullName?.type === "required" && (
+              <p className={style.error}>Obligatorio</p>
+            )}
+          </div>
+          {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Provincia"
@@ -99,7 +155,7 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-        {/* <div className={style.inputContainer}>
+          {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Ciudad"
@@ -112,7 +168,7 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-        {/* <div className={style.inputContainer}>
+          {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Codigo Postal"
@@ -133,7 +189,7 @@ export default function Register() {
             <p className={style.error}>Maximo 5 numeros</p>
           )}
         </div> */}
-        {/* <div className={style.inputContainer}>
+          {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Direccion"
@@ -147,13 +203,14 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-        <div className={style.register}>
-          <button className={style.registerButton}>Crear</button>
-          <span className={style.span} onClick={handleSignInGoogle}>
-            Con google
-          </span>
-        </div>
-      </form>
-    </>
+          {/* <div className={style.register}> */}
+          <button className={style.button_form}>Crear cuenta</button>
+          <div className={style.google} onClick={handleSignInGoogle}>
+            Registrarse con google
+          </div>
+          {/* </div> */}
+        </form>
+      </div>
+    </div>
   );
 }

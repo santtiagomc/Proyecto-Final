@@ -1,90 +1,97 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.containerForm h1 {
+.divh1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+}
+
+.h1 {
   color: #d9d9d9;
+  font-weight: 600;
+  text-align: center;
+  background-color: #c16687;
+  box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
+
+  padding: 10px 50px;
+  border-radius: 10px;
+}
+
+.label {
+  color: #d9d9d9;
+  margin: 15px 0 5px 0px;
+  background-color: #c16687;
+  width: 120px;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #c16687 2px solid;
+  border-radius: 10px;
+  background-color: #2f2f2f;
+  box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+.divs {
+  margin: 20px;
+  height: 525px;
+  width: 600px;
 }
 
 .incontainer {
-  width: 21rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.incontainer label {
-  color: white;
-  display: flex;
-  justify-content: center;
-  font-size: small;
-}
 .input {
-  padding: 4px;
-  height: 22px;
-  text-align: center;
+  padding: 10px;
+  height: 40px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 50px;
-  width: 20rem;
-  font-size: small;
-}
-
-.h3 {
-  text-align: center;
-  color: #d9d9d9;
-  margin: 5px 0;
-}
-
-.containerForm form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.containerForm {
-  margin: 8rem 0;
-  width: 28rem;
-  background: #262626;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px solid #d97197;
-  border-radius: 50px;
-}
-
-.formulario {
-  width: 40rem;
+  border-radius: 10px;
+  width: 100%;
 }
 
 .textArea {
   text-align: justify;
   resize: none;
-  width: 21rem;
+  width: 100%;
   height: 100px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .selectGenre {
-  height: 22px;
+  padding: 10px;
+
   text-align: center;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 50px;
-  width: 21rem;
-  font-size: small;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .genreContain {
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
-  margin: 8px;
-  width: 21rem;
   height: 100px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .divGenre {
@@ -112,16 +119,22 @@
   color: rgba(255, 0, 0, 0.702);
   padding: 4px;
 }
+
+.btnContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
 .btn {
-  width: 6rem;
+  width: 200px;
   color: #d9d9d9;
-  margin: 18px;
-  padding: 6px;
+  padding: 6px 20px;
   cursor: pointer;
   background: #181818;
   border: 1px solid #d97197;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 50px;
+  border-radius: 10px;
 }
 
 .btnx {
