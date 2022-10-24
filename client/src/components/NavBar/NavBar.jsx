@@ -5,7 +5,7 @@ import { logOut } from "../../firebase/auth";
 import { useHistory } from "react-router-dom";
 
 import SearchBar from "../SearchBar/SearchBar";
-import Logo from "./Logo.png";
+import Logo from "./books_nook_png2.png";
 import style from "./NavBar.module.css";
 import { getGuestCart, getUserCart, postCart } from "../../redux/actions";
 
@@ -75,7 +75,7 @@ export default function NavBar() {
               </Link>
             </div>
           ) : (
-            <div className={style.userBtn}>
+            <div>
               <button onClick={() => setShow(!show)} className={style.userBtn}>
                 👤
               </button>

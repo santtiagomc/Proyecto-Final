@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter, changeSearch } from "../../redux/actions";
 
+import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
@@ -13,14 +14,21 @@ export default function SearchBar() {
   let [options, setOptions] = useState("all");
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (book.trim().length !== 0) {
-      e.preventDefault();
       dispatch(changeSearch({ option: options, name: book }));
       dispatch(changeFilter());
       setBook("");
       history.push("/");
     } else {
-      alert("Valor incorrecto");
+      Swal.fire({
+        background: "#19191a",
+        color: "#e1e1e1",
+        title: "Error",
+        text: "El campo no puede estar vacío!",
+        icon: "error",
+        timer: 4000,
+      });
     }
   };
 

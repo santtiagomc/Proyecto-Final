@@ -10,6 +10,7 @@
   justify-content: center;
   margin-top: 6rem;
 }
+
 .h1 {
   color: #d9d9d9;
   font-weight: 600;
@@ -18,16 +19,16 @@
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
 
   padding: 10px 50px;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .label {
   color: #d9d9d9;
   margin: 15px 0 5px 0px;
   background-color: #c16687;
-  width: 150px;
-  padding: 0 15px;
-  border-radius: 10px;
+  width: 120px;
+  padding: 0 10px;
+  border-radius: 5px;
   font-size: 13px;
   font-weight: 600;
 }
@@ -38,13 +39,14 @@
   justify-content: center;
   align-items: center;
   border: #c16687 2px solid;
+  border-radius: 10px;
   background-color: #2f2f2f;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 .divs {
   margin: 20px;
-  height: 600px;
+  height: 525px;
   width: 600px;
 }
 
@@ -58,7 +60,7 @@
   height: 40px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
 }
 
@@ -69,7 +71,7 @@
   height: 100px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .selectGenre {
@@ -78,7 +80,7 @@
   text-align: center;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 15px;
+  border-radius: 10px;
   margin-bottom: 10px;
 }
 
@@ -89,7 +91,7 @@
   height: 100px;
   background: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .divGenre {
