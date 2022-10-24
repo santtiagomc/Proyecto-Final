@@ -29,6 +29,7 @@
   color: black;
   font-weight: 700;
   cursor: pointer;
+  width: 30px;
 }
 
 .container {
@@ -48,6 +49,7 @@
   background-color: #a35873;
   background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
+  margin: 25px;
   padding: 0 20px;
   border-radius: 20px;
   opacity: 0.5;
@@ -57,7 +59,7 @@
   width: 155px;
   height: 230px;
   margin-left: 15px;
-} 
+}
 
 .bookCover {
   position: relative;
