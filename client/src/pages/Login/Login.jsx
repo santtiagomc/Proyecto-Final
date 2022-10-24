@@ -72,42 +72,47 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={style.container}>
-      <h2 className={style.login}>Ingresar</h2>
-      <div className={style.containerInput}>
-        <label className={style.labelText}>Correo</label>
-        <input
-          className={style.inputLogin}
-          type="text"
-          {...register("email", {
-            required: true,
-          })}
-        ></input>
-        {errors.email?.type === "required" && (
-          <p className={style.error}>Obligatorio</p>
-        )}
+    <div>
+      <div className={style.container}>
+        <h2 className={style.login}>Ingresar</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+          <hr></hr>
+          <div className={style.container_input}>
+            <input
+              className={style.inputLogin}
+              type="text"
+              {...register("email", {
+                required: true,
+              })}
+            ></input>
+            <label className={style.labelText}>Correo</label>
+            {errors.email?.type === "required" && (
+              <p className={style.error}>Obligatorio</p>
+            )}
+          </div>
+          <div className={style.container_input}>
+            <input
+              className={style.inputLogin}
+              type="password"
+              {...register("password", {
+                required: true,
+              })}
+            ></input>
+            <label className={style.labelText}>Contraseña</label>
+            {errors.password?.type === "required" && (
+              <p className={style.error}>Obligatorio</p>
+            )}
+          </div>
+          <button>Iniciar sesión</button>
+          {error && <p className={style.ver}>{error}</p>}
+          <p className={style.labelText} onClick={handleGoogle}>
+            Iniciar sesión con google
+          </p>
+          <Link to="register">
+            <p className={style.ver}>¿No tienes una cuenta? Registrate</p>
+          </Link>
+        </form>
       </div>
-      <div className={style.containerInput}>
-        <label className={style.labelText}>Contraseña</label>
-        <input
-          className={style.inputLogin}
-          type="password"
-          {...register("password", {
-            required: true,
-          })}
-        ></input>
-        {errors.password?.type === "required" && (
-          <p className={style.error}>Obligatorio</p>
-        )}
-      </div>
-      <button>Iniciar sesión</button>
-      {error && <p className={style.ver}>{error}</p>}
-      <span className={style.labelText} onClick={handleGoogle}>
-        Iniciar sesión con google
-      </span>
-      <Link to="register">
-        <p className={style.ver}>Registrarse</p>
-      </Link>
-    </form>
+    </div>
   );
 }
