@@ -63,6 +63,8 @@ export default function Home() {
   useEffect(() => {
     if (books.messageError) {
       Swal.fire({
+        background: "#19191a",
+        color: "#e1e1e1",
         title: "Oops...",
         text: books.messageError,
         icon: "error",

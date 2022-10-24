@@ -28,6 +28,8 @@ export default function Register() {
     try {
       await singUp(data);
       const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,
@@ -51,6 +53,8 @@ export default function Register() {
     try {
       await sessionGoogle();
       const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,

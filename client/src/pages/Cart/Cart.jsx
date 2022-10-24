@@ -33,6 +33,8 @@ export default function Cart() {
         );
 
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -46,6 +48,8 @@ export default function Cart() {
         });
       } else {
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -67,6 +71,8 @@ export default function Cart() {
         );
 
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -80,6 +86,8 @@ export default function Cart() {
         });
       } else {
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -111,6 +119,8 @@ export default function Cart() {
         );
 
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -124,6 +134,8 @@ export default function Cart() {
         });
       } else {
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -145,6 +157,8 @@ export default function Cart() {
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,
@@ -158,6 +172,8 @@ export default function Cart() {
         });
       } else {
         const Toast = Swal.mixin({
+          background: "#19191a",
+          color: "#e1e1e1",
           toast: true,
           position: "top-end",
           showConfirmButton: false,

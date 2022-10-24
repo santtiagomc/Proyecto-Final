@@ -30,6 +30,8 @@ export default function Login() {
     try {
       await sessionGoogle();
       const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,
@@ -52,6 +54,8 @@ export default function Login() {
     try {
       const userLog = await singIn(user.email, user.password);
       const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,
