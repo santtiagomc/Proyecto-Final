@@ -11,20 +11,21 @@
 
 .btnStatusT {
   margin-right: 10px;
-  background-color: rgb(25, 228, 201);
+  background-color: #50a7ed;
   padding: 5px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   color: black;
   font-weight: 700;
   cursor: pointer;
+  width: 30px;
 }
 .btnStatusF {
   margin-right: 10px;
-  background-color: rgb(245, 15, 111);
+  background-color: #d56a93;
   padding: 5px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   color: black;
   font-weight: 700;
   cursor: pointer;

@@ -26,12 +26,12 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-      myBook.Reviews.map((el) => {
-        return el.rating;
-      }).length
+        myBook.Reviews.map((el) => {
+          return el.rating;
+        }).length
     );
 
-  console.log(postCartResponse)
+  console.log(postCartResponse);
 
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -218,10 +218,20 @@ export default function Detail() {
           className={myBook.visible ? style.btnStatusF : style.btnStatusT}
           onClick={(e) => handleClick(e)}
         >
-          {myBook.visible ? "Ocultar producto" : "Mostrar producto"}
+          {myBook.visible ? (
+            <div>
+              Ocultar producto <i class="fa-solid fa-eye-slash"></i>
+            </div>
+          ) : (
+            <div>
+              Mostrar producto <i class="fa-solid fa-eye"></i>
+            </div>
+          )}
         </button>
         <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>Editar producto</button>
+          <button className={style.btnStatusT}>
+            Editar producto <i class="fa-solid fa-pencil"></i>
+          </button>
         </NavLink>
       </div>
       {myBook.name ? (
@@ -229,7 +239,7 @@ export default function Detail() {
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
-          <div className={myBook.visible ? style.containerT : style.containerF}>
+          <div className={style.container}>
             <div>
               <img
                 className={style.image}

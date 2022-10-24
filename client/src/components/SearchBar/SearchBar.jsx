@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import { changeFilter, changeSearch } from "../../redux/actions";
 
 import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   let [book, setBook] = useState("");
   let [options, setOptions] = useState("all");
 
@@ -16,6 +18,7 @@ export default function SearchBar() {
       dispatch(changeSearch({ option: options, name: book }));
       dispatch(changeFilter());
       setBook("");
+      history.push("/");
     } else {
       alert("Valor incorrecto");
     }
