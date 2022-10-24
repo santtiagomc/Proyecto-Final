@@ -100,22 +100,27 @@ export default function Home() {
       <FiltersNav editorials={editorials} />
       <div className={style.cardsContainer}>
         <div className={style.pagination}>
-          <button className={style.button} onClick={prevPage}>
+          <button className={style.btnNextPrev} onClick={prevPage}>
             Anterior
           </button>
-          {pages.map((page) => (
+          {pages.map((el, index) => (
             <button
-              className={style.button}
-              key={page}
-              onClick={() => handlePage(page)}
+              className={
+                index === page / 10
+                  ? style.btnNumbersSelected
+                  : style.btnNumbers
+              }
+              key={el}
+              onClick={() => handlePage(el)}
             >
-              {page}
+              {el}
             </button>
           ))}
-          <button className={style.button} onClick={nextPage}>
+          <button className={style.btnNextPrev} onClick={nextPage}>
             Siguiente
           </button>
         </div>
+
         <div className={style.grid}>
           {!books.messageError ? (
             books.map((book) => {
@@ -135,6 +140,28 @@ export default function Home() {
           ) : (
             <span className={style.span}></span>
           )}
+        </div>
+
+        <div className={style.pagination}>
+          <button className={style.btnNextPrev} onClick={prevPage}>
+            Anterior
+          </button>
+          {pages.map((el, index) => (
+            <button
+              className={
+                index === page / 10
+                  ? style.btnNumbersSelected
+                  : style.btnNumbers
+              }
+              key={el}
+              onClick={() => handlePage(el)}
+            >
+              {el}
+            </button>
+          ))}
+          <button className={style.btnNextPrev} onClick={nextPage}>
+            Siguiente
+          </button>
         </div>
       </div>
     </div>

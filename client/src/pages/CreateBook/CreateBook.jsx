@@ -223,175 +223,178 @@ export default function CreateBook() {
   }, [dispatch, input]);
 
   return (
-    <>
-      <div className={style.container}>
-        <div className={style.containerForm}>
-          <div>
-            <h1> {params.id ? "Editar libro " : "Agregar Libro"} </h1>
-          </div>
-          <div className={style.formulario}>
-            <form
-              onSubmit={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Nombre</h3>
-                <input
-                  className={style.input}
-                  type="text"
-                  placeholder={params.id ? detail.name : "Nombre del libro"}
-                  value={input.name.toLowerCase()}
-                  name="name"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.name && <p className={style.err}>{errors.name}</p>}
-                {/* {errors.name ? (<p className={style.err}>{errors.name}</p>) : ""} */}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Portada</h3>
-                <input
-                  className={style.input}
-                  type="url"
-                  placeholder="Url portada"
-                  value={input.image}
-                  name="image"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.image && <p className={style.err}>{errors.image}</p>}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Autor</h3>
-                <input
-                  className={style.input}
-                  type="text"
-                  placeholder="Nombre del Autor"
-                  value={input.author}
-                  name="author"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.author && <p className={style.err}>{errors.author}</p>}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Precio</h3>
-                <input
-                  className={style.input}
-                  type="number"
-                  placeholder="Precio"
-                  value={input.price}
-                  name="price"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.price && <p className={style.err}>{errors.price}</p>}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Stock</h3>
-                <input
-                  className={style.input}
-                  type="number"
-                  placeholder="Stock"
-                  value={input.stock}
-                  name="stock"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.stock && <p className={style.err}>{errors.stock}</p>}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Editorial</h3>
-                <input
-                  className={style.input}
-                  type="text"
-                  placeholder="Nombre de la editorial"
-                  value={input.editorial}
-                  name="editorial"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.editorial && (
-                  <p className={style.err}>{errors.editorial}</p>
-                )}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Año de edición</h3>
-                <input
-                  className={style.input}
-                  type="number"
-                  placeholder="Año"
-                  value={input.edition}
-                  name="edition"
-                  onChange={(e) => handleChange(e)}
-                />
-                {input.edition && <p className={style.err}>{errors.edition}</p>}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Descripción</h3>
-                <textarea
-                  className={style.textArea}
-                  name="description"
-                  id=""
-                  cols="30"
-                  rows="100"
-                  type="text"
-                  placeholder="Descripción del libro"
-                  value={input.description}
-                  onChange={(e) => handleChange(e)}
-                ></textarea>
-                {input.description && (
-                  <p className={style.err}>{errors.description}</p>
-                )}
-              </div>
-              <div className={style.incontainer}>
-                <h3 className={style.h3}>Categorías</h3>
-                <select
-                  value="0"
-                  onChange={(e) => handleSelect(e)}
-                  className={style.selectGenre}
-                >
-                  <option selected disabled value="0">
-                    Categorías
-                  </option>
-                  {genres.map((el) => {
-                    return (
-                      <option key={el} value={el}>
-                        {" "}
-                        {el}{" "}
-                      </option>
-                    );
-                  })}
-                </select>
-                {/* {errors.genre && (<p className={style.err}>{errors.genre}</p>)} */}
-              </div>
+    <div className={style.container}>
+      <div className={style.divh1}>
+        <h1 className={style.h1}>
+          {params.id ? "Editar libro " : "Agregar Libro"}
+        </h1>
+      </div>
 
-              <div className={style.genreContain}>
-                {input.genre.map((c) => {
-                  return (
-                    <div key={c} className={style.divGenre}>
-                      <ul>
-                        <li>{c}</li>
-                        <button
-                          className={style.btnx}
-                          onClick={() => handleDelete(c)}
-                        >
-                          X
-                        </button>
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
-              {
-                <div>
-                  <button className={style.btn} type="submit">
-                    {params.id ? "Completar edición" : "Crear"}
-                  </button>
-                  <Link to="/">
-                    <button className={style.btn}>Volver</button>
-                  </Link>
+      <form
+        className={style.form}
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <div className={style.divs}>
+          <div className={style.incontainer}>
+            <label className={style.label}>Nombre</label>
+            <input
+              className={style.input}
+              type="text"
+              placeholder={params.id ? detail.name : "Nombre del libro"}
+              value={input.name.toLowerCase()}
+              name="name"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.name && <p className={style.err}>{errors.name}</p>}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Autor</label>
+            <input
+              className={style.input}
+              type="text"
+              placeholder="Nombre del Autor"
+              value={input.author}
+              name="author"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.author && <p className={style.err}>{errors.author}</p>}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Año de edición</label>
+            <input
+              className={style.input}
+              type="number"
+              placeholder="Año"
+              value={input.edition}
+              name="edition"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.edition && <p className={style.err}>{errors.edition}</p>}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Categorías</label>
+            <select
+              value="0"
+              onChange={(e) => handleSelect(e)}
+              className={style.selectGenre}
+            >
+              <option selected disabled value="0">
+                Categorías
+              </option>
+              {genres.map((el) => {
+                return (
+                  <option key={el} value={el}>
+                    {" "}
+                    {el}{" "}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <div className={style.genreContain}>
+            {input.genre.map((c) => {
+              return (
+                <div key={c} className={style.divGenre}>
+                  <ul>
+                    <li>{c}</li>
+                    <button
+                      className={style.btnx}
+                      onClick={() => handleDelete(c)}
+                    >
+                      X
+                    </button>
+                  </ul>
                 </div>
-              }
-            </form>
+              );
+            })}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Portada</label>
+            <input
+              className={style.input}
+              type="url"
+              placeholder="Url portada"
+              value={input.image}
+              name="image"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.image && <p className={style.err}>{errors.image}</p>}
           </div>
         </div>
-      </div>
-    </>
+
+        <div className={style.divs}>
+          <div className={style.incontainer}>
+            <label className={style.label}>Descripción</label>
+            <textarea
+              className={style.textArea}
+              name="description"
+              id=""
+              cols="30"
+              rows="100"
+              type="text"
+              placeholder="Descripción del libro"
+              value={input.description}
+              onChange={(e) => handleChange(e)}
+            ></textarea>
+            {input.description && (
+              <p className={style.err}>{errors.description}</p>
+            )}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Editorial</label>
+            <input
+              className={style.input}
+              type="text"
+              placeholder="Nombre de la editorial"
+              value={input.editorial}
+              name="editorial"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.editorial && <p className={style.err}>{errors.editorial}</p>}
+          </div>
+
+          <div className={style.incontainer}>
+            <label className={style.label}>Precio</label>
+            <input
+              className={style.input}
+              type="number"
+              placeholder="Precio"
+              value={input.price}
+              name="price"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.price && <p className={style.err}>{errors.price}</p>}
+          </div>
+          <div className={style.incontainer}>
+            <label className={style.label}>Stock</label>
+            <input
+              className={style.input}
+              type="number"
+              placeholder="Stock"
+              value={input.stock}
+              name="stock"
+              onChange={(e) => handleChange(e)}
+            />
+            {input.stock && <p className={style.err}>{errors.stock}</p>}
+          </div>
+          <div className={style.btnContainer}>
+            <button className={style.btn} type="submit">
+              {params.id ? "Completar edición" : "Crear"}
+            </button>
+            <Link to="/">
+              <button className={style.btn}>Volver</button>
+            </Link>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }

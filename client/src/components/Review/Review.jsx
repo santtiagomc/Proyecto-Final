@@ -11,6 +11,7 @@ export default function Review({ id }) {
 
   const [addReviewActive, setAddReviewActive] = useState(false);
   const [errors, setErrors] = useState({});
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const [input, setInput] = useState({
     title: "",
@@ -66,22 +67,41 @@ export default function Review({ id }) {
   function onSubmit(e) {
     e.preventDefault();
     dispatch(postReviews(input));
+
+    setButtonDisabled(true);
+    setTimeout(function () {
+      setButtonDisabled(false);
+    }, 2000);
   }
 
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
-      Swal.fire({
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+
+      Toast.fire({
+        icon: "error",
         title: createReview.messageError,
-        icon: "warning",
-        timer: 4000,
       });
       dispatch({ type: POST_REVIEWS, payload: [] });
     } else {
-      Swal.fire({
-        title: createReview.message,
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+
+      Toast.fire({
         icon: "success",
-        timer: 4000,
+        title: createReview.message,
       });
       setInput({
         title: "",
@@ -126,8 +146,9 @@ export default function Review({ id }) {
                 Título*
               </label>
               <input
-                className={`form-control ${!input.title ? "" : errors.title ? "is-invalid" : "is-valid"
-                  }`}
+                className={`form-control ${
+                  !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
+                }`}
                 type="text"
                 name="title"
                 id="title"
@@ -211,12 +232,13 @@ export default function Review({ id }) {
                 type="text"
                 name="description"
                 id="description"
-                className={`form-control ${!input.description
+                className={`form-control ${
+                  !input.description
                     ? ""
                     : errors.description
-                      ? "is-invalid"
-                      : "is-valid"
-                  }`}
+                    ? "is-invalid"
+                    : "is-valid"
+                }`}
                 placeholder="Agregue su reseña"
                 value={input.description}
                 onChange={handleChange}
@@ -229,7 +251,9 @@ export default function Review({ id }) {
             <div className="mb-3">
               <button
                 className="btn btn-primary col-1"
-                disabled={Object.keys(errors).length ? true : false}
+                disabled={
+                  Object.keys(errors).length || buttonDisabled ? true : false
+                }
               >
                 Enviar
               </button>
@@ -240,31 +264,31 @@ export default function Review({ id }) {
       <hr></hr>
       {detail.Reviews.length
         ? detail.Reviews.map((review, index) => (
-          <div className={style.single_review} key={index}>
-            {review.User && (
-              <h6 className={style.user_single_review}>
-                {review.User.fullName}
-              </h6>
-            )}
-            <div className={style.header_single_review}>
-              <h3 className={style.title_single_review}> {review.title} </h3>
-              <div className={style.stars_single_review}>
-                {Array(review.rating)
-                  .fill(1)
-                  .map((e, index) => (
-                    <div className={style.star_single_review} key={index}>
-                      <i className={`fa-solid fa-star`}></i>
-                    </div>
-                  ))}
+            <div className={style.single_review} key={index}>
+              {review.User && (
+                <h6 className={style.user_single_review}>
+                  {review.User.fullName}
+                </h6>
+              )}
+              <div className={style.header_single_review}>
+                <h3 className={style.title_single_review}> {review.title} </h3>
+                <div className={style.stars_single_review}>
+                  {Array(review.rating)
+                    .fill(1)
+                    .map((e, index) => (
+                      <div className={style.star_single_review} key={index}>
+                        <i className={`fa-solid fa-star`}></i>
+                      </div>
+                    ))}
+                </div>
               </div>
+              <p className={style.description_single_review}>
+                {" "}
+                {review.description}{" "}
+              </p>
+              <hr></hr>
             </div>
-            <p className={style.description_single_review}>
-              {" "}
-              {review.description}{" "}
-            </p>
-            <hr></hr>
-          </div>
-        ))
+          ))
         : ""}
     </div>
   );
