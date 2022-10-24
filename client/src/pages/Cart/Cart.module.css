@@ -103,3 +103,15 @@ a {
 .button_disabled:active {
   transform: none;
 }
+
+.btnTrash {
+  background-color: #191919;
+  color: rgb(255, 255, 255);
+  font-size:x-large;
+  cursor: pointer;
+}
+
+.btnTrash:hover {
+  color: rgb(14, 194, 173);
+  font-size:xx-large;
+}

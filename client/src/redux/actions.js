@@ -16,6 +16,8 @@ export const USER_EXIST = "USER_EXIST";
 export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
+export const PUT_USER_CART = "PUT_USER_CART";
+export const DELETE_USER_CART = "DELETE_USER_CART";
 
 export function userExist(payload) {
   return {
@@ -245,6 +247,48 @@ export function getUserCart(userId) {
     } catch (error) {
       return dispatch({
         type: GET_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para borrar un libro del carrito del usuario
+export function putUserCart(cartId, bookId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/cart?cartId=${cartId}&bookId=${bookId}`
+      );
+
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para borrar el carrito de un usuario
+export function deleteUserCart(cartId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/cart?cartId=${cartId}`
+      );
+
+      return dispatch({
+        type: DELETE_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_USER_CART,
         payload: error.response.data,
       });
     }

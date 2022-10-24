@@ -16,6 +16,8 @@ import {
   POST_CART,
   GET_CART,
   GET_USER_CART,
+  PUT_USER_CART,
+  DELETE_USER_CART,
 } from "./actions";
 
 const initialState = {
@@ -39,7 +41,9 @@ const initialState = {
   page: 0,
   total: 0,
   cart: [],
-  postCartResponse: []
+  postCartResponse: [],
+  putUserCartResponse: {},
+  deleteUserCartResponse: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -113,6 +117,12 @@ export default function rootReducer(state = initialState, action) {
       } else {
         return { ...state, postCartResponse: action.payload };
       }
+
+    case PUT_USER_CART:
+      return { ...state, putUserCartResponse: action.payload };
+
+    case DELETE_USER_CART:
+      return { ...state, deleteUserCartResponse: action.payload };
 
     default:
       return { ...state };

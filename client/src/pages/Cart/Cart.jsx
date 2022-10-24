@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
-import { getGuestCart, postCart } from "../../redux/actions";
+import {
+  getGuestCart,
+  postCart,
+  putUserCart,
+  deleteUserCart,
+} from "../../redux/actions";
 import Swal from "sweetalert2";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const { cart, user } = useSelector((state) => state);
+  const { cart, user, putUserCartResponse } = useSelector((state) => state);
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -21,12 +26,12 @@ export default function Cart() {
       });
   }
 
-  let [buttonDisabled, setButtonDisabled] = useState(false)
+  let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleCartAdd = (e) => {
     e.preventDefault();
     if (user) {
-      let { quantity } = cart.find(b => b.id === e.target.value)
+      let { quantity } = cart.find((b) => b.id === e.target.value);
       if (quantity < 5) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
@@ -62,7 +67,6 @@ export default function Cart() {
           title: "Alcanzaste el máximo de este producto",
         });
       }
-
     } else {
       if (quantity[e.target.value] < 5) {
         localStorage.setItem(
@@ -102,17 +106,17 @@ export default function Cart() {
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     setTimeout(function () {
-      setButtonDisabled(false)
+      setButtonDisabled(false);
     }, 1000);
   };
 
   const handleCartSubs = (e) => {
     e.preventDefault();
     if (user) {
-      let { quantity } = cart.find(b => b.id === e.target.value)
+      let { quantity } = cart.find((b) => b.id === e.target.value);
       if (quantity > 1) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
@@ -148,7 +152,6 @@ export default function Cart() {
           title: "Alcanzaste el máximo de este producto",
         });
       }
-
     } else {
       if (quantity[e.target.value] > 1) {
         let index = repeatedIdArrayCart.indexOf(e.target.value);
@@ -188,10 +191,32 @@ export default function Cart() {
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-    setButtonDisabled(true)
+    setButtonDisabled(true);
 
     setTimeout(function () {
-      setButtonDisabled(false)
+      setButtonDisabled(false);
+    }, 1000);
+  };
+
+  const handleRemoveBook = (cartId, bookId) => {
+    //e.preventDefault();
+    dispatch(putUserCart(cartId, bookId));
+    const Toast = Swal.mixin({
+      background: "#19191a",
+      color: "#e1e1e1",
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: `${putUserCartResponse.message} se borro`,
+    });
+    setTimeout(function () {
+      setButtonDisabled(false);
     }, 1000);
   };
 
@@ -236,7 +261,11 @@ export default function Cart() {
                     <button
                       value={book.id}
                       onClick={handleCartSubs}
-                      className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                      className={
+                        buttonDisabled
+                          ? `${style.detail_quantity_button} ${style.button_disabled}`
+                          : style.detail_quantity_button
+                      }
                       disabled={buttonDisabled}
                     >
                       -
@@ -247,7 +276,11 @@ export default function Cart() {
                     <button
                       value={book.id}
                       onClick={handleCartAdd}
-                      className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                      className={
+                        buttonDisabled
+                          ? `${style.detail_quantity_button} ${style.button_disabled}`
+                          : style.detail_quantity_button
+                      }
                       disabled={buttonDisabled}
                     >
                       +
@@ -256,41 +289,48 @@ export default function Cart() {
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}
                   </h3>
+                  <button className={style.btnTrash}>
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </div>
                 <hr></hr>
               </div>
             ))}
           </div>
-        ) : !uniqueIdArrayCart.length
-          ? (
-            <h1 className={style.message}>
-              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!
-            </h1>
-          ) : (
-            <h1 className={style.message}>Cargando...</h1>
-          )
-      ) : Object.keys(cart) || cart.length
-        ? cart.messageError
-          ? <h1 className={style.message}>{cart.messageError}</h1>
-          : (
-            <div className={style.cart_container}>
-              <div className={`${style.attributes}`}>
-                <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
-                <h4 className={`col-2 text-center ${style.attributes_h2}`}>
-                  Precio unitario
-                </h4>
-                <h4 className={`col-1 text-center ${style.attributes_h2}`}>
-                  Cantidad
-                </h4>
-                <h4 className={`col-2 text-center ${style.attributes_h2}`}>
-                  Precio total
-                </h4>
-              </div>
-              <hr></hr>
-              {cart && cart.length && cart.map((book) => (
+        ) : !uniqueIdArrayCart.length ? (
+          <h1 className={style.message}>
+            ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
+            muchos que te van a encantar!
+          </h1>
+        ) : (
+          <h1 className={style.message}>Cargando...</h1>
+        )
+      ) : Object.keys(cart) || cart.length ? (
+        cart.messageError ? (
+          <h1 className={style.message}>{cart.messageError}</h1>
+        ) : (
+          <div className={style.cart_container}>
+            <div className={`${style.attributes}`}>
+              <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
+              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+                Precio unitario
+              </h4>
+              <h4 className={`col-1 text-center ${style.attributes_h2}`}>
+                Cantidad
+              </h4>
+              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+                Precio total
+              </h4>
+            </div>
+            <hr></hr>
+            {cart &&
+              cart.length &&
+              cart.map((book) => (
                 <div key={book.id}>
                   <div className={style.detail}>
-                    <div className={`col-7 text-center ${style.detail_product}`}>
+                    <div
+                      className={`col-7 text-center ${style.detail_product}`}
+                    >
                       <img
                         src={book.image}
                         alt="Portada"
@@ -306,11 +346,17 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {book.price}
                     </h3>
-                    <div className={`col-1 text-center ${style.detail_quantity}`}>
+                    <div
+                      className={`col-1 text-center ${style.detail_quantity}`}
+                    >
                       <button
                         value={book.id}
                         onClick={handleCartSubs}
-                        className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                        className={
+                          buttonDisabled
+                            ? `${style.detail_quantity_button} ${style.button_disabled}`
+                            : style.detail_quantity_button
+                        }
                         disabled={buttonDisabled}
                       >
                         -
@@ -321,7 +367,11 @@ export default function Cart() {
                       <button
                         value={book.id}
                         onClick={handleCartAdd}
-                        className={buttonDisabled ? `${style.detail_quantity_button} ${style.button_disabled}` : style.detail_quantity_button}
+                        className={
+                          buttonDisabled
+                            ? `${style.detail_quantity_button} ${style.button_disabled}`
+                            : style.detail_quantity_button
+                        }
                         disabled={buttonDisabled}
                       >
                         +
@@ -330,13 +380,21 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {(book.price * book.quantity).toFixed(2)}
                     </h3>
+                    <button
+                      onClick={() => handleRemoveBook(book.cartId, book.id)}
+                      className={style.btnTrash}
+                    >
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
                   </div>
                   <hr></hr>
                 </div>
               ))}
-            </div>
-          )
-        : <h1 className={style.message}>Cargando...</h1>}
+          </div>
+        )
+      ) : (
+        <h1 className={style.message}>Cargando...</h1>
+      )}
     </>
   );
 }
