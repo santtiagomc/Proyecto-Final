@@ -78,8 +78,6 @@ export default function Review({ id }) {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
       const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,
@@ -94,8 +92,6 @@ export default function Review({ id }) {
       dispatch({ type: POST_REVIEWS, payload: [] });
     } else {
       const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
         toast: true,
         position: "top-end",
         showConfirmButton: false,

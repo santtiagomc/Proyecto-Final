@@ -75,7 +75,7 @@ export default function NavBar() {
               </Link>
             </div>
           ) : (
-            <div className={style.userBtn}>
+            <div>
               <button onClick={() => setShow(!show)} className={style.userBtn}>
                 👤
               </button>
