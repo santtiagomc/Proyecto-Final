@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart } = useSelector((state) => state);
+  const { user, cart, postCartResponse } = useSelector((state) => state);
 
   let avarageRating =
     myBook.Reviews &&
@@ -30,6 +30,8 @@ export default function Detail() {
           return el.rating;
         }).length
     );
+
+  console.log(postCartResponse);
 
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -71,8 +73,40 @@ export default function Detail() {
     e.preventDefault();
 
     if (user) {
-      let { quantity } = cart.find((b) => b.id === id);
-      if (quantity < 5) {
+      let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
+      if (quantityObject) {
+        if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
+          dispatch(
+            postCart({ userId: user.uid, bookId: e.target.value, suma: true })
+          );
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Producto agregado al carrito",
+          });
+        } else {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+
+          Toast.fire({
+            icon: "error",
+            title: "Alcanzaste el máximo de este producto",
+          });
+        }
+      } else {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
@@ -83,32 +117,11 @@ export default function Detail() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
           icon: "success",
           title: "Producto agregado al carrito",
-        });
-      } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
         });
       }
     } else {
@@ -125,10 +138,6 @@ export default function Detail() {
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
             });
             Toast.fire({
               icon: "success",
@@ -141,10 +150,6 @@ export default function Detail() {
               showConfirmButton: false,
               timer: 2000,
               timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-              },
             });
             Toast.fire({
               icon: "error",
@@ -160,10 +165,6 @@ export default function Detail() {
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
           });
           Toast.fire({
             icon: "success",
@@ -176,10 +177,6 @@ export default function Detail() {
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
           });
           Toast.fire({
             icon: "error",
@@ -195,10 +192,6 @@ export default function Detail() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -215,7 +208,7 @@ export default function Detail() {
 
     setTimeout(function () {
       setButtonDisabled(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -225,10 +218,20 @@ export default function Detail() {
           className={myBook.visible ? style.btnStatusF : style.btnStatusT}
           onClick={(e) => handleClick(e)}
         >
-          {myBook.visible ? "Ocultar producto" : "Mostrar producto"}
+          {myBook.visible ? (
+            <div>
+              Ocultar producto <i class="fa-solid fa-eye-slash"></i>
+            </div>
+          ) : (
+            <div>
+              Mostrar producto <i class="fa-solid fa-eye"></i>
+            </div>
+          )}
         </button>
         <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>Editar producto</button>
+          <button className={style.btnStatusT}>
+            Editar producto <i class="fa-solid fa-pencil"></i>
+          </button>
         </NavLink>
       </div>
       {myBook.name ? (
@@ -236,7 +239,7 @@ export default function Detail() {
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
-          <div className={myBook.visible ? style.containerT : style.containerF}>
+          <div className={style.container}>
             <div>
               <img
                 className={style.image}
@@ -248,7 +251,10 @@ export default function Detail() {
               <h2 className={style.name}>{myBook.name}</h2>
               <h3 className={style.author}>{myBook.author}</h3>
               <h3 className={style.edition}>{myBook.edition}</h3>
-              <div className={style.stars}>
+              <div
+                className={style.stars}
+                hidden={!avarageRating ? true : false}
+              >
                 <div className={style.star}>
                   <i
                     className={

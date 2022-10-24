@@ -38,10 +38,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -55,10 +51,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -80,10 +72,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -97,10 +85,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -114,8 +98,7 @@ export default function Cart() {
 
     setTimeout(function () {
       setButtonDisabled(false)
-    }, 2000);
-    console.log(buttonDisabled)
+    }, 1000);
   };
 
   const handleCartSubs = (e) => {
@@ -133,10 +116,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -150,10 +129,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -175,10 +150,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -192,10 +163,6 @@ export default function Cart() {
           showConfirmButton: false,
           timer: 2000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
         });
 
         Toast.fire({
@@ -209,7 +176,7 @@ export default function Cart() {
 
     setTimeout(function () {
       setButtonDisabled(false)
-    }, 2000);
+    }, 1000);
   };
 
   return (

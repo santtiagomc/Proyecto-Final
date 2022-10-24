@@ -16,10 +16,6 @@ export default function Card({
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("anda bien 👍 (leer comentario componente card)");
-    //lo dejo comentado porque no vaya a ser que alguien el de a la X y oculte el libro sin querer, hay que ver
-    //de hacer que muestre los libros ocultos solo al admin
-
     dispatch(putStatus(id));
   };
 
@@ -30,10 +26,16 @@ export default function Card({
           className={visible ? style.btnStatusF : style.btnStatusT}
           onClick={(e) => handleClick(e)}
         >
-          {visible ? "Ocultar" : "Mostrar"}
+          {visible ? (
+            <i class="fa-solid fa-eye-slash"></i>
+          ) : (
+            <i class="fa-solid fa-eye"></i>
+          )}
         </button>
         <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>Edit</button>
+          <button className={style.btnStatusT}>
+            <i class="fa-solid fa-pencil"></i>
+          </button>
         </NavLink>
       </div>
       <NavLink className={style.navLink} to={`/detail/${id}`}>
