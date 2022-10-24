@@ -1,7 +1,7 @@
 .nav {
   display: flex;
   position: fixed;
-  height: fit-content;
+  height: 7.5vh;
   width: 100%;
   z-index: 1000;
   background-color: #101010;
@@ -18,7 +18,7 @@
 }
 
 .logo {
-  width: 70px;
+  width: 150px;
   height: auto;
   position: relative;
   display: inline-block;

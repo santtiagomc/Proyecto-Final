@@ -34,6 +34,7 @@
 .btnNextPrev:hover {
   background-color: #d97197;
 }
+
 .btnNumbers {
   color: aliceblue;
   background-color: #181818;
@@ -64,4 +65,8 @@
   justify-content: center;
   width: 100%;
   margin-top: 80px;
+}
+
+.pagination_bottom {
+  margin-top: -1.875rem;
 }
