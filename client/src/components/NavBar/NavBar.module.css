@@ -5,11 +5,12 @@
   width: 100%;
   z-index: 1000;
   background-color: #101010;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   top: 0%;
   left: 0%;
   bottom: 5%;
+  flex-flow: row;
 }
 
 .navbar nav {
@@ -17,21 +18,18 @@
 }
 
 .logo {
-  width: 75px;
+  width: 70px;
   height: auto;
   position: relative;
   display: inline-block;
   align-self: center;
-  left: 275%; 
+  flex-flow: row;
 }
 
 .userBtn {
   display: flex;
-  float: none;
   width: auto;
   height: auto;
-  right: 375%;
-  position: relative;
   align-self: center;
   border-radius: 25px;
   background: #101010;
@@ -45,7 +43,6 @@
   width: auto;
   height: auto;
   position: relative;
-  right: 375%;
   background: #101010;
   border-radius: 25px;
   font-size: 14px;
@@ -65,7 +62,6 @@
   position: relative;
   width: auto;
   height: auto;
-  right: 200%;
   background: #101010;
   border-radius: 25px;
   font-size: 14px;

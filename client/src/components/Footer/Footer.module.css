@@ -1,10 +1,13 @@
+
 .container {
     position: relative;
     width: 100%;
     height: auto;
-    left: 0px;
-    top: 99%;
+    left: 0;
+    bottom: 0;
     background: #191919;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .github {
