@@ -1,31 +1,56 @@
 .nav {
-  height: 70px;
-  background-color: #181818;
   display: flex;
-  justify-content: space-around;
+  position: fixed;
+  height: fit-content;
+  width: 100%;
+  z-index: 1000;
+  background-color: #101010;
+  justify-content: space-between;
   align-items: center;
+  top: 0%;
+  left: 0%;
+  bottom: 5%;
+}
+
+.navbar nav {
+  height: 100%;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 75px;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  align-self: center;
+  left: 275%; 
 }
 
 .userBtn {
-  width: 80px;
-  height: 35px;
+  display: flex;
+  float: none;
+  width: auto;
+  height: auto;
+  right: 375%;
+  position: relative;
+  align-self: center;
   border-radius: 25px;
   background: #101010;
+  font-size: 14px;
   color: #FFFFFF;
+  border: 1px solid #D97197;
 }
 
 .cart {
-  width: 80px;
-  height: 35px;
+  display: flex;
+  width: auto;
+  height: auto;
+  position: relative;
+  right: 375%;
   background: #101010;
   border-radius: 25px;
-  font-size: 18px;
+  font-size: 14px;
   color: #FFFFFF;
+  border: 1px solid #D97197;
 }
 
 .forms {
@@ -36,12 +61,16 @@
 }
 
 .button {
-  width: 75px;
-  height: 35px;
+  display: flex;
+  position: relative;
+  width: auto;
+  height: auto;
+  right: 200%;
   background: #101010;
   border-radius: 25px;
   font-size: 14px;
   color: #FFFFFF;
+  border: 1px solid #D97197;
 }
 
 .menu {
@@ -72,7 +101,7 @@
 
 .text {
   color:#dedede;
-  font-size: 13px;
+  font-size: 12px;
   padding: 12px;
   cursor: pointer;
 }

@@ -9,9 +9,6 @@ export default function Footer() {
 		<>
 			<div className={style.container}>
 				<div>
-					<img id="logo" src={Logo} alt="bookstore" className={style.logo} />
-				</div>
-				<div>
 					<p className={style.text}>© {new Date().getFullYear()} Henry Bootcamp</p>
 				</div>
 				<div>

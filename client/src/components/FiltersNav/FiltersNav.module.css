@@ -4,6 +4,8 @@
   align-items: center;
   font-family: 'Helvetica';
   width: 300px;
+  margin-top: 80px;
+  background-color: #191919;
 }
 
 .filters {
