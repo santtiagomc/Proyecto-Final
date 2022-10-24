@@ -143,9 +143,7 @@ export default function ProfileUser() {
                 <span
                   onClick={() => setEdit({ ...edit, change: !edit.change })}
                 >
-                  Cancelar(es un span porque sino me activa el onsubmit) faltan
-                  estilos o puede ser un boton pero hay que poner afuera del
-                  form
+                  Cancelar
                 </span>
               </form>
             )}
