@@ -76,19 +76,21 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className={style.login_body}>
       <div className={style.container}>
         <h2 className={style.login}>Ingresar</h2>
         <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
           <hr></hr>
           <div className={style.container_input}>
             <input
+              required
               className={style.inputLogin}
               type="text"
               {...register("email", {
                 required: true,
               })}
             ></input>
+            <span></span>
             <label className={style.labelText}>Correo</label>
             {errors.email?.type === "required" && (
               <p className={style.error}>Obligatorio</p>
@@ -96,24 +98,26 @@ export default function Login() {
           </div>
           <div className={style.container_input}>
             <input
+              required
               className={style.inputLogin}
               type="password"
               {...register("password", {
                 required: true,
               })}
             ></input>
+            <span></span>
             <label className={style.labelText}>Contraseña</label>
             {errors.password?.type === "required" && (
               <p className={style.error}>Obligatorio</p>
             )}
           </div>
-          <button>Iniciar sesión</button>
+          <button className={style.button_form}>Iniciar sesión</button>
           {error && <p className={style.ver}>{error}</p>}
-          <p className={style.labelText} onClick={handleGoogle}>
+          <div className={style.google} onClick={handleGoogle}>
             Iniciar sesión con google
-          </p>
+          </div>
           <Link to="register">
-            <p className={style.ver}>¿No tienes una cuenta? Registrate</p>
+            <p className={style.link}>¿No tienes una cuenta? Registrate</p>
           </Link>
         </form>
       </div>
