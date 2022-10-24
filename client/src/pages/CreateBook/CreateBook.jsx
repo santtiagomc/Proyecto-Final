@@ -128,6 +128,8 @@ export default function CreateBook() {
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
       Swal.fire({
+        background: "#19191a",
+        color: "#e1e1e1",
         title: "La categoría seleccionada ya se encuentra en la lista",
         text: "Seleccione otra categoría",
         icon: "warning",
@@ -155,6 +157,8 @@ export default function CreateBook() {
         dispatch(addBooks(input));
       } else {
         Swal.fire({
+          background: "#19191a",
+          color: "#e1e1e1",
           title: "Todos los campos son requeridos",
           // text: "Faltan campos por llenar",
           icon: "info",
@@ -167,6 +171,8 @@ export default function CreateBook() {
         dispatch(putBook(params.id, input));
       } else {
         Swal.fire({
+          background: "#19191a",
+          color: "#e1e1e1",
           title: "Todos los campos son requeridos",
           // text:  "Faltan campos por llenar",
           icon: "info",
@@ -179,6 +185,8 @@ export default function CreateBook() {
   useEffect(() => {
     if (create.message) {
       Swal.fire({
+        background: "#19191a",
+        color: "#e1e1e1",
         title: create.message,
         icon: "success",
       });
@@ -197,6 +205,8 @@ export default function CreateBook() {
       history.push("/");
     } else if (create.messageError) {
       Swal.fire({
+        background: "#19191a",
+        color: "#e1e1e1",
         title: create.messageError,
         icon: "warning",
       });
