@@ -8,7 +8,7 @@
 .divh1 {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 6rem;
 }
 .h1 {
   color: #d9d9d9;
@@ -33,6 +33,7 @@
 }
 
 .form {
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;

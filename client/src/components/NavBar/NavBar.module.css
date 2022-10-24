@@ -5,11 +5,12 @@
   width: 100%;
   z-index: 1000;
   background-color: #101010;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   top: 0%;
   left: 0%;
   bottom: 5%;
+  flex-flow: row;
 }
 
 .navbar nav {
@@ -17,40 +18,43 @@
 }
 
 .logo {
-  width: 75px;
+  width: 70px;
   height: auto;
   position: relative;
   display: inline-block;
   align-self: center;
-  left: 275%; 
+  flex-flow: row;
 }
 
 .userBtn {
   display: flex;
-  float: none;
-  width: auto;
+  width: 60px;
   height: auto;
-  right: 375%;
-  position: relative;
+  text-align: center;
+  justify-content: center;
   align-self: center;
-  border-radius: 25px;
+  border-radius: 5px;
   background: #101010;
   font-size: 14px;
   color: #FFFFFF;
   border: 1px solid #D97197;
+  padding: 5px 10px 5px 10px;
+
 }
 
 .cart {
   display: flex;
-  width: auto;
+  width: 60px;
   height: auto;
+  text-align: center;
+  justify-content: center;
   position: relative;
-  right: 375%;
   background: #101010;
-  border-radius: 25px;
+  border-radius: 5px;
   font-size: 14px;
   color: #FFFFFF;
   border: 1px solid #D97197;
+  padding: 5px 10px 5px 10px;
 }
 
 .forms {
@@ -63,14 +67,17 @@
 .button {
   display: flex;
   position: relative;
-  width: auto;
+  width: 60px;
   height: auto;
-  right: 200%;
+  text-align: center;
+  justify-content: center;
   background: #101010;
-  border-radius: 25px;
+  border-radius: 5px;
   font-size: 14px;
   color: #FFFFFF;
   border: 1px solid #D97197;
+  padding: 5px 10px 5px 10px;
+  
 }
 
 .menu {
