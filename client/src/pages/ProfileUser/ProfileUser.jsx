@@ -21,7 +21,8 @@ export default function ProfileUser() {
   useEffect(() => {
     const getUser = async (userId) => {
       try {
-        const res = await axios.get(`http://localhost:3001/user/${userId}`);
+        console.log(userId);
+        const res = await axios.get(`/user/${userId}`);
         setDataUser(res.data);
         setLoading(false);
       } catch (error) {
@@ -34,7 +35,8 @@ export default function ProfileUser() {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put("http://localhost:3001/user", {
+      console.log(data);
+      const a = await axios.put("/user", {
         ...data,
         id: user,
       });
