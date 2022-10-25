@@ -36,7 +36,7 @@ export default function Home() {
   //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
-  if (localStorage.length) {
+  if (localStorage.length && localStorage.cart) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
   }
