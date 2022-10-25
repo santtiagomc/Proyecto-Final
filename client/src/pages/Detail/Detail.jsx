@@ -26,9 +26,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-        myBook.Reviews.map((el) => {
-          return el.rating;
-        }).length
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).length
     );
 
   console.log(postCartResponse);
@@ -52,7 +52,6 @@ export default function Detail() {
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
   let quantity = {};
-
   if (localStorage.length) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
