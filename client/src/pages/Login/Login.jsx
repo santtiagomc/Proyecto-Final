@@ -116,7 +116,7 @@ export default function Login() {
           <div className={style.google} onClick={handleGoogle}>
             Iniciar sesión con google
           </div>
-          <Link to="register">
+          <Link to="/register">
             <p className={style.link}>¿No tienes una cuenta? Registrate</p>
           </Link>
         </form>
