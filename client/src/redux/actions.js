@@ -177,14 +177,12 @@ export function putStatus(id) {
 }
 
 export function putBook(id, body) {
-  console.log(body);
   return async function (dispatch) {
     try {
       const json = await axios.put(
         `http://localhost:3001/book/details/${id}`,
         body
       );
-      console.log(json);
       return dispatch({
         type: PUT_BOOK,
         payload: json.data,
@@ -238,8 +236,6 @@ export function getUserCart(userId) {
   return async function (dispatch) {
     try {
       const response = await axios.get(`http://localhost:3001/cart/${userId}`);
-      console.log(response.data);
-
       return dispatch({
         type: GET_USER_CART,
         payload: response.data,

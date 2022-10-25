@@ -31,6 +31,11 @@
   width: 90px;
 }
 
+.btnNextPrevDisabled {
+  opacity: 40%;
+  cursor: not-allowed;
+}
+
 .btnNextPrev:hover {
   background-color: #d97197;
 }
@@ -69,4 +74,13 @@
 
 .pagination_bottom {
   margin-top: -1.875rem;
+}
+
+.loader {
+  margin-left: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 17%
 }
