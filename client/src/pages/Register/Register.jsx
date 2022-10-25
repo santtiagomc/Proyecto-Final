@@ -1,6 +1,6 @@
 import { sessionGoogle, singUp } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import style from "./Register.module.css";
 import Swal from "sweetalert2";
@@ -208,9 +208,13 @@ export default function Register() {
           <div className={style.google} onClick={handleSignInGoogle}>
             Registrarse con google
           </div>
+          <Link to="/login">
+            <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
+          </Link>
           {/* </div> */}
         </form>
       </div>
     </div>
   );
 }
+

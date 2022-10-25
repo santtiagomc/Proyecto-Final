@@ -2,7 +2,7 @@
   position: relative;
   height: 89vh;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .container {
@@ -99,11 +99,11 @@ form .container_input {
   font-weight: 700;
   cursor: pointer;
   outline: none;
+  transition: .4s;
 }
 
 .button_form:hover {
-  border-color: black;
-  transition: .5s
+  transform: scale(1.03);
 }
 
 .link {
