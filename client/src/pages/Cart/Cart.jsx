@@ -185,6 +185,7 @@ export default function Cart() {
   const handleRemoveBook = (cartId, bookId) => {
     //e.preventDefault();
     dispatch(putUserCart(cartId, bookId));
+    console.log(putUserCartResponse);
     const Toast = Swal.mixin({
       background: "#19191a",
       color: "#e1e1e1",
