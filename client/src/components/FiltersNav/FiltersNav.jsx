@@ -4,7 +4,7 @@ import { changeFilter, changePage, changeSearch } from "../../redux/actions";
 import style from "./FiltersNav.module.css";
 
 export default function FiltersNav({ editorials }) {
-  const { filtersApplied, genres } = useSelector((state) => state);
+  const { filtersApplied, genres, books } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   function handleFilterGenres(e) {
@@ -44,6 +44,8 @@ export default function FiltersNav({ editorials }) {
 
   return (
     <>
+
+      {/* {books.length && */}
       <nav className={style.navContainer}>
         <h2 className={style.filters}>Filtrar resultados</h2>
         <label className={style.label}>Ordenar por:</label>
@@ -150,6 +152,7 @@ export default function FiltersNav({ editorials }) {
           Ver todos
         </button>
       </nav>
+      {/* } */}
     </>
   );
 }

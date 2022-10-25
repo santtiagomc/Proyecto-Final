@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
@@ -11,8 +11,11 @@ import {
   changeSearch,
   postCart,
   getUserCart,
+  GET_SEARCH,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
+import Loader from "./Logo_BooksNook_Loader.gif"
+import Loader2 from "./Logo_BooksNook_Loader2.gif"
 
 import style from "./HomePrueba.module.css";
 
@@ -75,22 +78,37 @@ export default function Home() {
     }
   }, [books]);
 
-
+  const [loader, setLoader] = useState(false)
 
   const nextPage = () => {
     if (page + 10 < total) {
+      setLoader(true)
+      setTimeout(() => {
+        setLoader(false)
+      }, 1000);
       dispatch(changePage(page + 10));
     }
   };
 
   const prevPage = () => {
     if (page > 0) {
+      setLoader(true)
+      setTimeout(() => {
+        setLoader(false)
+      }, 1000);
       dispatch(changePage(page - 10));
     }
   };
 
-  const handlePage = (page) => {
-    dispatch(changePage(page * 10 - 10));
+  const handlePage = (newPage) => {
+    if (newPage * 10 - 10 !== page) {
+      setLoader(true)
+      setTimeout(() => {
+        setLoader(false)
+      }, 1000);
+      dispatch(changePage(newPage * 10 - 10));
+    }
+
   };
 
   for (let i = 1; i <= Math.ceil(total / 10); i++) {
@@ -101,70 +119,77 @@ export default function Home() {
     <div className={style.homeContainer}>
       <FiltersNav editorials={editorials} />
       <div className={style.cardsContainer}>
-        <div className={style.pagination}>
-          <button className={style.btnNextPrev} onClick={prevPage}>
-            Anterior
-          </button>
-          {pages.map((el, index) => (
-            <button
-              className={
-                index === page / 10
-                  ? style.btnNumbersSelected
-                  : style.btnNumbers
-              }
-              key={el}
-              onClick={() => handlePage(el)}
-            >
-              {el}
-            </button>
-          ))}
-          <button className={style.btnNextPrev} onClick={nextPage}>
-            Siguiente
-          </button>
-        </div>
 
+        {books.length && !books.messageError &&
+          <div className={style.pagination}>
+            <button className={style.btnNextPrev} onClick={prevPage}>
+              Anterior
+            </button>
+            {pages.map((el, index) => (
+              <button
+                className={
+                  index === page / 10
+                    ? style.btnNumbersSelected
+                    : style.btnNumbers
+                }
+                key={el}
+                onClick={() => handlePage(el)}
+              >
+                {el}
+              </button>
+            ))}
+            <button className={style.btnNextPrev} onClick={nextPage}>
+              Siguiente
+            </button>
+          </div>
+        }
         <div className={style.grid}>
-          {!books.messageError ? (
-            books.map((book) => {
-              return (
-                <Card
-                  key={book.id}
-                  id={book.id}
-                  image={book.image}
-                  price={book.price}
-                  name={book.name}
-                  author={book.author}
-                  edition={book.edition}
-                  visible={book.visible}
-                />
-              );
-            })
-          ) : (
-            <span className={style.span}></span>
-          )}
+          {!books.messageError
+            ? books.length && !loader
+              ? (
+                books.map((book) =>
+                  <Card
+                    key={book.id}
+                    id={book.id}
+                    image={book.image}
+                    price={book.price}
+                    name={book.name}
+                    author={book.author}
+                    edition={book.edition}
+                    visible={book.visible}
+                  />
+                )
+              )
+              : (
+                <img src={Loader2} alt="Logo loader" className={style.loader} />
+                // <span></span>
+              )
+            : ""}
         </div>
 
-        <div className={style.pagination}>
-          <button className={style.btnNextPrev} onClick={prevPage}>
-            Anterior
-          </button>
-          {pages.map((el, index) => (
-            <button
-              className={
-                index === page / 10
-                  ? style.btnNumbersSelected
-                  : style.btnNumbers
-              }
-              key={el}
-              onClick={() => handlePage(el)}
-            >
-              {el}
+        {books.length && !books.messageError && !loader &&
+          <div className={style.pagination}>
+            <button className={style.btnNextPrev} onClick={prevPage}>
+              Anterior
             </button>
-          ))}
-          <button className={style.btnNextPrev} onClick={nextPage}>
-            Siguiente
-          </button>
-        </div>
+            {pages.map((el, index) => (
+              <button
+                className={
+                  index === page / 10
+                    ? style.btnNumbersSelected
+                    : style.btnNumbers
+                }
+                key={el}
+                onClick={() => handlePage(el)}
+              >
+                {el}
+              </button>
+            ))}
+            <button className={style.btnNextPrev} onClick={nextPage}>
+              Siguiente
+            </button>
+          </div>
+        }
       </div>
     </div>
   );

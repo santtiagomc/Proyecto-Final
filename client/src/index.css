@@ -1,10 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0 auto;
+  margin: 0;
   padding-bottom: 6.25rem;
-  min-height: 100vh;
+  min-height: 97.8vh;
   position: relative;
-  background-color: #191919;
-  max-width: 1200px;
+  background-color: #181818;
   box-sizing: border-box;
   font-family: "Helvetica", -apple-system, "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
