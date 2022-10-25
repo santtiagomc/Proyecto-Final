@@ -46,18 +46,18 @@ export default function Home() {
   useEffect(() => {
     if (user && user.uid) {
       if (uniqueIdArrayCart.length) {
-
-        dispatch(postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true }))
+        dispatch(
+          postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true })
+        );
 
         setTimeout(function () {
           dispatch(getUserCart(user.uid));
-          localStorage.clear()
+          localStorage.clear();
         }, 2500);
       }
     }
-  }, [])
+  }, []);
   //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
-
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
@@ -80,13 +80,13 @@ export default function Home() {
     }
   }, [books]);
 
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
 
   const nextPage = () => {
     if (page + 10 < total) {
-      setLoader(true)
+      setLoader(true);
       setTimeout(() => {
-        setLoader(false)
+        setLoader(false);
       }, 1000);
       dispatch(changePage(page + 10));
     }
@@ -94,9 +94,9 @@ export default function Home() {
 
   const prevPage = () => {
     if (page > 0) {
-      setLoader(true)
+      setLoader(true);
       setTimeout(() => {
-        setLoader(false)
+        setLoader(false);
       }, 1000);
       dispatch(changePage(page - 10));
     }
@@ -104,13 +104,12 @@ export default function Home() {
 
   const handlePage = (newPage) => {
     if (newPage * 10 - 10 !== page) {
-      setLoader(true)
+      setLoader(true);
       setTimeout(() => {
-        setLoader(false)
+        setLoader(false);
       }, 1000);
       dispatch(changePage(newPage * 10 - 10));
     }
-
   };
 
   for (let i = 1; i <= Math.ceil(total / 10); i++) {
@@ -121,10 +120,16 @@ export default function Home() {
     <div className={style.homeContainer}>
       <FiltersNav editorials={editorials} />
       <div className={style.cardsContainer}>
-
-        {books.length && !books.messageError &&
+        {books.length && !books.messageError && (
           <div className={style.pagination}>
-            <button className={style.btnNextPrev} onClick={prevPage}>
+            <button
+              className={
+                page > 1
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={prevPage}
+            >
               Anterior
             </button>
             {pages.map((el, index) => (
@@ -140,37 +145,51 @@ export default function Home() {
                 {el}
               </button>
             ))}
-            <button className={style.btnNextPrev} onClick={nextPage}>
+            <button
+              className={
+                page / 10 !== Math.floor(total / 10)
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={nextPage}
+            >
               Siguiente
             </button>
           </div>
-        }
+        )}
         <div className={style.grid}>
-          {!books.messageError
-            ? books.length && !loader
-              ? (
-                books.map((book) =>
-                  <Card
-                    key={book.id}
-                    id={book.id}
-                    image={book.image}
-                    price={book.price}
-                    name={book.name}
-                    author={book.author}
-                    edition={book.edition}
-                    visible={book.visible}
-                  />
-                )
-              )
-              : (
-                <img src={Loader2} alt="Logo loader" className={style.loader} />
-              )
-            : ""}
+          {!books.messageError ? (
+            books.length && !loader ? (
+              books.map((book) => (
+                <Card
+                  key={book.id}
+                  id={book.id}
+                  image={book.image}
+                  price={book.price}
+                  name={book.name}
+                  author={book.author}
+                  edition={book.edition}
+                  visible={book.visible}
+                />
+              ))
+            ) : (
+              <img src={Loader2} alt="Logo loader" className={style.loader} />
+            )
+          ) : (
+            ""
+          )}
         </div>
 
-        {books.length && !books.messageError && !loader &&
+        {books.length && !books.messageError && !loader && (
           <div className={style.pagination}>
-            <button className={style.btnNextPrev} onClick={prevPage}>
+            <button
+              className={
+                page > 1
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={prevPage}
+            >
               Anterior
             </button>
             {pages.map((el, index) => (
@@ -186,11 +205,18 @@ export default function Home() {
                 {el}
               </button>
             ))}
-            <button className={style.btnNextPrev} onClick={nextPage}>
+            <button
+              className={
+                page / 10 !== Math.floor(total / 10)
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={nextPage}
+            >
               Siguiente
             </button>
           </div>
-        }
+        )}
       </div>
     </div>
   );
