@@ -8,11 +8,29 @@ import Swal from "sweetalert2";
 export default function Cart() {
   const dispatch = useDispatch();
   const { cart, user } = useSelector((state) => state);
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+
+  //----------------- Function sweetAlert + Const -----------------
+
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
+
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
   let quantity = {};
-  if (localStorage.length) {
+  if (localStorage.length && localStorage.cart) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
     repeatedIdArrayCart.length &&
@@ -21,7 +39,9 @@ export default function Cart() {
       });
   }
 
-  let [buttonDisabled, setButtonDisabled] = useState(false);
+  //----------------- END Function sweetAlert + Const -----------------
+
+  //----------------- Function add product -----------------
 
   const handleCartAdd = (e) => {
     e.preventDefault();
@@ -32,31 +52,12 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto")
 
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
 
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
+
       }
     } else {
       if (quantity[e.target.value] < 5) {
@@ -65,31 +66,12 @@ export default function Cart() {
           `${repeatedIdArrayCart.toString()},${e.target.value}`
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto")
 
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
 
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
+
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -99,6 +81,10 @@ export default function Cart() {
       setButtonDisabled(false);
     }, 1000);
   };
+
+  //----------------- END Function add product -----------------
+
+  //----------------- Function subs product -----------------
 
   const handleCartSubs = (e) => {
     e.preventDefault();
@@ -109,31 +95,12 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto")
 
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
 
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
+
       }
     } else {
       if (quantity[e.target.value] > 1) {
@@ -142,31 +109,12 @@ export default function Cart() {
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto")
 
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
 
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el mínimo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
+
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -176,6 +124,8 @@ export default function Cart() {
       setButtonDisabled(false);
     }, 1000);
   };
+
+  //----------------- END Function subs product -----------------
 
   return (
     <>

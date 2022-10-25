@@ -18,7 +18,19 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart, postCartResponse } = useSelector((state) => state);
+  const { user, cart } = useSelector((state) => state);
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getDetail(id));
+    return () => {
+      dispatch({ type: GET_DETAIL, payload: [] });
+    };
+  }, [user]);
+
+  //----------------- Function averageRating + sweetAlert + Const -----------------
 
   let avarageRating =
     myBook.Reviews &&
@@ -31,28 +43,25 @@ export default function Detail() {
       }).length
     );
 
-  console.log(postCartResponse);
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
 
-  let [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(getDetail(id));
-    return () => {
-      dispatch({ type: GET_DETAIL, payload: [] });
-    };
-  }, [user]);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(putStatus(myBook.id));
-  };
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
   let quantity = {};
-  if (localStorage.length) {
+  if (localStorage.length && localStorage.cart) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
     repeatedIdArrayCart.length &&
@@ -65,8 +74,20 @@ export default function Detail() {
   if (user && user.uid && cart.length && !cart.messageError) {
     quantityUser = cart.find((b) => b.id === id);
     quantityUser = quantityUser && quantityUser.quantity;
-    console.log(quantityUser);
   }
+
+  //----------------- END Function averageRating + sweetAlert + Const -----------------
+
+  //----------------- Function click edit book -----------------
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(putStatus(myBook.id));
+  };
+
+  //----------------- END Function click edit book -----------------
+
+  //----------------- Function click add to cart -----------------
 
   const handleCart = (e) => {
     e.preventDefault();
@@ -79,50 +100,22 @@ export default function Detail() {
             postCart({ userId: user.uid, bookId: e.target.value, suma: true })
           );
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
+          swalAlert(2000, "success", "Producto agregado al carrito")
 
-          Toast.fire({
-            icon: "success",
-            title: "Producto agregado al carrito",
-          });
         } else {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
 
-          Toast.fire({
-            icon: "error",
-            title: "Alcanzaste el máximo de este producto",
-          });
+          swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
+
         }
       } else {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Producto agregado al carrito")
 
-        Toast.fire({
-          icon: "success",
-          title: "Producto agregado al carrito",
-        });
       }
+
     } else {
       const cartLS = localStorage.getItem("cart");
 
@@ -131,72 +124,28 @@ export default function Detail() {
           if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-            });
-            Toast.fire({
-              icon: "success",
-              title: "Producto agregado al carrito",
-            });
+            swalAlert(2000, "success", "Producto agregado al carrito")
+
           } else {
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-            });
-            Toast.fire({
-              icon: "error",
-              title: "Has alcanzado el límite de este producto",
-            });
+
+            swalAlert(2000, "error", "Has alcanzado el límite de este producto")
+
           }
         } else if (uniqueIdArrayCart.length < 10) {
           localStorage.setItem("cart", `${cartLS},${id}`);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Producto agregado al carrito",
-          });
+          swalAlert(2000, "success", "Producto agregado al carrito")
+
         } else {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Has alcanzado el límite de productos distintos",
-          });
+
+          swalAlert(2000, "error", "Has alcanzado el límite de productos distintos")
+
         }
       } else {
         localStorage.setItem("cart", id);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
+        swalAlert(2000, "success", "Producto agregado al carrito")
 
-        Toast.fire({
-          icon: "success",
-          title: "Producto agregado al carrito",
-        });
       }
 
       repeatedIdArrayCart = localStorage.getItem("cart").split(",");
@@ -209,6 +158,8 @@ export default function Detail() {
       setButtonDisabled(false);
     }, 1000);
   };
+
+  //----------------- END Function click add to cart -----------------
 
   return (
     <>
