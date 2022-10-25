@@ -14,8 +14,10 @@ import {
   GET_SEARCH,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
-import Loader from "./Logo_BooksNook_Loader.gif"
-import Loader2 from "./Logo_BooksNook_Loader2.gif"
+import Loader from "./GIF_neón_BooksNook.gif"
+import Loader2 from "./GIF_aparecer_BooksNook.gif"
+import Loader3 from "./GIF_bloque_BooksNook.gif"
+
 
 import style from "./HomePrueba.module.css";
 
@@ -162,7 +164,6 @@ export default function Home() {
               )
               : (
                 <img src={Loader2} alt="Logo loader" className={style.loader} />
-                // <span></span>
               )
             : ""}
         </div>
