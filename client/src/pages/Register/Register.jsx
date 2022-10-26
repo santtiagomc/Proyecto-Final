@@ -15,62 +15,45 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { user } = useSelector(state => state)
+  const { user, lastRoute } = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (user && user.uid) {
       dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+
+      const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Te has registrado con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push(lastRoute);
+      }, 1000);
     }
   }, [user])
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Te has registrado con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
     } catch (error) {
       console.log(error);
-      // "Un error ha ocurrido"
     }
   };
 
   const handleSignInGoogle = async () => {
     try {
       await sessionGoogle();
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Te has registrado con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 4000);
     } catch (error) {
       console.log(error);
-      // "Un error ha ocurrido"
     }
   };
 
