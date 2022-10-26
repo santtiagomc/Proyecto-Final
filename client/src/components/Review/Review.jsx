@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Review.module.css";
-import { getDetail, postReviews, POST_REVIEWS } from "../../redux/actions";
+import { deleteReviews, getDetail, postReviews, POST_REVIEWS } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -53,6 +53,21 @@ export default function Review({ id }) {
     validate(input);
   }, [input]);
 
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
+
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
+
   function handleChange(e) {
     setInput({
       ...input,
@@ -74,35 +89,45 @@ export default function Review({ id }) {
     }, 2000);
   }
 
+  function handleDelete(e) {
+    e.preventDefault();
+    dispatch(deleteReviews({ UserId: user.uid, BookId: id }));
+
+    setButtonDisabled(true);
+    setTimeout(function () {
+      setButtonDisabled(false);
+    }, 1000);
+    swalAlert(3000, "success", "Has eliminado tu reseña, puedes agregar una nueva!")
+  }
+
+  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
+  // Swal.fire({
+  //   title: 'Are you sure?',
+  //   text: "You won't be able to revert this!",
+  //   icon: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonColor: '#3085d6',
+  //   cancelButtonColor: '#d33',
+  //   confirmButtonText: 'Yes, delete it!'
+  // }).then((result) => {
+  //   if (result.isConfirmed) {
+  //     Swal.fire(
+  //       'Deleted!',
+  //       'Your file has been deleted.',
+  //       'success'
+  //     )
+  //   }
+  // })
+  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
+
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: createReview.messageError,
-      });
+      swalAlert(2000, "error", createReview.messageError)
       dispatch({ type: POST_REVIEWS, payload: [] });
-    } else {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
+    } else if (createReview.message) {
+      swalAlert(2000, "success", createReview.message)
 
-      Toast.fire({
-        icon: "success",
-        title: createReview.message,
-      });
       setInput({
         title: "",
         description: "",
@@ -146,9 +171,8 @@ export default function Review({ id }) {
                 Título*
               </label>
               <input
-                className={`form-control ${
-                  !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
-                }`}
+                className={`form-control ${!input.title ? "" : errors.title ? "is-invalid" : "is-valid"
+                  }`}
                 type="text"
                 name="title"
                 id="title"
@@ -232,13 +256,12 @@ export default function Review({ id }) {
                 type="text"
                 name="description"
                 id="description"
-                className={`form-control ${
-                  !input.description
-                    ? ""
-                    : errors.description
+                className={`form-control ${!input.description
+                  ? ""
+                  : errors.description
                     ? "is-invalid"
                     : "is-valid"
-                }`}
+                  }`}
                 placeholder="Agregue su reseña"
                 value={input.description}
                 onChange={handleChange}
@@ -264,31 +287,38 @@ export default function Review({ id }) {
       <hr></hr>
       {detail.Reviews.length
         ? detail.Reviews.map((review, index) => (
-            <div className={style.single_review} key={index}>
-              {review.User && (
-                <h6 className={style.user_single_review}>
-                  {review.User.fullName}
-                </h6>
-              )}
-              <div className={style.header_single_review}>
-                <h3 className={style.title_single_review}> {review.title} </h3>
-                <div className={style.stars_single_review}>
-                  {Array(review.rating)
-                    .fill(1)
-                    .map((e, index) => (
-                      <div className={style.star_single_review} key={index}>
-                        <i className={`fa-solid fa-star`}></i>
-                      </div>
-                    ))}
-                </div>
+          <div className={style.single_review} key={index}>
+            {review.User && (
+              <h6 className={style.user_single_review}>
+                {review.User.fullName}
+              </h6>
+            )}
+            <div className={style.header_single_review}>
+              <h3 className={style.title_single_review}> {review.title} </h3>
+              <div className={style.stars_single_review}>
+                {Array(review.rating)
+                  .fill(1)
+                  .map((e, index) => (
+                    <div className={style.star_single_review} key={index}>
+                      <i className={`fa-solid fa-star`}></i>
+                    </div>
+                  ))}
               </div>
-              <p className={style.description_single_review}>
-                {" "}
-                {review.description}{" "}
-              </p>
-              <hr></hr>
             </div>
-          ))
+            <p className={style.description_single_review}>
+              {" "}
+              {review.description}{" "}
+            </p>
+            {user && review.User?.id === user.uid
+              &&
+              <div className={style.delete_single_review} onClick={handleDelete}>
+                {/* <i className="fa-solid fa-square-xmark"></i> */}
+                <span>Eliminar reseña</span>
+                <i className="fa-solid fa-square-xmark"></i>
+              </div>}
+            <hr></hr>
+          </div>
+        ))
         : ""}
     </div>
   );
