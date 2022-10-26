@@ -161,7 +161,7 @@ export default function Detail() {
     <>
       <div className={style.adminContainer}>
         <button className={style.volver}>
-          <a href="javascript:history.back()"> Atrás</a>
+          <a href="javascript:history.back()">Volver</a>
         </button>
         <button
           className={myBook.visible ? style.btnStatusF : style.btnStatusT}
