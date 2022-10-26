@@ -100,22 +100,17 @@ export default function Detail() {
             postCart({ userId: user.uid, bookId: e.target.value, suma: true })
           );
 
-          swalAlert(2000, "success", "Producto agregado al carrito")
-
+          swalAlert(2000, "success", "Producto agregado al carrito");
         } else {
-
-          swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
-
+          swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
         }
       } else {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        swalAlert(2000, "success", "Producto agregado al carrito")
-
+        swalAlert(2000, "success", "Producto agregado al carrito");
       }
-
     } else {
       const cartLS = localStorage.getItem("cart");
 
@@ -124,28 +119,29 @@ export default function Detail() {
           if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
-            swalAlert(2000, "success", "Producto agregado al carrito")
-
+            swalAlert(2000, "success", "Producto agregado al carrito");
           } else {
-
-            swalAlert(2000, "error", "Has alcanzado el límite de este producto")
-
+            swalAlert(
+              2000,
+              "error",
+              "Has alcanzado el límite de este producto"
+            );
           }
         } else if (uniqueIdArrayCart.length < 10) {
           localStorage.setItem("cart", `${cartLS},${id}`);
 
-          swalAlert(2000, "success", "Producto agregado al carrito")
-
+          swalAlert(2000, "success", "Producto agregado al carrito");
         } else {
-
-          swalAlert(2000, "error", "Has alcanzado el límite de productos distintos")
-
+          swalAlert(
+            2000,
+            "error",
+            "Has alcanzado el límite de productos distintos"
+          );
         }
       } else {
         localStorage.setItem("cart", id);
 
-        swalAlert(2000, "success", "Producto agregado al carrito")
-
+        swalAlert(2000, "success", "Producto agregado al carrito");
       }
 
       repeatedIdArrayCart = localStorage.getItem("cart").split(",");
@@ -282,12 +278,18 @@ export default function Detail() {
                   type="button"
                   onClick={(e) => handleCart(e)}
                 >
-                  Agregar al carrito ---{" "}
-                  {!user
-                    ? quantity && quantity[id]
-                      ? quantity[id]
-                      : 0
-                    : quantityUser}
+                  Agregar al carrito{" "}
+                  {!user ? (
+                    quantity && quantity[id] ? (
+                      <div className={style.number}>{quantity[id]}</div>
+                    ) : (
+                      <div className={style.number}>0</div>
+                    )
+                  ) : quantityUser ? (
+                    <div className={style.number}>{quantityUser}</div>
+                  ) : (
+                    <div className={style.number}>0</div>
+                  )}
                 </button>
               </div>
             </div>

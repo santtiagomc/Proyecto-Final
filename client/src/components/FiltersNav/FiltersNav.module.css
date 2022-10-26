@@ -4,7 +4,7 @@
   align-items: center;
   width: 300px;
   margin-top: 80px;
-  background-color: #191919;
+  background-color: var(--negro-backgound);
 }
 
 .filters {
@@ -23,7 +23,7 @@
 }
 
 .select {
-  background-color: #101010;
+  background-color: var(--negro-navBar-filters-btn);
   padding: 5px 17px;
   border: none;
   border-radius: 5px;
@@ -33,13 +33,13 @@
   font-size: 14px;
   font-weight: 600;
   width: 200px;
-  box-shadow: #101010 1px 3px 2px;
+  box-shadow: var(--negro-navBar-filters-btn) 1px 3px 2px;
   cursor: pointer;
 }
 
 .resetButton {
   margin-top: 30px;
-  background-color: #101010;
+  background-color: var(--negro-navBar-filters-btn);
   padding: 5px 20px;
   border: none;
   border-radius: 5px;
@@ -48,7 +48,7 @@
   font-size: 14px;
   font-weight: 600;
   width: 200px;
-  box-shadow: #101010 1px 3px 2px;
+  box-shadow: var(--negro-navBar-filters-btn) 1px 3px 2px;
   cursor: pointer;
 
 }
