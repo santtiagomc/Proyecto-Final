@@ -8,6 +8,8 @@ import {
   putStatus,
   postCart,
   getGuestCart,
+  putBook,
+  resetCreate,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -20,7 +22,7 @@ export default function Detail() {
   const myBook = useSelector((state) => state.detail);
   const { user, cart, deleteReview } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
-
+  console.log(myBook)
   const { id } = useParams();
 
   useEffect(() => {
@@ -29,6 +31,13 @@ export default function Detail() {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
   }, [user, deleteReview]);
+
+  useEffect(() => {
+    dispatch(putBook(id, { visits: 1 }))
+    setTimeout(() => {
+      dispatch(resetCreate());
+    }, 2000);
+  }, [])
 
   //----------------- Function averageRating + sweetAlert + Const -----------------
 
@@ -214,96 +223,96 @@ export default function Detail() {
                   ></i>
                 </div>
 
-								<div className={style.star}>
-									<i
-										className={
-											avarageRating >= 2
-												? `fa-solid fa-star`
-												: `fa-regular fa-star`
-										}
-									></i>
-								</div>
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 2
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
 
-								<div className={style.star}>
-									<i
-										className={
-											avarageRating >= 3
-												? `fa-solid fa-star`
-												: `fa-regular fa-star`
-										}
-									></i>
-								</div>
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 3
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
 
-								<div className={style.star}>
-									<i
-										className={
-											avarageRating >= 4
-												? `fa-solid fa-star`
-												: `fa-regular fa-star`
-										}
-									></i>
-								</div>
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 4
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
 
-								<div className={style.star}>
-									<i
-										className={
-											avarageRating >= 5
-												? `fa-solid fa-star`
-												: `fa-regular fa-star`
-										}
-									></i>
-								</div>
-							</div>
-							<div>
-								{myBook.Genres?.map((genre) => (
-									<span className={style.genre} key={genre.name}>
-										{genre.name}
-									</span>
-								))}
-							</div>
-							<h3 className={style.editorial}>{myBook.editorial}</h3>
-							{myBook.stock > 0 && myBook.visible ? (
-								<span className={style.disponible}>Disponible</span>
-							) : (
-								<span className={style.noDisponible}>No disponible</span>
-							)}
-							<p className={style.description}>{myBook.description}</p>
-							<div className={style.containerBuy}>
-								<h3 className={style.price}>USD {myBook.price}</h3>
-								<button
-									className={
-										myBook.visible && !buttonDisabled
-											? style.cart
-											: `${style.cart} ${style.cartF} `
-									}
-									disabled={myBook.visible && !buttonDisabled ? false : true}
-									value={id}
-									type="button"
-									onClick={(e) => handleCart(e)}
-								>
-									Agregar al carrito{" "}
-									{!user ? (
-										quantity && quantity[id] ? (
-											<div className={style.number}>{quantity[id]}</div>
-										) : (
-											<div className={style.number}>0</div>
-										)
-									) : quantityUser ? (
-										<div className={style.number}>{quantityUser}</div>
-									) : (
-										<div className={style.number}>0</div>
-									)}
-								</button>
-							</div>
-						</div>
-					</div>
-					<Review id={id} />
-				</div>
-			) : (
-				<div className={style.loaderContainer}>
-					<span className={style.loader}></span>
-				</div>
-			)}
-		</>
-	);
+                <div className={style.star}>
+                  <i
+                    className={
+                      avarageRating >= 5
+                        ? `fa-solid fa-star`
+                        : `fa-regular fa-star`
+                    }
+                  ></i>
+                </div>
+              </div>
+              <div>
+                {myBook.Genres?.map((genre) => (
+                  <span className={style.genre} key={genre.name}>
+                    {genre.name}
+                  </span>
+                ))}
+              </div>
+              <h3 className={style.editorial}>{myBook.editorial}</h3>
+              {myBook.stock > 0 && myBook.visible ? (
+                <span className={style.disponible}>Disponible</span>
+              ) : (
+                <span className={style.noDisponible}>No disponible</span>
+              )}
+              <p className={style.description}>{myBook.description}</p>
+              <div className={style.containerBuy}>
+                <h3 className={style.price}>USD {myBook.price}</h3>
+                <button
+                  className={
+                    myBook.visible && !buttonDisabled
+                      ? style.cart
+                      : `${style.cart} ${style.cartF} `
+                  }
+                  disabled={myBook.visible && !buttonDisabled ? false : true}
+                  value={id}
+                  type="button"
+                  onClick={(e) => handleCart(e)}
+                >
+                  Agregar al carrito{" "}
+                  {!user ? (
+                    quantity && quantity[id] ? (
+                      <div className={style.number}>{quantity[id]}</div>
+                    ) : (
+                      <div className={style.number}>0</div>
+                    )
+                  ) : quantityUser ? (
+                    <div className={style.number}>{quantityUser}</div>
+                  ) : (
+                    <div className={style.number}>0</div>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+          <Review id={id} />
+        </div>
+      ) : (
+        <div className={style.loaderContainer}>
+          <span className={style.loader}></span>
+        </div>
+      )}
+    </>
+  );
 }
