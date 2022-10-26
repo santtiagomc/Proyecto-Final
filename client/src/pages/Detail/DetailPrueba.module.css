@@ -211,13 +211,14 @@
   right: 5%;
 }
 .volver{
-  margin-top: 20px;
-  padding: 10px ;
+  margin-right: 650px;
+  padding: 5px 30px;
   background: #101010;
   font-family:  inherit;
   color :#fff;
   border: 1px solid #d56a93;
   border-radius: 5px;
+  justify-content: center;
 
 }
 .volver a {
