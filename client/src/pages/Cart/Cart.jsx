@@ -10,7 +10,6 @@ import {
   deleteUserCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
-import { capitalize } from "../../capitalize";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -129,11 +128,11 @@ export default function Cart() {
     let bookName = cart.find((b) => b.id === bookId);
     Swal.fire({
       title: `¿Seguro quieres eliminar 
-      '${capitalize(bookName.name)}' 
+      '${bookName.name}' 
       de tu carrito?`,
-      // text: "Se borrarán todos los libros añadidos",
+      text: "Esta acción no se puede deshacer",
       icon: "warning",
-      background: "#363B4E",
+      background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -148,7 +147,7 @@ export default function Cart() {
           swalAlert(
             2000,
             "success",
-            `Se eliminó '${capitalize(bookName.name)}' de tu carrito`
+            `Se eliminó '${bookName.name}' de tu carrito`
           );
 
           setTimeout(function () {
@@ -168,7 +167,7 @@ export default function Cart() {
       title: "¿Seguro quieres eliminar tu carrito?",
       text: "Se borrarán todos los libros añadidos",
       icon: "warning",
-      background: "#363B4E",
+      background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -183,7 +182,7 @@ export default function Cart() {
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
             icon: "success",
-            background: "#363B4E",
+            background: "#19191a",
             color: "#e1e1e1",
           });
 
@@ -202,6 +201,10 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
+            <button className={style.volver}>
+              <a href="javascript:history.back()">Volver</a>
+            </button>
+            <button onClick={handleRemoveCart}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -215,6 +218,7 @@ export default function Cart() {
               </h4>
             </div>
             <hr></hr>
+
             {cart.map((book) => (
               <div key={book.id}>
                 <div className={style.detail}>
@@ -226,9 +230,7 @@ export default function Cart() {
                     ></img>
                     <div className={style.detail_info}>
                       <Link to={`/detail/${book.id}`}>
-                        <h2 className={style.detail_info_h2}>
-                          {capitalize(book.name)}
-                        </h2>
+                        <h2 className={style.detail_info_h2}>{book.name}</h2>
                       </Link>
                       <h5 className={style.detail_info_h4}>{book.author}</h5>
                     </div>
@@ -277,18 +279,32 @@ export default function Cart() {
             ))}
           </div>
         ) : !uniqueIdArrayCart.length ? (
-          <h1 className={style.message}>
-            ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
-            muchos que te van a encantar!
-          </h1>
+          <div>
+            <button className={style.volver}>
+              <a href="javascript:history.back()">Volver</a>
+            </button>
+            <h1 className={style.message}>
+              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
+              muchos que te van a encantar!
+            </h1>
+          </div>
         ) : (
           <h1 className={style.message}>Cargando...</h1>
         )
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
-          <h1 className={style.message}>{cart.messageError}</h1>
+          <div>
+            <button className={style.volver}>
+              <a href="javascript:history.back()"> Volver </a>
+            </button>
+            <h1 className={style.message}>{cart.messageError}</h1>
+          </div>
         ) : (
           <div className={style.cart_container}>
+            <button className={style.volver}>
+              <a href="javascript:history.back()"> Volver </a>
+            </button>
+            <button onClick={handleRemoveCart}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -317,9 +333,7 @@ export default function Cart() {
                       ></img>
                       <div className={style.detail_info}>
                         <Link to={`/detail/${book.id}`}>
-                          <h2 className={style.detail_info_h2}>
-                            {capitalize(book.name)}
-                          </h2>
+                          <h2 className={style.detail_info_h2}>{book.name}</h2>
                         </Link>
                         <h5 className={style.detail_info_h4}>{book.author}</h5>
                       </div>
@@ -368,7 +382,6 @@ export default function Cart() {
                     >
                       <i class="fa-regular fa-trash-can"></i>
                     </button>
-                    <button onClick={handleRemoveCart}>Vaciar carrito</button>
                   </div>
                   <hr></hr>
                 </div>

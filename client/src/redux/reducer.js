@@ -17,6 +17,7 @@ import {
   GET_CART,
   GET_USER_CART,
   LAST_ROUTE,
+  DELETE_REVIEW,
   PUT_USER_CART,
   DELETE_USER_CART,
 } from "./actions";
@@ -44,6 +45,7 @@ const initialState = {
   cart: [],
   postCartResponse: [],
   lastRoute: "/",
+  deleteReview: [],
   putUserCartResponse: {},
   deleteUserCartResponse: {},
 };
@@ -122,6 +124,9 @@ export default function rootReducer(state = initialState, action) {
 
     case LAST_ROUTE:
       return { ...state, lastRoute: action.payload };
+
+    case DELETE_REVIEW:
+      return { ...state, deleteReview: action.payload };
 
     case PUT_USER_CART:
       return { ...state, putUserCartResponse: action.payload };
