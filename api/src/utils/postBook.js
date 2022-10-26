@@ -1,5 +1,6 @@
 const { Books, Genres } = require('../db');
 const { capitalize } = require('./capitalize');
+const { Op } = require("sequelize")
 
 async function postBook({ name, image, author, description, price, stock, editorial, edition, genres }) {
   try {
@@ -7,9 +8,12 @@ async function postBook({ name, image, author, description, price, stock, editor
     let capitalizeAuthor = await capitalize(author);
     let [newBook, created] = await Books.findOrCreate({
       where: {
-        name: name.toLowerCase(),
+        name: {
+          [Op.iLike]: name
+        }
       },
       defaults: {
+        name,
         image,
         author: capitalizeAuthor,
         description,

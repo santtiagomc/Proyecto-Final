@@ -18,6 +18,9 @@ export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
 export const LAST_ROUTE = "LAST_ROUTE"; // Se usa directamente en reducer y componentes. No borrar
 export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_MORE_VISITS = "GET_MORE_VISITS";
+export const GET_MORE_RATING = "GET_MORE_RATING";
+export const GET_OFFERS = "GET_OFFERS";
 
 export function userExist(payload) {
   return {
@@ -260,6 +263,63 @@ export function getUserCart(userId) {
       return dispatch({
         type: GET_USER_CART,
         payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function getMoreRating() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=rating&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function getMoreVisits() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=visits&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function getOffers() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=price-min-max&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_OFFERS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_OFFERS,
+        payload: err.response.data,
       });
     }
   };

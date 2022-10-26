@@ -1,23 +1,29 @@
 const { Books, Genres, Books_Genres } = require("../db");
 
 async function putBook({ id }, body) {
-	try {
-		const book = await Books.findByPk(id);
-		if (book === null)
-			return { messageError: "No existe ningún libro con ese ID" };
+  try {
+    const book = await Books.findByPk(id);
+    if (book === null)
+      return { messageError: "No existe ningún libro con ese ID" };
 
-    let allGenres = await Genres.findAll({
-      attributes: ["name"],
-      through: { attributes: [] },
-    });
+    if (!body.visits) {
+      let allGenres = await Genres.findAll({
+        attributes: ["name"],
+        through: { attributes: [] },
+      });
 
-    book.set(body);
-    book.removeGenres(allGenres);
-    book.addGenres(body.genre);
+      book.set(body);
+      book.removeGenres(allGenres);
+      book.addGenres(body.genre);
 
-    await book.save();
+      await book.save();
 
-    return { message: "Libro editado con éxito!" };
+      return { message: "Libro editado con éxito!" };
+    } else {
+      await book.increment("visits")
+      return { message: "Se ha registrado una nueva visita" }
+    }
+
   } catch (error) {
     return { messageError: "Error" };
   }
