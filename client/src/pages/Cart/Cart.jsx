@@ -133,7 +133,7 @@ export default function Cart() {
         cart.length ? (
           <div className={style.cart_container}>
              <button className={style.volver}>
-          <a href="javascript:history.back()"> Atrás</a>
+          <a href="javascript:history.back()">Volver</a>
         </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
@@ -207,7 +207,7 @@ export default function Cart() {
         ) : !uniqueIdArrayCart.length ? (
           <div>
              <button className={style.volver}>
-          <a href="javascript:history.back()"> Atrás</a>
+          <a href="javascript:history.back()">Volver</a>
         </button>
         <h1 className={style.message}>
             ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
