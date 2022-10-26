@@ -10,7 +10,7 @@
 
 .btnStatusT {
   margin-right: 10px;
-  background-color: #50a7ed;
+  background-color: var(--verde-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -22,7 +22,7 @@
 
 .btnStatusF {
   margin-right: 10px;
-  background-color: #d56a93;
+  background-color: var(--violeta-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -35,8 +35,8 @@
 .container {
   width: 450px;
   height: 250px;
-  background-color: #a35873;
-  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+  background-color: var(--violeta-primario);
+  background: linear-gradient(180deg, var(--violeta-primario) 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
   margin: 25px;
   padding: 0 20px;
@@ -46,8 +46,8 @@
 .containerF {
   width: 450px;
   height: 250px;
-  background-color: #a35873;
-  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+  background-color: var(--violeta-primario);
+  background: linear-gradient(180deg, var(--violeta-primario) 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
   margin: 25px;
   padding: 0 20px;

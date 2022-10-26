@@ -15,9 +15,8 @@
   color: #d9d9d9;
   font-weight: 600;
   text-align: center;
-  background-color: #c16687;
+  background-color: var(--violeta-primario);
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
-
   padding: 10px 50px;
   border-radius: 10px;
 }
@@ -25,7 +24,7 @@
 .label {
   color: #d9d9d9;
   margin: 15px 0 5px 0px;
-  background-color: #c16687;
+  background-color: var(--violeta-primario);
   width: 120px;
   padding: 0 10px;
   border-radius: 5px;
@@ -34,11 +33,11 @@
 }
 
 .form {
-  width: 90%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: #c16687 2px solid;
+  border: var(--violeta-primario) 2px solid;
   border-radius: 10px;
   background-color: #2f2f2f;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
@@ -106,9 +105,13 @@
 }
 
 .divGenre li {
+  width: auto;
+  height: auto;
+  padding: 5px;
+  border-radius: 5px;
   list-style: none;
   width: fit-content;
-  font-size: 14px;
+  font-size: 15px;
   margin: 0 2px 0 8px;
 }
 
@@ -116,7 +119,7 @@
   margin: 2px;
   font-size: 200;
   display: flex;
-  color: rgba(255, 0, 0, 0.702);
+  color: rgba(255, 0, 0, 0.767);
   padding: 4px;
 }
 
@@ -131,16 +134,18 @@
   color: #d9d9d9;
   padding: 6px 20px;
   cursor: pointer;
-  background: #181818;
-  border: 1px solid #d97197;
+  background: var(--negro-backgound);
+  border: 1px solid var(--violeta-primario);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
 .btnx {
-  background-color: #f50f6f;
+  background-color: rgba(255, 0, 0, 0.767);
+  width: 25px;
+  height: 25px;
   color: white;
   border-radius: 5px;
-  border: 1px solid black;
+  border: none;
   cursor: pointer;
 }
