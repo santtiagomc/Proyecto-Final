@@ -131,13 +131,25 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, deleteReview: action.payload };
 
     case GET_MORE_RATING:
-      return { ...state, booksByRating: action.payload }
+      return {
+        ...state, booksByRating: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      }
 
     case GET_MORE_VISITS:
-      return { ...state, booksByVisits: action.payload }
+      return {
+        ...state, booksByVisits: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      }
 
     case GET_OFFERS:
-      return { ...state, booksByOffers: action.payload }
+      return {
+        ...state, booksByOffers: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      }
 
     default:
       return { ...state };

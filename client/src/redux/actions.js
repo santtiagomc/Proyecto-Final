@@ -271,7 +271,7 @@ export function getUserCart(userId) {
 export function getMoreRating() {
   return async function (dispatch) {
     try {
-      json = await axios(
+      const json = await axios(
         `http://localhost:3001/books?sort=rating&genres=none&editorial=none&page=0`
       );
       return dispatch({
@@ -290,7 +290,7 @@ export function getMoreRating() {
 export function getMoreVisits() {
   return async function (dispatch) {
     try {
-      json = await axios(
+      const json = await axios(
         `http://localhost:3001/books?sort=visits&genres=none&editorial=none&page=0`
       );
       return dispatch({
@@ -309,7 +309,7 @@ export function getMoreVisits() {
 export function getOffers() {
   return async function (dispatch) {
     try {
-      json = await axios(
+      const json = await axios(
         `http://localhost:3001/books?sort=price-min-max&genres=none&editorial=none&page=0`
       );
       return dispatch({
