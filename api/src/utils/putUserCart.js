@@ -1,5 +1,4 @@
 const { Cart, Books, Books_Carts } = require("../db");
-const { capitalize } = require("./capitalize");
 
 async function putUserCart({ cartId, bookId }) {
   try {
@@ -24,24 +23,18 @@ async function putUserCart({ cartId, bookId }) {
     //     },
     //   ],
     // });
-    const book = await Books.findOne({
-      where: {
-        id: bookId,
-      },
-    });
-    const bookName = await capitalize(book.name);
-    // if (!userCart.Books.length)
-    //   return {
-    //     messageError:
-    //       "¡Oh! Tu carrito está vacío. ¿No sabés qué libro leer? ¡Tenemos muchos que te van a encantar!",
-    //   };
 
-    //------puse los mjes juntos para que en el caso que haya un solo libro y lo elimine se vea el message y quede en la pantalla el messageError.
-    //------si hay más libros y elimina uno solo, que muestre el message nomás.
+    // const book = await Books.findOne({
+    //   where: {
+    //     id: bookId,
+    //   },
+    // });
+    // const bookName = await capitalize(book.name);
+
     return {
       message: `Se eliminó '${bookName}' de tu carrito`,
-      messageError:
-        "¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!",
+      // messageVacio:
+      //   "¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos muchos que te van a encantar!",
     };
   } catch (error) {
     return { messageError: "Se ha producido un error." };

@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
   getGuestCart,
+  getUserCart,
   postCart,
   putUserCart,
   deleteUserCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
+import { capitalize } from "../../capitalize";
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const { cart, user, putUserCartResponse } = useSelector((state) => state);
+  const { cart, user } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
   //----------------- Function sweetAlert + Const -----------------
@@ -120,28 +122,33 @@ export default function Cart() {
 
   //----------------- END Function subs product -----------------
 
-  const handleRemoveBook = (cartId, bookId) => {
-    //e.preventDefault();
-    dispatch(putUserCart(cartId, bookId));
-    console.log(putUserCartResponse);
-    const Toast = Swal.mixin({
-      background: "#19191a",
-      color: "#e1e1e1",
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-    });
+  //----------------- Function remove book ----------------------
 
-    Toast.fire({
-      icon: "success",
-      title: `${putUserCartResponse.message} se borro`,
-    });
-    setTimeout(function () {
-      setButtonDisabled(false);
-    }, 1000);
+  const handleRemoveBook = (bookId) => {
+    //e.preventDefault();
+    if (user) {
+      let bookName = cart.find((b) => b.id === bookId);
+      dispatch(putUserCart(cart[0].cartId, bookId));
+
+      swalAlert(
+        2000,
+        "success",
+        `Se eliminó '${capitalize(bookName.name)}' de tu carrito`
+      );
+
+      setTimeout(function () {
+        dispatch(getUserCart(user.uid));
+      }, 2000);
+    }
   };
+
+  //----------------- END Function remove book ----------------------
+
+  //----------------- Function remove cart --------------------------
+
+  const handleRemoveCart = (cartId) => {};
+
+  //----------------- END Function remove cart --------------------------
 
   return (
     <>
@@ -303,8 +310,10 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {(book.price * book.quantity).toFixed(2)}
                     </h3>
+
                     <button
-                      onClick={() => handleRemoveBook(book.cartId, book.id)}
+                      // value={book.id}
+                      onClick={() => handleRemoveBook(book.id)}
                       className={style.btnTrash}
                     >
                       <i class="fa-regular fa-trash-can"></i>
