@@ -126,27 +126,74 @@ export default function Cart() {
 
   const handleRemoveBook = (bookId) => {
     //e.preventDefault();
-    if (user) {
-      let bookName = cart.find((b) => b.id === bookId);
-      dispatch(putUserCart(cart[0].cartId, bookId));
+    let bookName = cart.find((b) => b.id === bookId);
+    Swal.fire({
+      title: `¿Seguro quieres eliminar 
+      '${capitalize(bookName.name)}' 
+      de tu carrito?`,
+      // text: "Se borrarán todos los libros añadidos",
+      icon: "warning",
+      background: "#363B4E",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user) {
+          dispatch(putUserCart(cart[0].cartId, bookId));
 
-      swalAlert(
-        2000,
-        "success",
-        `Se eliminó '${capitalize(bookName.name)}' de tu carrito`
-      );
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${capitalize(bookName.name)}' de tu carrito`
+          );
 
-      setTimeout(function () {
-        dispatch(getUserCart(user.uid));
-      }, 2000);
-    }
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 2000);
+        }
+      }
+    });
   };
 
   //----------------- END Function remove book ----------------------
 
   //----------------- Function remove cart --------------------------
 
-  const handleRemoveCart = (cartId) => {};
+  const handleRemoveCart = () => {
+    Swal.fire({
+      title: "¿Seguro quieres eliminar tu carrito?",
+      text: "Se borrarán todos los libros añadidos",
+      icon: "warning",
+      background: "#363B4E",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user) {
+          dispatch(deleteUserCart(cart[0].cartId));
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            background: "#363B4E",
+            color: "#e1e1e1",
+          });
+
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 2000);
+        }
+      }
+    });
+  };
 
   //----------------- END Function remove cart --------------------------
 
@@ -179,7 +226,9 @@ export default function Cart() {
                     ></img>
                     <div className={style.detail_info}>
                       <Link to={`/detail/${book.id}`}>
-                        <h2 className={style.detail_info_h2}>{book.name}</h2>
+                        <h2 className={style.detail_info_h2}>
+                          {capitalize(book.name)}
+                        </h2>
                       </Link>
                       <h5 className={style.detail_info_h4}>{book.author}</h5>
                     </div>
@@ -268,7 +317,9 @@ export default function Cart() {
                       ></img>
                       <div className={style.detail_info}>
                         <Link to={`/detail/${book.id}`}>
-                          <h2 className={style.detail_info_h2}>{book.name}</h2>
+                          <h2 className={style.detail_info_h2}>
+                            {capitalize(book.name)}
+                          </h2>
                         </Link>
                         <h5 className={style.detail_info_h4}>{book.author}</h5>
                       </div>
@@ -312,12 +363,12 @@ export default function Cart() {
                     </h3>
 
                     <button
-                      // value={book.id}
                       onClick={() => handleRemoveBook(book.id)}
                       className={style.btnTrash}
                     >
                       <i class="fa-regular fa-trash-can"></i>
                     </button>
+                    <button onClick={handleRemoveCart}>Vaciar carrito</button>
                   </div>
                   <hr></hr>
                 </div>
