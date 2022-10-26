@@ -17,6 +17,12 @@ export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
 export const LAST_ROUTE = "LAST_ROUTE"; // Se usa directamente en reducer y componentes. No borrar
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_MORE_VISITS = "GET_MORE_VISITS";
+export const GET_MORE_RATING = "GET_MORE_RATING";
+export const GET_OFFERS = "GET_OFFERS";
+export const PUT_USER_CART = "PUT_USER_CART";
+export const DELETE_USER_CART = "DELETE_USER_CART";
 
 export function userExist(payload) {
   return {
@@ -150,6 +156,24 @@ export function postReviews(input) {
     }
   };
 }
+export function deleteReviews(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/reviews?UserId=${input.UserId}&BookId=${input.BookId}`
+      );
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: error.response.data,
+      });
+    }
+  };
+}
 
 export function resetCreate() {
   return {
@@ -242,6 +266,105 @@ export function getUserCart(userId) {
     } catch (error) {
       return dispatch({
         type: GET_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function getMoreRating() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=rating&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function getMoreVisits() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=visits&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function getOffers() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/books?sort=price-min-max&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_OFFERS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_OFFERS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para borrar un libro del carrito del usuario
+export function putUserCart(cartId, bookId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/cart?cartId=${cartId}&bookId=${bookId}`
+      );
+
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para borrar el carrito de un usuario
+export function deleteUserCart(cartId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/cart?cartId=${cartId}`
+      );
+
+      return dispatch({
+        type: DELETE_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_USER_CART,
         payload: error.response.data,
       });
     }

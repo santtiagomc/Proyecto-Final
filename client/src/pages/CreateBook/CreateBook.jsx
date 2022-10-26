@@ -274,7 +274,7 @@ export default function CreateBook() {
               className={style.input}
               type="text"
               placeholder={params.id ? detail.name : "Nombre del libro"}
-              value={input.name.toLowerCase()}
+              value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
             />

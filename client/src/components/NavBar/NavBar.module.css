@@ -18,8 +18,8 @@
 }
 
 .logo {
-  width: 100px;
-  margin: 5px 0;
+  width: 5rem;
+  margin: 0.3em 0;
   height: auto;
   position: relative;
   display: inline-block;
@@ -29,13 +29,13 @@
 
 .userBtn {
   display: flex;
-  width: 60px;
+  width: 4.5rem;
   height: auto;
   text-align: center;
   justify-content: center;
   align-self: center;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 14px;
   color:#ffffff;
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
@@ -48,7 +48,7 @@
 
 .cart {
   display: flex;
-  width: 60px;
+  width: 4.5rem;
   height: auto;
   align-self: center;
   align-items: center;
@@ -56,7 +56,7 @@
   position: relative;
   background: var(--negro-navBar-filters-btn);
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 14px;
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
@@ -76,7 +76,7 @@
 .button {
   display: flex;
   position: relative;
-  width: 60px;
+  width: 4.5rem;
   height: auto;
   text-align: center;
   justify-content: center;
@@ -91,8 +91,8 @@
 .menu {
   position: absolute;
   background-color: #242424;
-  width: 110px;
-  height: 90px;
+  width: 8rem;
+  height: 6rem;
   border-radius: 4px;
   padding: 4px;
   top: 60px;

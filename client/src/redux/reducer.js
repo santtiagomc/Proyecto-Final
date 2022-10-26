@@ -17,6 +17,12 @@ import {
   GET_CART,
   GET_USER_CART,
   LAST_ROUTE,
+  DELETE_REVIEW,
+  GET_MORE_RATING,
+  GET_MORE_VISITS,
+  GET_OFFERS,
+  PUT_USER_CART,
+  DELETE_USER_CART,
 } from "./actions";
 
 const initialState = {
@@ -41,7 +47,13 @@ const initialState = {
   total: 0,
   cart: [],
   postCartResponse: [],
-  lastRoute: "/"
+  lastRoute: "/",
+  deleteReview: [],
+  booksByRating: [],
+  booksByVisits: [],
+  booksByOffers: [],
+  putUserCartResponse: {},
+  deleteUserCartResponse: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -118,6 +130,39 @@ export default function rootReducer(state = initialState, action) {
 
     case LAST_ROUTE:
       return { ...state, lastRoute: action.payload };
+
+    case DELETE_REVIEW:
+      return { ...state, deleteReview: action.payload };
+
+    case GET_MORE_RATING:
+      return {
+        ...state,
+        booksByRating: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      };
+
+    case GET_MORE_VISITS:
+      return {
+        ...state,
+        booksByVisits: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      };
+
+    case GET_OFFERS:
+      return {
+        ...state,
+        booksByOffers: action.payload.messageError
+          ? action.payload
+          : action.payload.books,
+      };
+
+    case PUT_USER_CART:
+      return { ...state, putUserCartResponse: action.payload };
+
+    case DELETE_USER_CART:
+      return { ...state, deleteUserCartResponse: action.payload };
 
     default:
       return { ...state };

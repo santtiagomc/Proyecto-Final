@@ -83,12 +83,12 @@ export default function Home() {
   const [loader, setLoader] = useState(false);
 
   const nextPage = () => {
-    if (page + 10 < total) {
+    if (page + 12 < total) {
       setLoader(true);
       setTimeout(() => {
         setLoader(false);
       }, 1000);
-      dispatch(changePage(page + 10));
+      dispatch(changePage(page + 12));
     }
   };
 
@@ -98,21 +98,21 @@ export default function Home() {
       setTimeout(() => {
         setLoader(false);
       }, 1000);
-      dispatch(changePage(page - 10));
+      dispatch(changePage(page - 12));
     }
   };
 
   const handlePage = (newPage) => {
-    if (newPage * 10 - 10 !== page) {
+    if (newPage * 12 - 12 !== page) {
       setLoader(true);
       setTimeout(() => {
         setLoader(false);
       }, 1000);
-      dispatch(changePage(newPage * 10 - 10));
+      dispatch(changePage(newPage * 12 - 12));
     }
   };
 
-  for (let i = 1; i <= Math.ceil(total / 10); i++) {
+  for (let i = 1; i <= Math.ceil(total / 12); i++) {
     pages.push(i);
   }
 
@@ -135,7 +135,7 @@ export default function Home() {
             {pages.map((el, index) => (
               <button
                 className={
-                  index === page / 10
+                  index === page / 12
                     ? style.btnNumbersSelected
                     : style.btnNumbers
                 }
@@ -147,7 +147,7 @@ export default function Home() {
             ))}
             <button
               className={
-                page / 10 !== Math.floor(total / 10)
+                page / 12 !== Math.floor(total / 12)
                   ? style.btnNextPrev
                   : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
               }
@@ -195,7 +195,7 @@ export default function Home() {
             {pages.map((el, index) => (
               <button
                 className={
-                  index === page / 10
+                  index === page / 12
                     ? style.btnNumbersSelected
                     : style.btnNumbers
                 }
@@ -207,7 +207,7 @@ export default function Home() {
             ))}
             <button
               className={
-                page / 10 !== Math.floor(total / 10)
+                page / 12 !== Math.floor(total / 12)
                   ? style.btnNextPrev
                   : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
               }

@@ -98,6 +98,7 @@ hr {
 }
 
 .single_review {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -148,4 +149,30 @@ hr {
 .description_single_review {
   padding: 0 12px;
   text-align: justify;
+}
+
+.delete_single_review {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  /* background-color: rgb(88, 152, 202); */
+  padding: 0.2em 0.4em;
+  position: absolute;
+  bottom: 1.5em;
+  right: 1%;
+  cursor: pointer;
+  transition: .5s;
+  color: rgb(186, 46, 46);
+}
+
+.delete_single_review:hover {
+  transform: scale(1.05);
+}
+
+.delete_single_review i {
+  display: flex;
+  height: 100%;
+  margin-left: 0.4em;
+  text-align: center;
+  height: 100%;
 }
