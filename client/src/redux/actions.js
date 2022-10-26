@@ -17,6 +17,7 @@ export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
 export const LAST_ROUTE = "LAST_ROUTE"; // Se usa directamente en reducer y componentes. No borrar
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 export function userExist(payload) {
   return {
@@ -145,6 +146,22 @@ export function postReviews(input) {
     } catch (error) {
       return dispatch({
         type: POST_REVIEWS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+export function deleteReviews(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(`http://localhost:3001/reviews?UserId=${input.UserId}&BookId=${input.BookId}`);
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_REVIEW,
         payload: error.response.data,
       });
     }

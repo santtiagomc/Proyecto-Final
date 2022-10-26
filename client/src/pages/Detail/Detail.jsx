@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart } = useSelector((state) => state);
+  const { user, cart, deleteReview } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const { id } = useParams();
@@ -28,7 +28,7 @@ export default function Detail() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [user]);
+  }, [user, deleteReview]);
 
   //----------------- Function averageRating + sweetAlert + Const -----------------
 
