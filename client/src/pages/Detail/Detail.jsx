@@ -292,6 +292,9 @@ export default function Detail() {
 									)}
 								</button>
 							</div>
+              <button className={style.volver}>
+                  <a  href="javascript:history.back()">  Atrás</a>
+                  </button>
 						</div>
 					</div>
 					<Review id={id} />
