@@ -110,7 +110,7 @@ export default function NavBar() {
                 <i className="fa-solid fa-cart-shopping"></i>
                 {!user
                   ? <div className={style.number}>{uniqueIdArrayCart && uniqueIdArrayCart.length}</div>
-                  : <div className={style.number}>{quantityCart}</div>}
+                  : <div className={style.number}>{quantityCart && quantityCart.length && !quantityCart.messageError ? quantityCart : 0}</div>}
               </button>
             </Link>
           </div>
