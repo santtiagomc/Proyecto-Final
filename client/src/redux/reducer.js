@@ -21,6 +21,8 @@ import {
   GET_MORE_RATING,
   GET_MORE_VISITS,
   GET_OFFERS,
+  PUT_USER_CART,
+  DELETE_USER_CART,
 } from "./actions";
 
 const initialState = {
@@ -49,7 +51,9 @@ const initialState = {
   deleteReview: [],
   booksByRating: [],
   booksByVisits: [],
-  booksByOffers: []
+  booksByOffers: [],
+  putUserCartResponse: {},
+  deleteUserCartResponse: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -132,24 +136,33 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_MORE_RATING:
       return {
-        ...state, booksByRating: action.payload.messageError
+        ...state,
+        booksByRating: action.payload.messageError
           ? action.payload
           : action.payload.books,
-      }
+      };
 
     case GET_MORE_VISITS:
       return {
-        ...state, booksByVisits: action.payload.messageError
+        ...state,
+        booksByVisits: action.payload.messageError
           ? action.payload
           : action.payload.books,
-      }
+      };
 
     case GET_OFFERS:
       return {
-        ...state, booksByOffers: action.payload.messageError
+        ...state,
+        booksByOffers: action.payload.messageError
           ? action.payload
           : action.payload.books,
-      }
+      };
+
+    case PUT_USER_CART:
+      return { ...state, putUserCartResponse: action.payload };
+
+    case DELETE_USER_CART:
+      return { ...state, deleteUserCartResponse: action.payload };
 
     default:
       return { ...state };

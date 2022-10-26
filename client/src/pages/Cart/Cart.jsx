@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
-import { getGuestCart, postCart } from "../../redux/actions";
+import {
+  getGuestCart,
+  getUserCart,
+  postCart,
+  putUserCart,
+  deleteUserCart,
+} from "../../redux/actions";
 import Swal from "sweetalert2";
 
 export default function Cart() {
@@ -52,12 +58,9 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        swalAlert(2000, "success", "Has modificado la cantidad del producto")
-
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-
-        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
-
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
       }
     } else {
       if (quantity[e.target.value] < 5) {
@@ -66,12 +69,9 @@ export default function Cart() {
           `${repeatedIdArrayCart.toString()},${e.target.value}`
         );
 
-        swalAlert(2000, "success", "Has modificado la cantidad del producto")
-
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-
-        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
-
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -95,12 +95,9 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
         );
 
-        swalAlert(2000, "success", "Has modificado la cantidad del producto")
-
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-
-        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
-
+        swalAlert(2000, "error", "Alcanzaste el mínimo de este producto");
       }
     } else {
       if (quantity[e.target.value] > 1) {
@@ -109,12 +106,9 @@ export default function Cart() {
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
-        swalAlert(2000, "success", "Has modificado la cantidad del producto")
-
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-
-        swalAlert(2000, "error", "Alcanzaste el máximo de este producto")
-
+        swalAlert(2000, "error", "Alcanzaste el mínimo de este producto");
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -127,14 +121,90 @@ export default function Cart() {
 
   //----------------- END Function subs product -----------------
 
+  //----------------- Function remove book ----------------------
+
+  const handleRemoveBook = (bookId) => {
+    //e.preventDefault();
+    let bookName = cart.find((b) => b.id === bookId);
+    Swal.fire({
+      title: `¿Seguro quieres eliminar 
+      '${bookName.name}' 
+      de tu carrito?`,
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      background: "#19191a",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user) {
+          dispatch(putUserCart(cart[0].cartId, bookId));
+
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${bookName.name}' de tu carrito`
+          );
+
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 2000);
+        }
+      }
+    });
+  };
+
+  //----------------- END Function remove book ----------------------
+
+  //----------------- Function remove cart --------------------------
+
+  const handleRemoveCart = () => {
+    Swal.fire({
+      title: "¿Seguro quieres eliminar tu carrito?",
+      text: "Se borrarán todos los libros añadidos",
+      icon: "warning",
+      background: "#19191a",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user) {
+          dispatch(deleteUserCart(cart[0].cartId));
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            background: "#19191a",
+            color: "#e1e1e1",
+          });
+
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 2000);
+        }
+      }
+    });
+  };
+
+  //----------------- END Function remove cart --------------------------
+
   return (
     <>
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-             <button className={style.volver}>
-          <a href="javascript:history.back()">Volver</a>
-        </button>
+            <button className={style.volver}>
+              <a href="javascript:history.back()">Volver</a>
+            </button>
+            <button onClick={handleRemoveCart}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -148,6 +218,7 @@ export default function Cart() {
               </h4>
             </div>
             <hr></hr>
+
             {cart.map((book) => (
               <div key={book.id}>
                 <div className={style.detail}>
@@ -199,6 +270,9 @@ export default function Cart() {
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}
                   </h3>
+                  <button className={style.btnTrash}>
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </div>
                 <hr></hr>
               </div>
@@ -206,15 +280,14 @@ export default function Cart() {
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-             <button className={style.volver}>
-          <a href="javascript:history.back()">Volver</a>
-        </button>
-        <h1 className={style.message}>
-            ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
-            muchos que te van a encantar!
-          </h1>
+            <button className={style.volver}>
+              <a href="javascript:history.back()">Volver</a>
+            </button>
+            <h1 className={style.message}>
+              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
+              muchos que te van a encantar!
+            </h1>
           </div>
-          
         ) : (
           <h1 className={style.message}>Cargando...</h1>
         )
@@ -222,15 +295,16 @@ export default function Cart() {
         cart.messageError ? (
           <div>
             <button className={style.volver}>
-          <a href="javascript:history.back()"> Volver </a>
-        </button>
-        <h1 className={style.message}>{cart.messageError}</h1>
+              <a href="javascript:history.back()"> Volver </a>
+            </button>
+            <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
             <button className={style.volver}>
-          <a href="javascript:history.back()"> Volver </a>
-        </button>
+              <a href="javascript:history.back()"> Volver </a>
+            </button>
+            <button onClick={handleRemoveCart}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -301,6 +375,13 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {(book.price * book.quantity).toFixed(2)}
                     </h3>
+
+                    <button
+                      onClick={() => handleRemoveBook(book.id)}
+                      className={style.btnTrash}
+                    >
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
                   </div>
                   <hr></hr>
                 </div>
