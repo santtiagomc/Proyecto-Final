@@ -44,7 +44,7 @@
 .btnStatusT {
   margin-left: 10px;
   height: fit-content;
-  background-color: #50a7ed;
+  background-color: var(--verde-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -58,7 +58,7 @@
 .btnStatusF {
   margin-left: 10px;
   height: fit-content;
-  background-color: #d56a93;
+  background-color: var(--violeta-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -142,8 +142,9 @@
 }
 
 .cart {
+  position: relative;
   height: fit-content;
-  background-color: #101010;
+  background-color: var(--negro-navBar-filters-btn);
   padding: 5px 75px;
   border: none;
   border-radius: 5px;
@@ -151,7 +152,7 @@
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid #d97197;
+  border: 1px solid var(--violeta-primario);
 }
 
 .cartF {
@@ -160,7 +161,7 @@
 }
 
 .disponible {
-  color: #50a7ed;
+  color: var(--verde-primario);
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
@@ -168,7 +169,7 @@
 }
 
 .noDisponible {
-  color: #d56a93;
+  color: var(--violeta-primario);
   font-size: 16px;
   font-style: italic;
   font-weight: 300;
@@ -196,6 +197,19 @@
   color: rgb(243, 249, 93);
 }
 
+.number {
+  display: flex;
+  position: absolute; 
+  background-color: var(--violeta-primario);
+  color: #ffffff;
+  border-radius: 50%;
+  height: 1.3em;
+  width: 1.3em;
+  justify-content: center;
+  align-items: center;
+  top: 18%;
+  right: 5%;
+}
 .volver{
   margin-top: 20px;
   padding: 10px ;
