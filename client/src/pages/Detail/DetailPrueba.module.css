@@ -195,3 +195,21 @@
   font-size: 22px;
   color: rgb(243, 249, 93);
 }
+
+.volver{
+  margin-top: 20px;
+  padding: 10px ;
+  background: #101010;
+  font-family:  inherit;
+  color :#fff;
+  border: 1px solid #d56a93;
+  border-radius: 5px;
+
+}
+.volver a {
+  color: white
+}
+
+.volver a:hover {
+  color: white
+}

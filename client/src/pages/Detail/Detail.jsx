@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -163,7 +163,9 @@ export default function Detail() {
 
   return (
     <>
+    
       <div className={style.adminContainer}>
+
         <button
           className={myBook.visible ? style.btnStatusF : style.btnStatusT}
           onClick={(e) => handleClick(e)}
@@ -178,6 +180,7 @@ export default function Detail() {
             </div>
           )}
         </button>
+        
         <NavLink to={`/edit/${id}`}>
           <button className={style.btnStatusT}>
             Editar producto <i class="fa-solid fa-pencil"></i>
@@ -189,6 +192,7 @@ export default function Detail() {
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
+          
           <div className={style.container}>
             <div>
               <img
@@ -197,6 +201,7 @@ export default function Detail() {
                 alt={`Portada del libro ${myBook.name}`}
               />
             </div>
+            
             <div className={style.info}>
               <h2 className={style.name}>{myBook.name}</h2>
               <h3 className={style.author}>{myBook.author}</h3>
@@ -244,6 +249,7 @@ export default function Detail() {
                     }
                   ></i>
                 </div>
+                
 
                 <div className={style.star}>
                   <i
@@ -281,15 +287,28 @@ export default function Detail() {
                   value={id}
                   type="button"
                   onClick={(e) => handleCart(e)}
+                  
                 >
+                  
                   Agregar al carrito ---{" "}
                   {!user
                     ? quantity && quantity[id]
                       ? quantity[id]
                       : 0
                     : quantityUser}
-                </button>
+                    
+                </button>                
               </div>
+              {/* <div>
+                <Link to ='/'>
+                <button className={style.volver}> Volver </button>
+                </Link>
+              </div> */}
+             
+                <button className={style.volver}>
+                  <a  href="javascript:history.back()">  Atrás</a>
+                  </button>
+              
             </div>
           </div>
           <Review id={id} />
@@ -298,7 +317,13 @@ export default function Detail() {
         <div className={style.loaderContainer}>
           <span className={style.loader}></span>
         </div>
+        
       )}
     </>
   );
 }
+
+{/* <div>
+            <a className={style.volver} href="javascript:history.back()"> Volver Atrás</a>
+
+            </div> */}
