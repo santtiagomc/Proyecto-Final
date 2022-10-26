@@ -23,9 +23,9 @@
 
 .btnNextPrev {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  border: 2px solid #d97197;
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 90px;
@@ -37,29 +37,34 @@
 }
 
 .btnNextPrev:hover {
-  background-color: #d97197;
+  background-color: var(--violeta-primario);
+}
+
+.btnNextPrevDisabled:hover {
+  background-color: transparent;
+  cursor: auto;
 }
 
 .btnNumbers {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  border: 2px solid #d97197;
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 30px;
 }
 
 .btnNumbers:hover {
-  background-color: #d97197;
+  background-color: var(--violeta-primario);
 }
 
 .btnNumbersSelected {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  background-color: #d97197;
-  border: 2px solid #d97197;
+  background-color: var(--violeta-primario);
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 30px;

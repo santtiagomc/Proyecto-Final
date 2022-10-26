@@ -6,7 +6,7 @@
   height: 6vh;
   left: 0;
   bottom: 0;
-  background: #191919;
+  background: var(--negro-backgound);
 }
 
 .github {

@@ -78,13 +78,15 @@ export default function NavBar() {
           {!user ? (
             <div>
               <Link to="/login">
-                <button className={style.userBtn}>👤</button>
+                <button className={style.userBtn}>
+                  <i className="fa-solid fa-user"></i>
+                </button>
               </Link>
             </div>
           ) : (
             <div>
               <button onClick={() => setShow(!show)} className={style.userBtn}>
-                👤
+                <i class="fa-solid fa-user"></i>
               </button>
               <div
                 className={`${style.menu} ${show ? style.show : style.hide}`}
@@ -105,10 +107,10 @@ export default function NavBar() {
           <div>
             <Link to="/cart">
               <button className={style.cart}>
-                🛒
+                <i className="fa-solid fa-cart-shopping"></i>
                 {!user
-                  ? uniqueIdArrayCart && uniqueIdArrayCart.length
-                  : quantityCart}
+                  ? <div className={style.number}>{uniqueIdArrayCart && uniqueIdArrayCart.length}</div>
+                  : <div className={style.number}>{quantityCart}</div>}
               </button>
             </Link>
           </div>
