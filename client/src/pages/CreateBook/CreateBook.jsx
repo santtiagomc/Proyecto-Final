@@ -9,6 +9,9 @@ import {
   resetCreate,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+
+import { uploadFile } from "../../firebase/firebase";
+
 import style from "./CreateBook.module.css";
 import Swal from "sweetalert2";
 
@@ -30,8 +33,8 @@ function validation(input) {
     errors.name =
       "Sólo puede contener letras, números y los siguientes caracteres: .,!*:-()";
   }
-  if (!input.image.match(regexUrl)) {
-    errors.image = "Ingresa url de una imagen";
+  if (!input.image) {
+    errors.image = "Ingresar una imagen es obligatorio";
   }
 
   if (input.author.length <= 1) {
@@ -77,6 +80,7 @@ export default function CreateBook() {
   const history = useHistory();
 
   const detail = useSelector((state) => state.detail);
+  let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const params = useParams();
 
@@ -150,10 +154,27 @@ export default function CreateBook() {
     });
   };
 
-  function handleSubmit(e) {
+  let imageName;
+  const handleNewImage = async (e) => {
+    setButtonDisabled(true);
+    imageName = e.target.files[0].name;
+    console.log(imageName);
+    console.log(typeof imageName === "string");
+    const imageUrl = await uploadFile(e.target.files[0], params.id);
+    console.log(imageUrl);
+    setInput({ ...input, image: imageUrl });
+
+    setTimeout(function () {
+      setButtonDisabled(false);
+    }, 5000);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(input);
     if (!params.id) {
       if (Object.keys(errors).length === 0) {
+        console.log(input, "CREATE");
         dispatch(addBooks(input));
       } else {
         Swal.fire({
@@ -167,7 +188,7 @@ export default function CreateBook() {
       }
     } else {
       if (Object.keys(errors).length === 0) {
-        console.log(input);
+        console.log(input, "EDIT");
         dispatch(putBook(params.id, input));
       } else {
         Swal.fire({
@@ -180,7 +201,7 @@ export default function CreateBook() {
         });
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (create.message) {
@@ -202,7 +223,7 @@ export default function CreateBook() {
         edition: "",
         genre: [],
       });
-      history.push("/");
+      params.id ? history.goBack() : history.push("/");
     } else if (create.messageError) {
       Swal.fire({
         background: "#19191a",
@@ -327,15 +348,36 @@ export default function CreateBook() {
 
           <div className={style.incontainer}>
             <label className={style.label}>Portada</label>
-            <input
+            {/* <input
               className={style.input}
               type="url"
               placeholder="Url portada"
               value={input.image}
               name="image"
               onChange={(e) => handleChange(e)}
-            />
-            {input.image && <p className={style.err}>{errors.image}</p>}
+            /> */}
+            <div className={style.fileDiv}>
+              <label className={style.fileLabel}>
+                <input
+                  className={style.fileInput}
+                  type="file"
+                  onChange={(e) => handleNewImage(e)}
+                  disabled={buttonDisabled}
+                />
+                <i class="fa-solid fa-file-arrow-up"></i>{" "}
+                {input.image && !buttonDisabled
+                  ? "Subir otra imagen"
+                  : "Subir una imagen"}
+              </label>
+              <div className={style.divLoader}>
+                <span className={style.loader} hidden={!buttonDisabled}></span>
+              </div>
+            </div>
+            {input.image && (
+              <p className={style.err} hidden={input.image ? true : false}>
+                {errors.image}
+              </p>
+            )}
           </div>
         </div>
 
@@ -396,8 +438,12 @@ export default function CreateBook() {
             {input.stock && <p className={style.err}>{errors.stock}</p>}
           </div>
           <div className={style.btnContainer}>
-            <button className={style.btn} type="submit">
-              {params.id ? "Completar edición" : "Crear"}
+            <button
+              className={buttonDisabled ? style.btnF : style.btn}
+              type="submit"
+              disabled={buttonDisabled}
+            >
+              {params.id ? "Completar edición" : "Crear libro"}
             </button>
             <Link to="/">
               <button className={style.btn}>Volver</button>
