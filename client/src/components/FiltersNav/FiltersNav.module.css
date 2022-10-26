@@ -1,30 +1,24 @@
 .navContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 300px;
-  margin-top: 80px;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 5em;
   background-color: var(--negro-backgound);
-}
-
-.filters {
-  font-weight: bolder;
-  font-size: 21px;
-  color: #ffffff;
-  text-align: center;
-  margin: 15px 0;
 }
 
 .label {
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   color: #ffffff;
-  margin: 20px 0 10px 0;
+  margin: 1em 1em 0.5em 1em;
 }
 
 .select {
   background-color: var(--negro-navBar-filters-btn);
-  padding: 5px 17px;
+  padding: 5px 8px;
   border: none;
   border-radius: 5px;
   height: fit-content;
@@ -32,13 +26,13 @@
   color: white;
   font-size: 14px;
   font-weight: 600;
-  width: 200px;
+  width: 12rem;
   box-shadow: var(--negro-navBar-filters-btn) 1px 3px 2px;
   cursor: pointer;
+  margin: 1em 1em 0.5em 1em;
 }
 
 .resetButton {
-  margin-top: 30px;
   background-color: var(--negro-navBar-filters-btn);
   padding: 5px 20px;
   border: none;
@@ -47,8 +41,8 @@
   color: white;
   font-size: 14px;
   font-weight: 600;
-  width: 200px;
+  width: 12rem;
   box-shadow: var(--negro-navBar-filters-btn) 1px 3px 2px;
   cursor: pointer;
-
+  margin: 1em 1em 0.5em 1em;
 }

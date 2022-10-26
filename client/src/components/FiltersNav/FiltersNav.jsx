@@ -47,7 +47,7 @@ export default function FiltersNav({ editorials }) {
 
       {/* {books.length && */}
       <nav className={style.navContainer}>
-        <h2 className={style.filters}>Filtrar resultados</h2>
+        {/* <h2 className={style.filters}>Filtrar resultados</h2> */}
         <label className={style.label}>Ordenar por:</label>
         <select
           className={style.select}
@@ -95,7 +95,7 @@ export default function FiltersNav({ editorials }) {
           </option>
         </select>
 
-        <label className={style.label}>Editoriales</label>
+        {/* <label className={style.label}>Editoriales</label> */}
         <select
           className={style.select}
           name="editorial"
@@ -108,7 +108,7 @@ export default function FiltersNav({ editorials }) {
             selected={filtersApplied.editorial === "none" ? true : false}
           >
             {" "}
-            Todas
+            Todas las Editoriales
           </option>
           {editorials.length &&
             editorials.map((el) => (
@@ -122,7 +122,7 @@ export default function FiltersNav({ editorials }) {
             ))}
         </select>
 
-        <label className={style.label}>Categorías</label>
+        {/* <label className={style.label}>Categorías</label> */}
         <select
           className={style.select}
           name="genres"
@@ -134,7 +134,7 @@ export default function FiltersNav({ editorials }) {
             selected={filtersApplied.genres === "none" ? true : false}
           >
             {" "}
-            Todas
+            Todas las Categorías
           </option>
           {genres.length &&
             genres.sort().map((el) => (
