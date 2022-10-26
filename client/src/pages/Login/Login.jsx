@@ -13,7 +13,8 @@ export default function Login() {
   const [error, setError] = useState("");
   const history = useHistory();
   const dispatch = useDispatch()
-  const { user } = useSelector(state => state)
+  const { user, lastRoute } = useSelector(state => state)
+
   const {
     register,
     formState: { errors },
@@ -23,52 +24,36 @@ export default function Login() {
   useEffect(() => {
     if (user && user.uid) {
       dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+      const Toast = Swal.mixin({
+        background: "#19191a",
+        color: "#e1e1e1",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Has iniciado sesión con la cuenta: ${user.email}`,
+      });
+      setTimeout(() => {
+        history.push(lastRoute);
+      }, 1000);
     }
   }, [user])
 
   const handleGoogle = async () => {
     try {
       await sessionGoogle();
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Has iniciado sesión con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
     } catch (error) {
-      console.log(error);
+      console.log("Este es el error: " + error);
     }
   };
 
   const onSubmit = async (user) => {
     try {
       const userLog = await singIn(user.email, user.password);
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Has iniciado sesión con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
     } catch (error) {
       setError("Usuario o contrasena incorrecto");
       console.log(error);
