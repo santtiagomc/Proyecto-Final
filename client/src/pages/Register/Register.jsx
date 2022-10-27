@@ -71,6 +71,11 @@ export default function Register() {
       }
     }
   }, [user])
+
+  //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
+
+
+
   //----------------------- Comienzo Funcion de Admin de ingresar --------------------------------//
 
   const handleAdmin = ()=> {
@@ -109,9 +114,6 @@ export default function Register() {
   }
   // --------------------------END Funcion de Admin de ingresar -------------------//
 
-  //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
-
-  //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
   const onSubmit = async (data) => {
     try {
@@ -269,8 +271,7 @@ export default function Register() {
             <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
           </Link>
           <div className={style.link} onClick={handleAdmin}>
-            ¿Eres administrador?
-            
+            ¿Eres administrador?            
           </div>
           {/* </div> */}
         </form>
