@@ -268,6 +268,10 @@ export default function Register() {
           <Link to="/login">
             <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
           </Link>
+          <div className={style.link} onClick={handleAdmin}>
+            ¿Eres administrador?
+            
+          </div>
           {/* </div> */}
         </form>
       </div>         
