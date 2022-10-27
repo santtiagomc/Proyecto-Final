@@ -129,16 +129,20 @@ export default function CreateBook() {
     }
   }, [detail]);
 
+  function swalAlert(title, text, icon, timer) {
+    Swal.fire({
+      background: "#19191a",
+      color: "#e1e1e1",
+      title: title,
+      text: text,
+      icon: icon,
+      timer: timer,
+    });
+  }
+
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: "La categoría seleccionada ya se encuentra en la lista",
-        text: "Seleccione otra categoría",
-        icon: "warning",
-        timer: 4000,
-      });
+      swalAlert("Categoría ya seleccionada", null, "warning", 4000);
     } else {
       setInput({
         ...input,
@@ -154,7 +158,7 @@ export default function CreateBook() {
     });
   };
 
-  let imageName;
+  let imageName = "";
   const handleNewImage = async (e) => {
     setButtonDisabled(true);
     imageName = e.target.files[0].name;
@@ -169,48 +173,39 @@ export default function CreateBook() {
     }, 5000);
   };
 
+  const handleShowImage = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      background: "#19191a",
+      color: "#e1e1e1",
+      imageUrl: input.image,
+      imageWidth: 361,
+      imageHeight: 554,
+      imageAlt: `Cover of ${input.name}`,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(input);
     if (!params.id) {
       if (Object.keys(errors).length === 0) {
-        console.log(input, "CREATE");
         dispatch(addBooks(input));
       } else {
-        Swal.fire({
-          background: "#19191a",
-          color: "#e1e1e1",
-          title: "Todos los campos son requeridos",
-          // text: "Faltan campos por llenar",
-          icon: "info",
-          timer: 4000,
-        });
+        swalAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     } else {
       if (Object.keys(errors).length === 0) {
-        console.log(input, "EDIT");
         dispatch(putBook(params.id, input));
       } else {
-        Swal.fire({
-          background: "#19191a",
-          color: "#e1e1e1",
-          title: "Todos los campos son requeridos",
-          // text:  "Faltan campos por llenar",
-          icon: "info",
-          timer: 4000,
-        });
+        swalAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     }
   };
 
   useEffect(() => {
     if (create.message) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: create.message,
-        icon: "success",
-      });
+      swalAlert(create.message, null, "success", null);
       dispatch(resetCreate());
       setInput({
         name: "",
@@ -225,12 +220,7 @@ export default function CreateBook() {
       });
       params.id ? history.goBack() : history.push("/");
     } else if (create.messageError) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: create.messageError,
-        icon: "warning",
-      });
+      swalAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
   }, [create]);
@@ -357,27 +347,47 @@ export default function CreateBook() {
               onChange={(e) => handleChange(e)}
             /> */}
             <div className={style.fileDiv}>
-              <label className={style.fileLabel}>
-                <input
-                  className={style.fileInput}
-                  type="file"
-                  onChange={(e) => handleNewImage(e)}
-                  disabled={buttonDisabled}
-                />
-                <i class="fa-solid fa-file-arrow-up"></i>{" "}
-                {input.image && !buttonDisabled
-                  ? "Subir otra imagen"
-                  : "Subir una imagen"}
-              </label>
-              <div className={style.divLoader}>
-                <span className={style.loader} hidden={!buttonDisabled}></span>
+              <div className={style.divLabel}>
+                <label className={style.fileLabel}>
+                  <input
+                    className={style.fileInput}
+                    type="file"
+                    onChange={(e) => handleNewImage(e)}
+                    disabled={buttonDisabled}
+                  />
+                  <i class="fa-solid fa-file-image"></i>{" "}
+                  {input.image && !buttonDisabled
+                    ? "Subir otra imagen"
+                    : "Subir una imagen"}
+                </label>
+              </div>
+
+              <div>
+                {buttonDisabled ? (
+                  <div className={style.divLoader}>
+                    <span
+                      className={style.loader}
+                      hidden={!buttonDisabled}
+                    ></span>
+                  </div>
+                ) : (
+                  <button
+                    className={
+                      input.image ? style.btnShowIMG : style.btnShowIMGf
+                    }
+                    disabled={input.image ? false : true}
+                    onClick={(e) => handleShowImage(e)}
+                  >
+                    {input.image ? (
+                      <i class="fa-solid fa-eye"></i>
+                    ) : (
+                      <i class="fa-solid fa-eye-slash"></i>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
-            {input.image && (
-              <p className={style.err} hidden={input.image ? true : false}>
-                {errors.image}
-              </p>
-            )}
+            {input.image && <p className={style.err}>{errors.image}</p>}
           </div>
         </div>
 
@@ -445,8 +455,10 @@ export default function CreateBook() {
             >
               {params.id ? "Completar edición" : "Crear libro"}
             </button>
-            <Link to="/">
-              <button className={style.btn}>Volver</button>
+            <Link to={params.id ? `/detail/${params.id}` : "/"}>
+              <button className={style.btn}>
+                {params.id ? "Cancelar" : "Volver"}
+              </button>
             </Link>
           </div>
         </div>
