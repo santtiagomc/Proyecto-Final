@@ -40,6 +40,43 @@ export default function Register() {
       }, 1000);
     }
   }, [user])
+  //----------------------- Comienzo Funcion de Admin de ingresar --------------------------------//
+
+  const handleAdmin = ()=> {
+    Swal.fire({
+      title: 'Ingrese el PIN ',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Look up',
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`
+            )
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url
+        })
+      }
+    })
+  }
+  // --------------------------END Funcion de Admin de ingresar -------------------//
 
   const onSubmit = async (data) => {
     try {
@@ -194,6 +231,10 @@ export default function Register() {
           <Link to="/login">
             <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
           </Link>
+          <div className={style.link} onClick={handleAdmin}>
+            ¿Eres administrador?
+            
+          </div>
           {/* </div> */}
         </form>
       </div>
