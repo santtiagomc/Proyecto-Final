@@ -100,26 +100,6 @@ export default function Review({ id }) {
     swalAlert(3000, "success", "Has eliminado tu reseña, puedes agregar una nueva!")
   }
 
-  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
-  // Swal.fire({
-  //   title: 'Are you sure?',
-  //   text: "You won't be able to revert this!",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Yes, delete it!'
-  // }).then((result) => {
-  //   if (result.isConfirmed) {
-  //     Swal.fire(
-  //       'Deleted!',
-  //       'Your file has been deleted.',
-  //       'success'
-  //     )
-  //   }
-  // })
-  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
-
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -22,7 +22,7 @@ export default function Detail() {
   const myBook = useSelector((state) => state.detail);
   const { user, cart, deleteReview } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
-  console.log(myBook)
+
   const { id } = useParams();
 
   useEffect(() => {
