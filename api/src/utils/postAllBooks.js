@@ -8,9 +8,12 @@ async function postAllBooks(allBooks) {
       let capitalizeAuthor = await capitalize(book.author);
       let [newBook, created] = await Books.findOrCreate({
         where: {
-          name: book.name.toLowerCase(),
+          name: {
+            [Op.iLike]: book.name,
+          },
         },
         defaults: {
+          name: book.name,
           image: book.image,
           author: capitalizeAuthor,
           description: book.description,

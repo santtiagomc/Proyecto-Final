@@ -1,16 +1,27 @@
-const { Books, Genres } = require('../db');
-const { capitalize } = require('./capitalize');
-const { Op } = require("sequelize")
+const { Books, Genres } = require("../db");
+const { capitalize } = require("./capitalize");
+const { Op } = require("sequelize");
 
-async function postBook({ name, image, author, description, price, stock, editorial, edition, genres }) {
+async function postBook({
+  name,
+  image,
+  author,
+  description,
+  price,
+  stock,
+  editorial,
+  edition,
+  genres,
+}) {
   try {
+    console.log(image, "el img del postbook funcion");
     let capitalizeEditorial = await capitalize(editorial);
     let capitalizeAuthor = await capitalize(author);
     let [newBook, created] = await Books.findOrCreate({
       where: {
         name: {
-          [Op.iLike]: name
-        }
+          [Op.iLike]: name,
+        },
       },
       defaults: {
         name,
@@ -24,12 +35,16 @@ async function postBook({ name, image, author, description, price, stock, editor
       },
     });
 
-    if (!created) return { messageError: "Ya existe un libro con ese nombre, por favor eliga otro y vuelva a intentar!" };
+    if (!created)
+      return {
+        messageError:
+          "Ya existe un libro con ese nombre, por favor eliga otro y vuelva a intentar!",
+      };
 
-    let genresDb = await Genres.findAll()
+    let genresDb = await Genres.findAll();
 
     if (genresDb.length) {
-      newBook.addGenres(genres)
+      newBook.addGenres(genres);
     }
 
     return { message: "El libro ha sido agregado con éxito!" };
@@ -39,5 +54,5 @@ async function postBook({ name, image, author, description, price, stock, editor
 }
 
 module.exports = {
-  postBook
-}
+  postBook,
+};

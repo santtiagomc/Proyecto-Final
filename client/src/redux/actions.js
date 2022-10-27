@@ -16,7 +16,6 @@ export const USER_EXIST = "USER_EXIST";
 export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
-export const LAST_ROUTE = "LAST_ROUTE"; // Se usa directamente en reducer y componentes. No borrar
 export const DELETE_REVIEW = "DELETE_REVIEW";
 export const GET_MORE_VISITS = "GET_MORE_VISITS";
 export const GET_MORE_RATING = "GET_MORE_RATING";

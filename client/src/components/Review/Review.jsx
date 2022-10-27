@@ -91,34 +91,27 @@ export default function Review({ id }) {
 
   function handleDelete(e) {
     e.preventDefault();
-    dispatch(deleteReviews({ UserId: user.uid, BookId: id }));
+    Swal.fire({
+      title: '¡Cuidado! Estás a punto de borrar tu reseña.',
+      width: 650,
+      text: "¿Quieres borrar tu reseña? Esto no podrá deshacerse.",
+      icon: 'warning',
+      iconColor: "#355070",
+      showCancelButton: true,
+      background: "#19191a",
+      color: "#e1e1e1",
+      confirmButtonColor: '#355070',
+      cancelButtonColor: '#B270A2',
+      confirmButtonText: '¡Si! Borrar reseña',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteReviews({ UserId: user.uid, BookId: id }));
 
-    setButtonDisabled(true);
-    setTimeout(function () {
-      setButtonDisabled(false);
-    }, 1000);
-    swalAlert(3000, "success", "Has eliminado tu reseña, puedes agregar una nueva!")
+        swalAlert(3000, "success", "Has eliminado tu reseña, puedes agregar una nueva!")
+      }
+    })
   }
-
-  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
-  // Swal.fire({
-  //   title: 'Are you sure?',
-  //   text: "You won't be able to revert this!",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Yes, delete it!'
-  // }).then((result) => {
-  //   if (result.isConfirmed) {
-  //     Swal.fire(
-  //       'Deleted!',
-  //       'Your file has been deleted.',
-  //       'success'
-  //     )
-  //   }
-  // })
-  // ----------------- IMPLEMENTAR MENSAJE DE CONFIRMACIÓN -----------------
 
   useEffect(() => {
     if (Array.isArray(createReview)) return;

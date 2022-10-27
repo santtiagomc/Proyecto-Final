@@ -45,7 +45,7 @@
 
 .divs {
   margin: 20px;
-  height: 525px;
+  height: 600px;
   width: 600px;
 }
 
@@ -61,6 +61,73 @@
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%);
   border-radius: 10px;
   width: 100%;
+}
+
+.fileDiv {
+  display: flex;
+}
+
+.divLabel {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-right: 10px;
+  border: 1px solid var(--violeta-primario);
+  border-radius: 10px;
+  background-color: var(--negro-backgound);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.divLabelF {
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-right: 10px;
+  border: 1px solid var(--violeta-primario);
+  border-radius: 10px;
+  background-color: var(--negro-backgound);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.fileLabel {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+.fileLabelF {
+  cursor: not-allowed;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.btnShowIMG {
+  width: 70px;
+  height: 100%;
+  padding: 6px 20px;
+  cursor: pointer;
+  color: #d9d9d9;
+  background: var(--negro-backgound);
+  border: 1px solid var(--violeta-primario);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+.btnShowIMGf {
+  opacity: 0.5;
+  cursor: not-allowed;
+  width: 70px;
+  height: 100%;
+  color: #d9d9d9;
+  padding: 6px 20px;
+  background: var(--negro-backgound);
+  border: 1px solid var(--violeta-primario);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 
 .textArea {
@@ -139,6 +206,17 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
+.btnF {
+  opacity: 0.5;
+  cursor: not-allowed;
+  width: 200px;
+  color: #d9d9d9;
+  padding: 6px 20px;
+  background: var(--negro-backgound);
+  border: 1px solid var(--violeta-primario);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
 
 .btnx {
   background-color: rgba(255, 0, 0, 0.767);
@@ -148,4 +226,38 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
+}
+
+.divLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 70px;
+  height: 100%;
+  padding: 6px 20px;
+  color: #d9d9d9;
+  background: var(--negro-backgound);
+  border: 1px solid var(--violeta-primario);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+.loader {
+  width: 28px;
+  height: 28px;
+  border: 5px solid #fff;
+  border-bottom-color: var(--violeta-primario);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

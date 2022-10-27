@@ -127,16 +127,15 @@ export default function Cart() {
     //e.preventDefault();
     let bookName = cart.find((b) => b.id === bookId);
     Swal.fire({
-      title: `¿Seguro quieres eliminar 
-      '${bookName.name}' 
-      de tu carrito?`,
+      title: `¿Seguro quieres eliminar '${bookName.name}' de tu carrito?`,
       text: "Esta acción no se puede deshacer",
       icon: "warning",
+      width: 650,
       background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
@@ -153,6 +152,21 @@ export default function Cart() {
           setTimeout(function () {
             dispatch(getUserCart(user.uid));
           }, 2000);
+        } else {
+          let filterLocalStorage = repeatedIdArrayCart.filter(
+            (id) => id !== bookId
+          );
+          localStorage.setItem("cart", `${filterLocalStorage.toString()}`);
+
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${bookName.name}' de tu carrito`
+          );
+
+          setTimeout(function () {
+            dispatch(getGuestCart(filterLocalStorage.toString()));
+          }, 2000);
         }
       }
     });
@@ -167,11 +181,12 @@ export default function Cart() {
       title: "¿Seguro quieres eliminar tu carrito?",
       text: "Se borrarán todos los libros añadidos",
       icon: "warning",
+      width: 650,
       background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
@@ -182,13 +197,29 @@ export default function Cart() {
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
             icon: "success",
+            width: 650,
             background: "#19191a",
             color: "#e1e1e1",
           });
 
           setTimeout(function () {
             dispatch(getUserCart(user.uid));
-          }, 2000);
+          }, 700);
+        } else {
+          localStorage.clear();
+
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            width: 650,
+            background: "#19191a",
+            color: "#e1e1e1",
+          });
+
+          setTimeout(function () {
+            dispatch(getGuestCart());
+          }, 700);
         }
       }
     });
@@ -201,10 +232,10 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()">Volver</a>
             </button>
-            <button onClick={handleRemoveCart}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -270,7 +301,10 @@ export default function Cart() {
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}
                   </h3>
-                  <button className={style.btnTrash}>
+                  <button
+                    onClick={() => handleRemoveBook(book.id)}
+                    className={style.btnTrash}
+                  >
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
@@ -280,7 +314,7 @@ export default function Cart() {
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()">Volver</a>
             </button>
             <h1 className={style.message}>
@@ -294,17 +328,17 @@ export default function Cart() {
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
           <div>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()"> Volver </a>
             </button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()"> Volver </a>
             </button>
-            <button onClick={handleRemoveCart}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -395,19 +429,4 @@ export default function Cart() {
   );
 }
 
-//   return (
-//     <>
-//       <h1 className={style.h1}>Carrito WIP</h1>
-//       {cartLS &&
-//         filteredBooks.map((el, index) => {
-//           return (
-//             <div key={index}>
-//               <Link to={`/detail/${el}`}>
-//                 <h1>{`Producto: ${el} | Cantidad: ${counts[el]}`}</h1>
-//               </Link>
-//             </div>
-//           );
-//         })}
-//     </>
-//   );
-// }
+
