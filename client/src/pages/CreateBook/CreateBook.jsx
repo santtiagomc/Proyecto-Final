@@ -347,8 +347,14 @@ export default function CreateBook() {
               onChange={(e) => handleChange(e)}
             /> */}
             <div className={style.fileDiv}>
-              <div className={style.divLabel}>
-                <label className={style.fileLabel}>
+              <div
+                className={!buttonDisabled ? style.divLabel : style.divLabelF}
+              >
+                <label
+                  className={
+                    !buttonDisabled ? style.fileLabel : style.fileLabelF
+                  }
+                >
                   <input
                     className={style.fileInput}
                     type="file"
