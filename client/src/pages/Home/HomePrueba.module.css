@@ -81,7 +81,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 1.5em;
+  padding: 1em;
 }
 
 .pagination_bottom {
@@ -94,6 +94,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25%
+  width: 20%
   
 }
