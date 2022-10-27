@@ -2,22 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
-import {
-  getGenres,
-  searchBook,
-  changePage,
-  getEditorials,
-  changeFilter,
-  changeSearch,
-  postCart,
-  getUserCart,
-  GET_SEARCH,
-} from "../../redux/actions";
+import { getGenres, searchBook, changePage, getEditorials, changeFilter, changeSearch } from "../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "./GIF_neón_BooksNook.gif"
 import Loader2 from "./GIF_aparecer_BooksNook.gif"
 import Loader3 from "./GIF_bloque_BooksNook.gif"
-
 
 import style from "./HomePrueba.module.css";
 
@@ -30,34 +19,10 @@ export default function Home() {
     total,
     editorials,
     books,
-    user,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
   const pages = [];
-
-  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
-  let repeatedIdArrayCart = [];
-  let uniqueIdArrayCart = [];
-  if (localStorage.length && localStorage.cart) {
-    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
-  }
-
-  useEffect(() => {
-    if (user && user.uid) {
-      if (uniqueIdArrayCart.length) {
-        dispatch(
-          postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true })
-        );
-
-        setTimeout(function () {
-          dispatch(getUserCart(user.uid));
-          localStorage.clear();
-        }, 2500);
-      }
-    }
-  }, []);
-  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
@@ -79,8 +44,6 @@ export default function Home() {
       dispatch(changeSearch());
     }
   }, [books]);
-
-  const [loader, setLoader] = useState(false);
 
   const nextPage = () => {
     if (page + 12 < total) {
