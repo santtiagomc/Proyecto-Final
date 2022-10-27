@@ -26,9 +26,19 @@
   }
 }
 
-.adminContainer {
+.commandsContainer {
   margin: 100px 100px 0 100px;
   display: flex;
+}
+
+.volverContainer {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+}
+.adminContainer {
+  display: flex;
+  width: 100%;
   justify-content: right;
 }
 
@@ -199,7 +209,7 @@
 
 .number {
   display: flex;
-  position: absolute; 
+  position: absolute;
   background-color: var(--violeta-primario);
   color: #ffffff;
   border-radius: 50%;
@@ -210,21 +220,18 @@
   top: 18%;
   right: 5%;
 }
-.volver{
-  margin-right: 650px;
+.volver {
   padding: 5px 30px;
   background: #101010;
-  font-family:  inherit;
-  color :#fff;
+  font-family: inherit;
+  color: #fff;
   border: 1px solid #d56a93;
   border-radius: 5px;
-  justify-content: center;
-
 }
 .volver a {
-  color: white
+  color: white;
 }
 
 .volver a:hover {
-  color: white
+  color: white;
 }
