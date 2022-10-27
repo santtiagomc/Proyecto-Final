@@ -27,20 +27,21 @@ export default function LandingPage (){
     return (
         <div className={style.container}>
             <div>
-            <Carousel  autoPlay={true} infiniteLoop showThumbs={false} transitionTime={1000} className={style.container2} >
-                <button className={style.card} >
+            <Carousel  autoPlay={true} infiniteLoop showThumbs={false} transitionTime={1000} className={style.containerPromo} >
+                <button className={style.promos} >
                     <img src={promo} alt="carousel" height="200px" />
                 </button>
-                <button className={style.card}>
+                <button className={style.promos}>
                     
                     <img src={promo1} alt="carousel" height="200px" />
                 </button>
-                <button className={style.card}>
+                <button className={style.promos}>
                     <img src={promo2} alt="carousel" height="200px" />
                 </button>
             </Carousel>
             </div>
-            <Carousel autoPlay={true} infiniteLoop showThumbs={false} transitionTime={1000} className={style.slideBooks}>
+            <Carousel  centerMode={true} centerSlidePercentage={100} width={400} thumbWidth={600} autoPlay={true} infiniteLoop showThumbs={false} transitionTime={1000} className={style.slideBooks}>
+            
                 {
                     booksByOffers.map((el) => {
                         return(
