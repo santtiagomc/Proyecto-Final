@@ -232,10 +232,10 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()">Volver</a>
             </button>
-            <button onClick={handleRemoveCart}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -314,7 +314,7 @@ export default function Cart() {
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()">Volver</a>
             </button>
             <h1 className={style.message}>
@@ -328,17 +328,17 @@ export default function Cart() {
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
           <div>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()"> Volver </a>
             </button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.volver}>
+            <button className={style.btnBack}>
               <a href="javascript:history.back()"> Volver </a>
             </button>
-            <button onClick={handleRemoveCart}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -429,19 +429,4 @@ export default function Cart() {
   );
 }
 
-//   return (
-//     <>
-//       <h1 className={style.h1}>Carrito WIP</h1>
-//       {cartLS &&
-//         filteredBooks.map((el, index) => {
-//           return (
-//             <div key={index}>
-//               <Link to={`/detail/${el}`}>
-//                 <h1>{`Producto: ${el} | Cantidad: ${counts[el]}`}</h1>
-//               </Link>
-//             </div>
-//           );
-//         })}
-//     </>
-//   );
-// }
+

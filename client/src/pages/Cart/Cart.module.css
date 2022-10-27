@@ -1,11 +1,12 @@
 .cart_container {
-  margin: 130px -150px;
+  margin: 7em 13em 7em 13em;
 }
 
 .attributes {
   display: flex;
   flex-direction: row;
   color: rgb(120, 120, 120);
+  padding-right: 0.5em;
 }
 
 .detail {
@@ -13,7 +14,7 @@
   flex-direction: row;
   align-items: center;
   color: rgb(169, 169, 169);
-  padding: 0px 20px;
+  padding: 1em 2.5em 1em 2.5em;
 }
 
 .detail_product {
@@ -22,8 +23,8 @@
 }
 
 .detail_img {
-  height: 250px;
-  width: 168px;
+  height: 12rem;
+  width: 7.5rem;
   object-fit: cover;
   object-position: center;
 }
@@ -37,14 +38,15 @@
 
 .detail_info_h2 {
   margin-bottom: 15px;
-}
+ }
 
 .detail_quantity {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: 7rem;
+  height: auto;
   border: 1px solid rgb(169, 169, 169);
 }
 
@@ -55,7 +57,7 @@
   border: none;
   color: rgb(169, 169, 169);
   background-color: transparent;
-  font-size: 35px;
+  font-size: 24px;
 }
 
 .detail_quantity_button:hover {
@@ -69,27 +71,32 @@
 
 .detail_quantity_p {
   display: flex;
-  margin: 0 10px;
+  margin: 0 15px;
   /* border-left: 1px solid white;
   border-right: 1px solid white; */
-  padding: 5px 15px;
+  padding: 5px 10px;
   /* background-color: green; */
 }
 
 .message {
-  height: 300px;
-  width: 800px;
+  height: 12.5rem;
+  width: 25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translate(200px, 250px);
   color: rgb(169, 169, 169);
   border: 1px solid rgb(169, 169, 169);
+  font-size: 24px;
+  padding: 1em;
+  margin-left: 25%;
+
 }
 
 a {
-  color: rgb(169, 169, 169);
+  color: #ffffff;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .button_disabled {
@@ -105,14 +112,44 @@ a {
 }
 
 .btnTrash {
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-color: transparent;
-  color: rgb(255, 255, 255);
+  color: rgb(169, 169, 169);
   font-size:x-large;
   cursor: pointer;
+  margin-bottom: 0.5em;
 }
 
 .btnTrash:hover {
-  color: rgb(15, 215, 192);
-  font-size:xx-large;
+  color: #355070;;
+  font-size: xx-large;
+}
+
+.btnBack {
+  width: 8rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-right: 1em;
+  margin-bottom: 2.5em;
+}
+
+.btnDelete {
+  width: 8rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-bottom: 2.5em;
 }
