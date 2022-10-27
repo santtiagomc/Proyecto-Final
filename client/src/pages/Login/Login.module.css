@@ -137,3 +137,11 @@ form .container_input {
 .error i {
   margin: 0 0 0 0.3125em;
 }
+
+.loader {
+  width: 24em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

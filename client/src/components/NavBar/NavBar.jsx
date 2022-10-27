@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
 import { useHistory } from "react-router-dom";
@@ -7,14 +7,13 @@ import { useHistory } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "./Logo_booksNook_sinmargen.png";
 import style from "./NavBar.module.css";
-import { getGuestCart, getUserCart, LAST_ROUTE, postCart } from "../../redux/actions";
+import { getGuestCart, getUserCart } from "../../redux/actions";
 
 export default function NavBar() {
-  const { user, cart, postCartResponse, lastRoute } = useSelector((state) => state);
+  const { user, cart, postCartResponse } = useSelector((state) => state);
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  let { pathname } = useLocation()
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -42,12 +41,6 @@ export default function NavBar() {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
   }, [user, postCartResponse]);
-
-  useEffect(() => {
-    if (pathname !== "/login" && pathname !== "/register") {
-      dispatch({ type: LAST_ROUTE, payload: pathname })
-    }
-  }, [pathname]);
 
   const handleLogOut = async () => {
     try {
@@ -110,7 +103,7 @@ export default function NavBar() {
                 <i className="fa-solid fa-cart-shopping"></i>
                 {!user
                   ? <div className={style.number}>{uniqueIdArrayCart && uniqueIdArrayCart.length}</div>
-                  : <div className={style.number}>{quantityCart && quantityCart.length && !quantityCart.messageError ? quantityCart : 0}</div>}
+                  : <div className={style.number}>{cart && !cart.messageError ? quantityCart : 0}</div>}
               </button>
             </Link>
           </div>
