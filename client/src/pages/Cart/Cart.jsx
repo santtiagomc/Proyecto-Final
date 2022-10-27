@@ -127,16 +127,15 @@ export default function Cart() {
     //e.preventDefault();
     let bookName = cart.find((b) => b.id === bookId);
     Swal.fire({
-      title: `¿Seguro quieres eliminar 
-      '${bookName.name}' 
-      de tu carrito?`,
+      title: `¿Seguro quieres eliminar '${bookName.name}' de tu carrito?`,
       text: "Esta acción no se puede deshacer",
       icon: "warning",
+      width: 650,
       background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
@@ -153,6 +152,21 @@ export default function Cart() {
           setTimeout(function () {
             dispatch(getUserCart(user.uid));
           }, 2000);
+        } else {
+          let filterLocalStorage = repeatedIdArrayCart.filter(
+            (id) => id !== bookId
+          );
+          localStorage.setItem("cart", `${filterLocalStorage.toString()}`);
+
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${bookName.name}' de tu carrito`
+          );
+
+          setTimeout(function () {
+            dispatch(getGuestCart(filterLocalStorage.toString()));
+          }, 2000);
         }
       }
     });
@@ -167,11 +181,12 @@ export default function Cart() {
       title: "¿Seguro quieres eliminar tu carrito?",
       text: "Se borrarán todos los libros añadidos",
       icon: "warning",
+      width: 650,
       background: "#19191a",
       color: "#e1e1e1",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
@@ -182,13 +197,29 @@ export default function Cart() {
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
             icon: "success",
+            width: 650,
             background: "#19191a",
             color: "#e1e1e1",
           });
 
           setTimeout(function () {
             dispatch(getUserCart(user.uid));
-          }, 2000);
+          }, 700);
+        } else {
+          localStorage.clear();
+
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            width: 650,
+            background: "#19191a",
+            color: "#e1e1e1",
+          });
+
+          setTimeout(function () {
+            dispatch(getGuestCart());
+          }, 700);
         }
       }
     });
@@ -270,7 +301,10 @@ export default function Cart() {
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}
                   </h3>
-                  <button className={style.btnTrash}>
+                  <button
+                    onClick={() => handleRemoveBook(book.id)}
+                    className={style.btnTrash}
+                  >
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
