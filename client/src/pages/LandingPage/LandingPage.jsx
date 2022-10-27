@@ -12,6 +12,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from "react-redux";
 import style from "./LandingPage.module.css"
 import {getMoreRating, getMoreVisits, getOffers} from "../../redux/actions"
+import { motion } from "framer-motion"
 
 
 export default function LandingPage (){
@@ -40,21 +41,21 @@ export default function LandingPage (){
                 </button>
             </Carousel>
             </div>
-            <Carousel  centerMode={true} centerSlidePercentage={100} width={400} thumbWidth={600} autoPlay={true} infiniteLoop showThumbs={false} transitionTime={1000} className={style.slideBooks}>
-            
+            <motion.div className={style.sliderContain}>
+                <motion.div className={style.slider}>
+                <motion.div className={style.item} drag="x" dragConstraints={{right: 0}}>
                 {
-                    booksByOffers.map((el) => {
-                        return(
-                            <div className={style.infoBooks}>
-                                <p className={style.name}>{el.name}</p>,
-                                <img src={el.image} alt="image" />
-                                <p className={style.price}>{el.price}</p>
-                            </div>
+                    booksByOffers.map(el => {
                             
-                        )
+                                <p className={style.name}>{el.name}</p>,
+                                <img src={el.image} alt="image" />,
+                                <p className={style.price}>{el.price}</p>
+                           
+                        
                     })
-                }
-            </Carousel>
+                } </motion.div>
+                </motion.div>
+            </motion.div>
             {/* <Carousel autoPlay={true} infiniteLoop showThumbs={false} className={style.container2} >
                 <button className={style.card}>
                     <img src={calificacion} alt="carousel" height="200px" />
