@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useHistory, NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -24,6 +24,7 @@ export default function Detail() {
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -33,11 +34,11 @@ export default function Detail() {
   }, [user, deleteReview]);
 
   useEffect(() => {
-    dispatch(putBook(id, { visits: 1 }))
+    dispatch(putBook(id, { visits: 1 }));
     setTimeout(() => {
       dispatch(resetCreate());
     }, 2000);
-  }, [])
+  }, []);
 
   //----------------- Function averageRating + sweetAlert + Const -----------------
 
@@ -47,9 +48,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-      myBook.Reviews.map((el) => {
-        return el.rating;
-      }).length
+        myBook.Reviews.map((el) => {
+          return el.rating;
+        }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -168,29 +169,33 @@ export default function Detail() {
 
   return (
     <>
-      <div className={style.adminContainer}>
-        <button className={style.volver}>
-          <a href="javascript:history.back()">Volver</a>
-        </button>
-        <button
-          className={myBook.visible ? style.btnStatusF : style.btnStatusT}
-          onClick={(e) => handleClick(e)}
-        >
-          {myBook.visible ? (
-            <div>
-              Ocultar producto <i class="fa-solid fa-eye-slash"></i>
-            </div>
-          ) : (
-            <div>
-              Mostrar producto <i class="fa-solid fa-eye"></i>
-            </div>
-          )}
-        </button>
-        <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>
-            Editar producto <i class="fa-solid fa-pencil"></i>
+      <div className={style.commandsContainer}>
+        <div className={style.volverContainer}>
+          <button className={style.volver} onClick={() => history.goBack()}>
+            Volver
           </button>
-        </NavLink>
+        </div>
+        <div className={style.adminContainer}>
+          <button
+            className={myBook.visible ? style.btnStatusF : style.btnStatusT}
+            onClick={(e) => handleClick(e)}
+          >
+            {myBook.visible ? (
+              <div>
+                Ocultar producto <i class="fa-solid fa-eye-slash"></i>
+              </div>
+            ) : (
+              <div>
+                Mostrar producto <i class="fa-solid fa-eye"></i>
+              </div>
+            )}
+          </button>
+          <NavLink to={`/edit/${id}`}>
+            <button className={style.btnStatusT}>
+              Editar producto <i class="fa-solid fa-pencil"></i>
+            </button>
+          </NavLink>
+        </div>
       </div>
       {myBook.name ? (
         <div>
