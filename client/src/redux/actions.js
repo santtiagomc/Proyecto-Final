@@ -25,6 +25,7 @@ export const DELETE_USER_CART = "DELETE_USER_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const PUT_USER = "PUT_USER";
 export const GET_ALL_CARTS = "GET_ALL_CARTS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 
 export function userExist(payload) {
   return {
@@ -391,9 +392,7 @@ export function deleteUserCart(cartId) {
 export function getAllUsers() {
   return async function (dispatch) {
     try {
-      const json = await axios(
-        `http://localhost:3001/user`
-      );
+      const json = await axios(`http://localhost:3001/user`);
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -411,9 +410,7 @@ export function getAllUsers() {
 export function putUser(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `http://localhost:3001/user`, input
-      );
+      const response = await axios.put(`http://localhost:3001/user`, input);
 
       return dispatch({
         type: PUT_USER,
@@ -432,7 +429,9 @@ export function putUser(input) {
 export function getCarts(status) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/orders?status=${status}`);
+      const response = await axios.get(
+        `http://localhost:3001/cart/orders?status=${status}`
+      );
       return dispatch({
         type: GET_ALL_CARTS,
         payload: response.data,
@@ -440,6 +439,24 @@ export function getCarts(status) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer todos los libros (para dashboard)
+export function getAllBooks() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/books/admin`);
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_BOOKS,
         payload: error.response.data,
       });
     }

@@ -1,35 +1,63 @@
 import React, { useState } from "react";
 import style from "./Dashboard.module.css";
-// import PanelSideBar from "../../components/PanelSideBar/PanelSideBar";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
+import PanelBooks from "../../components/PanelBooks/PanelBooks";
+
 import { useHistory } from "react-router-dom";
+import CreateBook from "../CreateBook/CreateBook";
 
 export default function Dashboard() {
-  const [hovered, setHovered] = useState(0)
-  const [hidden, setHidden] = useState(false)
-  const history = useHistory()
+  const [hovered, setHovered] = useState(0);
+  const [hidden, setHidden] = useState(false);
+  const [tableView, setTableView] = useState("users");
+  const history = useHistory();
 
+  console.log(tableView);
   return (
     <div className={style.container}>
-      <div className={!hidden ? style.navigation : `${style.navigation} ${style.active}`}>
+      <div
+        className={
+          !hidden ? style.navigation : `${style.navigation} ${style.active}`
+        }
+      >
         <ul>
           <li onClick={() => history.push("/")}>
             <i className="fa-solid fa-house"></i>
             <span className={style.title}>Inicio</span>
           </li>
-          <li onClick={() => setHovered(2)} className={hovered === 2 && style.hovered}>
+          <li
+            onClick={() => {
+              setTableView("users");
+            }}
+            className={hovered === 2 && style.hovered}
+          >
             <i className="fa-solid fa-users"></i>
             <span className={style.title}>Usuarios</span>
           </li>
-          <li onClick={() => setHovered(3)} className={hovered === 3 && style.hovered}>
+          <li
+            onClick={() => {
+              setTableView("orders");
+            }}
+            className={hovered === 3 && style.hovered}
+          >
             <i className="fa-solid fa-file-invoice-dollar"></i>
             <span className={style.title}>Órdenes</span>
           </li>
-          <li onClick={() => setHovered(4)} className={hovered === 4 && style.hovered}>
+          <li
+            onClick={() => {
+              setTableView("books");
+            }}
+            className={hovered === 4 && style.hovered}
+          >
             <i className="fa-solid fa-book"></i>
             <span className={style.title}>Libros</span>
           </li>
-          <li onClick={() => setHovered(5)} className={hovered === 5 && style.hovered}>
+          <li
+            onClick={() => {
+              setTableView("users");
+            }}
+            className={hovered === 5 && style.hovered}
+          >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>
           </li>
@@ -38,7 +66,10 @@ export default function Dashboard() {
       <div>
         <div className={!hidden ? style.main : `${style.main} ${style.active}`}>
           <div className={style.topbar}>
-            <div className={style.toggle} onClick={hidden ? () => setHidden(false) : () => setHidden(true)}>
+            <div
+              className={style.toggle}
+              onClick={hidden ? () => setHidden(false) : () => setHidden(true)}
+            >
               <i className="fa-solid fa-bars"></i>
             </div>
             <div className={style.search}>
@@ -47,12 +78,17 @@ export default function Dashboard() {
                 <i class="fa-solid fa-magnifying-glass"></i>
               </label>
             </div>
-            <div className={style.logo}>
-            </div>
+            <div className={style.logo}></div>
           </div>
 
           <div>
-            <PanelUsers />
+            {tableView === "users" ? (
+              <PanelUsers />
+            ) : tableView === "orders" ? (
+              <PanelBooks />
+            ) : (
+              <CreateBook />
+            )}
           </div>
         </div>
       </div>

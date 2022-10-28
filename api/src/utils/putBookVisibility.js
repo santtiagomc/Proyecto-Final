@@ -24,14 +24,13 @@ async function putBookVisibility({ id }) {
         },
       ],
     });
-    console.log(book);
     if (book === null)
       return { messageError: "No existe ningún libro con ese ID" };
 
     book.visible ? (book.visible = false) : (book.visible = true);
     await book.save();
 
-    return book;
+    return { message: "Success" };
   } catch (error) {
     return { messageError: "Error" };
   }

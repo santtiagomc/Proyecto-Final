@@ -68,4 +68,12 @@ router.get("/page", async (req, res) => {
     : res.status(201).json(books);
 });
 
+router.get("/admin", async (req, res) => {
+  let books = await getAllBooks();
+
+  books.messageError
+    ? res.status(404).json(books)
+    : res.status(201).json(books);
+});
+
 module.exports = router;
