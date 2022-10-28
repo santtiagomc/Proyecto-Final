@@ -10,6 +10,7 @@ import {
   deleteUserCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -235,7 +236,9 @@ export default function Cart() {
             <button className={style.btnBack}>
               <a href="javascript:history.back()">Volver</a>
             </button>
-            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -305,7 +308,8 @@ export default function Cart() {
                     onClick={() => handleRemoveBook(book.id)}
                     className={style.btnTrash}
                   >
-                    <i class="fa-regular fa-trash-can"></i>
+                    <FaRegTrashAlt />
+                    {/* <i class="fa-regular fa-trash-can"></i> */}
                   </button>
                 </div>
                 <hr></hr>
@@ -338,7 +342,9 @@ export default function Cart() {
             <button className={style.btnBack}>
               <a href="javascript:history.back()"> Volver </a>
             </button>
-            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -428,5 +434,3 @@ export default function Cart() {
     </>
   );
 }
-
-
