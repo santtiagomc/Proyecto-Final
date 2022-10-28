@@ -4,7 +4,7 @@
   flex-direction: column;
   height: calc(100vh - 60px);
   padding: 0 2em;
-  color: #AEB4A9;
+  color: #aeb4a9;
   overflow: hidden;
 }
 
@@ -49,7 +49,7 @@
   display: flex;
   justify-content: center;
   height: 8em;
-  border: 2px solid #AEB4A9;
+  border: 2px solid #aeb4a9;
   align-items: center;
   transition: 0.3s;
 }
@@ -58,7 +58,7 @@
   transform: scale(1.04);
 }
 
-@media(max-width: 545px) {
+@media (max-width: 545px) {
   .stats_container {
     overflow-x: hidden;
     overflow-y: scroll;
@@ -84,14 +84,14 @@
 }
 
 .table_container {
-  border: 2px solid #AEB4A9;
+  border: 2px solid #aeb4a9;
   display: flex;
   flex-direction: column;
   height: 70%;
   margin: 1.5em 0;
   padding: 0.2em 1em;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
   min-width: 220px;
 }
 

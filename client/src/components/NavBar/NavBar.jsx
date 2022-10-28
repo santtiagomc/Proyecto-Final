@@ -64,8 +64,8 @@ export default function NavBar() {
         </div>
         <div className={style.forms}>
           <div>
-            <Link to="/create">
-              <button className={style.button}>Crear</button>
+            <Link to="/admin">
+              <button className={style.button}>Admin</button>
             </Link>
           </div>
           {!user ? (
@@ -101,9 +101,15 @@ export default function NavBar() {
             <Link to="/cart">
               <button className={style.cart}>
                 <i className="fa-solid fa-cart-shopping"></i>
-                {!user
-                  ? <div className={style.number}>{uniqueIdArrayCart && uniqueIdArrayCart.length}</div>
-                  : <div className={style.number}>{cart && !cart.messageError ? quantityCart : 0}</div>}
+                {!user ? (
+                  <div className={style.number}>
+                    {uniqueIdArrayCart && uniqueIdArrayCart.length}
+                  </div>
+                ) : (
+                  <div className={style.number}>
+                    {cart && !cart.messageError ? quantityCart : 0}
+                  </div>
+                )}
               </button>
             </Link>
           </div>
