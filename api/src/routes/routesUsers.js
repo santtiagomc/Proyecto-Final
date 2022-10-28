@@ -3,11 +3,21 @@ const { Router } = require("express");
 const { getUser } = require("../utils/getUser");
 const { postUser } = require("../utils/postUser");
 const { putUser } = require("../utils/putUser");
+const { getAllUsers } = require("../utils/getAllUsers");
 
 const router = Router();
 
 router.get("/:id", async (req, res) => {
   const response = await getUser(req.params);
+
+  let statusCode;
+  response.messageError ? (statusCode = 404) : (statusCode = 201);
+
+  res.status(statusCode).json(response);
+});
+
+router.get("/", async (req, res) => {
+  const response = await getAllUsers();
 
   let statusCode;
   response.messageError ? (statusCode = 404) : (statusCode = 201);
