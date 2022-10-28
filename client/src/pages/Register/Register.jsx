@@ -75,7 +75,7 @@ export default function Register() {
         templateAlert(
           "Bienvenido a Books Nook!",
           "Te enviaremos un correo de verificación, revisa tu email!",
-          "Success",
+          "success",
           4000
         );
         history.goBack();

@@ -7,16 +7,16 @@ const sendEmail = async (subject, data) => {
     throw new Error("El nombre completo (fullName) es necesario.");
 
   const config = {
-    host: "smtp.gmail.com",
-    port: 587,
+    host: `${process.env.NM_HOST}`,
+    port: process.env.NM_PORT,
     auth: {
-      user: "booksnookpf@gmail.com",
-      pass: "taabechkqvilvtyw",
+      user: `${process.env.NM_USER}`,
+      pass: `${process.env.NM_PASS}`,
     },
   };
 
   const message = {
-    from: "booksnookpf@gmail.com",
+    from: `${process.env.NM_USER}`,
     to: data.email,
     subject: templateSubject(subject),
     html: templateHTML(subject, data),
@@ -28,11 +28,6 @@ const sendEmail = async (subject, data) => {
 
   console.log(info);
 };
-
-/* sendEmail("purchase", {
-  orderNumber: 15156165,
-  books: ["Look Back", "El eternauta", "El eternauta", "La metamorfosis"],
-}); */
 
 module.exports = {
   sendEmail,
