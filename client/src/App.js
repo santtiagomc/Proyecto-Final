@@ -15,6 +15,7 @@ import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
 import Footer from "./components/Footer/Footer";
 import Stripe from "./pages/Stripe/Stripe";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route exact path="/landing" component={LandingPage} />
         <Route exact path="/" component={Home} />
         <Route exact path="/create" component={CreateBook} />
         <Route exact path="/register" component={Register} />
