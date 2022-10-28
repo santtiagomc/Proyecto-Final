@@ -93,23 +93,23 @@ export default function ProfileUser() {
                   type="text"
                   placeholder="Provincia"
                   {...register("province", {
-                    maxLength: 15,
+                    maxLength: 40,
                     value: null,
                   })}
                 ></input>
                 {errors.province?.type === "maxLength" && (
-                  <p className={style.error}>maximo 15</p>
+                  <p className={style.error}>maximo 40</p>
                 )}
                 <input
                   type="text"
                   placeholder="Ciudad"
                   {...register("city", {
-                    maxLength: 15,
+                    maxLength: 40,
                     value: null,
                   })}
                 ></input>
                 {errors.city?.type === "maxLength" && (
-                  <p className={style.error}>maximo 15</p>
+                  <p className={style.error}>maximo 40</p>
                 )}
                 <input
                   type="text"

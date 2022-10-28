@@ -69,7 +69,7 @@
   transform: scale(1.04);
 }
 
-@media(max-width: 545px) {
+@media (max-width: 545px) {
   .stats_container {
     overflow-x: hidden;
     overflow-y: scroll;
@@ -101,8 +101,8 @@
   height: 70%;
   margin: 1.5em 0;
   padding: 0.2em 1em;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
   min-width: 220px;
 }
 

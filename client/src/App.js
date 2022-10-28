@@ -14,10 +14,9 @@ import Cart from "./pages/Cart/Cart";
 import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
 import Footer from "./components/Footer/Footer"
-import LandingPage from "./pages/LandingPage/LandingPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import PanelUsers from "./components/PanelUsers/PanelUsers";
-import PanelSideBar from "./components/PanelSideBar/PanelSideBar";
+import LandingPage from "./pages/LandingPage/LandingPage";
+
 
 function App() {
   const dispatch = useDispatch();
