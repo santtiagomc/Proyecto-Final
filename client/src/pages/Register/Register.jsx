@@ -81,13 +81,16 @@ export default function Register() {
   const handleAdmin = ()=> {
     Swal.fire({
       title: 'Ingrese el PIN ',
-      input: 'text',
+      input: 'password',
       inputAttributes: {
         autocapitalize: 'off'
       },
       showCancelButton: true,
-      confirmButtonText: 'Look up',
+      confirmButtonText: 'Aceptar',
       showLoaderOnConfirm: true,
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      cancelButtonText: 'Cancelar',
       preConfirm: (login) => {
         return fetch(`//api.github.com/users/${login}`)
           .then(response => {
@@ -114,11 +117,28 @@ export default function Register() {
   }
   // --------------------------END Funcion de Admin de ingresar -------------------//
 
+  //--------------------------sweetAlert de Correo Existente ----------------//
+  const AlertError = ()=>{
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Este correo ya se encuentra en uso',
+      text: 'Ingrese otro por favor',
+      confirmButtonColor: "#355070",
+      width: 650,
+      background: '#19191a',
+      color: "#e1e1e1",
+
+    })
+  }
+  //--------------END sweetAlert -------------//
+
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
     } catch (error) {
+     AlertError();
       console.log(error);
     }
   };
