@@ -14,6 +14,7 @@ import { uploadFile } from "../../firebase/firebase";
 
 import style from "./CreateBook.module.css";
 import Swal from "sweetalert2";
+import templateAlert from "../../helpers/templateAlert";
 
 function validation(input) {
   let errors = {};
@@ -21,7 +22,7 @@ function validation(input) {
   const regexDecimal = /^\d{1,3}(\.\d{1,2})?$/;
   const regexNotNumbers =
     /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
-  const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/;
+  /* const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/; */
   const regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!*:;]{2,50}$/;
   const regexAutor = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 .]{2,30}$/;
 
@@ -81,6 +82,7 @@ export default function CreateBook() {
 
   const detail = useSelector((state) => state.detail);
   let [buttonDisabled, setButtonDisabled] = useState(false);
+  let [imageName, setImageName] = useState("");
 
   const params = useParams();
 
@@ -129,20 +131,9 @@ export default function CreateBook() {
     }
   }, [detail]);
 
-  function swalAlert(title, text, icon, timer) {
-    Swal.fire({
-      background: "#19191a",
-      color: "#e1e1e1",
-      title: title,
-      text: text,
-      icon: icon,
-      timer: timer,
-    });
-  }
-
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
-      swalAlert("Categoría ya seleccionada", null, "warning", 4000);
+      templateAlert("Categoría ya seleccionada", null, "warning", 4000);
     } else {
       setInput({
         ...input,
@@ -158,12 +149,10 @@ export default function CreateBook() {
     });
   };
 
-  let imageName = "";
   const handleNewImage = async (e) => {
     setButtonDisabled(true);
-    imageName = e.target.files[0].name;
-    console.log(imageName);
-    console.log(typeof imageName === "string");
+    setImageName(e.target.files[0].name);
+
     const imageUrl = await uploadFile(e.target.files[0], params.id);
     console.log(imageUrl);
     setInput({ ...input, image: imageUrl });
@@ -192,20 +181,20 @@ export default function CreateBook() {
       if (Object.keys(errors).length === 0) {
         dispatch(addBooks(input));
       } else {
-        swalAlert("Todos los campos son requeridos", null, "info", 4000);
+        templateAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     } else {
       if (Object.keys(errors).length === 0) {
         dispatch(putBook(params.id, input));
       } else {
-        swalAlert("Todos los campos son requeridos", null, "info", 4000);
+        templateAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     }
   };
 
   useEffect(() => {
     if (create.message) {
-      swalAlert(create.message, null, "success", null);
+      templateAlert(create.message, null, "success", null);
       dispatch(resetCreate());
       setInput({
         name: "",
@@ -220,7 +209,7 @@ export default function CreateBook() {
       });
       params.id ? history.goBack() : history.push("/");
     } else if (create.messageError) {
-      swalAlert(create.messageError, null, "warning", null);
+      templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
   }, [create]);
@@ -362,8 +351,8 @@ export default function CreateBook() {
                     disabled={buttonDisabled}
                   />
                   <i class="fa-solid fa-file-image"></i>{" "}
-                  {input.image && !buttonDisabled
-                    ? "Subir otra imagen"
+                  {input.image && !buttonDisabled && imageName
+                    ? imageName
                     : "Subir una imagen"}
                 </label>
               </div>

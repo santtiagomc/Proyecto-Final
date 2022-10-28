@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
-import Loader from "../Home/GIF_aparecer_BooksNook.gif"
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
+import templateAlert from "../../helpers/templateAlert";
 
 export default function Register() {
   const history = useHistory();
@@ -16,8 +17,8 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { user, lastRoute } = useSelector(state => state)
-  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
 
   //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
@@ -31,25 +32,29 @@ export default function Register() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
       if (uniqueIdArrayCart.length) {
         Swal.fire({
-          title: 'Tienes productos en tu carrito de invitado',
+          title: "Tienes productos en tu carrito de invitado",
           width: 650,
           text: "¿Quieres pasar estos productos a tu carrito de usuario?",
-          icon: 'warning',
+          icon: "warning",
           iconColor: "#355070",
           showCancelButton: true,
           background: "#19191a",
           color: "#e1e1e1",
-          confirmButtonColor: '#355070',
-          cancelButtonColor: '#B270A2',
-          confirmButtonText: '¡Si! Guardar carrito',
-          cancelButtonText: "Cancelar"
+          confirmButtonColor: "#355070",
+          cancelButtonColor: "#B270A2",
+          confirmButtonText: "¡Si! Guardar carrito",
+          cancelButtonText: "Cancelar",
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(
-              postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true })
+              postCart({
+                userId: user.uid,
+                bookId: uniqueIdArrayCart,
+                suma: true,
+              })
             );
             setLoader(true);
             setTimeout(function () {
@@ -65,12 +70,18 @@ export default function Register() {
           } else {
             history.goBack();
           }
-        })
+        });
       } else {
+        templateAlert(
+          "Bienvenido a Books Nook!",
+          "Te enviaremos un correo de verificación, revisa tu email!",
+          "success",
+          4000
+        );
         history.goBack();
       }
     }
-  }, [user])
+  }, [user]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
@@ -153,8 +164,7 @@ export default function Register() {
 
   return (
     <div className={style.login_body}>
-      {!loader
-        ?
+      {!loader ? (
         <div className={style.container}>
           <h2 className={style.login}>Crear cuenta</h2>
           <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
@@ -199,7 +209,7 @@ export default function Register() {
               )}
               {errors.password?.type === "pattern" && (
                 <div className={style.error}>
-                  <p >Mínimo 8 caracteres, (letras y números)</p>
+                  <p>Mínimo 8 caracteres, (letras y números)</p>
                   <i class="fa-solid fa-circle-exclamation"></i>
                 </div>
               )}
@@ -282,22 +292,21 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-          {/* <div className={style.register}> */}
-          <button className={style.button_form}>Crear cuenta</button>
-          <div className={style.google} onClick={handleSignInGoogle}>
-            Registrarse con google
-          </div>
-          <Link to="/login">
-            <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
-          </Link>
-          <div className={style.link} onClick={handleAdmin}>
-            ¿Eres administrador?            
-          </div>
-          {/* </div> */}
-        </form>
-      </div>         
-        : <img className={style.loader} src={Loader} alt="Loader" />}
+            {/* <div className={style.register}> */}
+            <button className={style.button_form}>Crear cuenta</button>
+            <div className={style.google} onClick={handleSignInGoogle}>
+              Registrarse con google
+            </div>
+            <Link to="/login">
+              <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
+            </Link>
+            {/* </div> */}
+            <div>
+              <p className={style.link} onClick={handleAdmin}>¿Eres Administrador?</p>
+            </div>
+          </form>
+        </div>
+        ): <img className={style.loader} src={Loader} alt="Loader" />}
     </div>
   );
 }
-

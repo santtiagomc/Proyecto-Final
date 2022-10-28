@@ -1,4 +1,5 @@
 const { Users } = require("../db");
+const { sendEmail } = require("../nodemailer/index");
 
 async function postUser({
   id,
@@ -23,7 +24,11 @@ async function postUser({
         zipCode,
       },
     });
-    if (created) return { message: "Usuario creado correctamente" };
+    if (created) {
+      sendEmail("welcome", { email, fullName });
+      return { message: "Usuario creado correctamente" };
+    }
+
     return { message: "Usuario ya existente" };
   } catch (e) {
     return { messageError: "Error" };
