@@ -33,7 +33,7 @@ export default function LandingPage (id){
                         <img src={promo} alt="carousel" className={style.anuncioImg}/>
                     </button>
                     </a>
-                    <a href="http://localhost:3000/detail/67d1b118-c328-406b-9506-17bae726d55f">
+                    <a href="https://proyecto-f-eight.vercel.app/detail/67d1b118-c328-406b-9506-17bae726d55f">
                         <button className={style.promos}>
                             <img src={promo1} alt="carousel" className={style.anuncioImg}/>
                         </button>
