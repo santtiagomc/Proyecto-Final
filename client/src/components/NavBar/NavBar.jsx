@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
 import { useHistory } from "react-router-dom";
@@ -14,6 +14,8 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  const { pathname } = useLocation()
+
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -53,7 +55,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className={style.nav}>
+      <nav className={pathname === "/admin" ? `${style.nav} ${style.none}` : style.nav}>
         <div>
           <Link to="/">
             <img id="logo" src={Logo} alt="bookstore" className={style.logo} />

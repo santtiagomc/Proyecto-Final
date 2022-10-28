@@ -29,25 +29,25 @@ export default function PanelUsers() {
       </div>
       <div className={style.table_container}>
         <div className={`${style.table_row} ${style.table_row_attributtes}`}>
-          <span className={style.role}>Rol</span>
-          <span className={style.fullName}>Nombre</span>
-          <span className={style.email}>Correo</span>
-          <span className={style.status}>Estado</span>
-          <span className={style.province}>Provincia</span>
-          <span className={style.city}>Ciudad</span>
-          <span className={style.address}>Dirección</span>
-          <span className={style.zipCode}>Código postal</span>
+          <span className={style.col1}>Rol</span>
+          <span className={style.col2}>Nombre</span>
+          <span className={style.col3}>Correo</span>
+          <span className={style.col4}>Estado</span>
+          <span className={style.col5}>Provincia</span>
+          <span className={style.col6}>Ciudad</span>
+          <span className={style.col7}>Dirección</span>
+          <span className={style.col8}>Código postal</span>
         </div>
         {allUsers.length && allUsers.map(user => (
           <div className={style.table_row}>
-            <span className={style.role}>{user.role}</span>
-            <span className={style.fullName}>{user.fullName}</span>
-            <span className={style.email}>{user.email}</span>
-            <span className={style.status}>{user.status}</span>
-            <span className={style.province}>{user.province}</span>
-            <span className={style.city}>{user.city}</span>
-            <span className={style.address}>{user.address}</span>
-            <span className={style.zipCode}>{user.zipCode}</span>
+            <span className={style.col1}>{user.role}</span>
+            <span className={style.col2}>{user.fullName}</span>
+            <span className={style.col3}>{user.email}</span>
+            <span className={style.col4}>{user.status}</span>
+            <span className={style.col5}>{user.province}</span>
+            <span className={style.col6}>{user.city}</span>
+            <span className={style.col7}>{user.address}</span>
+            <span className={style.col8}>{user.zipCode}</span>
           </div>
         ))}
       </div>

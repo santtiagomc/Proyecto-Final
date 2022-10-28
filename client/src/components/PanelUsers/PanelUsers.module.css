@@ -117,34 +117,34 @@
   width: 100%;
 }
 
-.role {
+.col1 {
   min-width: 7em;
 }
 
-.fullName {
+.col2 {
   min-width: 16em;
 }
 
-.email {
+.col3 {
   min-width: 21em;
 }
 
-.status {
+.col4 {
   min-width: 7em;
 }
 
-.province {
+.col5 {
   min-width: 12em;
 }
 
-.city {
+.col6 {
   min-width: 15em;
 }
 
-.address {
+.col7 {
   min-width: 12em;
 }
 
-.zipCode {
+.col8 {
   min-width: 12em;
 }
