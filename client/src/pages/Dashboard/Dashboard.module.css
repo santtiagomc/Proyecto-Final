@@ -1,0 +1,16 @@
+:root {
+  --violeta-primario: #B270A2;
+  --verde-primario: #7CE1CE;
+  --azul-complementario: #355070;
+  --negro-backgound: #181818;
+  --negro-navBar-filters-btn: #101010;
+}
+
+.container {
+  background-color: var(--negro-backgound);
+  position: relative;
+  height: 100vh;
+  /* margin-top: -6vh; */
+  margin-bottom: -6.25rem;
+  z-index: 1000;
+}

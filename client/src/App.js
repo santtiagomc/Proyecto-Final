@@ -14,6 +14,9 @@ import Cart from "./pages/Cart/Cart";
 import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
 import Footer from "./components/Footer/Footer"
+import Dashboard from "./pages/Dashboard/Dashboard";
+import PanelUsers from "./components/PanelUsers/PanelUsers";
+import PanelSideBar from "./components/PanelSideBar/PanelSideBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +39,10 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/profile" component={ProfileUser} />
         <Route path="/edit/:id" component={CreateBook} />
+        <Route path="/admin" component={Dashboard} />
+        <Route exact path="/admin/users" component={PanelUsers} />
+        <Route exact path="/admin/orders" component={Dashboard} />
+        <Route exact path="/admin/books" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />
         </Route>
