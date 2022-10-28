@@ -427,6 +427,10 @@ export default function Cart() {
                   <hr></hr>
                 </div>
               ))}
+            {/*BOTON PROVISIONAL*/}
+            <Link to="/stripe">
+              <button>Comprar</button>
+            </Link>
           </div>
         )
       ) : (
