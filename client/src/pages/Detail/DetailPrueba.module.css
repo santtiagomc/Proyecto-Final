@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 88vh;
 }
 
 .loader {
@@ -224,7 +224,7 @@
   background: #101010;
   font-family: inherit;
   color: #fff;
-  border: 1px solid #d56a93;
+  border: 1px solid var(--violeta-primario);
   border-radius: 5px;
 }
 .volver a {

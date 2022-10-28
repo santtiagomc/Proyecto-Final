@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
@@ -14,6 +14,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { cart, user } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -233,9 +234,7 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
-            </button>
+            <button onClick={() => history.goBack() } className={style.btnBack}>Volver</button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito
             </button>
@@ -318,9 +317,7 @@ export default function Cart() {
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
-            </button>
+            <button onClick={() => history.goBack() } className={style.btnBack}>Volver</button>
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
               muchos que te van a encantar!
@@ -332,16 +329,12 @@ export default function Cart() {
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
-            </button>
+            <button onClick={() => history.goBack() } className={style.btnBack}>Volver</button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
-            </button>
+            <button onClick={() => history.goBack() } className={style.btnBack}>Volver</button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito
             </button>

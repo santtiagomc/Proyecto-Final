@@ -1,5 +1,6 @@
 .cart_container {
-  margin: 7em 13em 7em 13em;
+  margin: 5em 7.5em 5em 7.5em;
+  height: 88vh;
 }
 
 .attributes {
@@ -33,11 +34,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 30px;
+  margin-left: 1.875rem;
 }
 
 .detail_info_h2 {
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
  }
 
 .detail_quantity {
@@ -47,7 +48,7 @@
   align-items: center;
   width: 7rem;
   height: auto;
-  border: 1px solid rgb(169, 169, 169);
+  border: 0.0625rem solid rgb(169, 169, 169);
 }
 
 .detail_quantity_button {
@@ -71,32 +72,28 @@
 
 .detail_quantity_p {
   display: flex;
-  margin: 0 15px;
+  margin: 0 0.9375rem;
   /* border-left: 1px solid white;
   border-right: 1px solid white; */
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
   /* background-color: green; */
 }
 
 .message {
+  position: absolute;
+  top: 0%;
+  left: 25.3%; 
   height: 12.5rem;
   width: 25rem;
-  display: flex;
-  align-items: center;
+  align-content: center;
+  align-self: center;
   justify-content: center;
-  transform: translate(200px, 250px);
+  transform: translate(12.5rem, 15.625rem);
   color: rgb(169, 169, 169);
-  border: 1px solid rgb(169, 169, 169);
+  border: 0.0625rem solid rgb(169, 169, 169);
   font-size: 24px;
-  padding: 1em;
-  margin-left: 25%;
+  padding: 1.5em;
 
-}
-
-a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
 }
 
 .button_disabled {
@@ -131,10 +128,10 @@ a {
   text-align: center;
   justify-content: center;
   background: var(--negro-navBar-filters-btn);
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   font-size: 14px;
   color: #ffffff;
-  border: 1px solid var(--violeta-primario);
+  border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
   margin-right: 1em;
   margin-bottom: 2.5em;
@@ -146,10 +143,10 @@ a {
   text-align: center;
   justify-content: center;
   background: var(--negro-navBar-filters-btn);
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   font-size: 14px;
   color: #ffffff;
-  border: 1px solid var(--violeta-primario);
+  border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
   margin-bottom: 2.5em;
 }
