@@ -12,7 +12,6 @@ import {
   PUT_STATUS,
   PUT_BOOK,
   USER_EXIST,
-  ADD_TO_CART,
   POST_CART,
   GET_CART,
   GET_USER_CART,
@@ -22,6 +21,9 @@ import {
   GET_OFFERS,
   PUT_USER_CART,
   DELETE_USER_CART,
+  GET_ALL_USERS,
+  PUT_USER,
+  GET_ALL_CARTS,
 } from "./actions";
 
 const initialState = {
@@ -52,6 +54,9 @@ const initialState = {
   booksByOffers: [],
   putUserCartResponse: {},
   deleteUserCartResponse: {},
+  allUsers: [],
+  allCarts: [],
+  putUserResponse: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -158,6 +163,15 @@ export default function rootReducer(state = initialState, action) {
 
     case DELETE_USER_CART:
       return { ...state, deleteUserCartResponse: action.payload };
+
+    case GET_ALL_USERS:
+      return { ...state, allUsers: action.payload };
+
+    case PUT_USER:
+      return { ...state, putUserResponse: action.payload };
+
+    case GET_ALL_CARTS:
+      return { ...state, allCarts: action.payload };
 
     default:
       return { ...state };
