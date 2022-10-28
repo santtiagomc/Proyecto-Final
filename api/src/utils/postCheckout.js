@@ -22,7 +22,7 @@ async function postCheckout({ cart, stripeId }) {
     cartBuy.status = "Cerrado";
     await cartBuy.save();
 
-    cart.map(async (cart) => {
+    cart.forEach(async (cart) => {
       const findBook = await Books.findByPk(cart.id);
       findBook.stock = findBook.stock - cart.quantity;
       await findBook.save();
