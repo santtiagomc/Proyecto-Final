@@ -10,6 +10,7 @@ const routesEditorials = require("./routesEditorials");
 const routesUsers = require("./routesUsers");
 const routesCart = require("./routesCart");
 const routesReviews = require("./routesReviews");
+const routesCheckout = require("./routesCheckout");
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use("/editorials", routesEditorials);
 router.use("/user", routesUsers);
 router.use("/cart", routesCart);
 router.use("/reviews", routesReviews);
+router.use("/checkout", routesCheckout);
 
 module.exports = router;
