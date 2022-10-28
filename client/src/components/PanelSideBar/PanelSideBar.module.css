@@ -6,7 +6,7 @@
 
 .navigation {
   position: fixed;
-  width: 18.75rem;
+  width: 16%;
   height: 100%;
   background-color: #AEB4A9;
   border-left: 10px solid #AEB4A9;
@@ -19,13 +19,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  margin-top: 150px;
+  margin-top: 1em;
   padding: 0;
   cursor: pointer;
 }
 
 .navigation ul a {
   color: var(--negro-backgound);
+}
+
+.navigation ul li:nth-child(1) {
+  margin-bottom: 8.75rem;
 }
 
 .navigation ul li {

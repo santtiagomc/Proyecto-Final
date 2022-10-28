@@ -39,10 +39,7 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/profile" component={ProfileUser} />
         <Route path="/edit/:id" component={CreateBook} />
-        <Route path="/admin" component={Dashboard} />
-        <Route exact path="/admin/users" component={PanelUsers} />
-        <Route exact path="/admin/orders" component={Dashboard} />
-        <Route exact path="/admin/books" component={Dashboard} />
+        <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />
         </Route>

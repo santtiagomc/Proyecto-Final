@@ -1,0 +1,139 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  padding: 0 2em;
+  color: #AEB4A9;
+  overflow: hidden;
+}
+
+.container.active {
+  margin: 0 20px;
+}
+
+.stats_container {
+  margin-top: 3em;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.stats_sub_container {
+  position: relative;
+  flex-basis: 10em;
+  flex-grow: 1;
+  min-width: 22em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 7em;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-bottom: 1em;
+}
+
+.stats {
+  position: relative;
+  background-color: #161616;
+  box-shadow: 0px 0px 30px 5px rgb(12, 12, 12);
+  border-radius: 20px;
+  flex-basis: 10em;
+  flex-grow: 1;
+  min-width: 10em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 8em;
+  border: 2px solid #AEB4A9;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.stats:hover {
+  transform: scale(1.04);
+}
+
+@media(max-width: 545px) {
+  .stats_container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    gap: 1em;
+    height: 13em;
+    flex-wrap: wrap;
+  }
+
+  .stats_container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stats_sub_container {
+    min-width: 12.2em;
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+
+  .stats {
+    min-width: 12.2em;
+    height: 5em;
+  }
+}
+
+.table_container {
+  border: 2px solid #AEB4A9;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  margin: 1.5em 0;
+  padding: 0.2em 1em;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  min-width: 220px;
+}
+
+.table_row {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.1em;
+}
+
+.table_row_attributtes {
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.role {
+  min-width: 7em;
+}
+
+.fullName {
+  min-width: 15em;
+}
+
+.email {
+  min-width: 20em;
+}
+
+.status {
+  min-width: 6em;
+}
+
+.province {
+  min-width: 12em;
+}
+
+.city {
+  min-width: 12em;
+}
+
+.address {
+  min-width: 12em;
+}
+
+.zipCode {
+  min-width: 12em;
+}
