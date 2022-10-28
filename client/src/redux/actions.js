@@ -22,6 +22,9 @@ export const GET_MORE_RATING = "GET_MORE_RATING";
 export const GET_OFFERS = "GET_OFFERS";
 export const PUT_USER_CART = "PUT_USER_CART";
 export const DELETE_USER_CART = "DELETE_USER_CART";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const PUT_USER = "PUT_USER";
+export const GET_ALL_CARTS = "GET_ALL_CARTS";
 
 export function userExist(payload) {
   return {
@@ -29,8 +32,8 @@ export function userExist(payload) {
     payload,
   };
 }
-export const ADD_TO_CART = "ADD_TO_CART";
 
+//-------para obtener los libros con filtros y páginado.
 export function searchBook(filters, search, page) {
   return async function (dispatch) {
     try {
@@ -71,6 +74,7 @@ export function changePage(page = 0) {
   return { type: CHANGE_PAGE, payload: page };
 }
 
+//-------para obtener las editoriales
 export function getEditorials() {
   return async function (dispatch) {
     try {
@@ -88,6 +92,7 @@ export function getEditorials() {
   };
 }
 
+//-------para obtener las categorías
 export function getGenres() {
   return async function (dispatch) {
     try {
@@ -105,6 +110,7 @@ export function getGenres() {
   };
 }
 
+//-------para obtener el detalle de un libro
 export function getDetail(id) {
   return async function (dispatch) {
     try {
@@ -122,6 +128,7 @@ export function getDetail(id) {
   };
 }
 
+//-------para agregar un nuevo libro
 export function addBooks(input) {
   return async function (dispatch) {
     try {
@@ -139,6 +146,7 @@ export function addBooks(input) {
   };
 }
 
+//-------para crear reviews
 export function postReviews(input) {
   return async function (dispatch) {
     try {
@@ -155,6 +163,8 @@ export function postReviews(input) {
     }
   };
 }
+
+//-------para eliminar reviews
 export function deleteReviews(input) {
   return async function (dispatch) {
     try {
@@ -181,6 +191,7 @@ export function resetCreate() {
   };
 }
 
+//-------para modificar uel status de un libro
 export function putStatus(id) {
   return async function (dispatch) {
     try {
@@ -198,6 +209,7 @@ export function putStatus(id) {
   };
 }
 
+//-------para modificar un libro
 export function putBook(id, body) {
   return async function (dispatch) {
     try {
@@ -218,6 +230,7 @@ export function putBook(id, body) {
   };
 }
 
+//-------para crear carrito de usuario
 export function postCart(cart) {
   return async function (dispatch) {
     try {
@@ -235,6 +248,7 @@ export function postCart(cart) {
   };
 }
 
+//-------para obtener carrito de invitado
 export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
@@ -254,6 +268,7 @@ export function getGuestCart(localStorage) {
   };
 }
 
+//-------para obtener carrito de usuario
 export function getUserCart(userId) {
   return async function (dispatch) {
     try {
@@ -271,6 +286,7 @@ export function getUserCart(userId) {
   };
 }
 
+//-------para obtener libros más puntuados (Landing Page)
 export function getMoreRating() {
   return async function (dispatch) {
     try {
@@ -290,6 +306,7 @@ export function getMoreRating() {
   };
 }
 
+//-------para obtener libros más visitados (Landing Page)
 export function getMoreVisits() {
   return async function (dispatch) {
     try {
@@ -309,6 +326,7 @@ export function getMoreVisits() {
   };
 }
 
+//-------para obtener libros más baratos (Landing Page)
 export function getOffers() {
   return async function (dispatch) {
     try {
@@ -364,6 +382,64 @@ export function deleteUserCart(cartId) {
     } catch (error) {
       return dispatch({
         type: DELETE_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+//------para traer todos los usuarios (para dashboard)
+export function getAllUsers() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `http://localhost:3001/user`
+      );
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para modificar estado o rol de usuarios
+export function putUser(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/user`, input
+      );
+
+      return dispatch({
+        type: PUT_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_USER,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para traer todos los carritos con el estdo que le pasemos
+export function getCarts(status) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/cart/orders?status=${status}`);
+      return dispatch({
+        type: GET_ALL_CARTS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_CARTS,
         payload: error.response.data,
       });
     }
