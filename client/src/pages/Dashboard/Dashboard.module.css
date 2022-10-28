@@ -1,9 +1,12 @@
 :root {
   --violeta-primario: #B270A2;
-  --verde-primario: #7CE1CE;
+  --verde-primario: #95d9c3;
+  --verde-secundario: #7CE1CE;
   --azul-complementario: #355070;
   --negro-backgound: #181818;
   --negro-navBar-filters-btn: #101010;
+  /* --extra-color: #AEB4A9; */
+  --extra-color: #ccd0c8;
 }
 
 .container {
@@ -27,9 +30,10 @@
   position: fixed;
   width: 19em;
   height: 100%;
-  background-color: #AEB4A9;
+  background-color: var(--extra-color);
   transition: 0.5s;
   overflow: hidden;
+  color: var(--negro-backgound);
   /* overflow: hidden; */
 }
 
@@ -75,7 +79,7 @@
 .navigation ul li:hover,
 .navigation ul li.hovered {
   background-color: var(--negro-backgound);
-  color: #AEB4A9;
+  color: var(--extra-color);
 }
 
 .navigation ul li i {
@@ -161,7 +165,7 @@
   align-items: center;
   font-size: 2.2em;
   cursor: pointer;
-  color: #AEB4A9;
+  color: var(--extra-color);
   transition: 0.25s;
 }
 
@@ -192,8 +196,8 @@
   padding-left: 35px;
   font-size: 1.125rem;
   outline: none;
-  border: 1px solid #AEB4A9;
-  background-color: #AEB4A9;
+  border: 1px solid var(--extra-color);
+  background-color: var(--extra-color);
 }
 
 input::placeholder {

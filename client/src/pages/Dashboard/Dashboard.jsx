@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import style from "./Dashboard.module.css";
 // import PanelSideBar from "../../components/PanelSideBar/PanelSideBar";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
+import { useHistory } from "react-router-dom";
 
 export default function Dashboard() {
   const [hovered, setHovered] = useState(0)
   const [hidden, setHidden] = useState(false)
+  const history = useHistory()
 
   return (
     <div className={style.container}>
       <div className={!hidden ? style.navigation : `${style.navigation} ${style.active}`}>
         <ul>
-          <li onClick={() => setHovered(1)} className={hovered === 1 && style.hovered}>
+          <li onClick={() => history.push("/")}>
             <i className="fa-solid fa-house"></i>
             <span className={style.title}>Inicio</span>
           </li>

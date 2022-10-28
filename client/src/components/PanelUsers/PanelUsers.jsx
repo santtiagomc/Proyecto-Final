@@ -38,7 +38,7 @@ export default function PanelUsers() {
           <span className={style.address}>Dirección</span>
           <span className={style.zipCode}>Código postal</span>
         </div>
-        {allUsers.map(user => (
+        {allUsers.length && allUsers.map(user => (
           <div className={style.table_row}>
             <span className={style.role}>{user.role}</span>
             <span className={style.fullName}>{user.fullName}</span>

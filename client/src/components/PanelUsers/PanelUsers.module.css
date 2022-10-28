@@ -1,10 +1,21 @@
+:root {
+  --violeta-primario: #B270A2;
+  --verde-primario: #95d9c3;
+  --verde-secundario: #7CE1CE;
+  --azul-complementario: #355070;
+  --negro-backgound: #181818;
+  --negro-navBar-filters-btn: #101010;
+  /* --extra-color: #AEB4A9; */
+  --extra-color: #ccd0c8;
+}
+
 .container {
   width: 100%;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px);
   padding: 0 2em;
-  color: #AEB4A9;
+  color: var(--extra-color);
   overflow: hidden;
 }
 
@@ -49,7 +60,7 @@
   display: flex;
   justify-content: center;
   height: 8em;
-  border: 2px solid #AEB4A9;
+  border: 2px solid var(--extra-color);
   align-items: center;
   transition: 0.3s;
 }
@@ -84,7 +95,7 @@
 }
 
 .table_container {
-  border: 2px solid #AEB4A9;
+  border: 2px solid var(--extra-color);
   display: flex;
   flex-direction: column;
   height: 70%;
@@ -111,15 +122,15 @@
 }
 
 .fullName {
-  min-width: 15em;
+  min-width: 16em;
 }
 
 .email {
-  min-width: 20em;
+  min-width: 21em;
 }
 
 .status {
-  min-width: 6em;
+  min-width: 7em;
 }
 
 .province {
@@ -127,7 +138,7 @@
 }
 
 .city {
-  min-width: 12em;
+  min-width: 15em;
 }
 
 .address {
