@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, putStatus } from "../../redux/actions";
+import { getAllBooks, putStatus, PUT_STATUS } from "../../redux/actions";
 
 import {
   MdDescription,
@@ -16,12 +16,22 @@ import templateAlert from "../../helpers/templateAlert";
 import style from "./PanelBooks.module.css";
 
 export default function PanelBooks() {
-  const { allBooks, putStatus } = useSelector((state) => state);
+  const { allBooks, putStatusBook } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (putStatusBook.length) {
+      if (putStatusBook.message) {
+        console.log("entra");
+        templateAlert(putStatusBook.message, null, "success", 1000);
+        dispatch({ type: PUT_STATUS, payload: {} });
+      } else {
+        templateAlert(putStatusBook.messageError, null, "error", 1000);
+        dispatch({ type: PUT_STATUS, payload: {} });
+      }
+    }
     dispatch(getAllBooks());
-  }, []);
+  }, [putStatusBook]);
 
   const handleImage = (image, name) => {
     Swal.fire({
@@ -39,18 +49,25 @@ export default function PanelBooks() {
     dispatch(putStatus(id));
   };
 
-  console.log(putStatus);
+  let totalBooks =
+    allBooks &&
+    allBooks.reduce((acc, el) => {
+      return acc + el.stock;
+    }, 0);
+
+  /* console.log(putStatusBook);
+  console.log(allBooks); */
   return (
     <div className={style.container}>
       <div className={style.stats_container}>
         <div className={style.stats_sub_container}>
           <div className={style.stats}>Crear libro</div>
           <div className={style.stats}>
-            <h2>Libros totales: {allBooks.length}</h2>
+            <h2>Libros unicos: {allBooks.length}</h2>
           </div>
         </div>
         <div className={style.stats_sub_container}>
-          <div className={style.stats}>tarjeta 3</div>
+          <div className={style.stats}>Libros totales: {totalBooks}</div>
           <div className={style.stats}>tarjeta 4</div>
         </div>
       </div>

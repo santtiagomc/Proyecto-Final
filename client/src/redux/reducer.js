@@ -54,7 +54,7 @@ const initialState = {
   booksByVisits: [],
   booksByOffers: [],
   putUserCartResponse: {},
-  putStatus: {},
+  putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
   allBooks: [],

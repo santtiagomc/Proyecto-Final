@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./Dashboard.module.css";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
 import PanelBooks from "../../components/PanelBooks/PanelBooks";
+import PanelOrders from "../../components/PanelOrders/PanelOrders";
 
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
@@ -28,6 +29,7 @@ export default function Dashboard() {
           <li
             onClick={() => {
               setTableView("users");
+              setHovered(2);
             }}
             className={hovered === 2 && style.hovered}
           >
@@ -37,6 +39,7 @@ export default function Dashboard() {
           <li
             onClick={() => {
               setTableView("orders");
+              setHovered(3);
             }}
             className={hovered === 3 && style.hovered}
           >
@@ -46,6 +49,7 @@ export default function Dashboard() {
           <li
             onClick={() => {
               setTableView("books");
+              setHovered(4);
             }}
             className={hovered === 4 && style.hovered}
           >
@@ -55,6 +59,7 @@ export default function Dashboard() {
           <li
             onClick={() => {
               setTableView("users");
+              setHovered(5);
             }}
             className={hovered === 5 && style.hovered}
           >
@@ -85,9 +90,9 @@ export default function Dashboard() {
             {tableView === "users" ? (
               <PanelUsers />
             ) : tableView === "orders" ? (
-              <PanelBooks />
+              <PanelOrders />
             ) : (
-              <CreateBook />
+              <PanelBooks />
             )}
           </div>
         </div>
