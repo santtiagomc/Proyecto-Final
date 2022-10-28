@@ -85,10 +85,71 @@ export default function Register() {
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
+
+
+  //----------------------- Comienzo Funcion de Admin de ingresar --------------------------------//
+
+  const handleAdmin = ()=> {
+    Swal.fire({
+      title: 'Ingrese el PIN ',
+      input: 'password',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      showLoaderOnConfirm: true,
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      cancelButtonText: 'Cancelar',
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`
+            )
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url
+        })
+      }
+    })
+  }
+  // --------------------------END Funcion de Admin de ingresar -------------------//
+
+  //--------------------------sweetAlert de Correo Existente ----------------//
+  const AlertError = ()=>{
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Este correo ya se encuentra en uso',
+      text: 'Ingrese otro por favor',
+      confirmButtonColor: "#355070",
+      width: 650,
+      background: '#19191a',
+      color: "#e1e1e1",
+
+    })
+  }
+  //--------------END sweetAlert -------------//
+
+
   const onSubmit = async (data) => {
     try {
       await singUp(data);
     } catch (error) {
+     AlertError();
       console.log(error);
     }
   };
@@ -240,11 +301,12 @@ export default function Register() {
               <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
             </Link>
             {/* </div> */}
+            <div>
+              <p className={style.link} onClick={handleAdmin}>¿Eres Administrador?</p>
+            </div>
           </form>
         </div>
-      ) : (
-        <img className={style.loader} src={Loader} alt="Loader" />
-      )}
+        ): <img className={style.loader} src={Loader} alt="Loader" />}
     </div>
   );
 }

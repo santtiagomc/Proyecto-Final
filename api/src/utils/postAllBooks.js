@@ -1,5 +1,6 @@
-const { Books, Genres } = require('../db');
-const { capitalize } = require('./capitalize');
+const { Books, Genres } = require("../db");
+const { capitalize } = require("./capitalize");
+const { Op } = require("sequelize");
 
 async function postAllBooks(allBooks) {
   try {
@@ -21,25 +22,24 @@ async function postAllBooks(allBooks) {
           stock: book.stock,
           editorial: capitalizeEditorial,
           edition: book.edition,
-        }
-      })
+        },
+      });
 
-      let genresDb = await Genres.findAll()
+      let genresDb = await Genres.findAll();
 
       if (genresDb.length) {
         if (created) {
-          newBook.addGenres(book.genres)
+          newBook.addGenres(book.genres);
         }
       }
-
-    })
+    });
 
     return { message: "Success" };
   } catch (e) {
-    return { messageError: "Error" }
+    return { messageError: "Error" };
   }
 }
 
 module.exports = {
-  postAllBooks
-}
+  postAllBooks,
+};
