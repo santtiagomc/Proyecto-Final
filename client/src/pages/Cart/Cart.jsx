@@ -420,7 +420,8 @@ export default function Cart() {
                       onClick={() => handleRemoveBook(book.id)}
                       className={style.btnTrash}
                     >
-                      <i class="fa-regular fa-trash-can"></i>
+                      <FaRegTrashAlt />
+                      {/* <i class="fa-regular fa-trash-can"></i> */}
                     </button>
                   </div>
                   <hr></hr>
