@@ -23,17 +23,20 @@
 .infoBooks{
     display: flex;
 }
-.anuncioImg {
-
+.titles {
+    text-align: center;
+    color: white;
 }
 
 .name {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-top: 8px;
+    font-size: large;
+    font-weight: bolder;
+    color: white;
 }
 .other {
     color: #00c4c4;
-    margin-top: 1rem;
 }
 
 .sliderContain {
@@ -60,17 +63,16 @@
     margin: 4px;
     align-items: center;
     justify-content: center;
-    height: 20rem;
+    height: 26rem;
     min-width: 14rem;
     padding: 8px;
     background: linear-gradient(rgb(0, 0, 0), rgb(107, 106, 106)) padding-box,linear-gradient(45deg, rgb(69, 255, 246), rgb(177, 72, 247)) border-box;
     border: 2px solid transparent;
-    border-radius: 20px;
-
+    border-radius: 10px;
     color: #01e1c7  #bd01f7;
 }
 .imagen{
-    height: 10rem;
+    height: 14rem;
     width: 10rem;
     pointer-events: none;
 }
