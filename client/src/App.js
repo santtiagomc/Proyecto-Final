@@ -14,6 +14,7 @@ import Cart from "./pages/Cart/Cart";
 import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
 import Footer from "./components/Footer/Footer"
+import LandingPage from "./pages/LandingPage/LandingPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import PanelUsers from "./components/PanelUsers/PanelUsers";
 import PanelSideBar from "./components/PanelSideBar/PanelSideBar";
@@ -31,6 +32,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route exact path="/landing" component={LandingPage} />
         <Route exact path="/" component={Home} />
         <Route exact path="/create" component={CreateBook} />
         <Route exact path="/register" component={Register} />
