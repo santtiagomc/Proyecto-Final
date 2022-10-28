@@ -21,6 +21,7 @@
 .detail_product {
   display: flex;
   align-items: center;
+
 }
 
 .detail_img {
@@ -39,6 +40,12 @@
 
 .detail_info_h2 {
   margin-bottom: 0.9375rem;
+  color: #ffffff;
+  font-size: 24px;
+ }
+
+.detail_info_h2:hover {
+  color: var(--azul-complementario);
  }
 
 .detail_quantity {
@@ -73,6 +80,7 @@
 .detail_quantity_p {
   display: flex;
   margin: 0 0.9375rem;
+  font-size: 24px;
   /* border-left: 1px solid white;
   border-right: 1px solid white; */
   padding: 0.3125rem 0.625rem;
@@ -118,7 +126,7 @@
 }
 
 .btnTrash:hover {
-  color: #355070;;
+  color: var(--azul-complementario);
   font-size: xx-large;
 }
 
