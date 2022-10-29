@@ -2,7 +2,6 @@ const { Books, Genres, Reviews, Users } = require("../db");
 
 async function putBookVisibility({ id }) {
   try {
-    console.log(id);
     const book = await Books.findByPk(id, {
       include: [
         {

@@ -97,11 +97,14 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, detail: action.payload };
 
     case PUT_STATUS:
-      console.log(action.payload);
-      return { ...state, putStatus: action.payload };
+      return { ...state, putStatusBook: action.payload };
 
     case PUT_BOOK:
-      return { ...state, create: action.payload };
+      if (Array.isArray(action.payload)) {
+        return { ...state };
+      } else {
+        return { ...state, create: action.payload };
+      }
 
     case POST_REVIEWS:
       return { ...state, createReview: action.payload };
