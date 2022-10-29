@@ -73,8 +73,8 @@ export default function Register() {
         });
       } else {
         templateAlert(
-          "Bienvenido a Books Nook!",
-          "Te enviaremos un correo de verificación, revisa tu email!",
+          "¡Bienvenido a Books Nook!",
+          "Te enviaremos un correo de verificación, revisa tu email",
           "success",
           4000
         );
