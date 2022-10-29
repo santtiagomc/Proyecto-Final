@@ -1,13 +1,17 @@
 const { Users } = require("../db");
 
-async function getAllUsers() {
+async function getAllUsers(sort) {
   try {
-    const allUsersDb = await Users.findAll();
+    if (!sort) {
+      const allUsersDb = await Users.findAll();
 
-    if (!allUsersDb.length)
-      return { messageError: "No hay usuarios registrados." };
+      if (!allUsersDb.length)
+        return { messageError: "No hay usuarios registrados." };
 
-    return allUsersDb;
+      allUsersDb.sort((a, b) => a.fullName.localeCompare(b.fullName))
+
+      return allUsersDb;
+    }
   } catch (error) {
     return { messageError: "Se ha producido un error." };
   }

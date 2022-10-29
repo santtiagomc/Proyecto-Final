@@ -1,5 +1,6 @@
 .cart_container {
-  margin: 7em 13em 7em 13em;
+  margin: 5.5em 7.5em 7.5em 7em;
+  height: 88vh;
 }
 
 .attributes {
@@ -20,6 +21,7 @@
 .detail_product {
   display: flex;
   align-items: center;
+
 }
 
 .detail_img {
@@ -33,11 +35,17 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 30px;
+  margin-left: 1.875rem;
 }
 
 .detail_info_h2 {
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
+  color: #ffffff;
+  font-size: 24px;
+ }
+
+.detail_info_h2:hover {
+  color: var(--azul-complementario);
  }
 
 .detail_quantity {
@@ -47,7 +55,7 @@
   align-items: center;
   width: 7rem;
   height: auto;
-  border: 1px solid rgb(169, 169, 169);
+  border: 0.0625rem solid rgb(169, 169, 169);
 }
 
 .detail_quantity_button {
@@ -71,33 +79,31 @@
 
 .detail_quantity_p {
   display: flex;
-  margin: 0 15px;
+  margin: 0 0.9375rem;
+  font-size: 24px;
   /* border-left: 1px solid white;
   border-right: 1px solid white; */
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
   /* background-color: green; */
 }
 
 .message {
-  height: 12.5rem;
-  width: 25rem;
-  display: flex;
-  align-items: center;
+  position: absolute;
+  top: 0%;
+  left: 25.2%; 
+  height: 12rem;
+  width: 26rem;
+  text-align: center;
+  align-content: center;
   justify-content: center;
-  transform: translate(200px, 250px);
+  transform: translate(12.5rem, 15.625rem);
   color: rgb(169, 169, 169);
-  border: 1px solid rgb(169, 169, 169);
+  border: 0.0625rem solid rgb(169, 169, 169);
+  padding: 1.5em;
   font-size: 24px;
-  padding: 1em;
-  margin-left: 25%;
-
 }
 
-a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
-}
+
 
 .button_disabled {
   opacity: 20%;
@@ -121,8 +127,8 @@ a {
 }
 
 .btnTrash:hover {
-  color: #355070;;
-  font-size: xx-large;
+  color: var(--azul-complementario);
+  transform: scale(1.05);
 }
 
 .btnBack {
@@ -131,13 +137,29 @@ a {
   text-align: center;
   justify-content: center;
   background: var(--negro-navBar-filters-btn);
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   font-size: 14px;
   color: #ffffff;
-  border: 1px solid var(--violeta-primario);
+  border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
   margin-right: 1em;
   margin-bottom: 2.5em;
+}
+
+.btnBackEmptyCart {
+  width: 8rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 0.3125rem;
+  font-size: 14px;
+  color: #ffffff;
+  border: 0.0625rem solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-top: 6.25rem;
+  margin-left: 7.5rem;
+
 }
 
 .btnDelete {
@@ -146,12 +168,20 @@ a {
   text-align: center;
   justify-content: center;
   background: var(--negro-navBar-filters-btn);
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   font-size: 14px;
   color: #ffffff;
-  border: 1px solid var(--violeta-primario);
+  border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
   margin-bottom: 2.5em;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%
 }
 
 .btnArr{

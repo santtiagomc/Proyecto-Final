@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
@@ -11,11 +11,12 @@ import {
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Cart() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { cart, user } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -320,8 +321,11 @@ export default function Cart() {
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              Volver
             </button>
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
@@ -329,20 +333,23 @@ export default function Cart() {
             </h1>
           </div>
         ) : (
-          <h1 className={style.message}>Cargando...</h1>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
         )
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              Volver
             </button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.btnBack} onClick={() => history.goBack()}>
-              <AiOutlineArrowLeft className={style.btnArr} />
+            <button onClick={() => history.goBack()} className={style.btnBack}>
+              Volver
             </button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito
@@ -432,7 +439,7 @@ export default function Cart() {
           </div>
         )
       ) : (
-        <h1 className={style.message}>Cargando...</h1>
+        <img src={Loader} alt="Logo loader" className={style.loader} />
       )}
     </>
   );

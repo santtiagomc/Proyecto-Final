@@ -9,6 +9,8 @@ import {
   resetCreate,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif"
+
 
 import { uploadFile } from "../../firebase/firebase";
 
@@ -360,12 +362,7 @@ export default function CreateBook() {
 
               <div>
                 {buttonDisabled ? (
-                  <div className={style.divLoader}>
-                    <span
-                      className={style.loader}
-                      hidden={!buttonDisabled}
-                    ></span>
-                  </div>
+                  <img src={Loader} alt="Logo loader" className={style.loader} />
                 ) : (
                   <button
                     className={
