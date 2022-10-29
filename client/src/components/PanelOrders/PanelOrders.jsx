@@ -17,7 +17,7 @@ export default function PanelBooks() {
   const history = useHistory()
 
   useEffect(() => {
-    dispatch(getCarts("Abierto"));
+    dispatch(getCarts("Cerrado"));
   }, []);
 
   console.log(allCarts[0])
@@ -32,7 +32,7 @@ export default function PanelBooks() {
         return `
       <div>
         <span class=${style.price}>$${book.price}</span>
-        <a href="/detail/${book.Books_Carts.BookId}">${book.name}</a>
+        <a href="/detail/${book.Books_Carts.BookId}" target="_BLANK">${book.name}</a>
         <span class=${style.quantity}>${book.Books_Carts.quantity}</span>
         <span class=${style.total}>$${book.Books_Carts.quantity * book.price}</span>
         <hr></hr>
