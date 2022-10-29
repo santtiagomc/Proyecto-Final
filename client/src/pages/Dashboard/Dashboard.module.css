@@ -54,7 +54,6 @@
   width: 100%;
   margin-top: 1em;
   padding: 0;
-  cursor: pointer;
 }
 
 .navigation ul a {
@@ -74,6 +73,7 @@
   flex-direction: row;
   align-items: center;
   border-radius: 2.1875rem 0 0 2.1875rem;
+  cursor: pointer;
 }
 
 .navigation ul li:hover,
@@ -82,7 +82,8 @@
   color: var(--extra-color);
 }
 
-.navigation ul li i {
+.navigation ul li i,
+.navigation ul li .i {
   text-align: center;
   font-size: 1.76em;
   margin: 20px;

@@ -133,6 +133,12 @@
   padding-bottom: 0.3em;
 }
 
+.table_row_attributtes .col1:hover {
+  background-color: transparent;
+  color: var(--extra-color);
+  cursor: default;
+}
+
 .col0,
 .col1,
 .col2,
@@ -240,4 +246,8 @@
   color: var(--extra-color);
   background-color: var(--negro-backgound);
   border: none;
+}
+
+.swal_description {
+  text-align: justify;
 }

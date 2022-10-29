@@ -9,7 +9,6 @@ import { FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   const { pathname } = useLocation()
-  console.log(pathname)
 
   return (
     <>
