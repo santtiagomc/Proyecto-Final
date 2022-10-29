@@ -49,7 +49,7 @@ export default function PanelBooks() {
   const handleClick = (e, id, name, visible) => {
     e.preventDefault();
     Swal.fire({
-      title: visible ? `Estás a punto de ocultar el libro: ${name}` : `Estás a punto volver a mostrar el libro: ${name}.`,
+      title: visible ? `Estás a punto de ocultar el libro "${name}."` : `Estás a punto volver a mostrar el libro "${name}."`,
       width: 650,
       text: "¿Quieres confirmar este cambio?",
       icon: 'warning',
@@ -71,7 +71,7 @@ export default function PanelBooks() {
   function goDetail(e, id, name) {
     e.preventDefault();
     Swal.fire({
-      title: `Estás a punto de dirigirte al detalle del libro: ${name}`,
+      title: `Estás a punto de dirigirte al detalle del libro "${name}."`,
       width: 650,
       text: "¿Quieres confirmar esta acción?",
       icon: 'warning',
@@ -96,6 +96,17 @@ export default function PanelBooks() {
       return acc + el.stock;
     }, 0);
 
+  function templateAlertDescription(title, text) {
+    return Swal.fire({
+      background: "#19191a",
+      color: "#e1e1e1",
+      title: title,
+      html: text,
+      customClass: {
+        htmlContainer: style.swal_description
+      }
+    });
+  }
   /* console.log(putStatusBook);
   console.log(allBooks); */
   return (
@@ -162,7 +173,7 @@ export default function PanelBooks() {
               <span className={style.col6}>
                 <button
                   className={style.btn}
-                  onClick={() => templateAlert("Descripción", el.description)}
+                  onClick={() => templateAlertDescription("Descripción", el.description)}
                 >
                   <MdDescription />
                 </button>
@@ -175,7 +186,7 @@ export default function PanelBooks() {
               </span>
               <span
                 className={style.col11}
-                onClick={(e) => handleClick(e, el.id, e.name, el.visible)}
+                onClick={(e) => handleClick(e, el.id, el.name, el.visible)}
               >
                 {el.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
               </span>

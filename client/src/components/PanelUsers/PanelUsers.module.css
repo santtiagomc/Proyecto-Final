@@ -185,12 +185,12 @@
 }
 
 .col4 {
-  min-width: 7em;
+  min-width: 8em;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-right: 1.5em;
+  padding-right: 2.5em;
 }
 
 .col5 {

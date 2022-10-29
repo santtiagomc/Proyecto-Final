@@ -3,6 +3,7 @@ import style from "./Dashboard.module.css";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
 import PanelBooks from "../../components/PanelBooks/PanelBooks";
 import PanelOrders from "../../components/PanelOrders/PanelOrders";
+import { GiBookshelf, FaBook, ImBooks, MdCategory, FaUsers, FaFileInvoiceDollar, MdDashboardCustomize } from "react-icons/all"
 
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
@@ -13,7 +14,6 @@ export default function Dashboard() {
   const [tableView, setTableView] = useState("users");
   const history = useHistory();
 
-  console.log(tableView);
   return (
     <div className={style.container}>
       <div
@@ -29,11 +29,21 @@ export default function Dashboard() {
           <li
             onClick={() => {
               setTableView("users");
+              setHovered(1);
+            }}
+            className={hovered === 1 && style.hovered}
+          >
+            <MdDashboardCustomize className={style.i} />
+            <span className={style.title}>Dashboard</span>
+          </li>
+          <li
+            onClick={() => {
+              setTableView("users");
               setHovered(2);
             }}
             className={hovered === 2 && style.hovered}
           >
-            <i className="fa-solid fa-users"></i>
+            <FaUsers className={style.i} />
             <span className={style.title}>Usuarios</span>
           </li>
           <li
@@ -43,7 +53,7 @@ export default function Dashboard() {
             }}
             className={hovered === 3 && style.hovered}
           >
-            <i className="fa-solid fa-file-invoice-dollar"></i>
+            <FaFileInvoiceDollar className={style.i} />
             <span className={style.title}>Órdenes</span>
           </li>
           <li
@@ -53,15 +63,35 @@ export default function Dashboard() {
             }}
             className={hovered === 4 && style.hovered}
           >
-            <i className="fa-solid fa-book"></i>
+            <ImBooks className={style.i} />
             <span className={style.title}>Libros</span>
           </li>
           <li
             onClick={() => {
-              setTableView("users");
+              setTableView("books");
               setHovered(5);
             }}
             className={hovered === 5 && style.hovered}
+          >
+            <FaBook className={style.i} />
+            <span className={style.title}>Agregar un libro</span>
+          </li>
+          <li
+            onClick={() => {
+              setTableView("users");
+              setHovered(6);
+            }}
+            className={hovered === 6 && style.hovered}
+          >
+            <MdCategory className={style.i} />
+            <span className={style.title}>Categorías</span>
+          </li>
+          <li
+            onClick={() => {
+              setTableView("users");
+              setHovered(8);
+            }}
+            className={hovered === 8 && style.hovered}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>
@@ -87,13 +117,16 @@ export default function Dashboard() {
           </div>
 
           <div>
-            {tableView === "users" ? (
+            {tableView === "users" && <PanelUsers />}
+            {tableView === "orders" && <PanelOrders />}
+            {tableView === "books" && <PanelBooks />}
+            {/* {tableView === "users" ? (
               <PanelUsers />
             ) : tableView === "orders" ? (
               <PanelOrders />
             ) : (
               <PanelBooks />
-            )}
+            )} */}
           </div>
         </div>
       </div>
