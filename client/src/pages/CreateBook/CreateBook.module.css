@@ -229,36 +229,10 @@
   cursor: pointer;
 }
 
-.divLoader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 70px;
-  height: 100%;
-  padding: 6px 20px;
-  color: #d9d9d9;
-  background: var(--negro-backgound);
-  border: 1px solid var(--violeta-primario);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-}
 .loader {
-  width: 28px;
-  height: 28px;
-  border: 5px solid #fff;
-  border-bottom-color: var(--violeta-primario);
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%
 }
