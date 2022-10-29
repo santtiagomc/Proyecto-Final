@@ -219,7 +219,7 @@
   top: 18%;
   right: 5%;
 }
-.volver {
+/* .volver {
   padding: 5px 30px;
   background: #101010;
   font-family: inherit;
@@ -233,4 +233,24 @@
 
 .volver a:hover {
   color: white;
+} */
+
+.btnBack {
+  width: 3rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-right: 1em;
+  margin-bottom: 2.5em;
 }
+
+.btnArr{
+  font-size: large;
+}
+

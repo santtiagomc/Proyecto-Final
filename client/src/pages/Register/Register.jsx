@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import templateAlert from "../../helpers/templateAlert";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Register() {
   const history = useHistory();
@@ -118,6 +119,11 @@ export default function Register() {
 
   return (
     <div className={style.login_body}>
+      <div className={style.volverContainer}>
+        <button className={style.btnBack} onClick={() => history.goBack()}>
+          <AiOutlineArrowLeft className={style.btnArr} />
+        </button>
+      </div>
       {!loader ? (
         <div className={style.container}>
           <h2 className={style.login}>Crear cuenta</h2>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
@@ -11,8 +11,10 @@ import {
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Cart() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { cart, user } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
@@ -233,8 +235,8 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito
@@ -339,8 +341,8 @@ export default function Cart() {
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito

@@ -16,6 +16,7 @@ import Review from "../../components/Review/Review.jsx";
 
 import style from "./DetailPrueba.module.css";
 import Swal from "sweetalert2";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -171,8 +172,8 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.volver} onClick={() => history.goBack()}>
-            Volver
+          <button className={style.btnBack} onClick={() => history.goBack()}>
+            <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
         <div className={style.adminContainer}>

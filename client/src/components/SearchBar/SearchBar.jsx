@@ -25,9 +25,10 @@ export default function SearchBar() {
         background: "#19191a",
         color: "#e1e1e1",
         title: "Error",
-        text: "El campo no puede estar vacío!",
+        text: "El campo no puede estar vacío",
         icon: "error",
         timer: 4000,
+        confirmButtonColor: "#355070",
       });
     }
   };

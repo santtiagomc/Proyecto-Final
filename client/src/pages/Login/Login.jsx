@@ -8,6 +8,7 @@ import { getUserCart, postCart } from "../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import style from "./Login.module.css";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -96,6 +97,11 @@ export default function Login() {
 
   return (
     <div className={style.login_body}>
+      <div className={style.volverContainer}>
+        <button className={style.btnBack} onClick={() => history.goBack()}>
+          <AiOutlineArrowLeft className={style.btnArr} />
+        </button>
+      </div>
       {!loader ? (
         <div className={style.container}>
           <h2 className={style.login}>Ingresar</h2>

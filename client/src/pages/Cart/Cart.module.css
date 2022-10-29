@@ -126,7 +126,7 @@ a {
 }
 
 .btnBack {
-  width: 8rem;
+  width: 3rem;
   height: fit-content;
   text-align: center;
   justify-content: center;
@@ -153,3 +153,8 @@ a {
   padding: 0.3em 0.6em;
   margin-bottom: 2.5em;
 }
+
+.btnArr{
+  font-size: large;
+}
+
