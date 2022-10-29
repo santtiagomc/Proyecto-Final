@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LogoGithub from "./github.png";
 import style from "./Footer.module.css";
 import { FiTwitter } from "react-icons/fi";
@@ -8,9 +8,12 @@ import { SlSocialLinkedin } from "react-icons/sl";
 import { FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
+  const { pathname } = useLocation()
+  console.log(pathname)
+
   return (
     <>
-      <div className={style.container}>
+      <div className={pathname === "/admin" ? `${style.container} ${style.none}` : style.container}>
         <h4 className={style.follow}>¡Seguinos!</h4>
         <hr></hr>
         <FiFacebook className={style.iconSM} />

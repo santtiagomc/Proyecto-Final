@@ -12,7 +12,7 @@ async function putUser({ id, province, city, address, zipCode, status, role }) {
     }
 
     if (role) {
-      user.role = role;
+      user.role === "Administrador" ? (user.role = "Usuario") : (user.role = "Administrador");
       await user.save();
       return { message: user.role === "Administrador" ? `Has hecho administrador al usuario ${user.fullName}` : `Has quitado el rol de administrador al usuario ${user.fullName}` }
     }
