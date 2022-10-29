@@ -15,20 +15,11 @@ export default function Footer() {
     <>
       <div className={pathname === "/admin" ? `${style.container} ${style.none}` : style.container}>
         <h4 className={style.follow}>¡Seguinos!</h4>
-        {/* <hr></hr> */}
-        <Link to="www.facebook.com">
-          <FiFacebook className={style.iconSM} />
-        </Link>
-        <Link to="www.twitter.com">
-          <FiTwitter className={style.iconSM} />
-        </Link>
-        <Link to="www.instagram.com">
-          <FaInstagram className={style.iconSM} />
-        </Link>
-        <Link to="www.linkedin.com">
-          <SlSocialLinkedin className={style.iconSM} />
-        </Link>
-
+        <hr></hr>
+        <FiFacebook className={style.iconSM} />
+        <FiTwitter className={style.iconSM} />
+        <FaInstagram className={style.iconSM} />
+        <SlSocialLinkedin className={style.iconSM} />
         <hr></hr>
 
         <p className={style.text}>
