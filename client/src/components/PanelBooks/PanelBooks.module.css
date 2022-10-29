@@ -117,29 +117,59 @@
   width: 100%;
 }
 
-.col0 {
-  padding-bottom: 0.3em;
+.table_row_attributtes .col0,
+.table_row_attributtes .col1,
+.table_row_attributtes .col2,
+.table_row_attributtes .col3,
+.table_row_attributtes .col4,
+.table_row_attributtes .col5,
+.table_row_attributtes .col6,
+.table_row_attributtes .col7,
+.table_row_attributtes .col8,
+.table_row_attributtes .col9,
+.table_row_attributtes .col10,
+.table_row_attributtes .col11 {
   border-bottom: 1px solid var(--extra-color);
+  padding-bottom: 0.3em;
+}
+
+.col0,
+.col1,
+.col2,
+.col3,
+.col4,
+.col5,
+.col6,
+.col7,
+.col8,
+.col9,
+.col10,
+.col11 {
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+.col0 {
   padding-right: 3rem;
   min-width: 3em;
+  display: flex;
 }
+
 .col1 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   padding-right: 3rem;
   min-width: 25em;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow-x: hidden;
 }
+
 .col1:hover {
   background-color: var(--extra-color);
   color: var(--negro-backgound);
+  cursor: pointer;
 }
 
 .col2 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 13em;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -147,72 +177,63 @@
 }
 
 .col3 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 6em;
   text-align: center;
 }
 
 .col4 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 6em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 .col5 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 5em;
   text-align: center;
 }
 
 .col6 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 9em;
   text-align: center;
 }
 
 .col7 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 12em;
 }
 
 .col8 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 5em;
   text-align: center;
 }
 
 .col9 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 5em;
   text-align: center;
 }
 
 .col10 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 5em;
   text-align: center;
   transition: 0.3s;
 }
+
 .col10:hover {
   color: var(--azul-complementario);
+  font-size: 1.05em;
+  cursor: pointer;
 }
 
 .col11 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--extra-color);
   min-width: 5em;
   text-align: center;
   transition: 0.3s;
 }
+
 .col11:hover {
   color: var(--violeta-primario);
+  font-size: 1.05em;
+  cursor: pointer;
 }
 
 .btn {

@@ -70,6 +70,7 @@ router.get("/page", async (req, res) => {
 
 router.get("/admin", async (req, res) => {
   let books = await getAllBooks();
+  books.length && books.sort((a, b) => a.name.localeCompare(b.name))
 
   books.messageError
     ? res.status(404).json(books)
