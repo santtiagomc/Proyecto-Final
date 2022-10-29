@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart, postCart } from "../../redux/actions";
 import Swal from "sweetalert2";
-import Loader from "../Home/GIF_aparecer_BooksNook.gif"
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import style from "./Login.module.css";
 
 export default function Login() {
   const [error, setError] = useState("");
   const history = useHistory();
-  const dispatch = useDispatch()
-  const { user } = useSelector(state => state)
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
   const [loader, setLoader] = useState(false);
 
   const {
@@ -33,25 +33,29 @@ export default function Login() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
       if (uniqueIdArrayCart.length) {
         Swal.fire({
-          title: 'Tienes productos en tu carrito de invitado',
+          title: "Tienes productos en tu carrito de invitado",
           width: 650,
           text: "¿Quieres pasar estos productos a tu carrito de usuario?",
-          icon: 'warning',
+          icon: "warning",
           iconColor: "#355070",
           showCancelButton: true,
           background: "#19191a",
           color: "#e1e1e1",
-          confirmButtonColor: '#355070',
-          cancelButtonColor: '#B270A2',
-          confirmButtonText: '¡Si! Guardar carrito',
-          cancelButtonText: "Cancelar"
+          confirmButtonColor: "#355070",
+          cancelButtonColor: "#B270A2",
+          confirmButtonText: "¡Si! Guardar carrito",
+          cancelButtonText: "Cancelar",
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(
-              postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true })
+              postCart({
+                userId: user.uid,
+                bookId: uniqueIdArrayCart,
+                suma: true,
+              })
             );
             setLoader(true);
             setTimeout(function () {
@@ -64,12 +68,12 @@ export default function Login() {
           } else {
             history.goBack();
           }
-        })
+        });
       } else {
         history.goBack();
       }
     }
-  }, [user])
+  }, [user]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
@@ -85,15 +89,14 @@ export default function Login() {
     try {
       const userLog = await singIn(user.email, user.password);
     } catch (error) {
-      setError("Usuario o contrasena incorrecto");
+      setError("Usuario o contraseña incorrecto");
       console.log(error);
     }
   };
 
   return (
     <div className={style.login_body}>
-      {!loader
-        ?
+      {!loader ? (
         <div className={style.container}>
           <h2 className={style.login}>Ingresar</h2>
           <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
@@ -131,14 +134,16 @@ export default function Login() {
             <button className={style.button_form}>Iniciar sesión</button>
             {error && <p className={style.ver}>{error}</p>}
             <div className={style.google} onClick={handleGoogle}>
-              Iniciar sesión con google
+              Iniciar sesión con Google
             </div>
             <Link to="/register">
               <p className={style.link}>¿No tienes una cuenta? Registrate</p>
             </Link>
           </form>
         </div>
-        : <img className={style.loader} src={Loader} alt="Loader" />}
+      ) : (
+        <img className={style.loader} src={Loader} alt="Loader" />
+      )}
     </div>
   );
 }
