@@ -10,7 +10,8 @@
 }
 
 .panel_users {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: calc(100vh - 60px);
   position: relative;
   /* display: flex;
   justify-content: center;
