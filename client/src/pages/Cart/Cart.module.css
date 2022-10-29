@@ -1,5 +1,5 @@
 .cart_container {
-  margin: 5em 7.5em 5em 7.5em;
+  margin: 5.5em 7.5em 7.5em 7em;
   height: 88vh;
 }
 
@@ -90,19 +90,20 @@
 .message {
   position: absolute;
   top: 0%;
-  left: 25.3%; 
-  height: 12.5rem;
-  width: 25rem;
+  left: 25.2%; 
+  height: 12rem;
+  width: 26rem;
+  text-align: center;
   align-content: center;
-  align-self: center;
   justify-content: center;
   transform: translate(12.5rem, 15.625rem);
   color: rgb(169, 169, 169);
   border: 0.0625rem solid rgb(169, 169, 169);
-  font-size: 24px;
   padding: 1.5em;
-
+  font-size: 24px;
 }
+
+
 
 .button_disabled {
   opacity: 20%;
@@ -127,7 +128,7 @@
 
 .btnTrash:hover {
   color: var(--azul-complementario);
-  font-size: xx-large;
+  transform: scale(1.05);
 }
 
 .btnBack {
@@ -145,6 +146,22 @@
   margin-bottom: 2.5em;
 }
 
+.btnBackEmptyCart {
+  width: 8rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 0.3125rem;
+  font-size: 14px;
+  color: #ffffff;
+  border: 0.0625rem solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-top: 6.25rem;
+  margin-left: 7.5rem;
+
+}
+
 .btnDelete {
   width: 8rem;
   height: fit-content;
@@ -157,4 +174,12 @@
   border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
   margin-bottom: 2.5em;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%
 }

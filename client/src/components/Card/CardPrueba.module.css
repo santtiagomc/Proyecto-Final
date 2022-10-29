@@ -67,7 +67,13 @@
   top: -60px;
   width: 8rem;
   height: 12rem;
+  transition: 0.5s;
 }
+
+.container:hover .bookCover {
+  transform: translate(0, -20px); 
+  /* transform: scale(1.05); */
+  }
 
 .information {
   padding: 25px 10px;

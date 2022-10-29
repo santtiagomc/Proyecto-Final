@@ -141,14 +141,12 @@ export default function ProfileUser() {
                 <span
                   onClick={() => setEdit({ ...edit, change: !edit.change })}
                 >
-                  Cancelar(es un span porque sino me activa el onsubmit) faltan
-                  estilos o puede ser un boton pero hay que poner afuera del
-                  form
+                  Cancelar
                 </span>
               </form>
             )}
             <button
-              className={`${edit.change && style.disable}`}
+              className={`${edit.change ? style.disable : style.btn}`}
               onClick={() => setEdit({ ...edit, change: !edit.change })}
             >
               Editar perfil

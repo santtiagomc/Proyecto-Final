@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif"
 
 import {
   getDetail,
@@ -311,9 +312,7 @@ export default function Detail() {
           <Review id={id} />
         </div>
       ) : (
-        <div className={style.loaderContainer}>
-          <span className={style.loader}></span>
-        </div>
+        <img src={Loader} alt="Logo loader" className={style.loader} />
       )}
     </>
   );
