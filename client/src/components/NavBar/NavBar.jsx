@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../firebase/auth";
@@ -14,6 +14,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  const navRef = useRef();
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
