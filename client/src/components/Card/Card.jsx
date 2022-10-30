@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { putStatus } from "../../redux/actions";
 import style from "./CardPrueba.module.css";
@@ -13,6 +13,7 @@ export default function Card({
   visible,
 }) {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -21,36 +22,112 @@ export default function Card({
 
   return (
     <div>
-      <div className={style.admin}>
-        <button
-          className={visible ? style.btnStatusF : style.btnStatusT}
-          onClick={(e) => handleClick(e)}
-        >
-          {visible ? (
-            <i class="fa-solid fa-eye-slash"></i>
+      {
+        user ? (
+          user.role === "Admin++" || user.role === "Admin" ? (
+            <div>
+              <div className={style.admin}>
+                <button
+                  className={visible ? style.btnStatusF : style.btnStatusT}
+                  onClick={(e) => handleClick(e)}
+                >
+                  {visible ? (
+                    <i class="fa-solid fa-eye-slash"></i>
+                  ) : (
+                    <i class="fa-solid fa-eye"></i>
+                  )}
+                </button>
+                <NavLink to={`/edit/${id}`}>
+                  <button className={style.btnStatusT}>
+                    <i class="fa-solid fa-pencil"></i>
+                  </button>
+                </NavLink>
+              </div>
+              <NavLink className={style.navLink} to={`/detail/${id}`}>
+                <div className={visible ? style.container : style.containerF}>
+                  <div className={style.imageContainer}>
+                    <img
+                      className={style.bookCover}
+                      src={image}
+                      alt="img-book"
+                    />
+                  </div>
+                  <div className={style.information}>
+                    <p className={style.name}>{name}</p>
+                    <p className={style.author}>{author}</p>
+                    <p className={style.edition}>{edition}</p>
+                    <p className={style.price}>USD {price}</p>
+                  </div>
+                </div>
+              </NavLink>
+            </div>
           ) : (
-            <i class="fa-solid fa-eye"></i>
-          )}
-        </button>
-        <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>
-            <i class="fa-solid fa-pencil"></i>
-          </button>
-        </NavLink>
-      </div>
-      <NavLink className={style.navLink} to={`/detail/${id}`}>
-        <div className={visible ? style.container : style.containerF}>
-          <div className={style.imageContainer}>
-            <img className={style.bookCover} src={image} alt="img-book" />
-          </div>
-          <div className={style.information}>
-            <p className={style.name}>{name}</p>
-            <p className={style.author}>{author}</p>
-            <p className={style.edition}>{edition}</p>
-            <p className={style.price}>USD {price}</p>
-          </div>
-        </div>
-      </NavLink>
+            visible && (
+              <NavLink className={style.navLink} to={`/detail/${id}`}>
+                <div className={visible ? style.container : style.containerF}>
+                  <div className={style.imageContainer}>
+                    <img
+                      className={style.bookCover}
+                      src={image}
+                      alt="img-book"
+                    />
+                  </div>
+                  <div className={style.information}>
+                    <p className={style.name}>{name}</p>
+                    <p className={style.author}>{author}</p>
+                    <p className={style.edition}>{edition}</p>
+                    <p className={style.price}>USD {price}</p>
+                  </div>
+                </div>
+              </NavLink>
+            )
+          )
+        ) : (
+          <NavLink className={style.navLink} to={`/detail/${id}`}>
+            <div className={visible ? style.container : style.containerF}>
+              <div className={style.imageContainer}>
+                <img className={style.bookCover} src={image} alt="img-book" />
+              </div>
+              <div className={style.information}>
+                <p className={style.name}>{name}</p>
+                <p className={style.author}>{author}</p>
+                <p className={style.edition}>{edition}</p>
+                <p className={style.price}>USD {price}</p>
+              </div>
+            </div>
+          </NavLink>
+        )
+        // <div className={style.admin}>
+        //   <button
+        //     className={visible ? style.btnStatusF : style.btnStatusT}
+        //     onClick={(e) => handleClick(e)}
+        //   >
+        //     {visible ? (
+        //       <i class="fa-solid fa-eye-slash"></i>
+        //     ) : (
+        //       <i class="fa-solid fa-eye"></i>
+        //     )}
+        //   </button>
+        //   <NavLink to={`/edit/${id}`}>
+        //     <button className={style.btnStatusT}>
+        //       <i class="fa-solid fa-pencil"></i>
+        //     </button>
+        //   </NavLink>
+        // </div>
+        // <NavLink className={style.navLink} to={`/detail/${id}`}>
+        //   <div className={visible ? style.container : style.containerF}>
+        //     <div className={style.imageContainer}>
+        //       <img className={style.bookCover} src={image} alt="img-book" />
+        //     </div>
+        //     <div className={style.information}>
+        //       <p className={style.name}>{name}</p>
+        //       <p className={style.author}>{author}</p>
+        //       <p className={style.edition}>{edition}</p>
+        //       <p className={style.price}>USD {price}</p>
+        //     </div>
+        //   </div>
+        // </NavLink>
+      }
     </div>
   );
 }

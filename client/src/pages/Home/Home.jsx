@@ -26,16 +26,26 @@ export default function Home() {
     total,
     editorials,
     books,
+    user,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
   const pages = [];
+  // const booksVisible = books.filter((b) => b.visible === true);
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
+    if (user) {
+      if (user.role === "Admin++" || user.role === "Admin") {
+        dispatch(searchBook(filtersApplied, searchApplied, page, user.role));
+      } else {
+        console.log(user);
+        dispatch(searchBook(filtersApplied, searchApplied, page));
+      }
+    }
     dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied]);
+  }, [filtersApplied, page, searchApplied, user]);
 
   useEffect(() => {
     if (books.messageError) {
