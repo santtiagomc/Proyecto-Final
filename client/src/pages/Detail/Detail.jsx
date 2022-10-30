@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif"
 
 import {
   getDetail,
@@ -16,11 +17,12 @@ import Review from "../../components/Review/Review.jsx";
 
 import style from "./DetailPrueba.module.css";
 import Swal from "sweetalert2";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart, deleteReview } = useSelector((state) => state);
+  const { user, cart, deleteReview, putStatusBook } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
   const { id } = useParams();
@@ -31,13 +33,10 @@ export default function Detail() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [user, deleteReview]);
+  }, [user, deleteReview, putStatusBook]);
 
   useEffect(() => {
     dispatch(putBook(id, { visits: 1 }));
-    setTimeout(() => {
-      dispatch(resetCreate());
-    }, 2000);
   }, []);
 
   //----------------- Function averageRating + sweetAlert + Const -----------------
@@ -48,9 +47,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-        myBook.Reviews.map((el) => {
-          return el.rating;
-        }).length
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -171,8 +170,8 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.volver} onClick={() => history.goBack()}>
-            Volver
+          <button className={style.btnBack} onClick={() => history.goBack()}>
+            <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
         <div className={style.adminContainer}>
@@ -314,9 +313,7 @@ export default function Detail() {
           <Review id={id} />
         </div>
       ) : (
-        <div className={style.loaderContainer}>
-          <span className={style.loader}></span>
-        </div>
+        <img src={Loader} alt="Logo loader" className={style.loader} />
       )}
     </>
   );

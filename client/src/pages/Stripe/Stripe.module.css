@@ -1,0 +1,13 @@
+.stripeControl {
+    width: 600px;
+    height: 300px;
+}
+
+.container {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    height: 300px;
+}

@@ -13,6 +13,10 @@
   flex-flow: row;
 }
 
+.nav.none {
+  display: none;
+}
+
 .navbar nav {
   height: 100%;
 }
@@ -36,7 +40,7 @@
   align-self: center;
   border-radius: 5px;
   font-size: 14px;
-  color:#ffffff;
+  color: #ffffff;
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;

@@ -1,5 +1,6 @@
 .label_rating {
   margin-bottom: 6px;
+
 }
 
 .stars {
@@ -36,6 +37,7 @@ label {
 
 .container_title {
   color: white;
+  font-size: 24px;
 }
 
 .see_form {
@@ -84,13 +86,13 @@ a:hover {
 
 .title {
   color: #ffffff;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bolder;
   margin: 20px 0;
 }
 
 .reviews_container {
-  margin: 120px 0;
+  margin: 3.75rem 0rem 5rem 9.375rem;
 }
 
 hr {
@@ -124,6 +126,7 @@ hr {
   display: flex;
   height: 100%;
   margin: 0;
+  font-size: 24px;
 }
 
 .stars_single_review {

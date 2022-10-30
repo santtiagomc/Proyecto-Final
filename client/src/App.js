@@ -13,9 +13,12 @@ import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
 import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
-import Footer from "./components/Footer/Footer"
+import Footer from "./components/Footer/Footer";
+import Stripe from "./pages/Stripe/Stripe";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import PruebaNav from "./components/NavBar/pruebaNav";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -39,8 +42,10 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route path="/detail/:id" component={Detail} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/stripe" component={Stripe} />
         <Route exact path="/profile" component={ProfileUser} />
         <Route path="/edit/:id" component={CreateBook} />
+        <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />
         </Route>
