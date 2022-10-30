@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
@@ -325,7 +325,7 @@ export default function Cart() {
               onClick={() => history.goBack()}
               className={style.btnBackEmptyCart}
             >
-              Volver
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
@@ -342,14 +342,14 @@ export default function Cart() {
               onClick={() => history.goBack()}
               className={style.btnBackEmptyCart}
             >
-              Volver
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button onClick={() => history.goBack()} className={style.btnBack}>
-              Volver
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <button onClick={handleRemoveCart} className={style.btnDelete}>
               Vaciar carrito
