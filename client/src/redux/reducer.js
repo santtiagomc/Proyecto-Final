@@ -25,6 +25,9 @@ import {
   PUT_USER,
   GET_ALL_CARTS,
   GET_ALL_BOOKS,
+  USERS_ORDER_ADMIN,
+  BOOKS_ORDER_ADMIN,
+  CARTS_ORDER_ADMIN,
 } from "./actions";
 
 const initialState = {
@@ -57,8 +60,11 @@ const initialState = {
   putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
+  usersOrderAdmin: "name-A-Z",
   allBooks: [],
+  booksOrderAdmin: "name-A-Z",
   allCarts: [],
+  cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
 };
 
@@ -174,6 +180,15 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_ALL_BOOKS:
       return { ...state, allBooks: action.payload };
+
+    case USERS_ORDER_ADMIN:
+      return { ...state, usersOrderAdmin: action.payload };
+
+    case BOOKS_ORDER_ADMIN:
+      return { ...state, booksOrderAdmin: action.payload };
+
+    case CARTS_ORDER_ADMIN:
+      return { ...state, cartsOrderAdmin: action.payload };
 
     default:
       return { ...state };

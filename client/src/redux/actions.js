@@ -26,6 +26,9 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const PUT_USER = "PUT_USER";
 export const GET_ALL_CARTS = "GET_ALL_CARTS";
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
+export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
+export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
 
 export function userExist(payload) {
   return {
@@ -389,10 +392,10 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers() {
+export function getAllUsers(sort) {
   return async function (dispatch) {
     try {
-      const json = await axios(`http://localhost:3001/user`);
+      const json = await axios(`http://localhost:3001/user?sort=${sort}`);
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -425,7 +428,7 @@ export function putUser(input) {
   };
 }
 
-//-------para traer todos los carritos con el estdo que le pasemos
+//-------para traer todos los carritos con el estado que le pasemos
 export function getCarts(status) {
   return async function (dispatch) {
     try {
