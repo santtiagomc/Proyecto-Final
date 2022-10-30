@@ -26,6 +26,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const PUT_USER = "PUT_USER";
 export const GET_ALL_CARTS = "GET_ALL_CARTS";
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const TABLE_VIEW = "TABLE_VIEW";
 
 export function userExist(payload) {
   return {
@@ -94,10 +95,10 @@ export function getEditorials() {
 }
 
 //-------para obtener las categorías
-export function getGenres() {
+export function getGenres(rank) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/genres`);
+      const json = await axios.get(`http://localhost:3001/genres?rank=${rank}`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,

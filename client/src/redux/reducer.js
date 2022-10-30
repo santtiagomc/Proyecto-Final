@@ -25,6 +25,7 @@ import {
   PUT_USER,
   GET_ALL_CARTS,
   GET_ALL_BOOKS,
+  TABLE_VIEW,
 } from "./actions";
 
 const initialState = {
@@ -60,6 +61,7 @@ const initialState = {
   allBooks: [],
   allCarts: [],
   putUserResponse: [],
+  tableViewGlobal: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -174,6 +176,9 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_ALL_BOOKS:
       return { ...state, allBooks: action.payload };
+
+    case TABLE_VIEW:
+      return { ...state, tableViewGlobal: action.payload };
 
     default:
       return { ...state };
