@@ -77,6 +77,12 @@ form .container_input {
   width: 100%;
 }
 
+.volverContainer {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+}
+
 .google {
   text-align: center;
   margin: 0.5em 0 1.25em 0.3125em;
@@ -145,4 +151,22 @@ form .container_input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.btnBack {
+  position: absolute;
+  width: 3rem;
+  left: 7em;
+  top: 5.5em;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: #101010;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  border-radius: 5px;
+}
+
+.btnArr{
+  font-size: large;
 }
