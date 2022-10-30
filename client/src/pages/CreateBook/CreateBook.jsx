@@ -173,6 +173,7 @@ export default function CreateBook() {
       imageWidth: 361,
       imageHeight: 554,
       imageAlt: `Cover of ${input.name}`,
+      confirmButtonColor: "#355070",
     });
   };
 

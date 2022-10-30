@@ -6,9 +6,7 @@ async function postAllGenres(allGenres) {
     allGenres.forEach(async (genre) => {
       let newGenre = await Genres.findOrCreate({
         where: {
-          name: {
-            [Op.iLike]: genre.name,
-          }
+          name: genre.name,
         }
       })
     })
