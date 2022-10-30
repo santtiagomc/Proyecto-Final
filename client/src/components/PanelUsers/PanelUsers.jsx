@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, putUser, PUT_USER } from "../../redux/actions";
+import { getAllUsers, putUser, PUT_USER, USERS_ORDER_ADMIN } from "../../redux/actions";
 import style from "./PanelUsers.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif"
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, BiDownArrow, BiUpArrow, AiOutlineSortAscending, AiOutlineSortDescending } from "react-icons/all";
 import Swal from "sweetalert2";
 
 export default function PanelUsers() {
-  const { allUsers, putUserResponse } = useSelector(state => state)
+  const { allUsers, putUserResponse, usersOrderAdmin } = useSelector(state => state)
   const dispatch = useDispatch()
-
+  console.log(usersOrderAdmin)
   function swalAlert(timer, icon, message) {
     const Toast = Swal.mixin({
       toast: true,
@@ -26,8 +26,8 @@ export default function PanelUsers() {
   }
 
   useEffect(() => {
-    dispatch(getAllUsers())
-  }, [putUserResponse])
+    dispatch(getAllUsers(usersOrderAdmin))
+  }, [putUserResponse, usersOrderAdmin])
 
   useEffect(() => {
     if (!Array.isArray(putUserResponse)) {
@@ -44,7 +44,7 @@ export default function PanelUsers() {
   function handleRole(e, id, fullName, role) {
     e.preventDefault()
     Swal.fire({
-      title: role === "Administrador" ? `Estás a punto de quitar el rol de ADMIN al usuario: ${fullName}.` : `Estás a punto de dar rol de ADMIN al usuario: ${fullName}.`,
+      title: role === "Admin" ? `Estás a punto de quitar el rol de Admin al usuario: ${fullName}.` : `Estás a punto de asignar el rol de Admin al usuario: ${fullName}.`,
       width: 650,
       text: "¿Quieres confirmar este cambio?",
       icon: 'warning',
@@ -91,7 +91,7 @@ export default function PanelUsers() {
         ? <img src={Loader} alt="Loader_Logo"></img>
         :
         <div className={style.container}>
-          <div className={style.stats_container}>
+          {/* <div className={style.stats_container}>
             <div className={style.stats_sub_container}>
               <div className={style.stats}>tarjeta 1</div>
               <div className={style.stats}>tarjeta 2</div>
@@ -100,17 +100,38 @@ export default function PanelUsers() {
               <div className={style.stats}>tarjeta 3</div>
               <div className={style.stats}>tarjeta 4</div>
             </div>
-          </div>
+          </div> */}
           <div className={style.table_container}>
             <div className={`${style.table_row} ${style.table_row_attributtes}`}>
-              <span className={style.col1}>Rol</span>
-              <span className={style.col2}>Nombre</span>
-              <span className={style.col3}>Correo</span>
-              <span className={style.col4}>Estado</span>
-              <span className={style.col5}>Provincia</span>
-              <span className={style.col6}>Ciudad</span>
-              <span className={style.col7}>Dirección</span>
-              <span className={style.col8}>Código postal</span>
+              <span
+                className={usersOrderAdmin.slice(0, 3) === "rol" ? `${style.col1} ${style.col_active}` : style.col1}
+                onClick={() => dispatch({ type: USERS_ORDER_ADMIN, payload: usersOrderAdmin === "role-A-Z" ? "role-Z-A" : "role-A-Z" })}>
+                <span>Rol</span>
+                {usersOrderAdmin === "role-A-Z" ? <AiOutlineSortAscending className={style.i_order} /> : <AiOutlineSortDescending className={style.i_order} />}
+              </span>
+              <span
+                className={usersOrderAdmin.slice(0, 3) === "nam" ? `${style.col2} ${style.col_active}` : style.col2}
+                onClick={() => dispatch({ type: USERS_ORDER_ADMIN, payload: usersOrderAdmin === "name-A-Z" ? "name-Z-A" : "name-A-Z" })} >
+                <span>Nombre</span>
+                {usersOrderAdmin === "name-A-Z" ? <AiOutlineSortAscending className={style.i_order} /> : <AiOutlineSortDescending className={style.i_order} />}
+              </span>
+              <span
+                className={usersOrderAdmin.slice(0, 3) === "ema" ? `${style.col3} ${style.col_active}` : style.col3}
+                onClick={() => dispatch({ type: USERS_ORDER_ADMIN, payload: usersOrderAdmin === "email-A-Z" ? "email-Z-A" : "email-A-Z" })}
+              >
+                <span>Correo</span>
+                {usersOrderAdmin === "email-A-Z" ? <AiOutlineSortAscending className={style.i_order} /> : <AiOutlineSortDescending className={style.i_order} />}
+              </span>
+              <span
+                className={usersOrderAdmin.slice(0, 3) === "sta" ? `${style.col4} ${style.col_active}` : style.col4}
+                onClick={() => dispatch({ type: USERS_ORDER_ADMIN, payload: usersOrderAdmin === "status-A-Z" ? "status-Z-A" : "status-A-Z" })}>
+                <span>Estado</span>
+                {usersOrderAdmin === "status-A-Z" ? <AiOutlineSortAscending className={style.i_order} /> : <AiOutlineSortDescending className={style.i_order} />}
+              </span>
+              <span className={style.col5}> Provincia </span>
+              <span className={style.col6}> Ciudad </span>
+              <span className={style.col7}> Dirección </span>
+              <span className={style.col8}> Código postal </span>
             </div>
             {allUsers.length && allUsers.map(user => (
               <div className={style.table_row}>
@@ -134,6 +155,5 @@ export default function PanelUsers() {
         </div>
       }
     </div>
-
   );
 }
