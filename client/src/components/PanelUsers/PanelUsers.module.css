@@ -1,0 +1,241 @@
+:root {
+  --violeta-primario: #B270A2;
+  --verde-primario: #95d9c3;
+  --verde-secundario: #7CE1CE;
+  --azul-complementario: #355070;
+  --negro-backgound: #181818;
+  --negro-navBar-filters-btn: #101010;
+  /* --extra-color: #AEB4A9; */
+  --extra-color: #ccd0c8;
+}
+
+.panel_users {
+  /* min-height: 100vh; */
+  height: calc(100vh - 60px);
+  position: relative;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.panel_users img {
+  position: absolute;
+  top: 40%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  width: 20em;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  padding: 0 2em;
+  color: var(--extra-color);
+  overflow: hidden;
+}
+
+.container.active {
+  margin: 0 20px;
+}
+
+.stats_container {
+  margin-top: 3em;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.stats_sub_container {
+  position: relative;
+  flex-basis: 10em;
+  flex-grow: 1;
+  min-width: 22em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 7em;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-bottom: 1em;
+}
+
+.stats {
+  position: relative;
+  background-color: #161616;
+  box-shadow: 0px 0px 30px 5px rgb(12, 12, 12);
+  border-radius: 20px;
+  flex-basis: 10em;
+  flex-grow: 1;
+  min-width: 10em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 8em;
+  border: 2px solid var(--extra-color);
+  align-items: center;
+  transition: 0.3s;
+}
+
+.stats:hover {
+  transform: scale(1.04);
+}
+
+@media (max-width: 545px) {
+  .stats_container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    gap: 1em;
+    height: 13em;
+    flex-wrap: wrap;
+  }
+
+  .stats_container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stats_sub_container {
+    min-width: 12.2em;
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+
+  .stats {
+    min-width: 12.2em;
+    height: 5em;
+  }
+
+  .panel_users img {
+    width: 12em;
+  }
+}
+
+.table_container {
+  border: 2px solid var(--extra-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 2em 0;
+  padding: 0.2em 1em;
+  overflow-x: auto;
+  overflow-y: auto;
+  min-width: 220px;
+}
+
+.table_row {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.1em;
+}
+
+.table_row_attributtes {
+  margin-bottom: 1em;
+}
+
+.table_row_attributtes .col0,
+.table_row_attributtes .col1,
+.table_row_attributtes .col2,
+.table_row_attributtes .col3,
+.table_row_attributtes .col4,
+.table_row_attributtes .col5,
+.table_row_attributtes .col6,
+.table_row_attributtes .col7,
+.table_row_attributtes .col8 {
+  border-bottom: 1px solid var(--extra-color);
+  padding-bottom: 0.3em;
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 0em;
+  cursor: pointer;
+}
+
+.table_row_attributtes .col_active .i_order {
+  background-color: var(--extra-color);
+  color: var(--negro-backgound);
+}
+
+.table_row_attributtes .col0 span,
+.table_row_attributtes .col1 span,
+.table_row_attributtes .col2 span,
+.table_row_attributtes .col3 span,
+.table_row_attributtes .col4 span,
+.table_row_attributtes .col5 span,
+.table_row_attributtes .col6 span,
+.table_row_attributtes .col7 span,
+.table_row_attributtes .col8 span {
+  margin-right: 1em;
+}
+
+.i_order {
+  font-size: 1.4em;
+}
+
+.col0,
+.col1,
+.col2,
+.col3,
+.col4,
+.col5,
+.col6,
+.col7,
+.col8 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+.col1 {
+  min-width: 7.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2em;
+}
+
+.text {
+  margin-right: 0.3em;
+}
+
+.col2 {
+  min-width: 16em;
+}
+
+.col3 {
+  min-width: 21em;
+}
+
+.col4 {
+  min-width: 8em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2em;
+}
+
+.col5 {
+  min-width: 12em;
+}
+
+.col6 {
+  min-width: 15em;
+}
+
+.col7 {
+  min-width: 12em;
+}
+
+.col8 {
+  min-width: 12em;
+}
+
+.icon {
+  font-size: 1.2em;
+  cursor: pointer;
+}

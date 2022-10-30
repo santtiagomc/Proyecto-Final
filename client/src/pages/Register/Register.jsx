@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import templateAlert from "../../helpers/templateAlert";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Register() {
   const history = useHistory();
@@ -73,8 +74,8 @@ export default function Register() {
         });
       } else {
         templateAlert(
-          "Bienvenido a Books Nook!",
-          "Te enviaremos un correo de verificación, revisa tu email!",
+          "¡Bienvenido a Books Nook!",
+          "Te enviaremos un correo de verificación, revisa tu email",
           "success",
           4000
         );
@@ -85,71 +86,25 @@ export default function Register() {
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
-
-
-  //----------------------- Comienzo Funcion de Admin de ingresar --------------------------------//
-
-  const handleAdmin = ()=> {
-    Swal.fire({
-      title: 'Ingrese el PIN ',
-      input: 'password',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      showLoaderOnConfirm: true,
-      confirmButtonColor: "#355070",
-      cancelButtonColor: "#B270A2",
-      cancelButtonText: 'Cancelar',
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.statusText)
-            }
-            return response.json()
-          })
-          .catch(error => {
-            Swal.showValidationMessage(
-              `Request failed: ${error}`
-            )
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url
-        })
-      }
-    })
-  }
-  // --------------------------END Funcion de Admin de ingresar -------------------//
-
   //--------------------------sweetAlert de Correo Existente ----------------//
-  const AlertError = ()=>{
-
+  const AlertError = () => {
     Swal.fire({
-      icon: 'warning',
-      title: 'Este correo ya se encuentra en uso',
-      text: 'Ingrese otro por favor',
+      icon: "warning",
+      title: "Este correo ya se encuentra en uso",
+      text: "Ingrese otro por favor",
       confirmButtonColor: "#355070",
       width: 650,
-      background: '#19191a',
+      background: "#19191a",
       color: "#e1e1e1",
-
-    })
-  }
+    });
+  };
   //--------------END sweetAlert -------------//
-
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
     } catch (error) {
-     AlertError();
+      AlertError();
       console.log(error);
     }
   };
@@ -164,6 +119,11 @@ export default function Register() {
 
   return (
     <div className={style.login_body}>
+      <div className={style.volverContainer}>
+        <button className={style.btnBack} onClick={() => history.goBack()}>
+          <AiOutlineArrowLeft className={style.btnArr} />
+        </button>
+      </div>
       {!loader ? (
         <div className={style.container}>
           <h2 className={style.login}>Crear cuenta</h2>
@@ -295,18 +255,17 @@ export default function Register() {
             {/* <div className={style.register}> */}
             <button className={style.button_form}>Crear cuenta</button>
             <div className={style.google} onClick={handleSignInGoogle}>
-              Registrarse con google
+              Registrarse con Google
             </div>
             <Link to="/login">
               <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
             </Link>
             {/* </div> */}
-            <div>
-              <p className={style.link} onClick={handleAdmin}>¿Eres Administrador?</p>
-            </div>
           </form>
         </div>
-        ): <img className={style.loader} src={Loader} alt="Loader" />}
+      ) : (
+        <img className={style.loader} src={Loader} alt="Loader" />
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ async function postCheckout({ cart, stripeId }) {
       confirm: true,
     });
 
-    cartBuy.status = "Cerrado";
+    cartBuy.status = "Procesando";
     await cartBuy.save();
     cart.map(async (cart) => {
       const findBook = await Books.findByPk(cart.id);
