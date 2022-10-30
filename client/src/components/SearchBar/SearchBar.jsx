@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter, changeSearch } from "../../redux/actions";
 
+
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
 
@@ -31,6 +32,7 @@ export default function SearchBar() {
       });
     }
   };
+
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
