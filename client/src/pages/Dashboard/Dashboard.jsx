@@ -3,16 +3,30 @@ import style from "./Dashboard.module.css";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
 import PanelBooks from "../../components/PanelBooks/PanelBooks";
 import PanelOrders from "../../components/PanelOrders/PanelOrders";
-import { GiBookshelf, FaBook, ImBooks, MdCategory, FaUsers, FaFileInvoiceDollar, MdDashboardCustomize } from "react-icons/all"
+import PanelGenres from "../../components/PanelGenres/PanelGenres";
+import {
+  GiBookshelf,
+  FaBook,
+  ImBooks,
+  MdCategory,
+  FaUsers,
+  FaFileInvoiceDollar,
+  MdDashboardCustomize,
+} from "react-icons/all";
 
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { tableView, TABLE_VIEW } from "../../redux/actions";
 
 export default function Dashboard() {
+  const { tableViewGlobal } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [hovered, setHovered] = useState(0);
   const [hidden, setHidden] = useState(false);
-  const [tableView, setTableView] = useState("users");
-  const history = useHistory();
 
   return (
     <div className={style.container}>
@@ -28,7 +42,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("users");
+              dispatch({ type: TABLE_VIEW, payload: "users" });
               setHovered(1);
             }}
             className={hovered === 1 && style.hovered}
@@ -38,7 +52,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("users");
+              dispatch({ type: TABLE_VIEW, payload: "users" });
               setHovered(2);
             }}
             className={hovered === 2 && style.hovered}
@@ -48,7 +62,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("orders");
+              dispatch({ type: TABLE_VIEW, payload: "orders" });
               setHovered(3);
             }}
             className={hovered === 3 && style.hovered}
@@ -58,7 +72,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("books");
+              dispatch({ type: TABLE_VIEW, payload: "books" });
               setHovered(4);
             }}
             className={hovered === 4 && style.hovered}
@@ -68,7 +82,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("books");
+              dispatch({ type: TABLE_VIEW, payload: "addBook" });
               setHovered(5);
             }}
             className={hovered === 5 && style.hovered}
@@ -78,7 +92,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("users");
+              dispatch({ type: TABLE_VIEW, payload: "genres" });
               setHovered(6);
             }}
             className={hovered === 6 && style.hovered}
@@ -88,7 +102,7 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("users");
+              dispatch({ type: TABLE_VIEW, payload: "users" });
               setHovered(8);
             }}
             className={hovered === 8 && style.hovered}
@@ -117,16 +131,11 @@ export default function Dashboard() {
           </div>
 
           <div>
-            {tableView === "users" && <PanelUsers />}
-            {tableView === "orders" && <PanelOrders />}
-            {tableView === "books" && <PanelBooks />}
-            {/* {tableView === "users" ? (
-              <PanelUsers />
-            ) : tableView === "orders" ? (
-              <PanelOrders />
-            ) : (
-              <PanelBooks />
-            )} */}
+            {tableViewGlobal === "users" && <PanelUsers />}
+            {tableViewGlobal === "orders" && <PanelOrders />}
+            {tableViewGlobal === "books" && <PanelBooks />}
+            {tableViewGlobal === "addBook" && <CreateBook />}
+            {tableViewGlobal === "genres" && <PanelGenres />}
           </div>
         </div>
       </div>

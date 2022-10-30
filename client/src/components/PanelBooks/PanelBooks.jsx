@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, putStatus, PUT_STATUS } from "../../redux/actions";
-import { useHistory } from "react-router-dom"
+import {
+  getAllBooks,
+  putStatus,
+  PUT_STATUS,
+  TABLE_VIEW,
+} from "../../redux/actions";
+import { useHistory } from "react-router-dom";
 
 import {
   MdDescription,
@@ -19,7 +24,7 @@ import style from "./PanelBooks.module.css";
 export default function PanelBooks() {
   const { allBooks, putStatusBook } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     if (putStatusBook.length) {
@@ -49,23 +54,25 @@ export default function PanelBooks() {
   const handleClick = (e, id, name, visible) => {
     e.preventDefault();
     Swal.fire({
-      title: visible ? `Estás a punto de ocultar el libro "${name}."` : `Estás a punto volver a mostrar el libro "${name}."`,
+      title: visible
+        ? `Estás a punto de ocultar el libro "${name}."`
+        : `Estás a punto volver a mostrar el libro "${name}."`,
       width: 650,
       text: "¿Quieres confirmar este cambio?",
-      icon: 'warning',
+      icon: "warning",
       iconColor: "#355070",
       showCancelButton: true,
       background: "#19191a",
       color: "#e1e1e1",
-      confirmButtonColor: '#355070',
-      cancelButtonColor: '#B270A2',
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: visible ? `¡Sí! Ocultar libro` : `¡Sí! Mostrar libro`,
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(putStatus(id));
       }
-    })
+    });
   };
 
   function goDetail(e, id, name) {
@@ -74,20 +81,20 @@ export default function PanelBooks() {
       title: `Estás a punto de dirigirte al detalle del libro "${name}."`,
       width: 650,
       text: "¿Quieres confirmar esta acción?",
-      icon: 'warning',
+      icon: "warning",
       iconColor: "#355070",
       showCancelButton: true,
       background: "#19191a",
       color: "#e1e1e1",
-      confirmButtonColor: '#355070',
-      cancelButtonColor: '#B270A2',
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
       confirmButtonText: `¡Sí! Ir al detalle`,
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         history.push(`/detail/${id}`);
       }
-    })
+    });
   }
 
   let totalBooks =
@@ -103,8 +110,8 @@ export default function PanelBooks() {
       title: title,
       html: text,
       customClass: {
-        htmlContainer: style.swal_description
-      }
+        htmlContainer: style.swal_description,
+      },
     });
   }
   /* console.log(putStatusBook);
@@ -142,7 +149,12 @@ export default function PanelBooks() {
           allBooks.map((el, index) => (
             <div className={style.table_row} key={index}>
               <span className={style.col0}>{index}</span>
-              <span className={style.col1} onClick={(e) => goDetail(e, el.id, el.name)}>{el.name}</span>
+              <span
+                className={style.col1}
+                onClick={(e) => goDetail(e, el.id, el.name)}
+              >
+                {el.name}
+              </span>
               <span className={style.col2}>{el.author}</span>
               <span className={style.col3}>{el.edition}</span>
               <span className={style.col4}>
@@ -173,7 +185,9 @@ export default function PanelBooks() {
               <span className={style.col6}>
                 <button
                   className={style.btn}
-                  onClick={() => templateAlertDescription("Descripción", el.description)}
+                  onClick={() =>
+                    templateAlertDescription("Descripción", el.description)
+                  }
                 >
                   <MdDescription />
                 </button>
@@ -181,7 +195,12 @@ export default function PanelBooks() {
               <span className={style.col7}>{el.editorial}</span>
               <span className={style.col8}>{el.price}</span>
               <span className={style.col9}>{el.stock}</span>
-              <span className={style.col10}>
+              <span
+                onClick={() => {
+                  dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                }}
+                className={style.col10}
+              >
                 <BsFillPencilFill />
               </span>
               <span
