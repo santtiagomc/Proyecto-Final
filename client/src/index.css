@@ -1,8 +1,9 @@
 /* variables paleta de colores */
 :root {
   --violeta-primario: #B270A2;
-  --verde-primario: #7CE1CE;
+  --verde-primario: #95d9c3;
   --azul-complementario: #355070;
+  --gris-complementario: #aeb4a9;
   --negro-backgound: #181818;
   --negro-navBar-filters-btn: #101010;
 }

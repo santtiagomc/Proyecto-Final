@@ -17,7 +17,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const response = await getAllUsers();
+  const response = Object.keys(req.query).length ? await getAllUsers(req.query) : await getAllUsers();
 
   let statusCode;
   response.messageError ? (statusCode = 404) : (statusCode = 201);

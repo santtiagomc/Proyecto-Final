@@ -9,6 +9,7 @@ import {
   resetCreate,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { BiErrorAlt, BsFillImageFill, AiFillEyeInvisible, AiFillEye, TiDeleteOutline } from "react-icons/all"
 
 import { uploadFile } from "../../firebase/firebase";
 
@@ -171,6 +172,7 @@ export default function CreateBook() {
       imageWidth: 361,
       imageHeight: 554,
       imageAlt: `Cover of ${input.name}`,
+      confirmButtonColor: "#355070",
     });
   };
 
@@ -234,11 +236,9 @@ export default function CreateBook() {
 
   return (
     <div className={style.container}>
-      <div className={style.divh1}>
-        <h1 className={style.h1}>
-          {params.id ? "Editar libro " : "Agregar Libro"}
-        </h1>
-      </div>
+      {/* <h1 className={style.h1}>
+        {params.id ? "Editar libro " : "Agregar Libro"}
+      </h1> */}
 
       <form
         className={style.form}
@@ -257,9 +257,12 @@ export default function CreateBook() {
               name="name"
               onChange={(e) => handleChange(e)}
             />
-            {input.name && <p className={style.err}>{errors.name}</p>}
+            {input.name && errors.name &&
+              <div className={style.err}>
+                <span>{errors.name}</span>
+                <BiErrorAlt className={style.err_i} />
+              </div>}
           </div>
-
           <div className={style.incontainer}>
             <label className={style.label}>Autor</label>
             <input
@@ -270,61 +273,136 @@ export default function CreateBook() {
               name="author"
               onChange={(e) => handleChange(e)}
             />
-            {input.author && <p className={style.err}>{errors.author}</p>}
+            {input.author && errors.author &&
+              <div className={style.err}>
+                <span>{errors.author}</span>
+                <BiErrorAlt className={style.err_i} />
+              </div>}
           </div>
-
           <div className={style.incontainer}>
-            <label className={style.label}>Año de edición</label>
+            <label className={style.label}>Editorial</label>
             <input
               className={style.input}
-              type="number"
-              placeholder="Año"
-              value={input.edition}
-              name="edition"
+              type="text"
+              placeholder="Nombre de la editorial"
+              value={input.editorial}
+              name="editorial"
               onChange={(e) => handleChange(e)}
             />
-            {input.edition && <p className={style.err}>{errors.edition}</p>}
+            {input.editorial && errors.editorial &&
+              <div className={style.err}>
+                <span>{errors.editorial}</span>
+                <BiErrorAlt className={style.err_i} />
+              </div>}
           </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Categorías</label>
-            <select
-              value="0"
-              onChange={(e) => handleSelect(e)}
-              className={style.selectGenre}
-            >
-              <option selected disabled value="0">
-                Categorías
-              </option>
-              {genres.map((el) => {
-                return (
-                  <option key={el} value={el}>
-                    {" "}
-                    {el}{" "}
+          <div className={style.container_cat_box}>
+            <div className={style.container_cat}>
+              <div className={style.incontainer}>
+                <label className={style.label}>Categorías</label>
+                <select
+                  value="0"
+                  onChange={(e) => handleSelect(e)}
+                  className={style.selectGenre}
+                >
+                  <option selected disabled value="0">
+                    Seleccione las categorías
                   </option>
-                );
-              })}
-            </select>
-          </div>
-
-          <div className={style.genreContain}>
-            {input.genre.map((c) => {
-              return (
-                <div key={c} className={style.divGenre}>
-                  <ul>
-                    <li>{c}</li>
-                    <button
-                      className={style.btnx}
-                      onClick={() => handleDelete(c)}
-                    >
-                      X
-                    </button>
-                  </ul>
+                  {genres.map((el) => {
+                    return (
+                      <option key={el} value={el}>
+                        {" "}
+                        {el}{" "}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className={style.genreContain}>
+                <label className={style.label}>Categorías seleccionadas</label>
+                <div className={style.genreContain_int}>
+                  {input.genre.map((c) => {
+                    return (
+                      <div key={c} className={style.divGenre}>
+                        <span className={style.text}>{c}</span>
+                        <span className={style.btn_delete} onClick={() => handleDelete(c)}><TiDeleteOutline /></span>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </div>
+            </div>
+            <div className={style.container_box}>
+              <div className={style.incontainer}>
+                <label className={style.label}>Año de edición</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Año"
+                  value={input.edition}
+                  name="edition"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.edition && errors.edition &&
+                  <div className={style.err}>
+                    <span>{errors.edition}</span>
+                    <BiErrorAlt className={style.err_i} />
+                  </div>}
+              </div>
+              <div className={style.incontainer}>
+                <label className={style.label}>Precio</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Precio"
+                  value={input.price}
+                  name="price"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.price && errors.price &&
+                  <div className={style.err}>
+                    <span>{errors.price}</span>
+                    <BiErrorAlt className={style.err_i} />
+                  </div>}
+              </div>
+              <div className={style.incontainer}>
+                <label className={style.label}>Stock</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Stock"
+                  value={input.stock}
+                  name="stock"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.stock && errors.stock &&
+                  <div className={style.err}>
+                    <span>{errors.stock}</span>
+                    <BiErrorAlt className={style.err_i} />
+                  </div>}
+              </div>
+            </div>
           </div>
+        </div>
 
+        <div className={style.divs}>
+          <div className={style.incontainer_textArea}>
+            <label className={style.label}>Descripción</label>
+            <textarea
+              className={style.textArea}
+              name="description"
+              id=""
+              type="text"
+              placeholder="Descripción del libro"
+              value={input.description}
+              onChange={(e) => handleChange(e)}
+            ></textarea>
+            {input.description && errors.description &&
+              <div className={style.err}>
+                <span>{errors.description}</span>
+                <BiErrorAlt className={style.err_i} />
+              </div>
+            }
+          </div>
           <div className={style.incontainer}>
             <label className={style.label}>Portada</label>
             {/* <input
@@ -350,33 +428,29 @@ export default function CreateBook() {
                     onChange={(e) => handleNewImage(e)}
                     disabled={buttonDisabled}
                   />
-                  <i class="fa-solid fa-file-image"></i>{" "}
-                  {input.image && !buttonDisabled && imageName
-                    ? imageName
-                    : "Subir una imagen"}
+                  <div className={style.fileLabel_text}>
+                    <BsFillImageFill className={style.i_img} />
+                    <span>
+                      {input.image && !buttonDisabled && imageName
+                        ? imageName
+                        : "Subir una imagen"}
+                    </span>
+                  </div>
                 </label>
               </div>
 
-              <div>
+              <div className={input.image ? style.container_eye : style.container_eye_f}>
                 {buttonDisabled ? (
-                  <div className={style.divLoader}>
-                    <span
-                      className={style.loader}
-                      hidden={!buttonDisabled}
-                    ></span>
-                  </div>
+                  <span className={style.loader}></span>
                 ) : (
                   <button
-                    className={
-                      input.image ? style.btnShowIMG : style.btnShowIMGf
-                    }
                     disabled={input.image ? false : true}
                     onClick={(e) => handleShowImage(e)}
                   >
                     {input.image ? (
-                      <i class="fa-solid fa-eye"></i>
+                      <AiFillEye className={style.i_eye} />
                     ) : (
-                      <i class="fa-solid fa-eye-slash"></i>
+                      <AiFillEyeInvisible className={style.i_eye_f} />
                     )}
                   </button>
                 )}
@@ -384,77 +458,22 @@ export default function CreateBook() {
             </div>
             {input.image && <p className={style.err}>{errors.image}</p>}
           </div>
-        </div>
-
-        <div className={style.divs}>
           <div className={style.incontainer}>
-            <label className={style.label}>Descripción</label>
-            <textarea
-              className={style.textArea}
-              name="description"
-              id=""
-              cols="30"
-              rows="100"
-              type="text"
-              placeholder="Descripción del libro"
-              value={input.description}
-              onChange={(e) => handleChange(e)}
-            ></textarea>
-            {input.description && (
-              <p className={style.err}>{errors.description}</p>
-            )}
-          </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Editorial</label>
-            <input
-              className={style.input}
-              type="text"
-              placeholder="Nombre de la editorial"
-              value={input.editorial}
-              name="editorial"
-              onChange={(e) => handleChange(e)}
-            />
-            {input.editorial && <p className={style.err}>{errors.editorial}</p>}
-          </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Precio</label>
-            <input
-              className={style.input}
-              type="number"
-              placeholder="Precio"
-              value={input.price}
-              name="price"
-              onChange={(e) => handleChange(e)}
-            />
-            {input.price && <p className={style.err}>{errors.price}</p>}
-          </div>
-          <div className={style.incontainer}>
-            <label className={style.label}>Stock</label>
-            <input
-              className={style.input}
-              type="number"
-              placeholder="Stock"
-              value={input.stock}
-              name="stock"
-              onChange={(e) => handleChange(e)}
-            />
-            {input.stock && <p className={style.err}>{errors.stock}</p>}
-          </div>
-          <div className={style.btnContainer}>
-            <button
-              className={buttonDisabled ? style.btnF : style.btn}
-              type="submit"
-              disabled={buttonDisabled}
-            >
-              {params.id ? "Completar edición" : "Crear libro"}
-            </button>
-            <Link to={params.id ? `/detail/${params.id}` : "/"}>
-              <button className={style.btn}>
-                {params.id ? "Cancelar" : "Volver"}
+            <label className={style.label}></label>
+            <div className={style.container_buttons}>
+              <button
+                className={buttonDisabled ? style.btnF : style.btn}
+                type="submit"
+                disabled={buttonDisabled}
+              >
+                {params.id ? "Completar edición" : "Crear libro"}
               </button>
-            </Link>
+              <Link to={params.id ? `/detail/${params.id}` : "/"}>
+                <button className={style.btn_link}>
+                  {params.id ? "Cancelar" : "Volver"}
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </form>

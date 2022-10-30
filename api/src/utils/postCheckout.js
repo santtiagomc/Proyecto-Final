@@ -19,7 +19,7 @@ async function postCheckout({ cart, stripeId }) {
       confirm: true,
     });
 
-    cartBuy.status = "Cerrado";
+    cartBuy.status = "Procesando";
     await cartBuy.save();
 
     cart.forEach(async (cart) => {

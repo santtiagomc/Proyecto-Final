@@ -93,23 +93,23 @@ export default function ProfileUser() {
                   type="text"
                   placeholder="Provincia"
                   {...register("province", {
-                    maxLength: 15,
+                    maxLength: 40,
                     value: null,
                   })}
                 ></input>
                 {errors.province?.type === "maxLength" && (
-                  <p className={style.error}>maximo 15</p>
+                  <p className={style.error}>maximo 40</p>
                 )}
                 <input
                   type="text"
                   placeholder="Ciudad"
                   {...register("city", {
-                    maxLength: 15,
+                    maxLength: 40,
                     value: null,
                   })}
                 ></input>
                 {errors.city?.type === "maxLength" && (
-                  <p className={style.error}>maximo 15</p>
+                  <p className={style.error}>maximo 40</p>
                 )}
                 <input
                   type="text"
@@ -141,14 +141,12 @@ export default function ProfileUser() {
                 <span
                   onClick={() => setEdit({ ...edit, change: !edit.change })}
                 >
-                  Cancelar(es un span porque sino me activa el onsubmit) faltan
-                  estilos o puede ser un boton pero hay que poner afuera del
-                  form
+                  Cancelar
                 </span>
               </form>
             )}
             <button
-              className={`${edit.change && style.disable}`}
+              className={`${edit.change ? style.disable : style.btn}`}
               onClick={() => setEdit({ ...edit, change: !edit.change })}
             >
               Editar perfil

@@ -24,6 +24,11 @@ import {
   GET_ALL_USERS,
   PUT_USER,
   GET_ALL_CARTS,
+  GET_ALL_BOOKS,
+  TABLE_VIEW,
+  USERS_ORDER_ADMIN,
+  BOOKS_ORDER_ADMIN,
+  CARTS_ORDER_ADMIN,
 } from "./actions";
 
 const initialState = {
@@ -53,10 +58,16 @@ const initialState = {
   booksByVisits: [],
   booksByOffers: [],
   putUserCartResponse: {},
+  putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
+  usersOrderAdmin: "name-A-Z",
+  allBooks: [],
+  booksOrderAdmin: "name-A-Z",
   allCarts: [],
+  cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
+  tableViewGlobal: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -94,18 +105,14 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, detail: action.payload };
 
     case PUT_STATUS:
-      let aux = state.books;
-
-      aux.forEach((el, index) => {
-        if (el.id === action.payload.id) {
-          aux.splice(index, 1, action.payload);
-        }
-      });
-
-      return { ...state, detail: action.payload, books: aux };
+      return { ...state, putStatusBook: action.payload };
 
     case PUT_BOOK:
-      return { ...state, create: action.payload };
+      if (Array.isArray(action.payload)) {
+        return { ...state };
+      } else {
+        return { ...state, create: action.payload };
+      }
 
     case POST_REVIEWS:
       return { ...state, createReview: action.payload };
@@ -172,6 +179,21 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_ALL_CARTS:
       return { ...state, allCarts: action.payload };
+
+    case GET_ALL_BOOKS:
+      return { ...state, allBooks: action.payload };
+
+    case TABLE_VIEW:
+      return { ...state, tableViewGlobal: action.payload };
+
+    case USERS_ORDER_ADMIN:
+      return { ...state, usersOrderAdmin: action.payload };
+
+    case BOOKS_ORDER_ADMIN:
+      return { ...state, booksOrderAdmin: action.payload };
+
+    case CARTS_ORDER_ADMIN:
+      return { ...state, cartsOrderAdmin: action.payload };
 
     default:
       return { ...state };

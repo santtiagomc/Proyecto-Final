@@ -25,6 +25,11 @@ export const DELETE_USER_CART = "DELETE_USER_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const PUT_USER = "PUT_USER";
 export const GET_ALL_CARTS = "GET_ALL_CARTS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const TABLE_VIEW = "TABLE_VIEW";
+export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
+export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
+export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
 
 export function userExist(payload) {
   return {
@@ -93,10 +98,10 @@ export function getEditorials() {
 }
 
 //-------para obtener las categorías
-export function getGenres() {
+export function getGenres(rank) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/genres`);
+      const json = await axios.get(`http://localhost:3001/genres?rank=${rank}`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,
@@ -388,12 +393,10 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers() {
+export function getAllUsers(sort) {
   return async function (dispatch) {
     try {
-      const json = await axios(
-        `http://localhost:3001/user`
-      );
+      const json = await axios(`http://localhost:3001/user?sort=${sort}`);
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -411,9 +414,7 @@ export function getAllUsers() {
 export function putUser(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `http://localhost:3001/user`, input
-      );
+      const response = await axios.put(`http://localhost:3001/user`, input);
 
       return dispatch({
         type: PUT_USER,
@@ -428,11 +429,13 @@ export function putUser(input) {
   };
 }
 
-//-------para traer todos los carritos con el estdo que le pasemos
+//-------para traer todos los carritos con el estado que le pasemos
 export function getCarts(status) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/orders?status=${status}`);
+      const response = await axios.get(
+        `http://localhost:3001/cart/orders?status=${status}`
+      );
       return dispatch({
         type: GET_ALL_CARTS,
         payload: response.data,
@@ -440,6 +443,24 @@ export function getCarts(status) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer todos los libros (para dashboard)
+export function getAllBooks() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/books/admin`);
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_BOOKS,
         payload: error.response.data,
       });
     }
