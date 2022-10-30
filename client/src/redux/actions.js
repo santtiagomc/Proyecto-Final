@@ -30,6 +30,7 @@ export const TABLE_VIEW = "TABLE_VIEW";
 export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
 export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
 export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const GET_USER_DB = "GET_USER_DB";
 
 export function userExist(payload) {
   return {
@@ -461,6 +462,24 @@ export function getAllBooks() {
     } catch (error) {
       return dispatch({
         type: GET_ALL_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer la info del user de la db
+export function getUserDb(uid) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/user/${uid}`);
+      return dispatch({
+        type: GET_USER_DB,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_USER_DB,
         payload: error.response.data,
       });
     }

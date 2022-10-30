@@ -9,6 +9,7 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
+  getUserDb,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "./GIF_neón_BooksNook.gif";
@@ -27,6 +28,7 @@ export default function Home() {
     editorials,
     books,
     user,
+    userDb,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -36,11 +38,15 @@ export default function Home() {
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
-    if (user) {
-      if (user.role === "Admin++" || user.role === "Admin") {
-        dispatch(searchBook(filtersApplied, searchApplied, page, user.role));
+    if (user && user.uid) {
+      dispatch(getUserDb(user.uid));
+      //console.log(userDb);
+      if (userDb.role === "Admin++" || userDb.role === "Admin") {
+        //console.log(userDb);
+        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
       } else {
-        console.log(user);
+        //console.log(userDb);
+        //console.log(user);
         dispatch(searchBook(filtersApplied, searchApplied, page));
       }
     }

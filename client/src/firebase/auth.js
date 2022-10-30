@@ -22,6 +22,7 @@ export const singIn = (email, password) =>
 
 export const sessionGoogle = async () => {
   const googleProvider = new GoogleAuthProvider();
+  console.log(googleProvider);
   await singInGoogle(googleProvider);
 };
 

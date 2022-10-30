@@ -88,6 +88,7 @@ export default function Login() {
 
   const onSubmit = async (user) => {
     try {
+      console.log(user);
       const userLog = await singIn(user.email, user.password);
     } catch (error) {
       setError("Usuario o contraseña incorrecto");
