@@ -37,14 +37,14 @@ export default function PanelBooks() {
       }
     }
     dispatch(getAllBooks());
-  }, [putStatusBook]);
+  }, [dispatch, putStatusBook]);
 
   useEffect(() => {
     if (allBooks.messageError) {
       templateAlert(allBooks.messageError, null, "error", 2000);
       dispatch(getAllBooks());
     }
-  }, [allBooks]);
+  }, [dispatch, allBooks]);
 
   const handleImage = (image, name) => {
     Swal.fire({
