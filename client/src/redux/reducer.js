@@ -69,7 +69,7 @@ const initialState = {
   allCarts: [],
   cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
-  tableViewGlobal: "genres",
+  tableViewGlobal: "orders",
   messageGlobal: [],
   messageDeleteGlobal: [],
 };
