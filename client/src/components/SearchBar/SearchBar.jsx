@@ -6,7 +6,8 @@ import { changeFilter, changeSearch } from "../../redux/actions";
 
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
-import "./prueba.css"
+// import "./prueba.css"
+
 export default function SearchBar() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -44,23 +45,23 @@ export default function SearchBar() {
         placeholder="Ingrese un título o autor"
         onChange={(e) => setBook(e.target.value)}
       />  */}
-     <div class="search-box">
-    <button class="btn-search"><i class="fas fa-search"></i></button>
-    <input type="text" class="input-search" placeholder="Ingrese un título o autor" value={book}
-    onChange={(e) => setBook(e.target.value)}/>
-  </div>
-      <div className={style.select2}>
-      <select
-        defaultValue="all"
-        onChange={(e) => setOptions(e.target.value)}
-        className={style.select}
-      >
-        <option value="all">Todos</option>
-        <option value="name">Título</option>
-        <option value="author">Autor</option>
-      </select>
+      <div className={style.search_box}>
+        <button className={style.btn_search}><i class="fas fa-search"></i></button>
+        <input type="text" class={style.input_search} placeholder="Ingrese un título o autor" value={book}
+          onChange={(e) => setBook(e.target.value)} />
       </div>
-      
+      <div className={style.select2}>
+        <select
+          defaultValue="all"
+          onChange={(e) => setOptions(e.target.value)}
+          className={style.select}
+        >
+          <option value="all">Todos</option>
+          <option value="name">Título</option>
+          <option value="author">Autor</option>
+        </select>
+      </div>
+
 
       {/* {!options ? (
         <button disabled className={style.button}>
