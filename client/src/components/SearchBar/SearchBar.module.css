@@ -65,7 +65,8 @@
 }
 .button {
   display: flex;
-  width: 6rem;
+  /* width: 3rem; */
+  align-items: center;
   height: auto;
   position: relative;
   cursor: pointer;
@@ -79,4 +80,21 @@
   margin-left: 1em;
   align-content: center;
   justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .form {
+    display: flex;
+  }
+  .input {
+    display: inline-block;
+    width: 11rem;
+    margin-left: -2rem;
+  }
+  .select {
+    margin-left: 4px;
+  }
+  .button {
+    margin-left: 4px;
+  }
 }

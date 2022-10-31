@@ -15,6 +15,7 @@ export default function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { pathname } = useLocation()
+  const [isOpen, setIsOpen] = useState(false)
 
 
   let repeatedIdArrayCart = [];
@@ -61,18 +62,18 @@ export default function NavBar() {
             <img id="logo" src={Logo} alt="bookstore" className={style.logo} />
           </Link>
         </div>
-        <div>
-          <SearchBar />
-        </div>
-        <div className={style.forms}>
+        <div className={`${style.forms} ${isOpen && style.open}`}>
+          <div  className={style.aa}>
+            <SearchBar/>
+          </div>
           <div>
-            <Link to="/admin">
+            <Link to="/admin" className={style.aa}>
               <button className={style.button}>Admin</button>
             </Link>
           </div>
           {!user ? (
             <div>
-              <Link to="/login">
+              <Link to="/login" className={style.aa}>
                 <button className={style.userBtn}>
                   <i className="fa-solid fa-user"></i>
                 </button>
@@ -87,7 +88,7 @@ export default function NavBar() {
                 className={`${style.menu} ${show ? style.show : style.hide}`}
               >
                 <ul className={style.list}>
-                  <Link to="/profile">
+                  <Link to="/profile" className={style.aa}>
                     <li onClick={() => setShow(false)} className={style.text}>
                       Cuenta
                     </li>
@@ -99,22 +100,25 @@ export default function NavBar() {
               </div>
             </div>
           )}
-          <div>
-            <Link to="/cart">
-              <button className={style.cart}>
-                <i className="fa-solid fa-cart-shopping"></i>
-                {!user ? (
-                  <div className={style.number}>
-                    {uniqueIdArrayCart && uniqueIdArrayCart.length}
-                  </div>
-                ) : (
-                  <div className={style.number}>
-                    {cart && !cart.messageError ? quantityCart : 0}
-                  </div>
-                )}
-              </button>
-            </Link>
-          </div>
+        </div>
+        <div>
+          <Link to="/cart" className={style.aa}>
+            <button className={style.cart}>
+              <i className="fa-solid fa-cart-shopping"></i>
+              {!user ? (
+                <div className={style.number}>
+                  {uniqueIdArrayCart && uniqueIdArrayCart.length}
+                </div>
+              ) : (
+                <div className={style.number}>
+                  {cart && !cart.messageError ? quantityCart : 0}
+                </div>
+              )}
+            </button>
+          </Link>
+        </div>
+        <div className={`${style.navToggle} ${isOpen && style.open}`} onClick={() => setIsOpen(!isOpen)}>
+          <div className={style.bar}></div>
         </div>
       </nav>
     </>
