@@ -36,27 +36,17 @@ export default function ProfileUser() {
       try {
         const res = await axios.get(`http://localhost:3001/user/${userId}`);
         setDataUser(res.data);
+        const userHistory = await axios.get(
+          `http://localhost:3001/cart/${userId}-`
+        );
+        setBooks(userHistory.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    const getHistory = async (userId) => {
-      try {
-        const userHistory = await axios.get(
-          `http://localhost:3001/cart/${userId}-`
-        );
-        setBooks(userHistory.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (!load) {
-      getUser(user);
-      getHistory(user);
-    }
+    if (!load) getUser(user);
   }, [load, edit.edited, user]);
   console.log(books);
   const onSubmit = async (data) => {
