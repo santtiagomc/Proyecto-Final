@@ -9,5 +9,6 @@ export default function templateAlert(title, text, icon, timer) {
     text: text,
     icon: icon,
     timer: timer,
+    confirmButtonColor: "#355070",
   });
 }

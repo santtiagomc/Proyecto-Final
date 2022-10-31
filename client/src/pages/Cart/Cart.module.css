@@ -103,7 +103,9 @@
   font-size: 24px;
 }
 
-
+.p {
+  font-size: 14px;
+}
 
 .button_disabled {
   opacity: 20%;
@@ -132,7 +134,7 @@
 }
 
 .btnBack {
-  width: 8rem;
+  width: 3rem;
   height: fit-content;
   text-align: center;
   justify-content: center;
@@ -147,7 +149,7 @@
 }
 
 .btnBackEmptyCart {
-  width: 8rem;
+  width: 3rem;
   height: fit-content;
   text-align: center;
   justify-content: center;
@@ -157,8 +159,8 @@
   color: #ffffff;
   border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
-  margin-top: 6.25rem;
-  margin-left: 7.5rem;
+  margin-right: 1em;
+  margin-bottom: 2.5em;
 
 }
 
@@ -183,3 +185,8 @@
   transform: translate(-50%, -50%);
   width: 20%
 }
+
+.btnArr{
+  font-size: large;
+}
+

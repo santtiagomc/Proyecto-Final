@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter, changeSearch } from "../../redux/actions";
 
+
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
+// import "./prueba.css"
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -25,33 +27,43 @@ export default function SearchBar() {
         background: "#19191a",
         color: "#e1e1e1",
         title: "Error",
-        text: "El campo no puede estar vacío!",
+        text: "El campo no puede estar vacío",
         icon: "error",
         timer: 4000,
+        confirmButtonColor: "#355070",
       });
     }
   };
 
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-      <input
+      {/* <input
         className={style.input}
         value={book}
         type="text"
         placeholder="Ingrese un título o autor"
         onChange={(e) => setBook(e.target.value)}
-      />
-      <select
-        defaultValue="all"
-        onChange={(e) => setOptions(e.target.value)}
-        className={style.select}
-      >
-        <option value="all">Todos</option>
-        <option value="name">Título</option>
-        <option value="author">Autor</option>
-      </select>
+      />  */}
+      <div className={style.search_box}>
+        <button className={style.btn_search}><i class="fas fa-search"></i></button>
+        <input type="text" class={style.input_search} placeholder="Ingrese un título o autor" value={book}
+          onChange={(e) => setBook(e.target.value)} />
+      </div>
+      <div className={style.select2}>
+        <select
+          defaultValue="all"
+          onChange={(e) => setOptions(e.target.value)}
+          className={style.select}
+        >
+          <option value="all">Todos</option>
+          <option value="name">Título</option>
+          <option value="author">Autor</option>
+        </select>
+      </div>
 
-      {!options ? (
+
+      {/* {!options ? (
         <button disabled className={style.button}>
           Buscar
         </button>
@@ -59,7 +71,7 @@ export default function SearchBar() {
         <button type="submit" className={style.button}>
           Buscar
         </button>
-      )}
+      )} */}
       {/* <button type="submit">Buscar</button> */}
     </form>
   );

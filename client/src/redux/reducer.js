@@ -25,6 +25,13 @@ import {
   PUT_USER,
   GET_ALL_CARTS,
   GET_ALL_BOOKS,
+  TABLE_VIEW,
+  USERS_ORDER_ADMIN,
+  BOOKS_ORDER_ADMIN,
+  CARTS_ORDER_ADMIN,
+  POST_GENRE,
+  DELETE_GENRE,
+  PUT_CART_STATUS,
 } from "./actions";
 
 const initialState = {
@@ -57,9 +64,16 @@ const initialState = {
   putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
+  usersOrderAdmin: "name-A-Z",
   allBooks: [],
+  booksOrderAdmin: "name-A-Z",
   allCarts: [],
+  cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
+  putCartResponse: [],
+  tableViewGlobal: "orders",
+  messageGlobal: [],
+  messageDeleteGlobal: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -116,7 +130,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
 
     case GET_CART:
-      return { ...state, cart: action.payload };
+      if (state.user && state.user.uid) {
+        return { ...state }
+      } else {
+        return { ...state, cart: action.payload };
+      }
 
     case GET_USER_CART:
       // console.log(action.payload);
@@ -174,6 +192,27 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_ALL_BOOKS:
       return { ...state, allBooks: action.payload };
+
+    case TABLE_VIEW:
+      return { ...state, tableViewGlobal: action.payload };
+
+    case USERS_ORDER_ADMIN:
+      return { ...state, usersOrderAdmin: action.payload };
+
+    case BOOKS_ORDER_ADMIN:
+      return { ...state, booksOrderAdmin: action.payload };
+
+    case CARTS_ORDER_ADMIN:
+      return { ...state, cartsOrderAdmin: action.payload };
+
+    case POST_GENRE:
+      return { ...state, messageGlobal: action.payload };
+
+    case DELETE_GENRE:
+      return { ...state, messageDeleteGlobal: action.payload };
+
+    case PUT_CART_STATUS:
+      return { ...state, putCartResponse: action.payload }
 
     default:
       return { ...state };

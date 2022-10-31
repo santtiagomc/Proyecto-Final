@@ -10,6 +10,7 @@ const { postAllBooks } = require("../utils/postAllBooks");
 const { getBooksByAll } = require("../utils/getBooksByAll");
 const { getBooksByFilters } = require("../utils/getBooksByFilters");
 const { pagination } = require("../utils/pagination");
+const { getAllBooksAdmin } = require("../utils/getAllBooksAdmin");
 
 const router = Router();
 
@@ -68,9 +69,9 @@ router.get("/page", async (req, res) => {
     : res.status(201).json(books);
 });
 
-router.get("/admin", async (req, res) => {
-  let books = await getAllBooks();
-  books.length && books.sort((a, b) => a.name.localeCompare(b.name))
+router.get("/admin/:search", async (req, res) => {
+  let books = await getAllBooksAdmin(req.params);
+  books.length && books.sort((a, b) => a.name.localeCompare(b.name));
 
   books.messageError
     ? res.status(404).json(books)
