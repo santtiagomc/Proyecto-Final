@@ -3,16 +3,56 @@ import style from "./Dashboard.module.css";
 import PanelUsers from "../../components/PanelUsers/PanelUsers";
 import PanelBooks from "../../components/PanelBooks/PanelBooks";
 import PanelOrders from "../../components/PanelOrders/PanelOrders";
-import { GiBookshelf, FaBook, ImBooks, MdCategory, FaUsers, FaFileInvoiceDollar, MdDashboardCustomize } from "react-icons/all"
+import PanelGenres from "../../components/PanelGenres/PanelGenres";
+import {
+  FaBook,
+  ImBooks,
+  MdCategory,
+  FaUsers,
+  FaFileInvoiceDollar,
+  MdDashboardCustomize,
+  MdClear,
+} from "react-icons/all";
 
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllBooks,
+  getAllUsers,
+  getCarts,
+  TABLE_VIEW,
+} from "../../redux/actions";
+import templateAlert from "../../helpers/templateAlert";
 
 export default function Dashboard() {
-  const [hovered, setHovered] = useState(0);
-  const [hidden, setHidden] = useState(false);
-  const [tableView, setTableView] = useState("users");
+  const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
+    (state) => state
+  );
+  const dispatch = useDispatch();
   const history = useHistory();
+
+  const [hidden, setHidden] = useState(false);
+  const [searchValue, setSearch] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchValue.trim().length !== 0) {
+      tableViewGlobal === "users" &&
+        dispatch(getAllUsers(usersOrderAdmin, searchValue));
+      tableViewGlobal === "orders" && dispatch(getCarts(searchValue));
+      tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
+    } else {
+      templateAlert("El campo no puede estar vacío", null, "warning", 3000);
+    }
+  };
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
+    tableViewGlobal === "orders" && dispatch(getCarts());
+    tableViewGlobal === "books" && dispatch(getAllBooks());
+  };
 
   return (
     <div className={style.container}>
@@ -28,70 +68,65 @@ export default function Dashboard() {
           </li>
           <li
             onClick={() => {
-              setTableView("users");
-              setHovered(1);
+              dispatch({ type: TABLE_VIEW, payload: "dashboard" });
             }}
-            className={hovered === 1 && style.hovered}
+            className={tableViewGlobal === "dashboard" && style.hovered}
           >
             <MdDashboardCustomize className={style.i} />
             <span className={style.title}>Dashboard</span>
           </li>
           <li
             onClick={() => {
-              setTableView("users");
-              setHovered(2);
+              dispatch({ type: TABLE_VIEW, payload: "users" });
             }}
-            className={hovered === 2 && style.hovered}
+            className={tableViewGlobal === "users" && style.hovered}
           >
             <FaUsers className={style.i} />
             <span className={style.title}>Usuarios</span>
           </li>
           <li
             onClick={() => {
-              setTableView("orders");
-              setHovered(3);
+              dispatch({ type: TABLE_VIEW, payload: "orders" });
             }}
-            className={hovered === 3 && style.hovered}
+            className={tableViewGlobal === "orders" && style.hovered}
           >
             <FaFileInvoiceDollar className={style.i} />
             <span className={style.title}>Órdenes</span>
           </li>
           <li
             onClick={() => {
-              setTableView("books");
-              setHovered(4);
+              dispatch({ type: TABLE_VIEW, payload: "books" });
             }}
-            className={hovered === 4 && style.hovered}
+            className={tableViewGlobal === "books" && style.hovered}
           >
             <ImBooks className={style.i} />
             <span className={style.title}>Libros</span>
           </li>
           <li
             onClick={() => {
-              setTableView("books");
-              setHovered(5);
+              dispatch({ type: TABLE_VIEW, payload: "addBook" });
             }}
-            className={hovered === 5 && style.hovered}
+            className={tableViewGlobal === "addBook" && style.hovered}
           >
             <FaBook className={style.i} />
-            <span className={style.title}>Agregar un libro</span>
+            <span className={style.title}>
+              {detail.name ? "Editar libro" : "Agregar un libro"}
+            </span>
           </li>
           <li
             onClick={() => {
-              setTableView("users");
-              setHovered(6);
+              dispatch({ type: TABLE_VIEW, payload: "genres" });
             }}
-            className={hovered === 6 && style.hovered}
+            className={tableViewGlobal === "genres" && style.hovered}
           >
             <MdCategory className={style.i} />
             <span className={style.title}>Categorías</span>
           </li>
           <li
             onClick={() => {
-              setTableView("users");
-              setHovered(8);
+              dispatch({ type: TABLE_VIEW, payload: "logOff" });
             }}
-            className={hovered === 8 && style.hovered}
+            className={tableViewGlobal === "logOff" && style.hovered}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>
@@ -107,26 +142,39 @@ export default function Dashboard() {
             >
               <i className="fa-solid fa-bars"></i>
             </div>
+
             <div className={style.search}>
-              <label>
-                <input type="text" placeholder="Búsque aquí" />
+              <form
+                className={style.searchForm}
+                onSubmit={(e) => handleSubmit(e)}
+              >
+                <input
+                  className={style.searchFormInput}
+                  type="text"
+                  placeholder={"Buscar aquí"}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
                 <i class="fa-solid fa-magnifying-glass"></i>
-              </label>
+              </form>
+              <button
+                className={style.searchBtn}
+                onClick={(e) => handleClear(e)}
+              >
+                <MdClear className={style.clear} />
+              </button>
             </div>
+
             <div className={style.logo}></div>
           </div>
 
           <div>
-            {tableView === "users" && <PanelUsers />}
-            {tableView === "orders" && <PanelOrders />}
-            {tableView === "books" && <PanelBooks />}
-            {/* {tableView === "users" ? (
-              <PanelUsers />
-            ) : tableView === "orders" ? (
-              <PanelOrders />
-            ) : (
-              <PanelBooks />
-            )} */}
+            {tableViewGlobal === "dashboard" && <PanelUsers />}
+            {tableViewGlobal === "users" && <PanelUsers />}
+            {tableViewGlobal === "orders" && <PanelOrders />}
+            {tableViewGlobal === "books" && <PanelBooks />}
+            {tableViewGlobal === "addBook" && <CreateBook />}
+            {tableViewGlobal === "genres" && <PanelGenres />}
+            {tableViewGlobal === "logOff" && <PanelGenres />}
           </div>
         </div>
       </div>
