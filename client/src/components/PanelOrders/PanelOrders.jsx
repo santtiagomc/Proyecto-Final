@@ -1,51 +1,49 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, getCarts, putCartStatus, putStatus, PUT_CART_STATUS, PUT_STATUS } from "../../redux/actions";
+import { CARTS_ORDER_ADMIN, getAllBooks, getCarts, putCartStatus, putStatus, PUT_CART_STATUS, PUT_STATUS } from "../../redux/actions";
 import { useHistory } from "react-router-dom"
 
 import {
   AiFillEdit,
-  ImBooks
+  ImBooks,
+  BsSortNumericDown,
+  BsSortNumericUp,
+  AiOutlineSortAscending,
+  AiOutlineSortDescending
 } from "react-icons/all";
 import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
+import { templateAlertTopEnd } from "../../helpers/templateAlert";
 import style from "./PanelOrders.module.css";
 
 export default function PanelBooks() {
-  const { allCarts, putCartResponse } = useSelector((state) => state);
+  const { allCarts, putCartResponse, cartsFiltersAdmin } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory()
 
-  function swalAlert(timer, icon, message) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: timer,
-      timerProgressBar: true,
-    });
+  useEffect(() => {
+    dispatch(getCarts(cartsFiltersAdmin));
+  }, [putCartResponse, cartsFiltersAdmin.sort]);
 
-    Toast.fire({
-      icon: icon,
-      title: message,
-    });
-  }
+  useEffect(() => {
+    if (allCarts.messageError) {
+      templateAlertTopEnd(2000, "error", allCarts.messageError);
+      dispatch(getCarts(cartsFiltersAdmin));
+    }
+  }, [allCarts]);
 
   useEffect(() => {
     if (!Array.isArray(putCartResponse)) {
       if (putCartResponse.messageError) {
-        swalAlert(2000, "error", putCartResponse.messageError)
-        dispatch({ type: PUT_CART_STATUS, payload: [] })
+        templateAlertTopEnd(2000, "error", putCartResponse.messageError);
       } else {
-        swalAlert(2000, "success", putCartResponse.message)
-        dispatch({ type: PUT_CART_STATUS, payload: [] })
+        templateAlertTopEnd(2000, "success", putCartResponse.message);
       }
+      dispatch({ type: PUT_CART_STATUS, payload: [] });
     }
-    dispatch(getCarts());
   }, [putCartResponse]);
 
   function templateAlertBooks(title, text) {
-    console.log(text)
     return Swal.fire({
       background: "#19191a",
       color: "#181818",
@@ -71,15 +69,68 @@ export default function PanelBooks() {
       }
     });
   }
-  console.log(allCarts[1])
+
   return (
     <div className={style.container}>
       <div className={style.table_container}>
         <div className={`${style.table_row} ${style.table_row_attributtes}`}>
           <span className={style.col0}>Id</span>
-          <span className={style.col1}>Estado</span>
-          <span className={style.col2}>Precio total</span>
-          <span className={style.col3}>Usuario</span>
+          <span
+            className={
+              cartsFiltersAdmin.sort.slice(0, 3) === "sta"
+                ? `${style.col1} ${style.col_active}`
+                : style.col1
+            }
+            onClick={() =>
+              dispatch({
+                type: CARTS_ORDER_ADMIN,
+                payload:
+                  cartsFiltersAdmin.sort === "status-A-Z" ? "status-Z-A" : "status-A-Z",
+              })
+            }>
+            <span>Estado</span>
+            {cartsFiltersAdmin.sort === "status-A-Z" ? (
+              <AiOutlineSortAscending className={style.i_order} />
+            ) : (
+              <AiOutlineSortDescending className={style.i_order} />
+            )}
+          </span>
+          <span className={
+            cartsFiltersAdmin.sort.slice(0, 3) === "pri"
+              ? `${style.col2} ${style.col_active}`
+              : style.col2
+          }
+            onClick={() =>
+              dispatch({
+                type: CARTS_ORDER_ADMIN,
+                payload:
+                  cartsFiltersAdmin.sort === "price-min-max" ? "price-max-min" : "price-min-max",
+              })
+            }>
+            <span>Precio total</span>
+            {cartsFiltersAdmin.sort === "price-min-max" ? (
+              <BsSortNumericDown className={style.i_order} />
+            ) : (
+              <BsSortNumericUp className={style.i_order} />
+            )}</span>
+          <span className={
+            cartsFiltersAdmin.sort.slice(0, 3) === "nam"
+              ? `${style.col3} ${style.col_active}`
+              : style.col3
+          }
+            onClick={() =>
+              dispatch({
+                type: CARTS_ORDER_ADMIN,
+                payload:
+                  cartsFiltersAdmin.sort === "name-A-Z" ? "name-Z-A" : "name-A-Z",
+              })
+            }>
+            <span>Usuario</span>
+            {cartsFiltersAdmin.sort === "name-A-Z" ? (
+              <AiOutlineSortAscending className={style.i_order} />
+            ) : (
+              <AiOutlineSortDescending className={style.i_order} />
+            )}</span>
           <span className={style.col4}>Correo</span>
           <span className={style.col5}>Productos</span>
         </div>
@@ -107,60 +158,6 @@ export default function PanelBooks() {
               </span>
             </div>
           ))}
-        {/* {allBooks.length &&
-          allBooks.map((el, index) => (
-            <div className={style.table_row} key={index}>
-              <span className={style.col0}>{index}</span>
-              <span className={style.col1} onClick={(e) => goDetail(e, el.id, el.name)}>{el.name}</span>
-              <span className={style.col2}>{el.author}</span>
-              <span className={style.col3}>{el.edition}</span>
-              <span className={style.col4}>
-                {el.Genres.length > 1 ? (
-                  <button
-                    className={style.btn}
-                    onClick={() =>
-                      templateAlert(
-                        "Categorías",
-                        el.Genres.map((ele) => ele.name).join(", ")
-                      )
-                    }
-                  >
-                    <BiCategory />
-                  </button>
-                ) : (
-                  el.Genres.map((ele) => ele.name)
-                )}
-              </span>
-              <span className={style.col5}>
-                <button
-                  className={style.btn}
-                  onClick={() => handleImage(el.image, el.name)}
-                >
-                  <BiImage />
-                </button>
-              </span>
-              <span className={style.col6}>
-                <button
-                  className={style.btn}
-                  onClick={() => templateAlert("Descripción", el.description)}
-                >
-                  <MdDescription />
-                </button>
-              </span>
-              <span className={style.col7}>{el.editorial}</span>
-              <span className={style.col8}>{el.price}</span>
-              <span className={style.col9}>{el.stock}</span>
-              <span className={style.col10}>
-                <BsFillPencilFill />
-              </span>
-              <span
-                className={style.col11}
-                onClick={(e) => handleClick(e, el.id, el.name, el.visible)}
-              >
-                {el.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
-              </span>
-            </div>
-          ))} */}
       </div>
     </div >
   );

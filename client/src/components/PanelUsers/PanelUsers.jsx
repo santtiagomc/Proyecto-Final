@@ -17,45 +17,30 @@ import {
 } from "react-icons/all";
 import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
+import { templateAlertTopEnd } from "../../helpers/templateAlert";
+
 
 export default function PanelUsers() {
-  const { allUsers, putUserResponse, usersOrderAdmin } = useSelector(
-    (state) => state
-  );
+  const { allUsers, putUserResponse, usersFiltersAdmin } = useSelector(state => state);
   const dispatch = useDispatch();
-  console.log(usersOrderAdmin);
-  function swalAlert(timer, icon, message) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: timer,
-      timerProgressBar: true,
-    });
-
-    Toast.fire({
-      icon: icon,
-      title: message,
-    });
-  }
 
   useEffect(() => {
-    dispatch(getAllUsers(usersOrderAdmin));
-  }, [putUserResponse, usersOrderAdmin]);
+    dispatch(getAllUsers(usersFiltersAdmin));
+  }, [putUserResponse, usersFiltersAdmin.sort]);
 
   useEffect(() => {
     if (allUsers.messageError) {
-      templateAlert(allUsers.messageError, null, "error", 2000);
-      dispatch(getAllUsers(usersOrderAdmin));
+      templateAlertTopEnd(2000, "error", allUsers.messageError);
+      dispatch(getAllUsers(usersFiltersAdmin));
     }
   }, [allUsers]);
 
   useEffect(() => {
     if (!Array.isArray(putUserResponse)) {
       if (putUserResponse.messageError) {
-        swalAlert(2000, "error", putUserResponse.messageError);
+        templateAlertTopEnd(2000, "error", putUserResponse.messageError);
       } else {
-        swalAlert(2000, "success", putUserResponse.message);
+        templateAlertTopEnd(2000, "success", putUserResponse.message);
       }
       dispatch({ type: PUT_USER, payload: [] });
     }
@@ -123,7 +108,7 @@ export default function PanelUsers() {
             >
               <span
                 className={
-                  usersOrderAdmin.slice(0, 3) === "rol"
+                  usersFiltersAdmin.sort.slice(0, 3) === "rol"
                     ? `${style.col1} ${style.col_active}`
                     : style.col1
                 }
@@ -131,12 +116,12 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersOrderAdmin === "role-A-Z" ? "role-Z-A" : "role-A-Z",
+                      usersFiltersAdmin.sort === "role-A-Z" ? "role-Z-A" : "role-A-Z",
                   })
                 }
               >
                 <span>Rol</span>
-                {usersOrderAdmin === "role-A-Z" ? (
+                {usersFiltersAdmin.sort === "role-A-Z" ? (
                   <AiOutlineSortAscending className={style.i_order} />
                 ) : (
                   <AiOutlineSortDescending className={style.i_order} />
@@ -144,7 +129,7 @@ export default function PanelUsers() {
               </span>
               <span
                 className={
-                  usersOrderAdmin.slice(0, 3) === "nam"
+                  usersFiltersAdmin.sort.slice(0, 3) === "nam"
                     ? `${style.col2} ${style.col_active}`
                     : style.col2
                 }
@@ -152,12 +137,12 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersOrderAdmin === "name-A-Z" ? "name-Z-A" : "name-A-Z",
+                      usersFiltersAdmin.sort === "name-A-Z" ? "name-Z-A" : "name-A-Z",
                   })
                 }
               >
                 <span>Nombre</span>
-                {usersOrderAdmin === "name-A-Z" ? (
+                {usersFiltersAdmin.sort === "name-A-Z" ? (
                   <AiOutlineSortAscending className={style.i_order} />
                 ) : (
                   <AiOutlineSortDescending className={style.i_order} />
@@ -165,7 +150,7 @@ export default function PanelUsers() {
               </span>
               <span
                 className={
-                  usersOrderAdmin.slice(0, 3) === "ema"
+                  usersFiltersAdmin.sort.slice(0, 3) === "ema"
                     ? `${style.col3} ${style.col_active}`
                     : style.col3
                 }
@@ -173,14 +158,14 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersOrderAdmin === "email-A-Z"
+                      usersFiltersAdmin.sort === "email-A-Z"
                         ? "email-Z-A"
                         : "email-A-Z",
                   })
                 }
               >
                 <span>Correo</span>
-                {usersOrderAdmin === "email-A-Z" ? (
+                {usersFiltersAdmin.sort === "email-A-Z" ? (
                   <AiOutlineSortAscending className={style.i_order} />
                 ) : (
                   <AiOutlineSortDescending className={style.i_order} />
@@ -188,7 +173,7 @@ export default function PanelUsers() {
               </span>
               <span
                 className={
-                  usersOrderAdmin.slice(0, 3) === "sta"
+                  usersFiltersAdmin.sort.slice(0, 3) === "sta"
                     ? `${style.col4} ${style.col_active}`
                     : style.col4
                 }
@@ -196,14 +181,14 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersOrderAdmin === "status-A-Z"
+                      usersFiltersAdmin.sort === "status-A-Z"
                         ? "status-Z-A"
                         : "status-A-Z",
                   })
                 }
               >
                 <span>Estado</span>
-                {usersOrderAdmin === "status-A-Z" ? (
+                {usersFiltersAdmin.sort === "status-A-Z" ? (
                   <AiOutlineSortAscending className={style.i_order} />
                 ) : (
                   <AiOutlineSortDescending className={style.i_order} />

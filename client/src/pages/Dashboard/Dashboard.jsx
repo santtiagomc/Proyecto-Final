@@ -18,15 +18,20 @@ import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  BOOKS_SEARCH_ADMIN,
+  CARTS_SEARCH_ADMIN,
   getAllBooks,
   getAllUsers,
   getCarts,
   TABLE_VIEW,
+  USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
+import { templateAlertTopEnd } from "../../helpers/templateAlert";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
+  const { tableViewGlobal, detail, usersFiltersAdmin, cartsFiltersAdmin, booksFiltersAdmin } = useSelector(
     (state) => state
   );
   const dispatch = useDispatch();
@@ -35,21 +40,34 @@ export default function Dashboard() {
   const [hidden, setHidden] = useState(false);
   const [searchValue, setSearch] = useState("");
 
+  useEffect(() => {
+    tableViewGlobal === "users" &&
+      dispatch({ type: USERS_SEARCH_ADMIN, payload: searchValue });
+    tableViewGlobal === "orders" &&
+      dispatch({ type: CARTS_SEARCH_ADMIN, payload: searchValue });
+    tableViewGlobal === "books" &&
+      dispatch({ type: BOOKS_SEARCH_ADMIN, payload: searchValue });
+  }, [searchValue])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchValue.trim().length !== 0) {
       tableViewGlobal === "users" &&
-        dispatch(getAllUsers(usersOrderAdmin, searchValue));
-      tableViewGlobal === "orders" && dispatch(getCarts(searchValue));
-      tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
+        dispatch(getAllUsers(usersFiltersAdmin));
+      tableViewGlobal === "orders" &&
+        dispatch(getCarts(cartsFiltersAdmin));
+      tableViewGlobal === "books" &&
+        dispatch(getAllBooks(booksFiltersAdmin));
     } else {
       templateAlert("El campo no puede estar vacío", null, "warning", 3000);
     }
+    setSearch("")
+    e.target.reset()
   };
 
   const handleClear = (e) => {
     e.preventDefault();
-    tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
+    tableViewGlobal === "users" && dispatch(getAllUsers(usersFiltersAdmin));
     tableViewGlobal === "orders" && dispatch(getCarts());
     tableViewGlobal === "books" && dispatch(getAllBooks());
   };
@@ -181,6 +199,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

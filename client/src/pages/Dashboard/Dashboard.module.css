@@ -50,6 +50,7 @@
   width: 100%;
   height: 100%;
   padding: 1em 0;
+  padding-bottom: 4em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -145,6 +146,7 @@
   left: 74px;
 }
 
+/* 
 @media(max-width: 1470px) {
   .navigation {
     width: 74px;
@@ -154,9 +156,9 @@
     width: calc(100% - 4.625rem);
     left: calc(4.625rem);
   }
-}
+} */
 
-*/ @media (max-width: 500px) {
+@media (max-width: 500px) {
   .navigation {
     width: 0rem;
   }
