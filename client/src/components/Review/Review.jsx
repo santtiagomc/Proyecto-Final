@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Review.module.css";
-import { deleteReviews, getDetail, postReviews, POST_REVIEWS } from "../../redux/actions";
+import {
+  deleteReviews,
+  getDetail,
+  postReviews,
+  POST_REVIEWS,
+} from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -92,34 +97,38 @@ export default function Review({ id }) {
   function handleDelete(e) {
     e.preventDefault();
     Swal.fire({
-      title: '¡Cuidado! Estás a punto de borrar tu reseña.',
+      title: "¡Cuidado! Estás a punto de borrar tu reseña.",
       width: 650,
       text: "¿Quieres borrar tu reseña? Esto no podrá deshacerse.",
-      icon: 'warning',
+      icon: "warning",
       iconColor: "#355070",
       showCancelButton: true,
       background: "#19191a",
       color: "#e1e1e1",
-      confirmButtonColor: '#355070',
-      cancelButtonColor: '#B270A2',
-      confirmButtonText: '¡Si! Borrar reseña',
-      cancelButtonText: "Cancelar"
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      confirmButtonText: "¡Si! Borrar reseña",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteReviews({ UserId: user.uid, BookId: id }));
 
-        swalAlert(3000, "success", "Has eliminado tu reseña, puedes agregar una nueva!")
+        swalAlert(
+          3000,
+          "success",
+          "Has eliminado tu reseña, puedes agregar una nueva!"
+        );
       }
-    })
+    });
   }
 
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
-      swalAlert(2000, "error", createReview.messageError)
+      swalAlert(2000, "error", createReview.messageError);
       dispatch({ type: POST_REVIEWS, payload: [] });
     } else if (createReview.message) {
-      swalAlert(2000, "success", createReview.message)
+      swalAlert(2000, "success", createReview.message);
 
       setInput({
         title: "",
@@ -164,8 +173,9 @@ export default function Review({ id }) {
                 Título*
               </label>
               <input
-                className={`form-control ${!input.title ? "" : errors.title ? "is-invalid" : "is-valid"
-                  }`}
+                className={`form-control ${
+                  !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
+                }`}
                 type="text"
                 name="title"
                 id="title"
@@ -249,12 +259,13 @@ export default function Review({ id }) {
                 type="text"
                 name="description"
                 id="description"
-                className={`form-control ${!input.description
-                  ? ""
-                  : errors.description
+                className={`form-control ${
+                  !input.description
+                    ? ""
+                    : errors.description
                     ? "is-invalid"
                     : "is-valid"
-                  }`}
+                }`}
                 placeholder="Agregue su reseña"
                 value={input.description}
                 onChange={handleChange}
@@ -280,38 +291,41 @@ export default function Review({ id }) {
       <hr></hr>
       {detail.Reviews.length
         ? detail.Reviews.map((review, index) => (
-          <div className={style.single_review} key={index}>
-            {review.User && (
-              <h6 className={style.user_single_review}>
-                {review.User.fullName}
-              </h6>
-            )}
-            <div className={style.header_single_review}>
-              <h3 className={style.title_single_review}> {review.title} </h3>
-              <div className={style.stars_single_review}>
-                {Array(review.rating)
-                  .fill(1)
-                  .map((e, index) => (
-                    <div className={style.star_single_review} key={index}>
-                      <i className={`fa-solid fa-star`}></i>
-                    </div>
-                  ))}
+            <div className={style.single_review} key={index}>
+              {review.User && (
+                <h6 className={style.user_single_review}>
+                  {review.User.fullName}
+                </h6>
+              )}
+              <div className={style.header_single_review}>
+                <h3 className={style.title_single_review}> {review.title} </h3>
+                <div className={style.stars_single_review}>
+                  {Array(review.rating)
+                    .fill(1)
+                    .map((e, index) => (
+                      <div className={style.star_single_review} key={index}>
+                        <i className={`fa-solid fa-star`}></i>
+                      </div>
+                    ))}
+                </div>
               </div>
+              <p className={style.description_single_review}>
+                {" "}
+                {review.description}{" "}
+              </p>
+              {user && review.User?.id === user.uid && (
+                <div
+                  className={style.delete_single_review}
+                  onClick={handleDelete}
+                >
+                  {/* <i className="fa-solid fa-square-xmark"></i> */}
+                  <span>Eliminar reseña</span>
+                  <i className="fa-solid fa-square-xmark"></i>
+                </div>
+              )}
+              <hr></hr>
             </div>
-            <p className={style.description_single_review}>
-              {" "}
-              {review.description}{" "}
-            </p>
-            {user && review.User?.id === user.uid
-              &&
-              <div className={style.delete_single_review} onClick={handleDelete}>
-                {/* <i className="fa-solid fa-square-xmark"></i> */}
-                <span>Eliminar reseña</span>
-                <i className="fa-solid fa-square-xmark"></i>
-              </div>}
-            <hr></hr>
-          </div>
-        ))
+          ))
         : ""}
     </div>
   );
