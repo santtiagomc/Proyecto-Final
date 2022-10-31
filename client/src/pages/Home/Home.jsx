@@ -33,25 +33,29 @@ export default function Home() {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
   const pages = [];
-  // const booksVisible = books.filter((b) => b.visible === true);
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
     if (user && user.uid) {
-      dispatch(getUserDb(user.uid));
-      //console.log(userDb);
       if (userDb.role === "Admin++" || userDb.role === "Admin") {
-        //console.log(userDb);
-        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
+        setTimeout(function () {
+          dispatch(
+            searchBook(filtersApplied, searchApplied, page, userDb.role)
+          );
+        }, 300);
       } else {
-        //console.log(userDb);
-        //console.log(user);
-        dispatch(searchBook(filtersApplied, searchApplied, page));
+        setTimeout(function () {
+          dispatch(searchBook(filtersApplied, searchApplied, page));
+        }, 200);
+        // dispatch(searchBook(filtersApplied, searchApplied, page));
       }
     }
-    dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied, user]);
+    setTimeout(function () {
+      dispatch(searchBook(filtersApplied, searchApplied, page));
+    }, 200);
+    // dispatch(searchBook(filtersApplied, searchApplied, page));
+  }, [filtersApplied, page, searchApplied, user, userDb]);
 
   useEffect(() => {
     if (books.messageError) {

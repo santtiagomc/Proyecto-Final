@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCart, postCart } from "../../redux/actions";
+import { getUserCart, postCart, getUserDb } from "../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import style from "./Login.module.css";
@@ -35,6 +35,10 @@ export default function Login() {
   useEffect(() => {
     if (user && user.uid) {
       dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
+      setTimeout(function () {
+        dispatch(getUserDb(user.uid));
+      }, 500);
+
       if (uniqueIdArrayCart.length) {
         Swal.fire({
           title: "Tienes productos en tu carrito de invitado",
@@ -88,7 +92,7 @@ export default function Login() {
 
   const onSubmit = async (user) => {
     try {
-      console.log(user);
+      // console.log(user);
       const userLog = await singIn(user.email, user.password);
     } catch (error) {
       setError("Usuario o contraseña incorrecto");

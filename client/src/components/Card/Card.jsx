@@ -13,7 +13,7 @@ export default function Card({
   visible,
 }) {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state);
+  const { user, userDb } = useSelector((state) => state);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -24,7 +24,8 @@ export default function Card({
     <div>
       {
         user ? (
-          user.role === "Admin++" || user.role === "Admin" ? (
+          userDb &&
+          (userDb.role === "Admin++" || userDb.role === "Admin" ? (
             <div>
               <div className={style.admin}>
                 <button
@@ -81,7 +82,7 @@ export default function Card({
                 </div>
               </NavLink>
             )
-          )
+          ))
         ) : (
           <NavLink className={style.navLink} to={`/detail/${id}`}>
             <div className={visible ? style.container : style.containerF}>
@@ -97,6 +98,7 @@ export default function Card({
             </div>
           </NavLink>
         )
+
         // <div className={style.admin}>
         //   <button
         //     className={visible ? style.btnStatusF : style.btnStatusT}

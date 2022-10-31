@@ -198,6 +198,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, cartsOrderAdmin: action.payload };
 
     case GET_USER_DB:
+      // console.log(action.payload);
       return { ...state, userDb: action.payload };
 
     default:
