@@ -14,8 +14,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const { pathname } = useLocation()
-
+  const { pathname } = useLocation();
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -42,7 +41,7 @@ export default function NavBar() {
     } else {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-  }, [user, postCartResponse]);
+  }, [dispatch, user, postCartResponse]);
 
   const handleLogOut = async () => {
     try {
@@ -55,7 +54,11 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className={pathname === "/admin" ? `${style.nav} ${style.none}` : style.nav}>
+      <nav
+        className={
+          pathname === "/admin" ? `${style.nav} ${style.none}` : style.nav
+        }
+      >
         <div>
           <Link to="/">
             <img id="logo" src={Logo} alt="bookstore" className={style.logo} />

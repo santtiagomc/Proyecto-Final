@@ -10,8 +10,8 @@ import style from "./PanelUsers.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
 import {
   AiFillEdit,
-  BiDownArrow,
-  BiUpArrow,
+  // BiDownArrow,
+  // BiUpArrow,
   AiOutlineSortAscending,
   AiOutlineSortDescending,
 } from "react-icons/all";
@@ -41,14 +41,14 @@ export default function PanelUsers() {
 
   useEffect(() => {
     dispatch(getAllUsers(usersOrderAdmin));
-  }, [putUserResponse, usersOrderAdmin]);
+  }, [dispatch, putUserResponse, usersOrderAdmin]);
 
   useEffect(() => {
     if (allUsers.messageError) {
       templateAlert(allUsers.messageError, null, "error", 2000);
       dispatch(getAllUsers(usersOrderAdmin));
     }
-  }, [allUsers]);
+  }, [dispatch, allUsers]);
 
   useEffect(() => {
     if (!Array.isArray(putUserResponse)) {
@@ -59,7 +59,7 @@ export default function PanelUsers() {
       }
       dispatch({ type: PUT_USER, payload: [] });
     }
-  }, [putUserResponse]);
+  }, [dispatch, putUserResponse]);
 
   function handleRole(e, id, fullName, role) {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
@@ -105,8 +105,8 @@ export default function Cart() {
       }
     } else {
       if (quantity[e.target.value] > 1) {
-        let index = repeatedIdArrayCart.indexOf(e.target.value);
-        let filtered = repeatedIdArrayCart.splice(index, 1);
+        // let index = repeatedIdArrayCart.indexOf(e.target.value);
+        // let filtered = repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
