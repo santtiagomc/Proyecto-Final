@@ -17,7 +17,12 @@ import {
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, getAllUsers, TABLE_VIEW } from "../../redux/actions";
+import {
+  getAllBooks,
+  getAllUsers,
+  getCarts,
+  TABLE_VIEW,
+} from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
 
 export default function Dashboard() {
@@ -35,7 +40,7 @@ export default function Dashboard() {
     if (searchValue.trim().length !== 0) {
       tableViewGlobal === "users" &&
         dispatch(getAllUsers(usersOrderAdmin, searchValue));
-      tableViewGlobal === "orders" && console.log("xd");
+      tableViewGlobal === "orders" && dispatch(getCarts(searchValue));
       tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
     } else {
       templateAlert("El campo no puede estar vacío", null, "warning", 3000);
@@ -45,7 +50,7 @@ export default function Dashboard() {
   const handleClear = (e) => {
     e.preventDefault();
     tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
-    tableViewGlobal === "orders" && console.log("xd");
+    tableViewGlobal === "orders" && dispatch(getCarts());
     tableViewGlobal === "books" && dispatch(getAllBooks());
   };
 

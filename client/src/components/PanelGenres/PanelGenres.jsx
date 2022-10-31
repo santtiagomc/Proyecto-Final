@@ -103,7 +103,6 @@ export default function PanelBooks() {
     });
   };
 
-  console.log(messageGlobal);
   return (
     <div className={style.container}>
       <div className={style.genreListContainer}>

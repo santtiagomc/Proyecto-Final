@@ -26,7 +26,9 @@ async function getAllUsers({ sort, search }) {
         searchedUser.sort((b, a) => a.status.localeCompare(b.status));
 
       if (!searchedUser.length)
-        return { messageError: "No hay usuarios registrados." };
+        return {
+          messageError: `No se encontraron coincidencias para "${search}".`,
+        };
       return searchedUser;
     } else {
       const allUsersDb = await Users.findAll();

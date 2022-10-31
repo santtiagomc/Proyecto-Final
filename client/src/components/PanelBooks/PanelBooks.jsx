@@ -41,7 +41,7 @@ export default function PanelBooks() {
 
   useEffect(() => {
     if (allBooks.messageError) {
-      templateAlert(allBooks.messageError, null, "error", 1000);
+      templateAlert(allBooks.messageError, null, "error", 2000);
       dispatch(getAllBooks());
     }
   }, [allBooks]);
