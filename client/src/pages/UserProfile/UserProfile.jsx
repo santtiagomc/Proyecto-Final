@@ -14,15 +14,18 @@ import { useHistory } from "react-router-dom";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { logOut } from "../../firebase/auth";
 import Avatar from "./avatar.png";
+import { Link } from "react-router-dom";
 
 export default function ProfileUser() {
   const [hovered, setHovered] = useState(0);
   const [hidden, setHidden] = useState(false);
-  const history = useHistory();
   const [dataUser, setDataUser] = useState({});
+  const [booksBuyed, setBooksBuyed] = useState({});
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState({ change: false, edited: false });
   const [user, load] = useUser();
+  const [page, setPage] = useState(0);
+  const history = useHistory();
   const {
     register,
     formState: { errors },
@@ -34,6 +37,10 @@ export default function ProfileUser() {
       try {
         const res = await axios.get(`http://localhost:3001/user/${userId}`);
         setDataUser(res.data);
+        const userHistory = await axios.get(
+          `http://localhost:3001/cart/${userId}-0`
+        );
+        setBooksBuyed(userHistory.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -55,10 +62,27 @@ export default function ProfileUser() {
     }
   };
 
-  if (user === undefined && !loading) {
-    return <Error error="No estas autenticado" />;
-  }
-
+  const nextPage = async () => {
+    console.log("a");
+    console.log(booksBuyed.total);
+    if (page + 5 < booksBuyed.total) {
+      console.log("xd");
+      setPage(page + 5);
+      try {
+        const userHistory = await axios.get(
+          `http://localhost:3001/cart/${user}-${page + 5}`
+        );
+        console.log(userHistory);
+        setBooksBuyed({
+          ...booksBuyed,
+          books: [...booksBuyed.books, ...userHistory.data.books],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  console.log(booksBuyed);
   const handleLogOut = async () => {
     try {
       await logOut();
@@ -67,6 +91,10 @@ export default function ProfileUser() {
       console.log(error);
     }
   };
+
+  if (user === undefined && !loading) {
+    return <Error error="No estas autenticado" />;
+  }
 
   return (
     <>
@@ -100,7 +128,7 @@ export default function ProfileUser() {
               </li>
               <li className={hovered === 3 && style.hovered}>
                 <FaShoppingCart className={style.i} />
-                <span className={style.title}>Historial de compras</span>
+                <span className={style.title}>Mis compras</span>
               </li>
               {/* <li className={hovered === 5 && style.hovered}>
 								<MdPassword className={style.i} />
@@ -233,16 +261,35 @@ export default function ProfileUser() {
                       </button>
                     </form>
                   )}
-                  {/* <div>
-              <h2>Historial de compras</h2>
-              <h4>Compra 1</h4>
-              <h4>Compra 2</h4>
-              <h4>Compra 3</h4>
-              <button>Ver todas 🛒</button>
-            	</div> */}
                   <br></br>
                 </div>
               </div>
+              {/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
+              <div style={{ color: "#ffffff" }}>
+                <h2>Mis compras</h2>
+                {booksBuyed.books &&
+                  booksBuyed.books.map((book) => (
+                    <div style={{ marginBottom: "100px" }}>
+                      <h3>{book.status}</h3>
+                      <div>
+                        {book.Books.map((purchase) => (
+                          <div>
+                            <img src={purchase.image} />
+                            <h3>{purchase.name}</h3>
+                            <p>
+                              {purchase.price * purchase.Books_Carts.quantity}
+                            </p>
+                            <p>Cantidad {purchase.Books_Carts.quantity}</p>
+                            <Link to={`/detail/${purchase.id}`}>Detalle</Link>
+                          </div>
+                        ))}
+                      </div>
+                      <hr /> {/* por ahora para diferenciar carritos */}
+                    </div>
+                  ))}
+                <button onClick={nextPage}>Ver mas</button>
+              </div>
+              {/*---------------------------------------------------------------*/}
             </div>
           </div>
         </div>
