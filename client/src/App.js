@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { userExist } from "./redux/actions";
+import { userExist, getUserDb } from "./redux/actions";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { auth } from "./firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,13 +18,13 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
-
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       dispatch(userExist(user));
+      dispatch(getUserDb(user.uid));
     });
   }, [dispatch]);
 

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCart, postCart, getUserDb } from "../../redux/actions";
+import { getUserCart, postCart } from "../../redux/actions";
 import Swal from "sweetalert2";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import style from "./Login.module.css";
@@ -34,9 +34,6 @@ export default function Login() {
 
   useEffect(() => {
     if (user && user.uid) {
-      setTimeout(function () {
-        dispatch(getUserDb(user.uid));
-      }, 300);
       setLoader(true);
 
       if (uniqueIdArrayCart.length) {

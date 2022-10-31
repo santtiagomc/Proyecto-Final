@@ -38,26 +38,15 @@ export default function Home() {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
     if (user && user.uid) {
+      console.log(userDb);
       if (userDb.role === "Admin++" || userDb.role === "Admin") {
-        setTimeout(function () {
-          dispatch(
-            searchBook(filtersApplied, searchApplied, page, userDb.role)
-          );
-        }, 300);
-        // setLoader(true);
+        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
       } else {
-        setTimeout(function () {
-          dispatch(searchBook(filtersApplied, searchApplied, page));
-        }, 200);
-        // setLoader(true);
-        // dispatch(searchBook(filtersApplied, searchApplied, page));
+        dispatch(searchBook(filtersApplied, searchApplied, page));
       }
-    }
-    setTimeout(function () {
+    } else {
       dispatch(searchBook(filtersApplied, searchApplied, page));
-    }, 200);
-    // setLoader(true);
-    // dispatch(searchBook(filtersApplied, searchApplied, page));
+    }
   }, [filtersApplied, page, searchApplied, user, userDb]);
 
   useEffect(() => {

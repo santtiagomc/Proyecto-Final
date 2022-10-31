@@ -6,7 +6,7 @@ import style from "./Register.module.css";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserCart, postCart, getUserDb } from "../../redux/actions";
+import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import templateAlert from "../../helpers/templateAlert";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -34,9 +34,6 @@ export default function Register() {
   useEffect(() => {
     if (user && user.uid) {
       setLoader(true);
-      setTimeout(function () {
-        dispatch(getUserDb(user.uid));
-      }, 500);
       if (uniqueIdArrayCart.length) {
         dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
 
@@ -112,7 +109,7 @@ export default function Register() {
 
   const handleSignInGoogle = async () => {
     try {
-      await singInGoogle();
+      await sessionGoogle();
     } catch (error) {
       AlertError();
       console.log(error);
