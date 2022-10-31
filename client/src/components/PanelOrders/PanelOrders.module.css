@@ -165,10 +165,12 @@
 }
 
 .col1 {
-  min-width: 9em;
+  min-width: 10em;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding-right: 2.5em;
 }
 
 .text {

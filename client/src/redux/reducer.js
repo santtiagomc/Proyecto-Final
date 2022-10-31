@@ -31,6 +31,7 @@ import {
   CARTS_ORDER_ADMIN,
   POST_GENRE,
   DELETE_GENRE,
+  PUT_CART_STATUS,
 } from "./actions";
 
 const initialState = {
@@ -69,6 +70,7 @@ const initialState = {
   allCarts: [],
   cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
+  putCartResponse: [],
   tableViewGlobal: "orders",
   messageGlobal: [],
   messageDeleteGlobal: [],
@@ -204,6 +206,9 @@ export default function rootReducer(state = initialState, action) {
 
     case DELETE_GENRE:
       return { ...state, messageDeleteGlobal: action.payload };
+
+    case PUT_CART_STATUS:
+      return { ...state, putCartResponse: action.payload }
 
     default:
       return { ...state };

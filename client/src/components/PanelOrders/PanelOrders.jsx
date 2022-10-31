@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, getCarts, putStatus, PUT_STATUS } from "../../redux/actions";
+import { getAllBooks, getCarts, putCartStatus, putStatus, PUT_CART_STATUS, PUT_STATUS } from "../../redux/actions";
 import { useHistory } from "react-router-dom"
 
 import {
@@ -12,15 +12,37 @@ import templateAlert from "../../helpers/templateAlert";
 import style from "./PanelOrders.module.css";
 
 export default function PanelBooks() {
-  const { allCarts } = useSelector((state) => state);
+  const { allCarts, putCartResponse } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory()
 
-  useEffect(() => {
-    dispatch(getCarts("Abierto"));
-  }, []);
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
 
-  console.log(allCarts[4])
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
+
+  useEffect(() => {
+    if (!Array.isArray(putCartResponse)) {
+      if (putCartResponse.messageError) {
+        swalAlert(2000, "error", putCartResponse.messageError)
+        dispatch({ type: PUT_CART_STATUS, payload: [] })
+      } else {
+        swalAlert(2000, "success", putCartResponse.message)
+        dispatch({ type: PUT_CART_STATUS, payload: [] })
+      }
+    }
+    dispatch(getCarts());
+  }, [putCartResponse]);
 
   function templateAlertBooks(title, text) {
     console.log(text)
@@ -79,7 +101,7 @@ export default function PanelBooks() {
               <span className={style.col0}>{cart.id}</span>
               <span className={style.col1}>
                 <span className={style.text}>{cart.status}</span>
-                <AiFillEdit className={style.icon} />
+                <AiFillEdit className={style.icon} onClick={() => dispatch(putCartStatus(cart.id))} />
               </span>
               <span className={style.col2}>{cart.Books.length && "$ " + cart.Books.reduce((acc, el) => {
                 acc += (el.Books_Carts.quantity * el.price)
