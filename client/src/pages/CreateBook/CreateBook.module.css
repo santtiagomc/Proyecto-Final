@@ -14,10 +14,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
-  padding: 80px 32px;
-  font-size: 18px;
+  /* padding: 80px 32px; */
+  padding: 2.5em 2rem;
+  font-size: 19px;
 }
 
 .h1 {
@@ -34,31 +35,51 @@
 
 .form {
   width: 100%;
+  height: 100%;
   display: flex;
-  border: 2px solid var(--extra-color);
+  /* border: 2px solid var(--extra-color); */
+  box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.552);
+  background-color: #131313;
   flex-direction: row;
   gap: 2em;
   padding: 1em;
+  border-radius: 1rem;
+  overflow: auto;
   /* background-color: #2f2f2f;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%); */
 }
 
 .divs {
+  width: 100%;
+  height: 100%;
+}
+
+/* .divs_one {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
+.divs_two {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+} */
+
 .incontainer {
   display: flex;
   flex-direction: column;
-  min-height: 6.5em;
-  max-height: 6.5em;
+  min-height: 7em;
+  max-height: 7em;
   width: 100%;
   /* background-color: rgb(143, 136, 136); */
   /* margin-bottom: 1em; */
   padding: 0.2em 1em;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 }
 
 .label {
@@ -67,35 +88,39 @@
   font-size: 1.1em;
   margin-bottom: 0.1em;
   height: 1.5em;
+  /* margin-left: 0.65em; */
   /* font-weight: 600; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input {
   padding: 0.625em;
-  height: 2.5em;
+  height: 2.9em;
   background-color: transparent;
   border: 1px solid var(--extra-color);
   width: 100%;
   margin-bottom: 0.2em;
   color: var(--extra-color);
-  font-size: 1.1em;
+  font-size: 0.95em;
+  border-radius: 1rem;
   /* border-radius: 1em; */
 }
 
 .input::placeholder {
-  color: #d0d2ceb3;
+  color: #d0d2ce94;
+  font-size: 0.95em;
 }
 
 .err {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
   color: rgb(186, 46, 46);
   height: 1.5em;
-  padding-right: 0.1em;
-  z-index: 1000;
-  font-size: 0.95em;
+  padding-left: 0.1em;
+  font-size: 0.8em;
 }
 
 .err span {
@@ -104,7 +129,10 @@
 
 .err .err_i {
   height: 100%;
-  margin-left: 0.5em;
+  margin-right: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container_cat_box {
@@ -122,22 +150,29 @@
   width: 50%;
   height: 100%;
   padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   /* background-color: green; */
 }
 
 .selectGenre {
   padding: 0 10px;
-  height: 2.5rem;
+  height: 3.1em;
   background-color: transparent;
   border: 1px solid var(--extra-color);
   width: 100%;
   margin-bottom: 0.2em;
   color: var(--extra-color);
-  font-size: 1.1em;
+  font-size: 0.9em;
+  cursor: pointer;
+  color: #d0d2ce94;
+  border-radius: 1rem;
 }
 
 .selectGenre option {
   background-color: var(--negro-backgound);
+  color: var(--extra-color);
 }
 
 .genreContain {
@@ -152,11 +187,12 @@
   border: 1px solid var(--extra-color);
   width: 100%;
   margin-top: 0.2em;
-  height: 9em;
+  height: 9.7em;
   display: flex;
   flex-direction: column;
   padding: 0.3em 1em;
   overflow-y: auto;
+  border-radius: 1rem;
 }
 
 .divGenre {
@@ -169,6 +205,13 @@
   color: var(--negro-backgound);
   background-color: var(--extra-color);
   font-size: 0.9em;
+  border-radius: 0.5rem;
+}
+
+.divGenre .text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn_delete {
@@ -176,6 +219,12 @@
   height: 100%;
   align-items: center;
   font-size: 1.4em;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.btn_delete:hover {
+  transform: scale(1.2);
 }
 
 .container_cat_box .container_box {
@@ -185,7 +234,7 @@
 .incontainer_textArea {
   display: flex;
   flex-direction: column;
-  height: 26em;
+  height: 27.9em;
   width: 100%;
   padding: 0.2em 1em;
 }
@@ -193,13 +242,15 @@
 /* 2.3 */
 .textArea {
   padding: 0.625em;
-  height: 20em;
+  height: 25em;
   background-color: transparent;
   border: 1px solid var(--extra-color);
   width: 100%;
   margin-bottom: 0.2em;
   color: var(--extra-color);
-  font-size: 1.1em;
+  font-size: 0.95em;
+  resize: none;
+  border-radius: 1rem;
 }
 
 .fileDiv {
@@ -240,6 +291,9 @@
   border: 1px solid var(--extra-color);
   cursor: pointer;
   transition: 0.3s;
+  color: #d0d2ce94;
+  font-size: 0.95em;
+  border-radius: 1rem;
 }
 
 .fileLabel:hover {
@@ -263,7 +317,7 @@
 }
 
 .i_img {
-  font-size: 1.4em;
+  font-size: 1.6em;
   display: flex;
   align-items: center;
   height: 100%;
@@ -275,7 +329,7 @@
   align-items: center;
   height: 100%;
   margin: 0;
-  font-size: 1.1em;
+  font-size: 0.95em;
 }
 
 .fileLabel input,
@@ -288,7 +342,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  margin-top: -0.2em;
+  height: 2.7em;
   width: 10%;
   background-color: var(--negro-backgound);
   color: var(--extra-color);
@@ -296,10 +351,13 @@
   cursor: pointer;
   transition: 0.3s;
   overflow: hidden;
+  border-radius: 1rem;
 }
 
 .container_eye_f {
   cursor: default;
+  opacity: 30%;
+  display: flex;
 }
 
 .container_eye:hover {
@@ -310,6 +368,7 @@
 
 .container_eye button,
 .container_eye_f button {
+  display: flex;
   border: none;
   background-color: transparent;
 }
@@ -330,7 +389,7 @@
 .i_eye_f {
   color: var(--extra-color);
   font-size: 1.7em;
-  opacity: 60%;
+  /* opacity: 20%; */
   cursor: default;
 }
 
@@ -343,7 +402,7 @@
   width: 1.5em;
   height: 1.5em;
   border: 3px solid #FFF;
-  border-bottom-color: #FF3D00;
+  border-bottom-color: #a04022;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
@@ -364,14 +423,16 @@
   display: flex;
   flex-direction: row;
   gap: 3em;
-  height: 2.5em;
+  height: 3.2em;
+  font-size: 0.95em;
+  margin-top: -0.1em;
 }
 
 .container_buttons button {
   background-color: transparent;
   border: 1px solid var(--extra-color);
   color: var(--extra-color);
-  cursor: pointer;
+  border-radius: 1rem;
 }
 
 .btn {
@@ -379,6 +440,15 @@
   width: 50%;
   font-size: 1.1em;
   transition: 0.5s;
+  cursor: pointer;
+}
+
+.btnF {
+  height: 100%;
+  width: 50%;
+  font-size: 1.1em;
+  cursor: default;
+  opacity: 50%;
 }
 
 .incontainer a {
@@ -397,6 +467,71 @@
   background-color: var(--extra-color);
   color: var(--negro-backgound);
   border: none;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    font-size: 15px;
+  }
+
+  .divs {
+    height: fit-content;
+  }
+
+  .form {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 0;
+  }
+
+  .incontainer_textArea {
+    padding-top: 1em;
+    height: 17em;
+    margin-top: 0;
+  }
+
+  .textArea {
+    height: 13em;
+  }
+}
+
+@media (max-width: 660px) {
+  .container {
+    font-size: 13px;
+  }
+
+  .container_cat_box {
+    flex-direction: column;
+    height: fit-content;
+    /* min-height: 38em; */
+    gap: 0;
+    padding: 0.2em 0;
+  }
+
+  .container_cat {
+    width: 100%;
+    height: 17em;
+  }
+
+  .genreContain {
+    height: 10em;
+  }
+
+  .genreContain_int {
+    height: 6em;
+    border-radius: 1rem;
+  }
+
+  .container_cat_box .container_box {
+    width: 100%;
+  }
+
+  .divs_one {
+    height: fit-content;
+  }
+
 }
 
 /* 

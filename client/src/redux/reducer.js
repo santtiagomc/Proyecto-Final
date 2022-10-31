@@ -67,7 +67,7 @@ const initialState = {
   allCarts: [],
   cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
-  tableViewGlobal: "",
+  tableViewGlobal: "dashboard",
 };
 
 export default function rootReducer(state = initialState, action) {
