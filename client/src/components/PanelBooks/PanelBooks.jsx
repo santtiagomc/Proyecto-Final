@@ -39,6 +39,13 @@ export default function PanelBooks() {
     dispatch(getAllBooks());
   }, [putStatusBook]);
 
+  useEffect(() => {
+    if (allBooks.messageError) {
+      templateAlert(allBooks.messageError, null, "error", 1000);
+      dispatch(getAllBooks());
+    }
+  }, [allBooks]);
+
   const handleImage = (image, name) => {
     Swal.fire({
       background: "#19191a",
@@ -97,7 +104,7 @@ export default function PanelBooks() {
   }
 
   let totalBooks =
-    allBooks &&
+    allBooks.length &&
     allBooks.reduce((acc, el) => {
       return acc + el.stock;
     }, 0);

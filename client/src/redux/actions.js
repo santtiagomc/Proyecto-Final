@@ -452,10 +452,13 @@ export function getCarts(status) {
 }
 
 //------para traer todos los libros (para dashboard)
-export function getAllBooks() {
+export function getAllBooks(value) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/books/admin`);
+      const response = await axios.get(
+        `http://localhost:3001/books/admin/${value}`
+      );
+      console.log(response.data);
       return dispatch({
         type: GET_ALL_BOOKS,
         payload: response.data,

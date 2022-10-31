@@ -180,3 +180,7 @@
 .form button:hover {
   color: var(--azul-complementario);
 }
+
+.form span {
+  color: var(--violeta-primario);
+}
