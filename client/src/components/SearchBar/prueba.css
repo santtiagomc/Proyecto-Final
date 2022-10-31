@@ -16,7 +16,7 @@
     padding-right: 40px;
     color:#fff;
     font-family: inherit;
-    margin-bottom: 12px;
+    margin-bottom: 13px;
     padding-bottom: 0px;
     
   }
@@ -43,7 +43,7 @@
     background-color:transparent;
     pointer-events: painted;  
     font-family: inherit;
-    margin-top: 5px;
+    margin-top: 7px;
     margin-bottom: 20px;
   }
   .btn-search:focus ~ .input-search{
