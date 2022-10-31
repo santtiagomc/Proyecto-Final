@@ -71,21 +71,9 @@ export default function PanelBooks() {
       }
     });
   }
-
+  console.log(allCarts[1])
   return (
     <div className={style.container}>
-      {/* <div className={style.stats_container}>
-        <div className={style.stats_sub_container}>
-          <div className={style.stats}>Crear libro</div>
-          <div className={style.stats}>
-            <h2>Libros unicos</h2>
-          </div>
-        </div>
-        <div className={style.stats_sub_container}>
-          <div className={style.stats}>Libros totales</div>
-          <div className={style.stats}>tarjeta 4</div>
-        </div>
-      </div> */}
       <div className={style.table_container}>
         <div className={`${style.table_row} ${style.table_row_attributtes}`}>
           <span className={style.col0}>Id</span>
@@ -107,7 +95,7 @@ export default function PanelBooks() {
                 acc += (el.Books_Carts.quantity * el.price)
                 return Number(acc.toFixed(2))
               }, 0)}</span>
-              <span className={style.col3}>{cart.User && cart.User.fullName}</span>
+              <span className={style.col3}>{cart.User.fullName}</span>
               <span className={style.col4}>{cart.User && cart.User.email}</span>
               <span className={style.col5} onClick={() =>
                 templateAlertBooks(

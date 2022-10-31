@@ -123,7 +123,7 @@ export default function PanelBooks() {
 
   return (
     <div className={style.container}>
-      <div className={style.stats_container}>
+      {/* <div className={style.stats_container}>
         <div className={style.stats_sub_container}>
           <div className={style.stats}>Crear libro</div>
           <div className={style.stats}>
@@ -134,7 +134,7 @@ export default function PanelBooks() {
           <div className={style.stats}>Libros totales: {totalBooks}</div>
           <div className={style.stats}>tarjeta 4</div>
         </div>
-      </div>
+      </div> */}
       <div className={style.table_container}>
         <div className={`${style.table_row} ${style.table_row_attributtes}`}>
           <span className={style.col0}>#</span>

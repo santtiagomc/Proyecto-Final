@@ -134,15 +134,18 @@
 }
 
 .table_container::-webkit-scrollbar {
-  height: 1.5em;
-  margin-bottom: 1em;
-  /* display: none; */
+  height: 1.3em;
+  width: 1.3em;
 }
 
 .table_container::-webkit-scrollbar-thumb {
   background: var(--extra-color);
   border-radius: 2em;
-  border: 7px solid var(--negro-backgound);
+  border: 8px solid #131313;
+}
+
+.table_container::-webkit-scrollbar-corner {
+  background-color: #131313;
 }
 
 .table_row {

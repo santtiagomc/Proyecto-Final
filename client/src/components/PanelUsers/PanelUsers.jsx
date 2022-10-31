@@ -91,16 +91,6 @@ export default function PanelUsers() {
         ? <img src={Loader} alt="Loader_Logo"></img>
         :
         <div className={style.container}>
-          {/* <div className={style.stats_container}>
-            <div className={style.stats_sub_container}>
-              <div className={style.stats}>tarjeta 1</div>
-              <div className={style.stats}>tarjeta 2</div>
-            </div>
-            <div className={style.stats_sub_container}>
-              <div className={style.stats}>tarjeta 3</div>
-              <div className={style.stats}>tarjeta 4</div>
-            </div>
-          </div> */}
           <div className={style.table_container}>
             <div className={`${style.table_row} ${style.table_row_attributtes}`}>
               <span

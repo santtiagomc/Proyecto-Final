@@ -58,62 +58,65 @@ export default function Dashboard() {
             <i className="fa-solid fa-house"></i>
             <span className={style.title}>Inicio</span>
           </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "dashboard" });
-            }}
-            className={tableViewGlobal === "dashboard" && style.hovered}
-          >
-            <MdDashboardCustomize className={style.i} />
-            <span className={style.title}>Dashboard</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "users" });
-            }}
-            className={tableViewGlobal === "users" && style.hovered}
-          >
-            <FaUsers className={style.i} />
-            <span className={style.title}>Usuarios</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "orders" });
-            }}
-            className={tableViewGlobal === "orders" && style.hovered}
-          >
-            <FaFileInvoiceDollar className={style.i} />
-            <span className={style.title}>Órdenes</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "books" });
-            }}
-            className={tableViewGlobal === "books" && style.hovered}
-          >
-            <ImBooks className={style.i} />
-            <span className={style.title}>Libros</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "addBook" });
-            }}
-            className={tableViewGlobal === "addBook" && style.hovered}
-          >
-            <FaBook className={style.i} />
-            <span className={style.title}>
-              {detail.name ? "Editar libro" : "Agregar un libro"}
-            </span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "genres" });
-            }}
-            className={tableViewGlobal === "genres" && style.hovered}
-          >
-            <MdCategory className={style.i} />
-            <span className={style.title}>Categorías</span>
-          </li>
+          <div>
+
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+              }}
+              className={tableViewGlobal === "dashboard" && style.hovered}
+            >
+              <MdDashboardCustomize className={style.i} />
+              <span className={style.title}>Dashboard</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "users" });
+              }}
+              className={tableViewGlobal === "users" && style.hovered}
+            >
+              <FaUsers className={style.i} />
+              <span className={style.title}>Usuarios</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "orders" });
+              }}
+              className={tableViewGlobal === "orders" && style.hovered}
+            >
+              <FaFileInvoiceDollar className={style.i} />
+              <span className={style.title}>Órdenes</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "books" });
+              }}
+              className={tableViewGlobal === "books" && style.hovered}
+            >
+              <ImBooks className={style.i} />
+              <span className={style.title}>Libros</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "addBook" });
+              }}
+              className={tableViewGlobal === "addBook" && style.hovered}
+            >
+              <FaBook className={style.i} />
+              <span className={style.title}>
+                {detail.name ? "Editar libro" : "Agregar un libro"}
+              </span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "genres" });
+              }}
+              className={tableViewGlobal === "genres" && style.hovered}
+            >
+              <MdCategory className={style.i} />
+              <span className={style.title}>Categorías</span>
+            </li>
+          </div>
           <li
             onClick={() => {
               dispatch({ type: TABLE_VIEW, payload: "logOff" });
