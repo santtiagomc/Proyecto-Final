@@ -11,9 +11,9 @@ import {
   changeSearch,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
-import Loader from "./GIF_neón_BooksNook.gif";
+// import Loader from "./GIF_neón_BooksNook.gif";
 import Loader2 from "./GIF_aparecer_BooksNook.gif";
-import Loader3 from "./GIF_bloque_BooksNook.gif";
+// import Loader3 from "./GIF_bloque_BooksNook.gif";
 
 import style from "./HomePrueba.module.css";
 
@@ -35,7 +35,14 @@ export default function Home() {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
     dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied]);
+  }, [
+    dispatch,
+    editorials.length,
+    genres.length,
+    filtersApplied,
+    page,
+    searchApplied,
+  ]);
 
   useEffect(() => {
     if (books.messageError) {
@@ -51,7 +58,7 @@ export default function Home() {
       dispatch(changeFilter());
       dispatch(changeSearch());
     }
-  }, [books]);
+  }, [books, dispatch]);
 
   const nextPage = () => {
     if (page + 12 < total) {

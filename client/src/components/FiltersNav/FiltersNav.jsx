@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, changePage, changeSearch } from "../../redux/actions";
+import { changeFilter, changeSearch } from "../../redux/actions";
 import style from "./FiltersNav.module.css";
 
 export default function FiltersNav({ editorials }) {
-  const { filtersApplied, genres, books } = useSelector((state) => state);
+  const { filtersApplied, genres } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   function handleFilterGenres(e) {
@@ -44,7 +44,6 @@ export default function FiltersNav({ editorials }) {
 
   return (
     <>
-
       {/* {books.length && */}
       <nav className={style.navContainer}>
         {/* <h2 className={style.filters}>Filtrar resultados</h2> */}
