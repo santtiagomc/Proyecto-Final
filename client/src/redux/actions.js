@@ -30,6 +30,9 @@ export const TABLE_VIEW = "TABLE_VIEW";
 export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
 export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
 export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const POST_GENRE = "POST_GENRE";
+export const DELETE_GENRE = "DELETE_GENRE";
+export const PUT_CART_STATUS = "PUT_CART_STATUS";
 export const GET_USER_DB = "GET_USER_DB";
 
 export function userExist(payload) {
@@ -394,10 +397,12 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers(sort) {
+export function getAllUsers(sort, searchValue) {
   return async function (dispatch) {
     try {
-      const json = await axios(`http://localhost:3001/user?sort=${sort}`);
+      const json = await axios(
+        `http://localhost:3001/user?sort=${sort}&search=${searchValue}`
+      );
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -431,11 +436,11 @@ export function putUser(input) {
 }
 
 //-------para traer todos los carritos con el estado que le pasemos
-export function getCarts(status) {
+export function getCarts(searchValue) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart/orders?status=${status}`
+        `http://localhost:3001/cart/orders?search=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_CARTS,
@@ -450,11 +455,34 @@ export function getCarts(status) {
   };
 }
 
-//------para traer todos los libros (para dashboard)
-export function getAllBooks() {
+//-------para traer todos los carritos con el estado que le pasemos
+export function putCartStatus(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/books/admin`);
+      const response = await axios.put(
+        `http://localhost:3001/cart/status?id=${id}`
+      );
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer todos los libros (para dashboard)
+export function getAllBooks(value) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/books/admin/${value}`
+      );
+      console.log(response.data);
       return dispatch({
         type: GET_ALL_BOOKS,
         payload: response.data,
@@ -462,6 +490,44 @@ export function getAllBooks() {
     } catch (error) {
       return dispatch({
         type: GET_ALL_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function postGenre(genre) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`http://localhost:3001/genres`, {
+        name: genre,
+      });
+      return dispatch({
+        type: POST_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function deleteGenre(name) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/genres/${name}`
+      );
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_GENRE,
         payload: error.response.data,
       });
     }

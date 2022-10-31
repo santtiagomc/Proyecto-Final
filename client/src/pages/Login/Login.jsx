@@ -34,48 +34,54 @@ export default function Login() {
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
       setTimeout(function () {
         dispatch(getUserDb(user.uid));
-      }, 500);
+      }, 300);
+      setLoader(true);
 
       if (uniqueIdArrayCart.length) {
-        Swal.fire({
-          title: "Tienes productos en tu carrito de invitado",
-          width: 650,
-          text: "¿Quieres pasar estos productos a tu carrito de usuario?",
-          icon: "warning",
-          iconColor: "#355070",
-          showCancelButton: true,
-          background: "#19191a",
-          color: "#e1e1e1",
-          confirmButtonColor: "#355070",
-          cancelButtonColor: "#B270A2",
-          confirmButtonText: "¡Si! Guardar carrito",
-          cancelButtonText: "Cancelar",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            dispatch(
-              postCart({
-                userId: user.uid,
-                bookId: uniqueIdArrayCart,
-                suma: true,
-              })
-            );
-            setLoader(true);
-            setTimeout(function () {
-              dispatch(getUserCart(user.uid));
-              localStorage.clear();
-            }, 1900);
-            setTimeout(() => {
+        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
+        setTimeout(() => {
+          setLoader(false);
+          Swal.fire({
+            title: "Tienes productos en tu carrito de invitado",
+            width: 650,
+            text: "¿Quieres pasar estos productos a tu carrito de usuario?",
+            icon: "warning",
+            iconColor: "#355070",
+            showCancelButton: true,
+            background: "#19191a",
+            color: "#e1e1e1",
+            confirmButtonColor: "#355070",
+            cancelButtonColor: "#B270A2",
+            confirmButtonText: "¡Si! Guardar carrito",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(
+                postCart({
+                  userId: user.uid,
+                  bookId: uniqueIdArrayCart,
+                  suma: true,
+                })
+              );
+              setLoader(true);
+              setTimeout(function () {
+                dispatch(getUserCart(user.uid));
+                localStorage.clear();
+              }, 1900);
+              setTimeout(() => {
+                history.goBack();
+              }, 2000);
+            } else {
               history.goBack();
-            }, 2000);
-          } else {
-            history.goBack();
-          }
-        });
+            }
+          });
+        }, 2000);
       } else {
-        history.goBack();
+        setTimeout(() => {
+          history.goBack();
+        }, 1000);
       }
     }
   }, [user]);

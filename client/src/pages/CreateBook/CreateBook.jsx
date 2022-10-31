@@ -246,9 +246,9 @@ export default function CreateBook() {
           handleSubmit(e);
         }}
       >
-        <div className={style.divs}>
+        <div className={`${style.divs} ${style.divs_one}`}>
           <div className={style.incontainer}>
-            <label className={style.label}>Nombre</label>
+            <span className={style.label}>Nombre</span>
             <input
               className={style.input}
               type="text"
@@ -259,8 +259,8 @@ export default function CreateBook() {
             />
             {input.name && errors.name &&
               <div className={style.err}>
-                <span>{errors.name}</span>
                 <BiErrorAlt className={style.err_i} />
+                <span>{errors.name}</span>
               </div>}
           </div>
           <div className={style.incontainer}>
@@ -275,8 +275,8 @@ export default function CreateBook() {
             />
             {input.author && errors.author &&
               <div className={style.err}>
-                <span>{errors.author}</span>
                 <BiErrorAlt className={style.err_i} />
+                <span>{errors.author}</span>
               </div>}
           </div>
           <div className={style.incontainer}>
@@ -291,8 +291,8 @@ export default function CreateBook() {
             />
             {input.editorial && errors.editorial &&
               <div className={style.err}>
-                <span>{errors.editorial}</span>
                 <BiErrorAlt className={style.err_i} />
+                <span>{errors.editorial}</span>
               </div>}
           </div>
           <div className={style.container_cat_box}>
@@ -344,8 +344,8 @@ export default function CreateBook() {
                 />
                 {input.edition && errors.edition &&
                   <div className={style.err}>
-                    <span>{errors.edition}</span>
                     <BiErrorAlt className={style.err_i} />
+                    <span>{errors.edition}</span>
                   </div>}
               </div>
               <div className={style.incontainer}>
@@ -360,8 +360,8 @@ export default function CreateBook() {
                 />
                 {input.price && errors.price &&
                   <div className={style.err}>
-                    <span>{errors.price}</span>
                     <BiErrorAlt className={style.err_i} />
+                    <span>{errors.price}</span>
                   </div>}
               </div>
               <div className={style.incontainer}>
@@ -376,15 +376,15 @@ export default function CreateBook() {
                 />
                 {input.stock && errors.stock &&
                   <div className={style.err}>
-                    <span>{errors.stock}</span>
                     <BiErrorAlt className={style.err_i} />
+                    <span>{errors.stock}</span>
                   </div>}
               </div>
             </div>
           </div>
         </div>
 
-        <div className={style.divs}>
+        <div className={`${style.divs} ${style.divs_two}`}>
           <div className={style.incontainer_textArea}>
             <label className={style.label}>Descripción</label>
             <textarea
@@ -398,8 +398,8 @@ export default function CreateBook() {
             ></textarea>
             {input.description && errors.description &&
               <div className={style.err}>
-                <span>{errors.description}</span>
                 <BiErrorAlt className={style.err_i} />
+                <span>{errors.description}</span>
               </div>
             }
           </div>

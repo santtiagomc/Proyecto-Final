@@ -1,10 +1,13 @@
+const { Op } = require('sequelize');
 const { Cart, Users, Books } = require('../db');
 
-async function getOrders({ status }) {
+async function getOrders() {
   try {
     const carts = await Cart.findAll({
       where: {
-        status
+        status: {
+          [Op.or]: ["Procesando", "Entregado"]
+        }
       },
       include: [{
         model: Users
@@ -14,9 +17,8 @@ async function getOrders({ status }) {
         through: { attributes: {} },
       }]
     });
-    console.log(carts)
 
-    if (!carts) return { messageError: `No hay ninguna orden con el estado ${status}` };
+    if (!carts) return { messageError: `No hay ninguna orden` };
 
     return carts;
 

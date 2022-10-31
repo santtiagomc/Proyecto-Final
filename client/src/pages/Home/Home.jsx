@@ -44,16 +44,19 @@ export default function Home() {
             searchBook(filtersApplied, searchApplied, page, userDb.role)
           );
         }, 300);
+        // setLoader(true);
       } else {
         setTimeout(function () {
           dispatch(searchBook(filtersApplied, searchApplied, page));
         }, 200);
+        // setLoader(true);
         // dispatch(searchBook(filtersApplied, searchApplied, page));
       }
     }
     setTimeout(function () {
       dispatch(searchBook(filtersApplied, searchApplied, page));
     }, 200);
+    // setLoader(true);
     // dispatch(searchBook(filtersApplied, searchApplied, page));
   }, [filtersApplied, page, searchApplied, user, userDb]);
 
