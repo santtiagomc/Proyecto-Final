@@ -1,16 +1,30 @@
-.stripeControl {
-    width: 600px;
-    height: 300px;
+.container {
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
 }
 
-.container {
-    margin-top: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    height: 300px;
+.stripeControl {
+  /* width: 600px;
+  height: 300px; */
 }
+
+.product {
+  width: 500px;
+  height: 200px;
+  background-color: red;
+}
+
+.payment {
+  width: 500px;
+  height: 200px;
+  background-color: blue;
+}
+
+
+
+
+
 
 .pay {
     margin-bottom: 20px;
