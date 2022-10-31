@@ -32,6 +32,7 @@ export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
 export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
 export const POST_GENRE = "POST_GENRE";
 export const DELETE_GENRE = "DELETE_GENRE";
+export const PUT_CART_STATUS = "PUT_CART_STATUS";
 
 export function userExist(payload) {
   return {
@@ -447,6 +448,26 @@ export function getCarts(status) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para traer todos los carritos con el estado que le pasemos
+export function putCartStatus(id) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/cart/status?id=${id}`
+      );
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_CART_STATUS,
         payload: error.response.data,
       });
     }

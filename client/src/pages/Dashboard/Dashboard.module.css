@@ -37,10 +37,7 @@
   /* overflow: hidden; */
 }
 
-@media (max-width: 1000px) {
-  .navigation {
-    width: 4.6875rem;
-  }
+@media (max-width: 1450px) {
 }
 
 .navigation.active {
@@ -135,16 +132,31 @@
   transition: 0.5s;
 }
 
-@media (max-width: 1000px) {
+.main.active {
+  width: calc(100% - 75px);
+  left: 75px;
+}
+
+@media (max-width: 1470px) {
+  .navigation {
+    width: 4.6875rem;
+  }
+
   .main {
     width: calc(100% - 4.6875rem);
     left: calc(4.6875rem);
   }
 }
 
-.main.active {
-  width: calc(100% - 75px);
-  left: 75px;
+@media (max-width: 500px) {
+  .navigation {
+    width: 0rem;
+  }
+
+  .main {
+    width: 100%;
+    left: 0;
+  }
 }
 
 .topbar {
