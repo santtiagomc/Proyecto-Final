@@ -5,10 +5,10 @@ async function getAllBooks() {
   try {
     const allBooksDb = await Books.findAll({
       // where: {
-      // 	/* visible: true, */
-      // 	stock: {
-      // 		[Op.gt]: 0,
-      // 	},
+      //     /* visible: true, */
+      //     stock: {
+      //         [Op.gt]: 0,
+      //     },
       // },
       include: [
         {
@@ -19,8 +19,8 @@ async function getAllBooks() {
         {
           model: Reviews,
           attributes: ["rating"],
-        }
-      ]
+        },
+      ],
     });
     if (!allBooksDb.length)
       return { messageError: "No hay libros disponibles." };
