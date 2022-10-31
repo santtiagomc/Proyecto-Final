@@ -1,12 +1,15 @@
 const { Cart, Users, Books } = require("../db");
 const { Op } = require("sequelize");
+const { pagination } = require("./pagination");
 
 async function getUserCart({ userId }) {
   try {
     if (userId.includes("-")) {
+      const id = userId.split("-")[0];
+      const page = userId.split("-")[1];
       const userHistory = await Cart.findAll({
         where: {
-          UserId: userId.slice(0, userId.length - 1),
+          UserId: id,
           [Op.or]: [{ status: "Entregado" }, { status: "Procesando" }],
         },
         include: [
@@ -18,7 +21,7 @@ async function getUserCart({ userId }) {
           },
         ],
       });
-      return userHistory;
+      return pagination(userHistory, page, 5);
     }
     const userCart = await Cart.findOne({
       where: {

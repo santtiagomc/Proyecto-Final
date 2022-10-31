@@ -20,10 +20,11 @@ export default function ProfileUser() {
   const [hovered, setHovered] = useState(0);
   const [hidden, setHidden] = useState(false);
   const [dataUser, setDataUser] = useState({});
-  const [books, setBooks] = useState([]);
+  const [booksBuyed, setBooksBuyed] = useState({});
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState({ change: false, edited: false });
   const [user, load] = useUser();
+  const [page, setPage] = useState(0);
   const history = useHistory();
   const {
     register,
@@ -37,9 +38,9 @@ export default function ProfileUser() {
         const res = await axios.get(`http://localhost:3001/user/${userId}`);
         setDataUser(res.data);
         const userHistory = await axios.get(
-          `http://localhost:3001/cart/${userId}-`
+          `http://localhost:3001/cart/${userId}-0`
         );
-        setBooks(userHistory.data);
+        setBooksBuyed(userHistory.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -48,7 +49,7 @@ export default function ProfileUser() {
 
     if (!load) getUser(user);
   }, [load, edit.edited, user]);
-  console.log(books);
+
   const onSubmit = async (data) => {
     try {
       await axios.put("http://localhost:3001/user", {
@@ -61,10 +62,27 @@ export default function ProfileUser() {
     }
   };
 
-  if (user === undefined && !loading) {
-    return <Error error="No estas autenticado" />;
-  }
-
+  const nextPage = async () => {
+    console.log("a");
+    console.log(booksBuyed.total);
+    if (page + 5 < booksBuyed.total) {
+      console.log("xd");
+      setPage(page + 5);
+      try {
+        const userHistory = await axios.get(
+          `http://localhost:3001/cart/${user}-${page + 5}`
+        );
+        console.log(userHistory);
+        setBooksBuyed({
+          ...booksBuyed,
+          books: [...booksBuyed.books, ...userHistory.data.books],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  console.log(booksBuyed);
   const handleLogOut = async () => {
     try {
       await logOut();
@@ -73,6 +91,10 @@ export default function ProfileUser() {
       console.log(error);
     }
   };
+
+  if (user === undefined && !loading) {
+    return <Error error="No estas autenticado" />;
+  }
 
   return (
     <>
@@ -245,26 +267,27 @@ export default function ProfileUser() {
               {/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
               <div style={{ color: "#ffffff" }}>
                 <h2>Mis compras</h2>
-                {books.map((book) => (
-                  <div style={{ marginBottom: "100px" }}>
-                    <h3>{book.status}</h3>
-                    <div>
-                      {book.Books.map((purchase) => (
-                        <div>
-                          <img src={purchase.image} />
-                          <h3>{purchase.name}</h3>
-                          <p>
-                            {purchase.price * purchase.Books_Carts.quantity}
-                          </p>
-                          <p>Cantidad {purchase.Books_Carts.quantity}</p>
-                          <Link to={`/detail/${purchase.id}`}>Detalle</Link>
-                        </div>
-                      ))}
+                {booksBuyed.books &&
+                  booksBuyed.books.map((book) => (
+                    <div style={{ marginBottom: "100px" }}>
+                      <h3>{book.status}</h3>
+                      <div>
+                        {book.Books.map((purchase) => (
+                          <div>
+                            <img src={purchase.image} />
+                            <h3>{purchase.name}</h3>
+                            <p>
+                              {purchase.price * purchase.Books_Carts.quantity}
+                            </p>
+                            <p>Cantidad {purchase.Books_Carts.quantity}</p>
+                            <Link to={`/detail/${purchase.id}`}>Detalle</Link>
+                          </div>
+                        ))}
+                      </div>
+                      <hr /> {/* por ahora para diferenciar carritos */}
                     </div>
-                    <hr /> {/* por ahora para diferenciar carritos */}
-                  </div>
-                ))}
-                <button>Ver todas :shopping_cart:</button>
+                  ))}
+                <button onClick={nextPage}>Ver mas</button>
               </div>
               {/*---------------------------------------------------------------*/}
             </div>
