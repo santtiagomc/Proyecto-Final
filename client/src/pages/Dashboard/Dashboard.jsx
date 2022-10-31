@@ -5,7 +5,6 @@ import PanelBooks from "../../components/PanelBooks/PanelBooks";
 import PanelOrders from "../../components/PanelOrders/PanelOrders";
 import PanelGenres from "../../components/PanelGenres/PanelGenres";
 import {
-  GiBookshelf,
   FaBook,
   ImBooks,
   MdCategory,
@@ -17,8 +16,7 @@ import {
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { tableView, TABLE_VIEW } from "../../redux/actions";
+import { TABLE_VIEW } from "../../redux/actions";
 
 export default function Dashboard() {
   const { tableViewGlobal } = useSelector((state) => state);

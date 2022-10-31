@@ -30,6 +30,8 @@ export const TABLE_VIEW = "TABLE_VIEW";
 export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
 export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
 export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const POST_GENRE = "POST_GENRE";
+export const DELETE_GENRE = "DELETE_GENRE";
 
 export function userExist(payload) {
   return {
@@ -461,6 +463,45 @@ export function getAllBooks() {
     } catch (error) {
       return dispatch({
         type: GET_ALL_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function postGenre(genre) {
+  console.log(genre, "LOG DE LA ACTION");
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`http://localhost:3001/genres`, {
+        name: genre,
+      });
+      return dispatch({
+        type: POST_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function deleteGenre(name) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/genres/${name}`
+      );
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_GENRE,
         payload: error.response.data,
       });
     }
