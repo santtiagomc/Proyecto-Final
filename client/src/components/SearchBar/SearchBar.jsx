@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeFilter, changeSearch } from "../../redux/actions";
 
+
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
-
+import "./prueba.css"
 export default function SearchBar() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,15 +34,22 @@ export default function SearchBar() {
     }
   };
 
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-      <input
+      {/* <input
         className={style.input}
         value={book}
         type="text"
         placeholder="Ingrese un título o autor"
         onChange={(e) => setBook(e.target.value)}
-      />
+      />  */}
+     <div class="search-box">
+    <button class="btn-search"><i class="fas fa-search"></i></button>
+    <input type="text" class="input-search" placeholder="Ingrese un título o autor" value={book}
+    onChange={(e) => setBook(e.target.value)}/>
+  </div>
+      <div className={style.select2}>
       <select
         defaultValue="all"
         onChange={(e) => setOptions(e.target.value)}
@@ -51,8 +59,10 @@ export default function SearchBar() {
         <option value="name">Título</option>
         <option value="author">Autor</option>
       </select>
+      </div>
+      
 
-      {!options ? (
+      {/* {!options ? (
         <button disabled className={style.button}>
           Buscar
         </button>
@@ -60,7 +70,7 @@ export default function SearchBar() {
         <button type="submit" className={style.button}>
           Buscar
         </button>
-      )}
+      )} */}
       {/* <button type="submit">Buscar</button> */}
     </form>
   );
