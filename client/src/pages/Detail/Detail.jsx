@@ -10,7 +10,6 @@ import {
   postCart,
   getGuestCart,
   putBook,
-  resetCreate,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -36,11 +35,11 @@ export default function Detail() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [user, deleteReview, putStatusBook]);
+  }, [dispatch, user, deleteReview, putStatusBook, id]);
 
   useEffect(() => {
     dispatch(putBook(id, { visits: 1 }));
-  }, []);
+  }, [dispatch, id]);
 
   //----------------- Function averageRating + sweetAlert + Const -----------------
 

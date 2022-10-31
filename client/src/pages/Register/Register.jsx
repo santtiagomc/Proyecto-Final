@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
-import templateAlert from "../../helpers/templateAlert";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Register() {
@@ -80,7 +79,7 @@ export default function Register() {
         }, 1000);
       }
     }
-  }, [user]);
+  }, [user, dispatch, history]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 

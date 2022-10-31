@@ -65,7 +65,7 @@ export default function PanelBooks() {
       }
     }
     dispatch(getGenres(rank));
-  }, [rank, messageGlobal, messageDeleteGlobal]);
+  }, [dispatch, rank, messageGlobal, messageDeleteGlobal]);
 
   const handleChange = (e) => {
     setInput(e.target.value);

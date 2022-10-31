@@ -35,7 +35,6 @@ export default function Login() {
   useEffect(() => {
     if (user && user.uid) {
       setLoader(true);
-
       if (uniqueIdArrayCart.length) {
         dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
         setTimeout(() => {
@@ -81,7 +80,7 @@ export default function Login() {
         }, 1000);
       }
     }
-  }, [user]);
+  }, [user, dispatch, history]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
@@ -95,8 +94,7 @@ export default function Login() {
 
   const onSubmit = async (user) => {
     try {
-      // console.log(user);
-      const userLog = await singIn(user.email, user.password);
+      await singIn(user.email, user.password);
     } catch (error) {
       setError("Usuario o contraseña incorrecto");
       console.log(error);

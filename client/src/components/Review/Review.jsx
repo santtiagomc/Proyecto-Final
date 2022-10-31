@@ -57,7 +57,7 @@ export default function Review({ id }) {
   useEffect(() => {
     if (!detail) return;
     validate(input);
-  }, [input]);
+  }, [input, detail]);
 
   function swalAlert(timer, icon, message) {
     const Toast = Swal.mixin({
@@ -157,7 +157,7 @@ export default function Review({ id }) {
       dispatch({ type: POST_REVIEWS, payload: [] });
       dispatch(getDetail(id));
     }
-  }, [createReview]);
+  }, [dispatch, createReview, id, user]);
 
   return (
     <div className={`container ${style.reviews_container}`}>
