@@ -30,7 +30,9 @@ export default function Stripe() {
       <div className={style.product}>
         {cart.length &&
           cart.map((product) => {
-            return <div>{product.name}</div>;
+            return <div>
+              <div>{product.name} Price: {product.price} </div>
+              </div>;
           })}
       </div>
       <div className={style.payment}>
@@ -113,7 +115,7 @@ const CheckoutForm = ({ cart }) => {
     <form className={style.stripeControl} onSubmit={handleSubmit}>
       <CardElement className={style.pay} />
       {error && <p className={style.err}>{error}</p>}
-      <button>
+      <button className={style.button}>
         {loading ? (
           <div className={style.loaderContainer}>
             <span className={style.loader}></span>

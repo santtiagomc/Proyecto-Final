@@ -5,36 +5,59 @@
 }
 
 .stripeControl {
-  /* width: 600px;
-  height: 300px; */
+  /* height: 1000px; */
+  top: 0px;
 }
 
 .product {
-  width: 500px;
-  height: 200px;
-  background-color: red;
+  width: 40rem;
+  height: 50rem;
+  background-color: whitesmoke;
+  color: black;
+  border-radius: 0.2rem;
+  margin-right: 0.1rem;
 }
 
 .payment {
-  width: 500px;
-  height: 200px;
-  background-color: blue;
+  width: 40rem;
+  height: 50rem;
+  background-color: white;
+  border-radius: 0.2rem;
+  margin-left: 0.1rem;
+  display: grid;
 }
 
-
-
-
+.button {
+  width: 35%;
+  /* padding: 0.57rem; */
+  margin-left: 20rem;
+  height: 4%;
+  background-color: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--violeta-primario);
+  margin-top: 36.5rem;
+  margin-left: 23rem;
+}
 
 
 .pay {
     margin-bottom: 20px;
     position: relative;
+    padding: 3.61rem;
 }
 
 .err {
     position: absolute;
     font-size: 10px;
     top: 20px;
+}
+
+.Stripe_product__Bl0te{
+  top: 500rem;
 }
 
 .loader, .loader:before, .loader:after {
