@@ -395,10 +395,12 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers(sort) {
+export function getAllUsers(sort, searchValue) {
   return async function (dispatch) {
     try {
-      const json = await axios(`http://localhost:3001/user?sort=${sort}`);
+      const json = await axios(
+        `http://localhost:3001/user?sort=${sort}&search=${searchValue}`
+      );
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,

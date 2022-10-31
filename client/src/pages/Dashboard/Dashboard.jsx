@@ -17,11 +17,13 @@ import {
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, TABLE_VIEW } from "../../redux/actions";
+import { getAllBooks, getAllUsers, TABLE_VIEW } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
 
 export default function Dashboard() {
-  const { tableViewGlobal, detail } = useSelector((state) => state);
+  const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -31,7 +33,8 @@ export default function Dashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchValue.trim().length !== 0) {
-      tableViewGlobal === "users" && console.log("xd");
+      tableViewGlobal === "users" &&
+        dispatch(getAllUsers(usersOrderAdmin, searchValue));
       tableViewGlobal === "orders" && console.log("xd");
       tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
     } else {
@@ -41,7 +44,7 @@ export default function Dashboard() {
 
   const handleClear = (e) => {
     e.preventDefault();
-    tableViewGlobal === "users" && console.log("xd");
+    tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
     tableViewGlobal === "orders" && console.log("xd");
     tableViewGlobal === "books" && dispatch(getAllBooks());
   };
@@ -136,15 +139,22 @@ export default function Dashboard() {
             </div>
 
             <div className={style.search}>
-              <form onSubmit={(e) => handleSubmit(e)}>
+              <form
+                className={style.searchForm}
+                onSubmit={(e) => handleSubmit(e)}
+              >
                 <input
+                  className={style.searchFormInput}
                   type="text"
                   placeholder={"Buscar aquí"}
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <i class="fa-solid fa-magnifying-glass"></i>
               </form>
-              <button onClick={(e) => handleClear(e)}>
+              <button
+                className={style.searchBtn}
+                onClick={(e) => handleClear(e)}
+              >
                 <MdClear className={style.clear} />
               </button>
             </div>
