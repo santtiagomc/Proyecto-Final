@@ -11,12 +11,12 @@ import Detail from "./pages/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
-import ProfileUser from "./pages/ProfileUser/ProfileUser";
 import Register from "./pages/Register/Register";
 import Footer from "./components/Footer/Footer";
 import Stripe from "./pages/Stripe/Stripe";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
         <Route path="/detail/:id" component={Detail} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/stripe" component={Stripe} />
-        <Route exact path="/profile" component={ProfileUser} />
+        <Route exact path="/profile" component={UserProfile} />
         <Route path="/edit/:id" component={CreateBook} />
         <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
