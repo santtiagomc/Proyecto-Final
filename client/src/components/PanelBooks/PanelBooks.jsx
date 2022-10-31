@@ -13,7 +13,6 @@ import {
   BiCategory,
   BiImage,
   BsFillPencilFill,
-  BsFillTrashFill,
   AiFillEye,
   AiFillEyeInvisible,
 } from "react-icons/all";
@@ -39,6 +38,13 @@ export default function PanelBooks() {
     }
     dispatch(getAllBooks());
   }, [putStatusBook]);
+
+  useEffect(() => {
+    if (allBooks.messageError) {
+      templateAlert(allBooks.messageError, null, "error", 2000);
+      dispatch(getAllBooks());
+    }
+  }, [allBooks]);
 
   const handleImage = (image, name) => {
     Swal.fire({
@@ -98,7 +104,7 @@ export default function PanelBooks() {
   }
 
   let totalBooks =
-    allBooks &&
+    allBooks.length &&
     allBooks.reduce((acc, el) => {
       return acc + el.stock;
     }, 0);
@@ -114,8 +120,7 @@ export default function PanelBooks() {
       },
     });
   }
-  /* console.log(putStatusBook);
-  console.log(allBooks); */
+
   return (
     <div className={style.container}>
       <div className={style.stats_container}>
@@ -148,7 +153,7 @@ export default function PanelBooks() {
         {allBooks.length &&
           allBooks.map((el, index) => (
             <div className={style.table_row} key={index}>
-              <span className={style.col0}>{index}</span>
+              <span className={style.col0}>{index + 1}</span>
               <span
                 className={style.col1}
                 onClick={(e) => goDetail(e, el.id, el.name)}
