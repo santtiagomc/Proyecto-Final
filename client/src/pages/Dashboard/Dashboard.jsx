@@ -17,11 +17,18 @@ import {
 import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBooks, TABLE_VIEW } from "../../redux/actions";
+import {
+  getAllBooks,
+  getAllUsers,
+  getCarts,
+  TABLE_VIEW,
+} from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
 
 export default function Dashboard() {
-  const { tableViewGlobal, detail } = useSelector((state) => state);
+  const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -31,8 +38,9 @@ export default function Dashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchValue.trim().length !== 0) {
-      tableViewGlobal === "users" && console.log("xd");
-      tableViewGlobal === "orders" && console.log("xd");
+      tableViewGlobal === "users" &&
+        dispatch(getAllUsers(usersOrderAdmin, searchValue));
+      tableViewGlobal === "orders" && dispatch(getCarts(searchValue));
       tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
     } else {
       templateAlert("El campo no puede estar vacío", null, "warning", 3000);
@@ -41,8 +49,8 @@ export default function Dashboard() {
 
   const handleClear = (e) => {
     e.preventDefault();
-    tableViewGlobal === "users" && console.log("xd");
-    tableViewGlobal === "orders" && console.log("xd");
+    tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
+    tableViewGlobal === "orders" && dispatch(getCarts());
     tableViewGlobal === "books" && dispatch(getAllBooks());
   };
 
@@ -139,15 +147,22 @@ export default function Dashboard() {
             </div>
 
             <div className={style.search}>
-              <form onSubmit={(e) => handleSubmit(e)}>
+              <form
+                className={style.searchForm}
+                onSubmit={(e) => handleSubmit(e)}
+              >
                 <input
+                  className={style.searchFormInput}
                   type="text"
                   placeholder={"Buscar aquí"}
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <i class="fa-solid fa-magnifying-glass"></i>
               </form>
-              <button onClick={(e) => handleClear(e)}>
+              <button
+                className={style.searchBtn}
+                onClick={(e) => handleClear(e)}
+              >
                 <MdClear className={style.clear} />
               </button>
             </div>

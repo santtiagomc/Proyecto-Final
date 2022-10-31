@@ -396,10 +396,12 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers(sort) {
+export function getAllUsers(sort, searchValue) {
   return async function (dispatch) {
     try {
-      const json = await axios(`http://localhost:3001/user?sort=${sort}`);
+      const json = await axios(
+        `http://localhost:3001/user?sort=${sort}&search=${searchValue}`
+      );
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -433,11 +435,11 @@ export function putUser(input) {
 }
 
 //-------para traer todos los carritos con el estado que le pasemos
-export function getCarts(status) {
+export function getCarts(searchValue) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart/orders?status=${status}`
+        `http://localhost:3001/cart/orders?search=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_CARTS,
@@ -494,7 +496,6 @@ export function getAllBooks(value) {
 }
 
 export function postGenre(genre) {
-  console.log(genre, "LOG DE LA ACTION");
   return async function (dispatch) {
     try {
       const response = await axios.post(`http://localhost:3001/genres`, {
