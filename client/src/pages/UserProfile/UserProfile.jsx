@@ -22,9 +22,9 @@ export default function ProfileUser() {
   const [dataUser, setDataUser] = useState({});
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const history = useHistory();
   const [edit, setEdit] = useState({ change: false, edited: false });
   const [user, load] = useUser();
+  const history = useHistory();
   const {
     register,
     formState: { errors },
