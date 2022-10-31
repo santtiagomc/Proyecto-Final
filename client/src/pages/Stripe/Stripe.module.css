@@ -101,10 +101,11 @@
 .detail {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: end;
   color: rgb(169, 169, 169);
   padding: 1em 2.5em 1em 2.5em;
   overflow: hidden;
+  border-color: #FFF 1px;
 }
 
 .detail_product {

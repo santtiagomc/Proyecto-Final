@@ -46,7 +46,7 @@ export default function Stripe() {
             </div>
           })}
         <div className={style.totalPrice}>Precio Total: {cart.length && 
-          Math.round(cart.reduce((acc, act) => acc + Number(act.price), 0))}
+          Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))}
         </div>
       </div>
       <div className={style.payment}>
@@ -158,7 +158,7 @@ const CheckoutForm = ({ cart }) => {
               <span className={style.loader}></span>
             </div>
           ) : (
-            "Comprar"
+            "Pagar"
           )}
         </button>
     </form>
