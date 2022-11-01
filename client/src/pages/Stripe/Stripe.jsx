@@ -7,7 +7,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -23,13 +23,37 @@ export default function Stripe() {
   console.log(cart);
   return (
     <div className={style.container}>
-      {/* <div>
+      <div className={style.product}>
         {cart.length &&
-          Math.round(cart.reduce((acc, act) => acc + Number(act.price), 0))}
-      </div> */}
-      <Elements stripe={stripePromsie}>
-        <CheckoutForm cart={cart} />
-      </Elements>
+          cart.map((product) => {
+            return <div className={style.detail}>
+            <div className={`col-7 text-center ${style.detail_product}`}>
+              <img
+                src={product.image}
+                alt="Portada"
+                className={style.detail_img}
+              ></img>
+              <div className={style.detail_info}>
+                <Link to={`/detail/${product.id}`}>
+                  <h2 className={style.detail_info_h2}>{product.name}</h2>
+                </Link>
+                <h5 className={style.detail_info_h4}>{product.author}</h5>
+              </div>
+            </div>
+            <h3 className={`col-2 text-center ${style.detail_price}`}>
+              Precio Individual: {product.price}
+            </h3>
+            </div>
+          })}
+        <div className={style.totalPrice}>Precio Total: {cart.length && 
+          Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))}
+        </div>
+      </div>
+      <div className={style.payment}>
+        <Elements stripe={stripePromsie}>
+          <CheckoutForm cart={cart} />
+        </Elements>
+      </div>
     </div>
   );
 }
@@ -43,7 +67,6 @@ const CheckoutForm = ({ cart }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //    Esto de abajo para el back, hay que hacer la action
     try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
@@ -72,34 +95,73 @@ const CheckoutForm = ({ cart }) => {
         });
       }
     } catch (error) {
+      // console.log(error);
       console.log(error);
+      console.log(error.response.data.messageError);
       if (error.response) {
         if (
           error.response.data.messageError ===
           "Your card was declined. Your request was in test mode, but used a non test (live) card. For a list of valid test cards, visit: https://stripe.com/docs/testing."
         )
           setError("Esta tarjeta fue declinada");
+        else if (error.response.data.messageError === "Your card was declined.")
+          setError("Tu tarjeta fue rechazada");
+        else if (
+          error.response.data.messageError ===
+          "Your card has insufficient funds."
+        )
+          setError("Tu tarjeta no tiene fondos suficientes");
+        else if (error.response.data.messageError === "Your card has expired.")
+          setError("Tu tarjeta ha expirado");
+        else if (
+          error.response.data.messageError ===
+          "Your card's security code is incorrect."
+        )
+          setError("El codigo de seguridad es incorrecto");
+        else setError("Un error ha ocurrido");
       }
-      if (error.response.data.messageError === "Your card was declined.")
-        setError("Tu tarjeta fue rechazada");
-
       // setError(error.response.data.messageError);
     }
     setLoading(false);
   };
   return (
+      <div className={style.stripeContainer}>
     <form className={style.stripeControl} onSubmit={handleSubmit}>
-      <CardElement className={style.pay} />
-      {error && <p className={style.err}>{error}</p>}
-      <button>
-        {loading ? (
-          <div className={style.loaderContainer}>
-            <span className={style.loader}></span>
-          </div>
-        ) : (
-          "Comprar"
-        )}
-      </button>
+        <h1 className={style.pagar}>Pagar</h1>
+        <CardElement className={style.pay} />
+        {error && <p className={style.err}>{error}</p>}
+        <form className={style.form}>
+          <input
+              className={style.input}
+              type="text"
+              placeholder="Provincia"
+          ></input>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="Ciudad"
+          ></input>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="Dirección"
+          ></input>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="Código Postal"
+          ></input>
+        </form>
+        <button className={style.button}>
+          {loading ? (
+            <div className={style.loaderContainer}>
+              <span className={style.loader}></span>
+            </div>
+          ) : (
+            "Pagar"
+          )}
+        </button>
     </form>
+      </div>
   );
 };
