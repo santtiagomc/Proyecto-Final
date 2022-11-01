@@ -4,20 +4,56 @@
   justify-content: center;
 }
 
-.stripeContainer{
-  justify-content: center;
-}
-
 .pagar{
   color: #FFF;
   margin-left: 16.5rem;
 }
 
+.priceTotalContainer{
+  background: red;
+}
+
+.precioUnidad{
+  color: rgb(169, 169, 169);
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1.25rem;
+  margin-left: 30rem;
+}
+
 .totalPrice {
-  color: #FFF;
-  display: grid;
-  justify-items: center;
-  font-size: 40px;
+  background-color: transparent;
+  position: absolute;
+  margin-bottom: 10rem;
+  bottom: 1rem;
+  right: 63.9rem;
+  color: var(--extra-color);
+  display: block;
+  font-size: 1.5rem;
+  padding: 0.23%;
+  font-weight: bold;
+}
+
+.total{
+  background-color: #202020;
+  position: absolute;
+  margin-bottom: 10rem;
+  bottom: 1rem;
+  right: 64.5rem;
+  color: var(--extra-color);
+  display: block;
+  font-size: 1.5rem;
+  left: 8rem;
+  width: 39.99%;
+  padding: 0.233%;
+  font-weight: bold;
 }
 
 .product {
@@ -47,7 +83,7 @@
   font-weight: 500;
   cursor: pointer;
   border: 2px solid var(--violeta-primario);
-  margin-top: 3.5rem;
+  margin-top: 1.5rem;
   margin-left: 13.5rem;
 }
 
@@ -57,11 +93,11 @@
     /* position: relative; */
     /* padding: 3.61rem; */
     padding: 1.5rem;
-    background-color: white;
+    background-color: var(--extra-color);
     width: 80%;
-    height: 0rem;
     margin-left: 5rem;
     margin-top: 5rem;
+    border: 2px solid var(--violeta-primario);
     border-radius: 5px;
 }
 
@@ -72,7 +108,7 @@
 }
 
 .form {
-  margin: 5em 7em;
+  margin: 1.5em 6em;
 	width: 75%;
   display: flex;
   align-items: center;
@@ -106,21 +142,31 @@
   padding: 1em 2.5em 1em 2.5em;
   overflow: hidden;
   border-color: #FFF 1px;
+  margin-left: -15rem;
+  margin-top: 0.6rem;
 }
 
 .detail_product {
   display: flex;
   align-items: center;
-
+  margin-bottom: 2%;
 }
 
 .detail_price {
-  margin-left: 5rem;
+  margin-left: 13rem;
+  font-size: 1.3rem;
+}
+
+.hr{
+  background: red;
+  width: 42%;
+  position: absolute;
+  margin-bottom: 0%;
 }
 
 .detail_img {
-  height: 12rem;
-  width: 7.5rem;
+  height: 5rem;
+  width: auto;
   object-fit: cover;
   object-position: center;
 }
@@ -135,7 +181,7 @@
 .detail_info_h2 {
   margin-bottom: 0.9375rem;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 20px;
  }
 
 .detail_info_h2:hover {

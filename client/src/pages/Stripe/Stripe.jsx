@@ -19,11 +19,11 @@ const stripePromsie = loadStripe(
 
 export default function Stripe() {
   const cart = useSelector((state) => state.cart);
-
-  console.log(cart);
+  
   return (
     <div className={style.container}>
       <div className={style.product}>
+        <h5 className={style.precioUnidad}>Precio Unidad</h5>
         {cart.length &&
           cart.map((product) => {
             return <div className={style.detail}>
@@ -41,13 +41,16 @@ export default function Stripe() {
               </div>
             </div>
             <h3 className={`col-2 text-center ${style.detail_price}`}>
-              Precio Individual: {product.price}
+              {product.price}$
             </h3>
+            <hr className={style.hr}/>
             </div>
           })}
-        <div className={style.totalPrice}>Precio Total: {cart.length && 
-          Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))}
-        </div>
+            <div className={style.total}>Total</div>
+            <div className={style.totalPrice}>{cart.length && 
+              Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))}
+            $
+            </div>  
       </div>
       <div className={style.payment}>
         <Elements stripe={stripePromsie}>
@@ -81,7 +84,7 @@ const CheckoutForm = ({ cart }) => {
           stripeId: id,
           cart: cart,
         });
-        // history.push("/profile");
+        history.push("/profile");
         console.log(res);
         Swal.fire({
           title: "Producto comprado correctamente",
@@ -158,7 +161,8 @@ const CheckoutForm = ({ cart }) => {
               <span className={style.loader}></span>
             </div>
           ) : (
-            "Pagar"
+          `Pagar ${cart.length && 
+              Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))} $`
           )}
         </button>
     </form>
