@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userExist, getUserDb } from "./redux/actions";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { auth } from "./firebase/firebase";
@@ -20,13 +20,21 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user);
       dispatch(userExist(user));
-      dispatch(getUserDb(user.uid));
+      // dispatch(getUserDb(user.uid));
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(getUserDb(user.uid));
+    }
+  }, [dispatch, user]);
 
   return (
     <BrowserRouter>

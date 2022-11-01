@@ -24,6 +24,7 @@ import {
   TABLE_VIEW,
 } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
+import { logOut } from "../../firebase/auth";
 
 export default function Dashboard() {
   const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
@@ -52,6 +53,15 @@ export default function Dashboard() {
     tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
     tableViewGlobal === "orders" && dispatch(getCarts());
     tableViewGlobal === "books" && dispatch(getAllBooks());
+  };
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -123,10 +133,11 @@ export default function Dashboard() {
             <span className={style.title}>Categorías</span>
           </li>
           <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "logOff" });
-            }}
+            // onClick={() => {
+            //   dispatch({ type: TABLE_VIEW, payload: "logOff" });
+            // }}
             className={tableViewGlobal === "logOff" && style.hovered}
+            onClick={handleLogOut}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>
