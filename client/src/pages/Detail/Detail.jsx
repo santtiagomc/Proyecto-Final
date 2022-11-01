@@ -209,7 +209,7 @@ export default function Detail() {
           )}
       </div>
       {myBook.name ? (
-        <div>
+        <div className={style.detailInfo}>
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
@@ -365,7 +365,9 @@ export default function Detail() {
           <Review id={id} />
         </div>
       ) : (
-        <img src={Loader} alt="Logo loader" className={style.loader} />
+        <div className={style.loaderContainer}>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
+        </div>
       )}
     </>
   );
