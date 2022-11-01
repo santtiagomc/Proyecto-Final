@@ -44,6 +44,7 @@
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-left: 5em;
 }
 
 .userBtn i {
@@ -64,6 +65,7 @@
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-right: 5em;
 }
 
 .cart i {
@@ -77,10 +79,10 @@
   align-items: center;
 }
 
-.button {
+.buttonDash {
   display: flex;
   position: relative;
-  width: 4.5rem;
+  width: 7rem;
   height: auto;
   text-align: center;
   justify-content: center;
@@ -90,6 +92,7 @@
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 5px 10px 5px 10px;
+  margin-right: 7em;
 }
 
 .menu {
@@ -100,6 +103,7 @@
   border-radius: 4px;
   padding: 4px;
   top: 60px;
+  margin-left: 1em;
 }
 
 .hide {
@@ -111,7 +115,7 @@
 }
 
 .list {
-  list-style: none;
+  list-style:none;
   padding: 0;
   margin: 0;
 }

@@ -10,7 +10,9 @@ import style from "./NavBar.module.css";
 import { getGuestCart, getUserCart } from "../../redux/actions";
 
 export default function NavBar() {
-  const { user, cart, postCartResponse } = useSelector((state) => state);
+  const { user, cart, postCartResponse, userDb } = useSelector(
+    (state) => state
+  );
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ export default function NavBar() {
     if (user && user.uid) {
       setTimeout(function () {
         dispatch(getUserCart(user.uid));
-      }, 500);
+      }, 400);
     } else {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -68,56 +70,80 @@ export default function NavBar() {
           <SearchBar />
         </div>
         <div className={style.forms}>
-          <div>
-            <Link to="/admin">
-              <button className={style.button}>Admin</button>
-            </Link>
-          </div>
           {!user ? (
+            <>
+              <div>
+                <Link to="/login">
+                  <button className={style.userBtn}>
+                    <i className="fa-solid fa-user"></i>
+                  </button>
+                </Link>
+              </div>
+              <div>
+                <Link to="/cart">
+                  <button className={style.cart}>
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    {!user ? (
+                      <div className={style.number}>
+                        {uniqueIdArrayCart && uniqueIdArrayCart.length}
+                      </div>
+                    ) : (
+                      <div className={style.number}>
+                        {cart && !cart.messageError ? quantityCart : 0}
+                      </div>
+                    )}
+                  </button>
+                </Link>
+              </div>
+            </>
+          ) : userDb.role === "Admin++" || userDb.role === "Admin" ? (
             <div>
-              <Link to="/login">
-                <button className={style.userBtn}>
-                  <i className="fa-solid fa-user"></i>
-                </button>
+              <Link to="/admin">
+                <button className={style.buttonDash}>Dashboard</button>
               </Link>
             </div>
           ) : (
-            <div>
-              <button onClick={() => setShow(!show)} className={style.userBtn}>
-                <i class="fa-solid fa-user"></i>
-              </button>
-              <div
-                className={`${style.menu} ${show ? style.show : style.hide}`}
-              >
-                <ul className={style.list}>
-                  <Link to="/profile">
-                    <li onClick={() => setShow(false)} className={style.text}>
-                      Cuenta
+            <>
+              <div>
+                <button
+                  onClick={() => setShow(!show)}
+                  className={style.userBtn}
+                >
+                  <i class="fa-solid fa-user"></i>
+                </button>
+                <div
+                  className={`${style.menu} ${show ? style.show : style.hide}`}
+                >
+                  <ul className={style.list}>
+                    <Link to="/profile">
+                      <li onClick={() => setShow(false)} className={style.text}>
+                        Mi cuenta
+                      </li>
+                    </Link>
+                    <li onClick={handleLogOut} className={style.text}>
+                      Cerrar sesión
                     </li>
-                  </Link>
-                  <li onClick={handleLogOut} className={style.text}>
-                    Cerrar sesion
-                  </li>
-                </ul>
+                  </ul>
+                </div>
               </div>
-            </div>
+              <div>
+                <Link to="/cart">
+                  <button className={style.cart}>
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    {!user ? (
+                      <div className={style.number}>
+                        {uniqueIdArrayCart && uniqueIdArrayCart.length}
+                      </div>
+                    ) : (
+                      <div className={style.number}>
+                        {cart && !cart.messageError ? quantityCart : 0}
+                      </div>
+                    )}
+                  </button>
+                </Link>
+              </div>
+            </>
           )}
-          <div>
-            <Link to="/cart">
-              <button className={style.cart}>
-                <i className="fa-solid fa-cart-shopping"></i>
-                {!user ? (
-                  <div className={style.number}>
-                    {uniqueIdArrayCart && uniqueIdArrayCart.length}
-                  </div>
-                ) : (
-                  <div className={style.number}>
-                    {cart && !cart.messageError ? quantityCart : 0}
-                  </div>
-                )}
-              </button>
-            </Link>
-          </div>
         </div>
       </nav>
     </>

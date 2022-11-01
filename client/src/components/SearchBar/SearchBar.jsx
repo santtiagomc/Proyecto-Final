@@ -5,8 +5,6 @@ import { changeFilter, changeSearch } from "../../redux/actions";
 
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
-// import "./prueba.css"
-
 export default function SearchBar() {
   const dispatch = useDispatch();
   const history = useHistory();

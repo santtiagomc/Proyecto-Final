@@ -22,7 +22,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart, deleteReview, putStatusBook } = useSelector(
+  const { user, cart, deleteReview, putStatusBook, userDb } = useSelector(
     (state) => state
   );
   let [buttonDisabled, setButtonDisabled] = useState(false);
@@ -31,6 +31,7 @@ export default function Detail() {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(userDb);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -176,37 +177,36 @@ export default function Detail() {
             <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
-        <div className={style.adminContainer}>
-          <button
-            className={myBook.visible ? style.btnStatusF : style.btnStatusT}
-            onClick={(e) => handleClick(e)}
-          >
-            {myBook.visible ? (
-              <div>
-                Ocultar producto <i class="fa-solid fa-eye-slash"></i>
-              </div>
-            ) : (
-              <div>
-                Mostrar producto <i class="fa-solid fa-eye"></i>
-              </div>
-            )}
-          </button>
-          {/* <NavLink
-            to={`/admin`}
-            
-          > */}
-          <button
-            className={style.btnStatusT}
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch({ type: TABLE_VIEW, payload: "addBook" });
-              history.push(`/admin?id=${myBook.id}`);
-            }}
-          >
-            Editar producto <i class="fa-solid fa-pencil"></i>
-          </button>
-          {/*  </NavLink> */}
-        </div>
+        {user &&
+          userDb &&
+          (userDb.role === "Admin++" || userDb.role === "Admin") && (
+            <div className={style.adminContainer}>
+              <button
+                className={myBook.visible ? style.btnStatusF : style.btnStatusT}
+                onClick={(e) => handleClick(e)}
+              >
+                {myBook.visible ? (
+                  <div>
+                    Ocultar producto <i class="fa-solid fa-eye-slash"></i>
+                  </div>
+                ) : (
+                  <div>
+                    Mostrar producto <i class="fa-solid fa-eye"></i>
+                  </div>
+                )}
+              </button>
+              <button
+                className={style.btnStatusT}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                  history.push(`/admin?id=${myBook.id}`);
+                }}
+              >
+                Editar producto <i class="fa-solid fa-pencil"></i>
+              </button>
+            </div>
+          )}
       </div>
       {myBook.name ? (
         <div>
@@ -293,36 +293,80 @@ export default function Detail() {
                 <span className={style.noDisponible}>No disponible</span>
               )}
               <p className={style.description}>{myBook.description}</p>
-              <div className={style.containerBuy}>
-                <h3 className={style.price}>USD {myBook.price}</h3>
-                <button
-                  className={
-                    myBook.visible && !buttonDisabled
-                      ? style.cart
-                      : `${style.cart} ${style.cartF} `
-                  }
-                  disabled={myBook.visible && !buttonDisabled ? false : true}
-                  value={id}
-                  type="button"
-                  onClick={(e) => handleCart(e)}
-                >
-                  Agregar al carrito{" "}
-                  {!user ? (
-                    quantity && quantity[id] ? (
-                      <div className={style.number}>{quantity[id]}</div>
+
+              {user ? (
+                userDb &&
+                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                  <h3 className={style.price}>USD {myBook.price}</h3>
+                ) : (
+                  userDb.role === "Usuario" && (
+                    <div className={style.containerBuy}>
+                      <h3 className={style.price}>USD {myBook.price}</h3>
+                      <button
+                        className={
+                          myBook.visible && !buttonDisabled
+                            ? style.cart
+                            : `${style.cart} ${style.cartF} `
+                        }
+                        disabled={
+                          myBook.visible && !buttonDisabled ? false : true
+                        }
+                        value={id}
+                        type="button"
+                        onClick={(e) => handleCart(e)}
+                      >
+                        Agregar al carrito{" "}
+                        {!user ? (
+                          quantity && quantity[id] ? (
+                            <div className={style.number}>{quantity[id]}</div>
+                          ) : (
+                            <div className={style.number}>0</div>
+                          )
+                        ) : quantityUser ? (
+                          <div className={style.number}>{quantityUser}</div>
+                        ) : (
+                          <div className={style.number}>0</div>
+                        )}
+                      </button>
+                    </div>
+                  )
+                )
+              ) : (
+                <div className={style.containerBuy}>
+                  <h3 className={style.price}>USD {myBook.price}</h3>
+                  <button
+                    className={
+                      myBook.visible && !buttonDisabled
+                        ? style.cart
+                        : `${style.cart} ${style.cartF} `
+                    }
+                    disabled={myBook.visible && !buttonDisabled ? false : true}
+                    value={id}
+                    type="button"
+                    onClick={(e) => handleCart(e)}
+                  >
+                    Agregar al carrito{" "}
+                    {!user ? (
+                      quantity && quantity[id] ? (
+                        <div className={style.number}>{quantity[id]}</div>
+                      ) : (
+                        <div className={style.number}>0</div>
+                      )
+                    ) : quantityUser ? (
+                      <div className={style.number}>{quantityUser}</div>
                     ) : (
                       <div className={style.number}>0</div>
-                    )
-                  ) : quantityUser ? (
-                    <div className={style.number}>{quantityUser}</div>
-                  ) : (
-                    <div className={style.number}>0</div>
-                  )}
-                </button>
-              </div>
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          <Review id={id} />
+          {user ? (
+            userDb && userDb.role === "Usuario" && <Review id={id} />
+          ) : (
+            <Review id={id} />
+          )}
         </div>
       ) : (
         <img src={Loader} alt="Logo loader" className={style.loader} />

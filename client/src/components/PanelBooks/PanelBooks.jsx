@@ -59,7 +59,6 @@ export default function PanelBooks() {
       dispatch({ type: PUT_STATUS, payload: {} });
     }
   }, [putStatusBook]);
-  //------------------------------------------------------------------------
 
   const handleImage = (image, name) => {
     Swal.fire({

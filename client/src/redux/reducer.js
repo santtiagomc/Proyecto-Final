@@ -32,6 +32,7 @@ import {
   POST_GENRE,
   DELETE_GENRE,
   PUT_CART_STATUS,
+  GET_USER_DB,
   USERS_SEARCH_ADMIN,
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
@@ -86,6 +87,7 @@ const initialState = {
   tableViewGlobal: "users",
   messageGlobal: [],
   messageDeleteGlobal: [],
+  userDb: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -142,11 +144,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
 
     case GET_CART:
-      if (state.user && state.user.uid) {
-        return { ...state }
-      } else {
-        return { ...state, cart: action.payload };
-      }
+      return { ...state, cart: action.payload };
 
     case GET_USER_CART:
       // console.log(action.payload);
@@ -236,7 +234,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, messageDeleteGlobal: action.payload };
 
     case PUT_CART_STATUS:
-      return { ...state, putCartResponse: action.payload }
+      return { ...state, putCartResponse: action.payload };
+
+    case GET_USER_DB:
+      // console.log(action.payload);
+      return { ...state, userDb: action.payload };
 
     default:
       return { ...state };

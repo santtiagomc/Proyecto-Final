@@ -17,7 +17,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  // console.log(req.query)
   const response = await getAllUsers(req.query)
 
   let statusCode;
