@@ -146,6 +146,7 @@
 
 .i_order {
   font-size: 1.4em;
+  background-color: transparent;
 }
 
 .col0,
@@ -266,7 +267,7 @@
 
 .btn {
   color: var(--extra-color);
-  background-color: var(--negro-backgound);
+  background-color: transparent;
   border: none;
 }
 

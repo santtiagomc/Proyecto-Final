@@ -38,11 +38,20 @@ const templateHTML = (subject, data) => {
       if (!data.fullName || !data.books.length || !data.orderNumber)
         throw new Error("Necessary values missing");
 
-      let booksUnique = [...new Set(data.books)];
-      let booksQuantity = {};
-      data.books.forEach((el) => {
-        booksQuantity[el] = (booksQuantity[el] || 0) + 1;
-      });
+      console.log(data.fullName);
+      console.log(data.books);
+      console.log(data.orderNumber);
+
+      /* let booksQuantity = data.books.map((el) => {
+        return {
+          name: el.name,
+          quantity: el.quantity,
+          price: el.price,
+        };
+      }); */
+      let totalPrice = data.books.reduce((acc, el) => {
+        return (acc = acc + el.quantity * el.price);
+      }, 0);
 
       return `<h1>Gracias por tu compra!</h1>
             <p>Hola ${
@@ -50,16 +59,19 @@ const templateHTML = (subject, data) => {
             }, aqui te dejamos los datos de tu compra.</p>
             <ul>
               ${
-                booksUnique &&
-                booksQuantity &&
-                booksUnique
+                data.books &&
+                data.books
                   .map((el) => {
-                    return `<li>${el} x(${booksQuantity[el]})</li>`;
+                    return `<li>$${el.price * el.quantity} | ${el.name} x(${
+                      el.quantity
+                    })</li>`;
                   })
                   .join("")
               }
             </ul>
-            <p>Número de orden ${data.orderNumber}</p>
+            
+            <p>Valor total: $${totalPrice}</p>
+            <p>Número de orden: ${data.orderNumber}</p>
             <span>Saludos el equipo de Books Nook</span>
             `;
 
