@@ -78,7 +78,7 @@ const initialState = {
   },
   allCarts: [],
   cartsFiltersAdmin: {
-    sort: "price-min-max",
+    sort: "status-Z-A",
     searchValue: ""
   },
   putUserResponse: [],

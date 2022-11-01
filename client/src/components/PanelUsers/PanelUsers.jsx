@@ -5,6 +5,7 @@ import {
   putUser,
   PUT_USER,
   USERS_ORDER_ADMIN,
+  USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
 import style from "./PanelUsers.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
@@ -27,12 +28,12 @@ export default function PanelUsers() {
 
   useEffect(() => {
     dispatch(getAllUsers(usersFiltersAdmin));
-  }, [putUserResponse, usersFiltersAdmin.sort]);
+  }, [putUserResponse, usersFiltersAdmin]);
 
   useEffect(() => {
     if (allUsers.messageError) {
       templateAlertTopEnd(2000, "error", allUsers.messageError);
-      dispatch(getAllUsers(usersFiltersAdmin));
+      dispatch({ type: USERS_SEARCH_ADMIN, payload: [] });
     }
   }, [dispatch, allUsers]);
 

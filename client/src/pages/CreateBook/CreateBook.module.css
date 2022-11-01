@@ -46,8 +46,24 @@
   padding: 1em;
   border-radius: 1rem;
   overflow: auto;
+  align-items: center;
   /* background-color: #2f2f2f;
   box-shadow: inset 0px 4px 4px rgb(0 0 0 / 25%); */
+}
+
+.form::-webkit-scrollbar {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.form::-webkit-scrollbar-thumb {
+  background: var(--extra-color);
+  border-radius: 2em;
+  border: 8px solid #131313;
+}
+
+.form::-webkit-scrollbar-corner {
+  background-color: #131313;
 }
 
 .divs {
