@@ -25,7 +25,7 @@ export const sessionGoogle = async () => {
   await singInGoogle(googleProvider);
 };
 
-const singInGoogle = async (googleProvider) => {
+export const singInGoogle = async (googleProvider) => {
   const res = await signInWithPopup(auth, googleProvider);
   const userExists = await axios.get(
     `http://localhost:3001/user/${res.user.uid}`

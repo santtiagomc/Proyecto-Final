@@ -32,6 +32,7 @@ import {
   POST_GENRE,
   DELETE_GENRE,
   PUT_CART_STATUS,
+  GET_USER_DB,
 } from "./actions";
 
 const initialState = {
@@ -74,6 +75,7 @@ const initialState = {
   tableViewGlobal: "orders",
   messageGlobal: [],
   messageDeleteGlobal: [],
+  userDb: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -208,7 +210,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, messageDeleteGlobal: action.payload };
 
     case PUT_CART_STATUS:
-      return { ...state, putCartResponse: action.payload }
+      return { ...state, putCartResponse: action.payload };
+
+    case GET_USER_DB:
+      // console.log(action.payload);
+      return { ...state, userDb: action.payload };
 
     default:
       return { ...state };

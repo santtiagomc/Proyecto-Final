@@ -33,6 +33,7 @@ export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
 export const POST_GENRE = "POST_GENRE";
 export const DELETE_GENRE = "DELETE_GENRE";
 export const PUT_CART_STATUS = "PUT_CART_STATUS";
+export const GET_USER_DB = "GET_USER_DB";
 
 export function userExist(payload) {
   return {
@@ -42,17 +43,17 @@ export function userExist(payload) {
 }
 
 //-------para obtener los libros con filtros y páginado.
-export function searchBook(filters, search, page) {
+export function searchBook(filters, search, page, admin) {
   return async function (dispatch) {
     try {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       } else {
         json = await axios(
-          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       }
       return dispatch({
@@ -527,6 +528,24 @@ export function deleteGenre(name) {
     } catch (error) {
       return dispatch({
         type: DELETE_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer la info del user de la db
+export function getUserDb(uid) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/user/${uid}`);
+      return dispatch({
+        type: GET_USER_DB,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_USER_DB,
         payload: error.response.data,
       });
     }

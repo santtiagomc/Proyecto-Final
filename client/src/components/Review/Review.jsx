@@ -9,9 +9,10 @@ import {
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RiForbidLine, RiForbidFill } from "react-icons/ri";
 
 export default function Review({ id }) {
-  const { user, createReview, detail } = useSelector((state) => state);
+  const { user, createReview, detail, userDb } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [addReviewActive, setAddReviewActive] = useState(false);
@@ -122,6 +123,22 @@ export default function Review({ id }) {
     });
   }
 
+  function handleUserBanned(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: "Tu usuario se encuentra baneado",
+      width: 600,
+      text: "Los usuarios baneados no pueden añadir reseñas",
+      icon: "warning",
+      background: "#19191a",
+      color: "#e1e1e1",
+      border: "none",
+      // confirmButtonColor: "#45B7B7",
+      confirmButtonColor: "#37AA9C",
+      confirmButtonText: "Aceptar",
+    });
+  }
+
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
@@ -150,6 +167,11 @@ export default function Review({ id }) {
           <p>Inicia sesión para añadir una reseña</p>
           <i className="fa-solid fa-user"></i>
         </Link>
+      ) : userDb && userDb.status === "Baneado" ? (
+        <button className={style.baneado} onClick={(e) => handleUserBanned(e)}>
+          <p className={style.baneadoText}>No es posible añadir una reseña</p>
+          <RiForbidLine className={style.iconForb} />
+        </button>
       ) : !addReviewActive ? (
         <span
           className={style.see_form}

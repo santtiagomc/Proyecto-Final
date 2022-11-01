@@ -1,20 +1,68 @@
-.stripeControl {
-    width: 600px;
-    height: 300px;
+.container {
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
 }
 
-.container {
-    margin-top: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    height: 300px;
+.stripeContainer{
+  justify-content: center;
 }
+
+.pagar{
+  color: #FFF;
+  margin-left: 16.5rem;
+}
+
+.totalPrice {
+  color: #FFF;
+  display: grid;
+  justify-items: center;
+  font-size: 40px;
+}
+
+.product {
+  width: 40rem;
+  height: 50rem;
+  border-radius: 0.2rem;
+  margin-right: 0.1rem;
+}
+
+.payment {
+  width: 40rem;
+  height: 50rem;
+  /* border-radius: 0.2rem;
+  display: grid; */
+  justify-content: center;
+}
+
+.button {
+  width: 35%;
+  /* padding: 0.57rem; */
+  margin-left: 20rem;
+  height: 4%;
+  background-color: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--violeta-primario);
+  margin-top: 3.5rem;
+  margin-left: 13.5rem;
+}
+
 
 .pay {
-    margin-bottom: 20px;
-    position: relative;
+    /* margin-bottom: 20px; */
+    /* position: relative; */
+    /* padding: 3.61rem; */
+    padding: 1.5rem;
+    background-color: white;
+    width: 80%;
+    height: 0rem;
+    margin-left: 5rem;
+    margin-top: 5rem;
+    border-radius: 5px;
 }
 
 .err {
@@ -22,6 +70,78 @@
     font-size: 10px;
     top: 20px;
 }
+
+.form {
+  margin: 5em 7em;
+	width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input {
+	flex-grow: 1;
+	width: 60rem;
+	height: auto;
+	position: relative;
+	cursor: text;
+	background: #d9d9d9;
+	box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 7px 20px;
+  margin: 1em;
+}
+
+/* .Stripe_product__Bl0te{
+  top: 500rem;
+} */
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  color: rgb(169, 169, 169);
+  padding: 1em 2.5em 1em 2.5em;
+  overflow: hidden;
+  border-color: #FFF 1px;
+}
+
+.detail_product {
+  display: flex;
+  align-items: center;
+
+}
+
+.detail_price {
+  margin-left: 5rem;
+}
+
+.detail_img {
+  height: 12rem;
+  width: 7.5rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.detail_info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1.875rem;
+}
+
+.detail_info_h2 {
+  margin-bottom: 0.9375rem;
+  color: #ffffff;
+  font-size: 24px;
+ }
+
+.detail_info_h2:hover {
+  color: var(--azul-complementario);
+ }
+
 
 .loader, .loader:before, .loader:after {
     border-radius: 50%;
