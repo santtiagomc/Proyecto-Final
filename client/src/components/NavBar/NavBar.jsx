@@ -74,8 +74,9 @@ export default function NavBar() {
             <>
               <div>
                 <Link to="/login">
-                  <button className={style.userBtn}>
-                    <i className="fa-solid fa-user"></i>
+                  <button className={style.guestBtn}>
+                    Iniciar sesión
+                    {/* <i className="fa-solid fa-user"></i> */}
                   </button>
                 </Link>
               </div>

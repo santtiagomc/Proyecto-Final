@@ -362,11 +362,7 @@ export default function Detail() {
               )}
             </div>
           </div>
-          {user ? (
-            userDb && userDb.role === "Usuario" && <Review id={id} />
-          ) : (
-            <Review id={id} />
-          )}
+          <Review id={id} />
         </div>
       ) : (
         <img src={Loader} alt="Logo loader" className={style.loader} />
