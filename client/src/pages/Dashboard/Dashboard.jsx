@@ -27,6 +27,7 @@ import {
   USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
+import { logOut } from "../../firebase/auth";
 import { templateAlertTopEnd } from "../../helpers/templateAlert";
 import { useEffect } from "react";
 
@@ -62,6 +63,15 @@ export default function Dashboard() {
     tableViewGlobal === "users" && dispatch({ type: USERS_SEARCH_ADMIN, payload: [] });
     tableViewGlobal === "orders" && dispatch({ type: CARTS_SEARCH_ADMIN, payload: [] });
     tableViewGlobal === "books" && dispatch({ type: BOOKS_SEARCH_ADMIN, payload: [] });
+  };
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -136,10 +146,11 @@ export default function Dashboard() {
             </li>
           </div>
           <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "logOff" });
-            }}
+            // onClick={() => {
+            //   dispatch({ type: TABLE_VIEW, payload: "logOff" });
+            // }}
             className={tableViewGlobal === "logOff" && style.hovered}
+            onClick={handleLogOut}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>

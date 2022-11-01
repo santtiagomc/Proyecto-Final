@@ -1,4 +1,4 @@
-import { sessionGoogle, singUp } from "../../firebase/auth";
+import { sessionGoogle, singUp, singInGoogle } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 
@@ -110,6 +110,7 @@ export default function Register() {
     try {
       await sessionGoogle();
     } catch (error) {
+      AlertError();
       console.log(error);
     }
   };
