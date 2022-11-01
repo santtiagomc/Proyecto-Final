@@ -17,9 +17,6 @@
 
 body {
   margin: 0;
-  padding-bottom: 6.25rem;
-  min-height: 97.8vh;
-  position: relative;
   background-color: var(--negro-backgound);
   box-sizing: border-box;
   font-family: "Helvetica", -apple-system, "Roboto", sans-serif;

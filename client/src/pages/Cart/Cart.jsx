@@ -195,8 +195,10 @@ export default function Cart() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (user) {
-          dispatch(deleteUserCart(cart[0].cartId));
+        if (user && user.uid) {
+          setTimeout(function () {
+            dispatch(deleteUserCart(cart[0].cartId));
+          }, 300);
           Swal.fire({
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
@@ -204,6 +206,7 @@ export default function Cart() {
             width: 650,
             background: "#19191a",
             color: "#e1e1e1",
+            timer: 2000,
           });
 
           setTimeout(function () {
@@ -316,6 +319,10 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
+                <Link to="/login" className={style.see_form}>
+                  <p>Inicia sesión para comprar</p>
+                  <i className="fa-solid fa-user"></i>
+                </Link>
               </div>
             ))}
           </div>
@@ -436,9 +443,8 @@ export default function Cart() {
                   <hr></hr>
                 </div>
               ))}
-            {/*BOTON PROVISIONAL*/}
             <Link to="/stripe">
-              <button>Comprar</button>
+              <button className={style.botonComprar}>Comprar</button>
             </Link>
           </div>
         )
