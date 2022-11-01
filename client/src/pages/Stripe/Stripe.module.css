@@ -1,6 +1,5 @@
-.container {
+.containerProduct {
   display: flex;
-  margin-top: 100px;
   justify-content: center;
 }
 
@@ -16,7 +15,10 @@
   font-size: 14px;
   color: #ffffff;
   border: 0.0625rem solid var(--violeta-primario);
-  padding: 0.3em 0.6em;
+  padding: 5px 30px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  margin-left: 165px;
 }
 
 .priceTotalContainer{
