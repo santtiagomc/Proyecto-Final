@@ -18,7 +18,6 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
-
 function App() {
   const dispatch = useDispatch();
 
@@ -34,14 +33,12 @@ function App() {
       <Switch>
         <Route exact path="/landing" component={LandingPage} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/create" component={CreateBook} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/detail/:id" component={Detail} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/stripe" component={Stripe} />
         <Route exact path="/profile" component={UserProfile} />
-        <Route path="/edit/:id" component={CreateBook} />
         <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />

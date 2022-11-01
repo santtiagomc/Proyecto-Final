@@ -4,6 +4,7 @@ import {
   BOOKS_ORDER_ADMIN,
   BOOKS_SEARCH_ADMIN,
   getAllBooks,
+  getDetail,
   putStatus,
   PUT_STATUS,
   TABLE_VIEW,
@@ -338,6 +339,7 @@ export default function PanelBooks() {
                   <span className={style.col9}>{el.stock}</span>
                   <span
                     onClick={() => {
+                      dispatch(getDetail(el.id));
                       dispatch({ type: TABLE_VIEW, payload: "addBook" });
                     }}
                     className={style.col10}

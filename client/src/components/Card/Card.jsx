@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { putStatus } from "../../redux/actions";
+import { NavLink, useHistory } from "react-router-dom";
+import { putStatus, TABLE_VIEW } from "../../redux/actions";
 import style from "./CardPrueba.module.css";
 
 export default function Card({
@@ -13,6 +13,7 @@ export default function Card({
   visible,
 }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -32,11 +33,17 @@ export default function Card({
             <i class="fa-solid fa-eye"></i>
           )}
         </button>
-        <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>
-            <i class="fa-solid fa-pencil"></i>
-          </button>
-        </NavLink>
+        <button
+          className={style.btnStatusT}
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch({ type: TABLE_VIEW, payload: "addBook" });
+
+            history.push(`/admin?id=${id}`);
+          }}
+        >
+          <i class="fa-solid fa-pencil"></i>
+        </button>
       </div>
       <NavLink className={style.navLink} to={`/detail/${id}`}>
         <div className={visible ? style.container : style.containerF}>

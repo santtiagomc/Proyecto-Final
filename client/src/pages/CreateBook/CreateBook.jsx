@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import {
   addBooks,
   getDetail,
@@ -7,6 +7,7 @@ import {
   GET_DETAIL,
   putBook,
   resetCreate,
+  TABLE_VIEW,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -86,7 +87,10 @@ function validation(input) {
 export default function CreateBook() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const query = location.search.slice(4);
 
+  const { genres, create } = useSelector((state) => state);
   const detail = useSelector((state) => state.detail);
   let [buttonDisabled, setButtonDisabled] = useState(false);
   let [imageName, setImageName] = useState("");
@@ -94,15 +98,14 @@ export default function CreateBook() {
   const params = useParams();
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getDetail(params.id));
+    if (query) {
+      dispatch(getDetail(query));
     }
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, [dispatch, params.id]);
+  }, [dispatch, query, create]);
 
-  const { genres, create } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
@@ -118,7 +121,7 @@ export default function CreateBook() {
   });
 
   useEffect(() => {
-    if (params.id) {
+    if (detail) {
       if (Array.isArray(detail)) return;
 
       setInput({
@@ -136,7 +139,7 @@ export default function CreateBook() {
         }, []),
       });
     }
-  }, [detail, params.id]);
+  }, [detail]);
 
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
@@ -160,7 +163,7 @@ export default function CreateBook() {
     setButtonDisabled(true);
     setImageName(e.target.files[0].name);
 
-    const imageUrl = await uploadFile(e.target.files[0], params.id);
+    const imageUrl = await uploadFile(e.target.files[0], detail.id);
     console.log(imageUrl);
     setInput({ ...input, image: imageUrl });
 
@@ -185,7 +188,10 @@ export default function CreateBook() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(input);
-    if (!params.id) {
+    console.log(detail);
+    console.log(query);
+
+    if (!detail.id) {
       if (Object.keys(errors).length === 0) {
         dispatch(addBooks(input));
       } else {
@@ -193,7 +199,7 @@ export default function CreateBook() {
       }
     } else {
       if (Object.keys(errors).length === 0) {
-        dispatch(putBook(params.id, input));
+        dispatch(putBook(detail.id, input));
       } else {
         templateAlert("Todos los campos son requeridos", null, "info", 4000);
       }
@@ -215,12 +221,17 @@ export default function CreateBook() {
         edition: "",
         genre: [],
       });
-      params.id ? history.goBack() : history.push("/");
+      if (query) {
+        history.push(`/detail/${query}`);
+        dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+      }
+      detail.id && !query && dispatch({ type: TABLE_VIEW, payload: "books" });
+      !detail.id && !query && dispatch({ type: TABLE_VIEW, payload: "books" });
     } else if (create.messageError) {
       templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
-  }, [create, dispatch, params.id, history]);
+  }, [create, dispatch, detail.id, history]);
 
   function handleChange(e) {
     setInput({
@@ -258,7 +269,7 @@ export default function CreateBook() {
             <input
               className={style.input}
               type="text"
-              placeholder={params.id ? detail.name : "Nombre del libro"}
+              placeholder={detail.id ? detail.name : "Nombre del libro"}
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
@@ -487,13 +498,28 @@ export default function CreateBook() {
                 type="submit"
                 disabled={buttonDisabled}
               >
-                {params.id ? "Completar edición" : "Crear libro"}
+                {detail.id ? "Completar edición" : "Crear libro"}
               </button>
-              <Link to={params.id ? `/detail/${params.id}` : "/"}>
-                <button className={style.btn_link}>
-                  {params.id ? "Cancelar" : "Volver"}
-                </button>
-              </Link>
+              {/* <Link to={detail.id ? `/detail/${detail.id}` : "/"}> */}
+              <button
+                className={style.btn_link}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (query) {
+                    history.goBack();
+                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                  }
+                  detail.id &&
+                    !query &&
+                    dispatch({ type: TABLE_VIEW, payload: "books" });
+                  !detail.id &&
+                    !query &&
+                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                }}
+              >
+                {query || detail.id ? "Cancelar" : "Volver"}
+              </button>
+              {/*   </Link> */}
             </div>
           </div>
         </div>
