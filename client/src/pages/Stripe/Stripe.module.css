@@ -1,13 +1,11 @@
 .container {
   display: flex;
-  margin-top: 100px;
-  justify-content: center;
-}
-
-.pagar{
-  color: #FFF;
-  text-align: center;
-  margin-bottom: 30px;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  gap: 20px;
+  position: relative;
+  margin-top: 150px;
 }
 
 .backButton {
@@ -16,7 +14,15 @@
   font-size: 14px;
   color: #ffffff;
   border: 0.0625rem solid var(--violeta-primario);
-  padding: 0.3em 0.6em;
+  padding: 5px 30px;
+  top: -70px;
+  position: absolute;
+}
+
+.pagar{
+  color: #FFF;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .priceTotalContainer{
@@ -38,6 +44,7 @@
 .totalPrice {
   color: var(--extra-color);
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .total{
@@ -61,7 +68,7 @@
 }
 
 .payment {
-  width: 640px;
+  width: 620px;
 }
 
 .button {
@@ -210,4 +217,16 @@
 	justify-content: center;
 	width: 100px;
     height: 100px;
+}
+
+
+@media (max-width: 1450px) {
+  .product {
+    width: 500px;
+  }
+  
+  .payment {
+    width: 500px
+  }
+  
 }
