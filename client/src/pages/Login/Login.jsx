@@ -14,7 +14,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state);
+  const { user, userDb } = useSelector((state) => state);
   const [loader, setLoader] = useState(false);
 
   const {
@@ -35,49 +35,54 @@ export default function Login() {
   useEffect(() => {
     if (user && user.uid) {
       setLoader(true);
-      if (uniqueIdArrayCart.length) {
-        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
-        setTimeout(() => {
-          setLoader(false);
-          Swal.fire({
-            title: "Tienes productos en tu carrito de invitado",
-            width: 650,
-            text: "¿Quieres pasar estos productos a tu carrito de usuario?",
-            icon: "warning",
-            iconColor: "#355070",
-            showCancelButton: true,
-            background: "#19191a",
-            color: "#e1e1e1",
-            confirmButtonColor: "#355070",
-            cancelButtonColor: "#B270A2",
-            confirmButtonText: "¡Si! Guardar carrito",
-            cancelButtonText: "Cancelar",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              dispatch(
-                postCart({
-                  userId: user.uid,
-                  bookId: uniqueIdArrayCart,
-                  suma: true,
-                })
-              );
-              setLoader(true);
-              setTimeout(function () {
-                dispatch(getUserCart(user.uid));
-                localStorage.clear();
-              }, 1900);
-              setTimeout(() => {
+      if (userDb && userDb.role === "Usuario") {
+        if (uniqueIdArrayCart.length) {
+          dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
+          setTimeout(() => {
+            setLoader(false);
+            Swal.fire({
+              title: "Tienes productos en tu carrito de invitado",
+              width: 650,
+              text: "¿Quieres pasar estos productos a tu carrito de usuario?",
+              icon: "warning",
+              iconColor: "#355070",
+              showCancelButton: true,
+              background: "#19191a",
+              color: "#e1e1e1",
+              confirmButtonColor: "#355070",
+              cancelButtonColor: "#B270A2",
+              confirmButtonText: "¡Si! Guardar carrito",
+              cancelButtonText: "Cancelar",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(
+                  postCart({
+                    userId: user.uid,
+                    bookId: uniqueIdArrayCart,
+                    suma: true,
+                  })
+                );
+                setLoader(true);
+                setTimeout(function () {
+                  dispatch(getUserCart(user.uid));
+                  localStorage.clear();
+                }, 1900);
+                setTimeout(() => {
+                  history.goBack();
+                }, 2000);
+              } else {
                 history.goBack();
-              }, 2000);
-            } else {
-              history.goBack();
-            }
-          });
-        }, 2000);
+              }
+            });
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            history.goBack();
+          }, 1000);
+        }
       } else {
-        setTimeout(() => {
-          history.goBack();
-        }, 1000);
+        // localStorage.clear();
+        history.push("/");
       }
     }
   }, [user, dispatch, history]);
