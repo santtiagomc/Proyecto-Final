@@ -10,6 +10,7 @@ import {
   postCart,
   getGuestCart,
   putBook,
+  TABLE_VIEW,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -172,7 +173,7 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.btnBack} onClick={() => history.goBack()}>
+          <button className={style.btnBack} onClick={() => history.push("/")}>
             <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
@@ -194,11 +195,16 @@ export default function Detail() {
                   </div>
                 )}
               </button>
-              <NavLink to={`/edit/${id}`}>
-                <button className={style.btnStatusT}>
-                  Editar producto <i class="fa-solid fa-pencil"></i>
-                </button>
-              </NavLink>
+              <button
+                className={style.btnStatusT}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                  history.push(`/admin?id=${myBook.id}`);
+                }}
+              >
+                Editar producto <i class="fa-solid fa-pencil"></i>
+              </button>
             </div>
           )}
       </div>

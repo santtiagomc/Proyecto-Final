@@ -4,6 +4,7 @@ import {
   BOOKS_ORDER_ADMIN,
   BOOKS_SEARCH_ADMIN,
   getAllBooks,
+  getDetail,
   putStatus,
   PUT_STATUS,
   TABLE_VIEW,
@@ -20,7 +21,7 @@ import {
   AiOutlineSortAscending,
   AiOutlineSortDescending,
   BsSortNumericDown,
-  BsSortNumericUp
+  BsSortNumericUp,
 } from "react-icons/all";
 import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
@@ -29,7 +30,9 @@ import style from "./PanelBooks.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
 
 export default function PanelBooks() {
-  const { allBooks, putStatusBook, booksFiltersAdmin } = useSelector((state) => state);
+  const { allBooks, putStatusBook, booksFiltersAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -139,19 +142,24 @@ export default function PanelBooks() {
       ) : (
         <div className={style.container}>
           <div className={style.table_container}>
-            <div className={`${style.table_row} ${style.table_row_attributtes}`}>
+            <div
+              className={`${style.table_row} ${style.table_row_attributtes}`}
+            >
               <span className={style.col0}>#</span>
               {/* <span className={style.col1}>Nombre</span> */}
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "nam"
-                  ? `${style.col1} ${style.col_active}`
-                  : style.col1
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "nam"
+                    ? `${style.col1} ${style.col_active}`
+                    : style.col1
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "name-A-Z" ? "name-Z-A" : "name-A-Z",
+                      booksFiltersAdmin.sort === "name-A-Z"
+                        ? "name-Z-A"
+                        : "name-A-Z",
                   })
                 }
               >
@@ -162,16 +170,19 @@ export default function PanelBooks() {
                   <AiOutlineSortDescending className={style.i_order} />
                 )}
               </span>
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "aut"
-                  ? `${style.col2} ${style.col_active}`
-                  : style.col2
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "aut"
+                    ? `${style.col2} ${style.col_active}`
+                    : style.col2
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "author-A-Z" ? "author-Z-A" : "author-A-Z",
+                      booksFiltersAdmin.sort === "author-A-Z"
+                        ? "author-Z-A"
+                        : "author-A-Z",
                   })
                 }
               >
@@ -182,16 +193,19 @@ export default function PanelBooks() {
                   <AiOutlineSortDescending className={style.i_order} />
                 )}
               </span>
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "yea"
-                  ? `${style.col3} ${style.col_active}`
-                  : style.col3
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "yea"
+                    ? `${style.col3} ${style.col_active}`
+                    : style.col3
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "year-min-max" ? "year-max-min" : "year-min-max",
+                      booksFiltersAdmin.sort === "year-min-max"
+                        ? "year-max-min"
+                        : "year-min-max",
                   })
                 }
               >
@@ -205,16 +219,19 @@ export default function PanelBooks() {
               <span className={style.col4}>Categorías</span>
               <span className={style.col5}>Portada</span>
               <span className={style.col6}>Descripción</span>
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "edi"
-                  ? `${style.col7} ${style.col_active}`
-                  : style.col7
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "edi"
+                    ? `${style.col7} ${style.col_active}`
+                    : style.col7
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "editorial-A-Z" ? "editorial-Z-A" : "editorial-A-Z",
+                      booksFiltersAdmin.sort === "editorial-A-Z"
+                        ? "editorial-Z-A"
+                        : "editorial-A-Z",
                   })
                 }
               >
@@ -225,16 +242,19 @@ export default function PanelBooks() {
                   <AiOutlineSortDescending className={style.i_order} />
                 )}
               </span>
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "pri"
-                  ? `${style.col8} ${style.col_active}`
-                  : style.col8
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "pri"
+                    ? `${style.col8} ${style.col_active}`
+                    : style.col8
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "price-min-max" ? "price-max-min" : "price-min-max",
+                      booksFiltersAdmin.sort === "price-min-max"
+                        ? "price-max-min"
+                        : "price-min-max",
                   })
                 }
               >
@@ -245,16 +265,19 @@ export default function PanelBooks() {
                   <BsSortNumericUp className={style.i_order} />
                 )}
               </span>
-              <span className={
-                booksFiltersAdmin.sort.slice(0, 3) === "sto"
-                  ? `${style.col9} ${style.col_active}`
-                  : style.col9
-              }
+              <span
+                className={
+                  booksFiltersAdmin.sort.slice(0, 3) === "sto"
+                    ? `${style.col9} ${style.col_active}`
+                    : style.col9
+                }
                 onClick={() =>
                   dispatch({
                     type: BOOKS_ORDER_ADMIN,
                     payload:
-                      booksFiltersAdmin.sort === "stock-min-max" ? "stock-max-min" : "stock-min-max",
+                      booksFiltersAdmin.sort === "stock-min-max"
+                        ? "stock-max-min"
+                        : "stock-min-max",
                   })
                 }
               >
@@ -281,12 +304,16 @@ export default function PanelBooks() {
                   <span className={style.col2}>{el.author}</span>
                   <span className={style.col3}>{el.edition}</span>
                   <span className={style.col4}>
-                    <span onClick={() =>
-                      templateAlert(
-                        "Categorías",
-                        el.Genres.map((ele) => ele.name).join(", ")
-                      )
-                    }>{el.Genres.map((ele) => ele.name).join(", ")}</span>
+                    <span
+                      onClick={() =>
+                        templateAlert(
+                          "Categorías",
+                          el.Genres.map((ele) => ele.name).join(", ")
+                        )
+                      }
+                    >
+                      {el.Genres.map((ele) => ele.name).join(", ")}
+                    </span>
                   </span>
                   <span className={style.col5}>
                     <button
@@ -311,6 +338,7 @@ export default function PanelBooks() {
                   <span className={style.col9}>{el.stock}</span>
                   <span
                     onClick={() => {
+                      dispatch(getDetail(el.id));
                       dispatch({ type: TABLE_VIEW, payload: "addBook" });
                     }}
                     className={style.col10}

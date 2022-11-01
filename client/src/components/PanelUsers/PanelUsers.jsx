@@ -20,9 +20,10 @@ import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
 import { templateAlertTopEnd } from "../../helpers/templateAlert";
 
-
 export default function PanelUsers() {
-  const { allUsers, putUserResponse, usersFiltersAdmin } = useSelector(state => state);
+  const { allUsers, putUserResponse, usersFiltersAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -117,7 +118,9 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersFiltersAdmin.sort === "role-A-Z" ? "role-Z-A" : "role-A-Z",
+                      usersFiltersAdmin.sort === "role-A-Z"
+                        ? "role-Z-A"
+                        : "role-A-Z",
                   })
                 }
               >
@@ -138,7 +141,9 @@ export default function PanelUsers() {
                   dispatch({
                     type: USERS_ORDER_ADMIN,
                     payload:
-                      usersFiltersAdmin.sort === "name-A-Z" ? "name-Z-A" : "name-A-Z",
+                      usersFiltersAdmin.sort === "name-A-Z"
+                        ? "name-Z-A"
+                        : "name-A-Z",
                   })
                 }
               >
