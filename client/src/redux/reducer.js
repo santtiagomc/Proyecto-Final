@@ -33,6 +33,9 @@ import {
   DELETE_GENRE,
   PUT_CART_STATUS,
   GET_USER_DB,
+  USERS_SEARCH_ADMIN,
+  BOOKS_SEARCH_ADMIN,
+  CARTS_SEARCH_ADMIN,
 } from "./actions";
 
 const initialState = {
@@ -65,14 +68,23 @@ const initialState = {
   putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
-  usersOrderAdmin: "name-A-Z",
+  usersFiltersAdmin: {
+    sort: "name-A-Z",
+    searchValue: ""
+  },
   allBooks: [],
-  booksOrderAdmin: "name-A-Z",
+  booksFiltersAdmin: {
+    sort: "name-A-Z",
+    searchValue: ""
+  },
   allCarts: [],
-  cartsOrderAdmin: "price-max-min",
+  cartsFiltersAdmin: {
+    sort: "status-Z-A",
+    searchValue: ""
+  },
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "orders",
+  tableViewGlobal: "users",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
@@ -194,15 +206,27 @@ export default function rootReducer(state = initialState, action) {
     case TABLE_VIEW:
       return { ...state, tableViewGlobal: action.payload };
 
+    //------------ LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
+
     case USERS_ORDER_ADMIN:
-      return { ...state, usersOrderAdmin: action.payload };
+      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, sort: action.payload } };
+
+    case USERS_SEARCH_ADMIN:
+      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, searchValue: action.payload } };
 
     case BOOKS_ORDER_ADMIN:
-      return { ...state, booksOrderAdmin: action.payload };
+      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, sort: action.payload } };
+
+    case BOOKS_SEARCH_ADMIN:
+      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, searchValue: action.payload } };
 
     case CARTS_ORDER_ADMIN:
-      return { ...state, cartsOrderAdmin: action.payload };
+      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, sort: action.payload } };
 
+    case CARTS_SEARCH_ADMIN:
+      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, searchValue: action.payload } };
+
+    //------------ END LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
     case POST_GENRE:
       return { ...state, messageGlobal: action.payload };
 

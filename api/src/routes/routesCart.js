@@ -10,7 +10,8 @@ const { putCartStatus } = require("../utils/putCartStatus");
 const { deleteUserCart } = require("../utils/deleteUserCart");
 
 router.get("/orders", async (req, res) => {
-  const response = await getOrders();
+  const response = await getOrders(req.query);
+
   response.messageError
     ? res.status(404).json(response)
     : res.status(201).json(response);
