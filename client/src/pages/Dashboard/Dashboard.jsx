@@ -91,6 +91,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "dashboard" && style.hovered}
             >
@@ -100,6 +101,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "users" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "users" && style.hovered}
             >
@@ -109,6 +111,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "orders" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "orders" && style.hovered}
             >
@@ -118,6 +121,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "books" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "books" && style.hovered}
             >
@@ -127,6 +131,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "addBook" && style.hovered}
             >
@@ -138,6 +143,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "genres" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "genres" && style.hovered}
             >
@@ -191,7 +197,7 @@ export default function Dashboard() {
             <div className={style.logo}></div>
           </div>
 
-          <div>
+          <div className={style.main_panels}>
             {tableViewGlobal === "dashboard" && <PanelUsers />}
             {tableViewGlobal === "users" && <PanelUsers />}
             {tableViewGlobal === "orders" && <PanelOrders />}
