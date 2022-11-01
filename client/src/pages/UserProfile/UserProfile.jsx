@@ -126,14 +126,10 @@ export default function ProfileUser() {
 									Editar perfil
 								</span>
 							</li>
-							<li className={hovered === 3 && style.hovered}>
+							{/* <li className={hovered === 3 && style.hovered}>
 								<FaShoppingCart className={style.i} />
 								<span className={style.title}>Historial de compras</span>
-							</li>
-							{/* <li className={hovered === 5 && style.hovered}>
-        						<MdPassword className={style.i} />
-        						<span className={style.title}>Cambiar contraseña</span>
-    						</li> */}
+							</li> */}
 							<li className={hovered === 6 && style.hovered}>
 								<i className="fa-solid fa-arrow-right-from-bracket"></i>
 								<span onClick={handleLogOut} className={style.title}>
@@ -179,22 +175,22 @@ export default function ProfileUser() {
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-												<hr/>
+												<hr />
 												<label className={style.label}>E-mail</label>
 												<p className={style.p}>{dataUser.email}</p>
-												<hr/> 
+												<hr />
 												<label className={style.label}>Provincia</label>
 												<p className={style.p}>{dataUser?.province}</p>
-												<hr/>
+												<hr />
 												<label className={style.label}>Ciudad</label>
 												<p className={style.p}>{dataUser?.city}</p>
-												<hr/>
+												<hr />
 												<label className={style.label}>Dirección</label>
 												<p className={style.p}>{dataUser?.address}</p>
-												<hr/>
+												<hr />
 												<label className={style.label}>Código Postal</label>
 												<p className={style.p}>{dataUser?.zipCode}</p>
-												<hr/>
+												<hr />
 											</div>
 										</>
 									) : (
@@ -268,31 +264,41 @@ export default function ProfileUser() {
 									<br></br>
 								</div>
 							</div>
-							{/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
 							<div className={style.shopping}>
 								<h2 className={style.misCompras}>Mis compras</h2>
 								{booksBuyed.books &&
 									booksBuyed.books.map((book) => (
 										<div>
-											<h3 className={style.status}>{book.status}</h3>
+												<h3 className={style.status}>{book.status}</h3>
 											<div>
-												<hr/>
 												{book.Books.map((purchase) => (
-													<div>
-														<img src={purchase.image} className={style.portada} />
+													<div className={style.books}>
+														<img
+															src={purchase.image}
+															className={style.portada}
+														/>
 														<h3 className={style.name}>{purchase.name}</h3>
-														<p className={style.info}>
+														<p className={style.price}>
+															USD{" "}
 															{purchase.price * purchase.Books_Carts.quantity}
 														</p>
-														<p className={style.info}>Cantidad {purchase.Books_Carts.quantity}</p>
-														<Link to={`/detail/${purchase.id}`}>Detalle</Link>
+														<p className={style.quantity}>
+															Cantidad: {purchase.Books_Carts.quantity}
+														</p>
+														<Link
+															to={`/detail/${purchase.id}`}
+															className={style.detail}
+														>
+															Detalle
+														</Link>
 													</div>
 												))}
 											</div>
-											<hr />
 										</div>
 									))}
-								<button onClick={nextPage} className={style.btn}>Ver más</button>
+								<button onClick={nextPage} className={style.btn}>
+									Ver más
+								</button>
 							</div>
 						</div>
 					</div>
