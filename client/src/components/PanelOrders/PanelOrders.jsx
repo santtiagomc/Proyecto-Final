@@ -20,7 +20,7 @@ import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
 export default function PanelBooks() {
   const { allCarts, putCartResponse, cartsFiltersAdmin } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const history = useHistory()
+  // const history = useHistory();
 
   useEffect(() => {
     dispatch(getCarts(cartsFiltersAdmin));
@@ -49,25 +49,28 @@ export default function PanelBooks() {
       background: "#19191a",
       color: "#181818",
       title: `<span class=${style.title}>Productos</span>`,
-      html: Array.isArray(text) ? text.map(book => {
-        return `
+      html: Array.isArray(text)
+        ? text.map((book) => {
+          return `
       <div>
         <span class=${style.price}>$${book.price}</span>
-        <a href="/detail/${book.Books_Carts.BookId}" target="_BLANK">${book.name}</a>
+        <a href="/detail/${book.Books_Carts.BookId}" target="_BLANK">${book.name
+            }</a>
         <span class=${style.quantity}>${book.Books_Carts.quantity}</span>
-        <span class=${style.total}>$${book.Books_Carts.quantity * book.price}</span>
+        <span class=${style.total}>$${book.Books_Carts.quantity * book.price
+            }</span>
         <hr></hr>
       </div>
-      `
-      })
+      `;
+        })
         : `<div>
           <span class=${style.text_empty}>${text}</span>
         </div>`,
       width: 650,
       customClass: {
         title: style.swal_title,
-        htmlContainer: style.swal_books
-      }
+        htmlContainer: style.swal_books,
+      },
     });
   }
 
