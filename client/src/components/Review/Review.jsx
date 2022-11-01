@@ -251,142 +251,148 @@ export default function Review({ id }) {
             : ""}
         </>
       ) : !addReviewActive ? (
-        <span
-          className={style.see_form}
-          onClick={() => setAddReviewActive(true)}
-        >
-          <p>Añadir reseña</p>
-          <i className="fa-solid fa-arrow-down"></i>
-        </span>
-      ) : (
-        <div>
+        <>
+          <h1 className={style.container_title}>Reseñas</h1>
           <span
             className={style.see_form}
-            onClick={() => setAddReviewActive(false)}
+            onClick={() => setAddReviewActive(true)}
           >
-            <p>Ocultar formulario</p>
-            <i className="fa-solid fa-arrow-up"></i>
+            <p>Añadir reseña</p>
+            <i className="fa-solid fa-arrow-down"></i>
           </span>
-          <form className="row" onSubmit={onSubmit}>
-            <div className="col-10 mb-3">
-              <label for="title" className="form-label">
-                Título*
-              </label>
-              <input
-                className={`form-control ${
-                  !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
-                }`}
-                type="text"
-                name="title"
-                id="title"
-                placeholder="Agregue un título a su reseña"
-                value={input.title}
-                onChange={handleChange}
-              />
-              {input.title && (
-                <div className="invalid-feedback">{errors.title}</div>
-              )}
-            </div>
+        </>
+      ) : (
+        <>
+          <h1 className={style.container_title}>Reseñas</h1>
+          <div>
+            <span
+              className={style.see_form}
+              onClick={() => setAddReviewActive(false)}
+            >
+              <p>Ocultar formulario</p>
+              <i className="fa-solid fa-arrow-up"></i>
+            </span>
+            <form className="row" onSubmit={onSubmit}>
+              <div className="col-10 mb-3">
+                <label for="title" className="form-label">
+                  Título*
+                </label>
+                <input
+                  className={`form-control ${
+                    !input.title ? "" : errors.title ? "is-invalid" : "is-valid"
+                  }`}
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Agregue un título a su reseña"
+                  value={input.title}
+                  onChange={handleChange}
+                />
+                {input.title && (
+                  <div className="invalid-feedback">{errors.title}</div>
+                )}
+              </div>
 
-            <div className="col-2 mb-3">
-              <label for="rating" className={` ${style.label_rating}`}>
-                Rating*
-              </label>
-              <div id="rating" className={`col-3 ${style.stars}`}>
-                <div className={style.star}>
-                  <i
-                    className={
-                      input.rating >= 1
-                        ? `fa-solid fa-star`
-                        : `fa-regular fa-star`
-                    }
-                    onClick={() => handleRating(1)}
-                  ></i>
-                </div>
+              <div className="col-2 mb-3">
+                <label for="rating" className={` ${style.label_rating}`}>
+                  Rating*
+                </label>
+                <div id="rating" className={`col-3 ${style.stars}`}>
+                  <div className={style.star}>
+                    <i
+                      className={
+                        input.rating >= 1
+                          ? `fa-solid fa-star`
+                          : `fa-regular fa-star`
+                      }
+                      onClick={() => handleRating(1)}
+                    ></i>
+                  </div>
 
-                <div className={style.star}>
-                  <i
-                    className={
-                      input.rating >= 2
-                        ? `fa-solid fa-star`
-                        : `fa-regular fa-star`
-                    }
-                    onClick={() => handleRating(2)}
-                  ></i>
-                </div>
+                  <div className={style.star}>
+                    <i
+                      className={
+                        input.rating >= 2
+                          ? `fa-solid fa-star`
+                          : `fa-regular fa-star`
+                      }
+                      onClick={() => handleRating(2)}
+                    ></i>
+                  </div>
 
-                <div className={style.star}>
-                  <i
-                    className={
-                      input.rating >= 3
-                        ? `fa-solid fa-star`
-                        : `fa-regular fa-star`
-                    }
-                    onClick={() => handleRating(3)}
-                  ></i>
-                </div>
+                  <div className={style.star}>
+                    <i
+                      className={
+                        input.rating >= 3
+                          ? `fa-solid fa-star`
+                          : `fa-regular fa-star`
+                      }
+                      onClick={() => handleRating(3)}
+                    ></i>
+                  </div>
 
-                <div className={style.star}>
-                  <i
-                    className={
-                      input.rating >= 4
-                        ? `fa-solid fa-star`
-                        : `fa-regular fa-star`
-                    }
-                    onClick={() => handleRating(4)}
-                  ></i>
-                </div>
+                  <div className={style.star}>
+                    <i
+                      className={
+                        input.rating >= 4
+                          ? `fa-solid fa-star`
+                          : `fa-regular fa-star`
+                      }
+                      onClick={() => handleRating(4)}
+                    ></i>
+                  </div>
 
-                <div className={style.star}>
-                  <i
-                    className={
-                      input.rating >= 5
-                        ? `fa-solid fa-star`
-                        : `fa-regular fa-star`
-                    }
-                    onClick={() => handleRating(5)}
-                  ></i>
+                  <div className={style.star}>
+                    <i
+                      className={
+                        input.rating >= 5
+                          ? `fa-solid fa-star`
+                          : `fa-regular fa-star`
+                      }
+                      onClick={() => handleRating(5)}
+                    ></i>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mb-3">
-              <label for="description" className="form-label">
-                Descripción*
-              </label>
-              <textarea
-                rows="11"
-                type="text"
-                name="description"
-                id="description"
-                className={`form-control ${
-                  !input.description
-                    ? ""
-                    : errors.description
-                    ? "is-invalid"
-                    : "is-valid"
-                }`}
-                placeholder="Agregue su reseña"
-                value={input.description}
-                onChange={handleChange}
-              />
-              {input.description && (
-                <div className="invalid-feedback">{errors.description}</div>
-              )}
-            </div>
+              <div className="mb-3">
+                <label for="description" className="form-label">
+                  Descripción*
+                </label>
+                <textarea
+                  rows="11"
+                  type="text"
+                  name="description"
+                  id="description"
+                  className={`form-control ${
+                    !input.description
+                      ? ""
+                      : errors.description
+                      ? "is-invalid"
+                      : "is-valid"
+                  }`}
+                  placeholder="Agregue su reseña"
+                  value={input.description}
+                  onChange={handleChange}
+                />
+                {input.description && (
+                  <div className="invalid-feedback">{errors.description}</div>
+                )}
+              </div>
 
-            <div className="mb-3">
-              <button
-                className="btn btn-primary col-1"
-                disabled={
-                  Object.keys(errors).length || buttonDisabled ? true : false
-                }
-              >
-                Enviar
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className="mb-3">
+                <button
+                  className="btn btn-primary col-1"
+                  disabled={
+                    Object.keys(errors).length || buttonDisabled ? true : false
+                  }
+                >
+                  Enviar
+                </button>
+              </div>
+            </form>
+          </div>
+        </>
       )}
 
       {user ? (
