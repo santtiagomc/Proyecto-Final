@@ -185,7 +185,7 @@
 
 
 .containerP {
-	width: 80%;
+	min-width: 220px;
   margin: 2em 8em;
 }
 
@@ -200,16 +200,16 @@
 	font-size: 18px;
 	color: var(--extra-color);
 	float: left;
-	width: 450px;
+	width: 21.575rem;
 	border-bottom: 0.125rem var(--extra-color) solid;
 	padding: 1em 4em;
-	
+
 }
 
 .p {
 	font-size: 18px;
 	color: var(--extra-color);
-	border-bottom: 0.125rem var(--extra-color) solid; 
+  border-bottom: 0.125rem var(--extra-color) solid;
 	padding: 1em 4em;
 }
 
@@ -253,7 +253,6 @@
 }
 
 .containerA {
-	width: 80%;
 	height: 65px;
 	background-color: var(--gris-complementario);
 	border-radius: 5px;

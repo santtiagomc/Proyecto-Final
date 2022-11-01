@@ -103,9 +103,9 @@ export default function ProfileUser() {
 								<span className={style.title}>Historial de compras</span>
 							</li>
 							{/* <li className={hovered === 5 && style.hovered}>
-        <MdPassword className={style.i} />
-        <span className={style.title}>Cambiar contraseña</span>
-    </li> */}
+        						<MdPassword className={style.i} />
+        						<span className={style.title}>Cambiar contraseña</span>
+    						</li> */}
 							<li className={hovered === 6 && style.hovered}>
 								<i className="fa-solid fa-arrow-right-from-bracket"></i>
 								<span onClick={handleLogOut} className={style.title}>
@@ -128,11 +128,11 @@ export default function ProfileUser() {
 									<i className="fa-solid fa-bars"></i>
 								</div>
 								{/* <div className={style.search}>
-        <label>
-            <input type="text" placeholder="Búsque aquí" />
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-    </div> */}
+        					<label>
+            				<input type="text" placeholder="Búsque aquí" />
+            				<i class="fa-solid fa-magnifying-glass"></i>
+        					</label>
+    						</div> */}
 								<div className={style.logo}></div>
 							</div>
 
@@ -146,9 +146,9 @@ export default function ProfileUser() {
 											</div>
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
-            <p className={style.p}>{dataUser.fullName}</p> */}
+            								<p className={style.p}>{dataUser.fullName}</p> */}
 												<label className={style.label}>
-													Correo Electrónico{" "}
+													Email{" "}
 												</label>
 												<p className={style.p}>{dataUser.email}</p>
 												<label className={style.label}>Provincia </label>
