@@ -9,7 +9,7 @@ import {
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { RiForbidLine, RiForbidFill } from "react-icons/ri";
+import { RiForbidLine } from "react-icons/ri";
 
 export default function Review({ id }) {
   const { user, createReview, detail, userDb } = useSelector((state) => state);
@@ -139,6 +139,29 @@ export default function Review({ id }) {
     });
   }
 
+  function handleAdminDelete(userId) {
+    Swal.fire({
+      title: "¡Cuidado! Estás a punto de borrar una reseña.",
+      width: 650,
+      text: "¿Quieres borrar esta reseña? Esto no podrá deshacerse.",
+      icon: "warning",
+      iconColor: "#355070",
+      showCancelButton: true,
+      background: "#19191a",
+      color: "#e1e1e1",
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      confirmButtonText: "¡Si! Borrar reseña",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteReviews({ UserId: userId, BookId: id }));
+
+        swalAlert(3000, "success", "La reseña ha sido eliminada con éxito");
+      }
+    });
+  }
+
   useEffect(() => {
     if (Array.isArray(createReview)) return;
     if (createReview.messageError) {
@@ -161,17 +184,72 @@ export default function Review({ id }) {
 
   return (
     <div className={`container ${style.reviews_container}`}>
-      <h1 className={style.container_title}>Reseñas</h1>
+      {/* <h1 className={style.container_title}>Reseñas</h1> */}
       {!user ? (
-        <Link to="/login" className={style.see_form}>
-          <p>Inicia sesión para añadir una reseña</p>
-          <i className="fa-solid fa-user"></i>
-        </Link>
+        <>
+          <h1 className={style.container_title}>Reseñas</h1>
+          <Link to="/login" className={style.see_form}>
+            <p>Inicia sesión para añadir una reseña</p>
+            <i className="fa-solid fa-user"></i>
+          </Link>
+        </>
       ) : userDb && userDb.status === "Baneado" ? (
-        <button className={style.baneado} onClick={(e) => handleUserBanned(e)}>
-          <p className={style.baneadoText}>No es posible añadir una reseña</p>
-          <RiForbidLine className={style.iconForb} />
-        </button>
+        <>
+          <h1 className={style.container_title}>Reseñas</h1>
+          <button
+            className={style.baneado}
+            onClick={(e) => handleUserBanned(e)}
+          >
+            <p className={style.baneadoText}>No es posible añadir una reseña</p>
+            <RiForbidLine className={style.iconForb} />
+          </button>
+        </>
+      ) : userDb && (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+        <>
+          <h1 className={style.container_title}>Reseñas</h1>
+          <hr></hr>
+          {detail.Reviews.length
+            ? detail.Reviews.map((review, index) => (
+                <div className={style.single_review} key={index}>
+                  {review.User && (
+                    <h6 className={style.user_single_review}>
+                      {review.User.fullName}
+                    </h6>
+                  )}
+                  <div className={style.header_single_review}>
+                    <h3 className={style.title_single_review}>
+                      {" "}
+                      {review.title}{" "}
+                    </h3>
+                    <div className={style.stars_single_review}>
+                      {Array(review.rating)
+                        .fill(1)
+                        .map((e, index) => (
+                          <div className={style.star_single_review} key={index}>
+                            <i className={`fa-solid fa-star`}></i>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                  <p className={style.description_single_review}>
+                    {" "}
+                    {review.description}{" "}
+                  </p>
+
+                  <div
+                    className={style.delete_single_review}
+                    onClick={() => handleAdminDelete(review.User.id)}
+                  >
+                    {/* <i className="fa-solid fa-square-xmark"></i> */}
+                    <span>Eliminar reseña</span>
+                    <i className="fa-solid fa-square-xmark"></i>
+                  </div>
+
+                  <hr></hr>
+                </div>
+              ))
+            : ""}
+        </>
       ) : !addReviewActive ? (
         <span
           className={style.see_form}
@@ -310,45 +388,104 @@ export default function Review({ id }) {
           </form>
         </div>
       )}
-      <hr></hr>
-      {detail.Reviews.length
-        ? detail.Reviews.map((review, index) => (
-            <div className={style.single_review} key={index}>
-              {review.User && (
-                <h6 className={style.user_single_review}>
-                  {review.User.fullName}
-                </h6>
-              )}
-              <div className={style.header_single_review}>
-                <h3 className={style.title_single_review}> {review.title} </h3>
-                <div className={style.stars_single_review}>
-                  {Array(review.rating)
-                    .fill(1)
-                    .map((e, index) => (
-                      <div className={style.star_single_review} key={index}>
-                        <i className={`fa-solid fa-star`}></i>
+
+      {user ? (
+        userDb &&
+        (userDb.role === "Usuario" || userDb.status === "Baneado") && (
+          <>
+            <hr></hr>
+            {detail.Reviews.length
+              ? detail.Reviews.map((review, index) => (
+                  <div className={style.single_review} key={index}>
+                    {review.User && (
+                      <h6 className={style.user_single_review}>
+                        {review.User.fullName}
+                      </h6>
+                    )}
+                    <div className={style.header_single_review}>
+                      <h3 className={style.title_single_review}>
+                        {" "}
+                        {review.title}{" "}
+                      </h3>
+                      <div className={style.stars_single_review}>
+                        {Array(review.rating)
+                          .fill(1)
+                          .map((e, index) => (
+                            <div
+                              className={style.star_single_review}
+                              key={index}
+                            >
+                              <i className={`fa-solid fa-star`}></i>
+                            </div>
+                          ))}
                       </div>
-                    ))}
+                    </div>
+                    <p className={style.description_single_review}>
+                      {" "}
+                      {review.description}{" "}
+                    </p>
+                    {user && review.User?.id === user.uid && (
+                      <div
+                        className={style.delete_single_review}
+                        onClick={handleDelete}
+                      >
+                        {/* <i className="fa-solid fa-square-xmark"></i> */}
+                        <span>Eliminar reseña</span>
+                        <i className="fa-solid fa-square-xmark"></i>
+                      </div>
+                    )}
+                    <hr></hr>
+                  </div>
+                ))
+              : ""}
+          </>
+        )
+      ) : (
+        <>
+          <hr></hr>
+          {detail.Reviews.length
+            ? detail.Reviews.map((review, index) => (
+                <div className={style.single_review} key={index}>
+                  {review.User && (
+                    <h6 className={style.user_single_review}>
+                      {review.User.fullName}
+                    </h6>
+                  )}
+                  <div className={style.header_single_review}>
+                    <h3 className={style.title_single_review}>
+                      {" "}
+                      {review.title}{" "}
+                    </h3>
+                    <div className={style.stars_single_review}>
+                      {Array(review.rating)
+                        .fill(1)
+                        .map((e, index) => (
+                          <div className={style.star_single_review} key={index}>
+                            <i className={`fa-solid fa-star`}></i>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                  <p className={style.description_single_review}>
+                    {" "}
+                    {review.description}{" "}
+                  </p>
+                  {user && review.User?.id === user.uid && (
+                    <div
+                      className={style.delete_single_review}
+                      onClick={handleDelete}
+                    >
+                      {/* <i className="fa-solid fa-square-xmark"></i> */}
+                      <span>Eliminar reseña</span>
+                      <i className="fa-solid fa-square-xmark"></i>
+                    </div>
+                  )}
+                  <hr></hr>
                 </div>
-              </div>
-              <p className={style.description_single_review}>
-                {" "}
-                {review.description}{" "}
-              </p>
-              {user && review.User?.id === user.uid && (
-                <div
-                  className={style.delete_single_review}
-                  onClick={handleDelete}
-                >
-                  {/* <i className="fa-solid fa-square-xmark"></i> */}
-                  <span>Eliminar reseña</span>
-                  <i className="fa-solid fa-square-xmark"></i>
-                </div>
-              )}
-              <hr></hr>
-            </div>
-          ))
-        : ""}
+              ))
+            : ""}
+        </>
+      )}
     </div>
   );
 }
