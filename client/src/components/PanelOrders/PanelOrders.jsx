@@ -1,7 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CARTS_ORDER_ADMIN, CARTS_SEARCH_ADMIN, getAllBooks, getCarts, putCartStatus, putStatus, PUT_CART_STATUS, PUT_STATUS } from "../../redux/actions";
-import { useHistory } from "react-router-dom"
+import {
+  CARTS_ORDER_ADMIN,
+  CARTS_SEARCH_ADMIN,
+  getAllBooks,
+  getCarts,
+  putCartStatus,
+  putStatus,
+  PUT_CART_STATUS,
+  PUT_STATUS,
+} from "../../redux/actions";
+import { useHistory } from "react-router-dom";
 
 import {
   AiFillEdit,
@@ -9,7 +18,7 @@ import {
   BsSortNumericDown,
   BsSortNumericUp,
   AiOutlineSortAscending,
-  AiOutlineSortDescending
+  AiOutlineSortDescending,
 } from "react-icons/all";
 import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
@@ -18,7 +27,9 @@ import style from "./PanelOrders.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
 
 export default function PanelBooks() {
-  const { allCarts, putCartResponse, cartsFiltersAdmin } = useSelector((state) => state);
+  const { allCarts, putCartResponse, cartsFiltersAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   // const history = useHistory();
 

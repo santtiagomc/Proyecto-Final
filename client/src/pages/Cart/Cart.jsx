@@ -319,9 +319,8 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
-                <Link to="/login" className={style.see_form}>
-                  <p>Inicia sesión para comprar</p>
-                  <i className="fa-solid fa-user"></i>
+                <Link to="/login">
+                  <button className={style.botonComprar}>Comprar</button>
                 </Link>
               </div>
             ))}
