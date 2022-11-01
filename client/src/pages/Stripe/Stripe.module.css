@@ -1,6 +1,8 @@
-.containerProduct {
+.container {
   display: flex;
-  justify-content: center;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 20px;
 }
 
 .pagar{
@@ -40,6 +42,7 @@
 .totalPrice {
   color: var(--extra-color);
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .total{
@@ -63,7 +66,7 @@
 }
 
 .payment {
-  width: 640px;
+  width: 620px;
 }
 
 .button {
@@ -212,4 +215,16 @@
 	justify-content: center;
 	width: 100px;
     height: 100px;
+}
+
+
+@media (max-width: 1450px) {
+  .product {
+    width: 500px;
+  }
+  
+  .payment {
+    width: 500px
+  }
+  
 }

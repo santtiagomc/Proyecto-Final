@@ -34,7 +34,7 @@ export default function Stripe() {
       <button className={style.backButton} onClick={() => history.goBack()}>
         <AiOutlineArrowLeft className={style.btn} />
       </button>
-      <div className={style.containerProduct}>
+      <div className={style.container}>
         <div className={style.product}>
           <div className={style.stock}>
             <h5 className={style.priceStock}>Producto</h5>
