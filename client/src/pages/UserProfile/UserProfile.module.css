@@ -202,16 +202,15 @@
 	font-size: 16px;
 	color: var(--extra-color);
 	float: left;
-	/* border-bottom: 0.125rem var(--extra-color) solid; */
-	padding: 1em 4em;
-	
+	padding: 0.5em 3.8em;
+	margin-left: 12%;
 }
 
 .p {
 	font-size: 16px;
 	color: var(--extra-color);
-	padding: 1em 4em;
-	margin-left: 40%
+	padding: 0.5em 3.8em;
+	margin-left: 68%
 }
 
 .form {
@@ -276,4 +275,5 @@
   transform: translate(-50%, -50%);
   width: 20em;
 }
+
 

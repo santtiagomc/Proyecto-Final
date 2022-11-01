@@ -269,7 +269,7 @@ export default function ProfileUser() {
 								</div>
 							</div>
 							{/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
-							<div>
+							<div className={style.hitorial}>
 								<h2>Mis compras</h2>
 								{booksBuyed.books &&
 									booksBuyed.books.map((book) => (
