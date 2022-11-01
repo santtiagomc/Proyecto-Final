@@ -179,22 +179,22 @@ export default function ProfileUser() {
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-												<hr />
-												<label className={style.label}>E-mail </label>
+												<hr/>
+												<label className={style.label}>E-mail</label>
 												<p className={style.p}>{dataUser.email}</p>
-												<hr />
-												<label className={style.label}>Provincia </label>
+												<hr/> 
+												<label className={style.label}>Provincia</label>
 												<p className={style.p}>{dataUser?.province}</p>
-												<hr />
-												<label className={style.label}>Ciudad </label>
+												<hr/>
+												<label className={style.label}>Ciudad</label>
 												<p className={style.p}>{dataUser?.city}</p>
-												<hr />
-												<label className={style.label}>Dirección </label>
+												<hr/>
+												<label className={style.label}>Dirección</label>
 												<p className={style.p}>{dataUser?.address}</p>
-												<hr />
-												<label className={style.label}>Código Postal </label>
+												<hr/>
+												<label className={style.label}>Código Postal</label>
 												<p className={style.p}>{dataUser?.zipCode}</p>
-												<hr />
+												<hr/>
 											</div>
 										</>
 									) : (
@@ -293,7 +293,6 @@ export default function ProfileUser() {
 									))}
 								<button onClick={nextPage}>Ver mas</button>
 							</div>
-							{/*---------------------------------------------------------------*/}
 						</div>
 					</div>
 				</>
