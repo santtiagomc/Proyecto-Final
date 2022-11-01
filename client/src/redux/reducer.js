@@ -132,11 +132,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
 
     case GET_CART:
-      if (state.user && state.user.uid) {
-        return { ...state }
-      } else {
-        return { ...state, cart: action.payload };
-      }
+      return { ...state, cart: action.payload };
 
     case GET_USER_CART:
       // console.log(action.payload);

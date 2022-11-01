@@ -5,8 +5,7 @@ import { changeFilter, changeSearch } from "../../redux/actions";
 
 import Swal from "sweetalert2";
 import style from "./SearchBar.module.css";
-// import "./prueba.css"
-
+import "./prueba.css"
 export default function SearchBar() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -56,15 +55,15 @@ export default function SearchBar() {
         />
       </div>
       <div className={style.select2}>
-        <select
-          defaultValue="all"
-          onChange={(e) => setOptions(e.target.value)}
-          className={style.select}
-        >
-          <option value="all">Todos</option>
-          <option value="name">Título</option>
-          <option value="author">Autor</option>
-        </select>
+      <select
+        defaultValue="all"
+        onChange={(e) => setOptions(e.target.value)}
+        className={style.select}
+      >
+        <option value="all">Todos</option>
+        <option value="name">Título</option>
+        <option value="author">Autor</option>
+      </select>
       </div>
 
       {/* {!options ? (

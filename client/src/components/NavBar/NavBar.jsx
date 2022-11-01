@@ -39,7 +39,7 @@ export default function NavBar() {
     if (user && user.uid) {
       setTimeout(function () {
         dispatch(getUserCart(user.uid));
-      }, 500);
+      }, 400);
     } else {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
