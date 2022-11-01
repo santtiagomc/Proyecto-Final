@@ -9,7 +9,13 @@ import {
   resetCreate,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { BiErrorAlt, BsFillImageFill, AiFillEyeInvisible, AiFillEye, TiDeleteOutline } from "react-icons/all"
+import {
+  BiErrorAlt,
+  BsFillImageFill,
+  AiFillEyeInvisible,
+  AiFillEye,
+  TiDeleteOutline,
+} from "react-icons/all";
 
 import { uploadFile } from "../../firebase/firebase";
 
@@ -94,7 +100,7 @@ export default function CreateBook() {
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
     };
-  }, []);
+  }, [dispatch, params.id]);
 
   const { genres, create } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
@@ -130,7 +136,7 @@ export default function CreateBook() {
         }, []),
       });
     }
-  }, [detail]);
+  }, [detail, params.id]);
 
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
@@ -214,7 +220,7 @@ export default function CreateBook() {
       templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
-  }, [create]);
+  }, [create, dispatch, params.id, history]);
 
   function handleChange(e) {
     setInput({
@@ -232,7 +238,7 @@ export default function CreateBook() {
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     setErrors(validation(input));
-  }, [dispatch, input]);
+  }, [dispatch, input, genres.length]);
 
   return (
     <div className={style.container}>
@@ -257,11 +263,12 @@ export default function CreateBook() {
               name="name"
               onChange={(e) => handleChange(e)}
             />
-            {input.name && errors.name &&
+            {input.name && errors.name && (
               <div className={style.err}>
                 <BiErrorAlt className={style.err_i} />
                 <span>{errors.name}</span>
-              </div>}
+              </div>
+            )}
           </div>
           <div className={style.incontainer}>
             <label className={style.label}>Autor</label>
@@ -273,11 +280,12 @@ export default function CreateBook() {
               name="author"
               onChange={(e) => handleChange(e)}
             />
-            {input.author && errors.author &&
+            {input.author && errors.author && (
               <div className={style.err}>
                 <BiErrorAlt className={style.err_i} />
                 <span>{errors.author}</span>
-              </div>}
+              </div>
+            )}
           </div>
           <div className={style.incontainer}>
             <label className={style.label}>Editorial</label>
@@ -289,11 +297,12 @@ export default function CreateBook() {
               name="editorial"
               onChange={(e) => handleChange(e)}
             />
-            {input.editorial && errors.editorial &&
+            {input.editorial && errors.editorial && (
               <div className={style.err}>
                 <BiErrorAlt className={style.err_i} />
                 <span>{errors.editorial}</span>
-              </div>}
+              </div>
+            )}
           </div>
           <div className={style.container_cat_box}>
             <div className={style.container_cat}>
@@ -324,7 +333,12 @@ export default function CreateBook() {
                     return (
                       <div key={c} className={style.divGenre}>
                         <span className={style.text}>{c}</span>
-                        <span className={style.btn_delete} onClick={() => handleDelete(c)}><TiDeleteOutline /></span>
+                        <span
+                          className={style.btn_delete}
+                          onClick={() => handleDelete(c)}
+                        >
+                          <TiDeleteOutline />
+                        </span>
                       </div>
                     );
                   })}
@@ -342,11 +356,12 @@ export default function CreateBook() {
                   name="edition"
                   onChange={(e) => handleChange(e)}
                 />
-                {input.edition && errors.edition &&
+                {input.edition && errors.edition && (
                   <div className={style.err}>
                     <BiErrorAlt className={style.err_i} />
                     <span>{errors.edition}</span>
-                  </div>}
+                  </div>
+                )}
               </div>
               <div className={style.incontainer}>
                 <label className={style.label}>Precio</label>
@@ -358,11 +373,12 @@ export default function CreateBook() {
                   name="price"
                   onChange={(e) => handleChange(e)}
                 />
-                {input.price && errors.price &&
+                {input.price && errors.price && (
                   <div className={style.err}>
                     <BiErrorAlt className={style.err_i} />
                     <span>{errors.price}</span>
-                  </div>}
+                  </div>
+                )}
               </div>
               <div className={style.incontainer}>
                 <label className={style.label}>Stock</label>
@@ -374,11 +390,12 @@ export default function CreateBook() {
                   name="stock"
                   onChange={(e) => handleChange(e)}
                 />
-                {input.stock && errors.stock &&
+                {input.stock && errors.stock && (
                   <div className={style.err}>
                     <BiErrorAlt className={style.err_i} />
                     <span>{errors.stock}</span>
-                  </div>}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -396,12 +413,12 @@ export default function CreateBook() {
               value={input.description}
               onChange={(e) => handleChange(e)}
             ></textarea>
-            {input.description && errors.description &&
+            {input.description && errors.description && (
               <div className={style.err}>
                 <BiErrorAlt className={style.err_i} />
                 <span>{errors.description}</span>
               </div>
-            }
+            )}
           </div>
           <div className={style.incontainer}>
             <label className={style.label}>Portada</label>
@@ -439,7 +456,11 @@ export default function CreateBook() {
                 </label>
               </div>
 
-              <div className={input.image ? style.container_eye : style.container_eye_f}>
+              <div
+                className={
+                  input.image ? style.container_eye : style.container_eye_f
+                }
+              >
                 {buttonDisabled ? (
                   <span className={style.loader}></span>
                 ) : (
