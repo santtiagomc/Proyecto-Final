@@ -179,22 +179,22 @@ export default function ProfileUser() {
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-												<hr />
-												<label className={style.label}>E-mail </label>
+												<hr/>
+												<label className={style.label}>E-mail</label>
 												<p className={style.p}>{dataUser.email}</p>
-												<hr />
-												<label className={style.label}>Provincia </label>
+												<hr/> 
+												<label className={style.label}>Provincia</label>
 												<p className={style.p}>{dataUser?.province}</p>
-												<hr />
-												<label className={style.label}>Ciudad </label>
+												<hr/>
+												<label className={style.label}>Ciudad</label>
 												<p className={style.p}>{dataUser?.city}</p>
-												<hr />
-												<label className={style.label}>Dirección </label>
+												<hr/>
+												<label className={style.label}>Dirección</label>
 												<p className={style.p}>{dataUser?.address}</p>
-												<hr />
-												<label className={style.label}>Código Postal </label>
+												<hr/>
+												<label className={style.label}>Código Postal</label>
 												<p className={style.p}>{dataUser?.zipCode}</p>
-												<hr />
+												<hr/>
 											</div>
 										</>
 									) : (
@@ -269,31 +269,31 @@ export default function ProfileUser() {
 								</div>
 							</div>
 							{/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
-							<div>
-								<h2>Mis compras</h2>
+							<div className={style.shopping}>
+								<h2 className={style.misCompras}>Mis compras</h2>
 								{booksBuyed.books &&
 									booksBuyed.books.map((book) => (
 										<div>
-											<h3>{book.status}</h3>
+											<h3 className={style.status}>{book.status}</h3>
 											<div>
+												<hr/>
 												{book.Books.map((purchase) => (
 													<div>
-														<img src={purchase.image} />
-														<h3>{purchase.name}</h3>
-														<p>
+														<img src={purchase.image} className={style.portada} />
+														<h3 className={style.name}>{purchase.name}</h3>
+														<p className={style.info}>
 															{purchase.price * purchase.Books_Carts.quantity}
 														</p>
-														<p>Cantidad {purchase.Books_Carts.quantity}</p>
+														<p className={style.info}>Cantidad {purchase.Books_Carts.quantity}</p>
 														<Link to={`/detail/${purchase.id}`}>Detalle</Link>
 													</div>
 												))}
 											</div>
-											<hr /> {/* por ahora para diferenciar carritos */}
+											<hr />
 										</div>
 									))}
-								<button onClick={nextPage}>Ver mas</button>
+								<button onClick={nextPage} className={style.btn}>Ver más</button>
 							</div>
-							{/*---------------------------------------------------------------*/}
 						</div>
 					</div>
 				</>
