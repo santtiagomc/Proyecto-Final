@@ -269,29 +269,30 @@ export default function ProfileUser() {
 								</div>
 							</div>
 							{/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
-							<div className={style.hitorial}>
-								<h2>Mis compras</h2>
+							<div className={style.shopping}>
+								<h2 className={style.misCompras}>Mis compras</h2>
 								{booksBuyed.books &&
 									booksBuyed.books.map((book) => (
 										<div>
-											<h3>{book.status}</h3>
+											<h3 className={style.status}>{book.status}</h3>
 											<div>
+												<hr/>
 												{book.Books.map((purchase) => (
 													<div>
-														<img src={purchase.image} />
-														<h3>{purchase.name}</h3>
-														<p>
+														<img src={purchase.image} className={style.portada} />
+														<h3 className={style.name}>{purchase.name}</h3>
+														<p className={style.info}>
 															{purchase.price * purchase.Books_Carts.quantity}
 														</p>
-														<p>Cantidad {purchase.Books_Carts.quantity}</p>
+														<p className={style.info}>Cantidad {purchase.Books_Carts.quantity}</p>
 														<Link to={`/detail/${purchase.id}`}>Detalle</Link>
 													</div>
 												))}
 											</div>
-											<hr /> {/* por ahora para diferenciar carritos */}
+											<hr />
 										</div>
 									))}
-								<button onClick={nextPage}>Ver mas</button>
+								<button onClick={nextPage} className={style.btn}>Ver más</button>
 							</div>
 						</div>
 					</div>

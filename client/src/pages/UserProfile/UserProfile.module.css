@@ -187,7 +187,6 @@
 }
 
 .containerP {
-	min-width: 220px;
   margin: 2em 8em;
 }
 
@@ -210,7 +209,7 @@
 	font-size: 16px;
 	color: var(--extra-color);
 	padding: 0.7em 3.8em;
-	margin-left: 68%
+	margin-left: 65%
 }
 
 .form {
@@ -276,4 +275,45 @@
   width: 20em;
 }
 
+.shopping {
+	margin: 2em 8em;
+}
 
+.misCompras {
+	color: var(--extra-color);
+	font-size: 18px;
+}
+
+.status {
+	color: var(--extra-color);
+	font-size: 14px;
+}
+
+.portada {
+	width: 100px;
+}
+
+.name {
+	color: var(--extra-color);
+	font-size: 18px;
+}
+
+.info {
+	color: var(--extra-color);
+	font-size: 14px;
+}
+
+.btn {
+  width: 6rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-right: 1em;
+  margin-bottom: 2.5em;
+}
