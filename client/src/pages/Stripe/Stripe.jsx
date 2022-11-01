@@ -19,8 +19,7 @@ const stripePromsie = loadStripe(
 
 export default function Stripe() {
   const cart = useSelector((state) => state.cart);
-
-  console.log(cart);
+  
   return (
     <div className={style.container}>
       <div className={style.product}>
