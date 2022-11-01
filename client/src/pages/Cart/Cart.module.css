@@ -107,6 +107,22 @@
   font-size: 14px;
 }
 
+.botonComprar{
+  width: 15%;
+  /* padding: 0.57rem; */
+  height: 4%;
+  background-color: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--violeta-primario);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 80.5rem;
+}
+
 .button_disabled {
   opacity: 20%;
 }

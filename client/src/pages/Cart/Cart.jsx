@@ -438,7 +438,7 @@ export default function Cart() {
               ))}
             {/*BOTON PROVISIONAL*/}
             <Link to="/stripe">
-              <button>Comprar</button>
+              <button className={style.botonComprar}>Comprar</button>
             </Link>
           </div>
         )
