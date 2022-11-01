@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useUser } from "../../helpers/useUser";
+import Error from "../../components/Error/Error";
 
 import style from "./Stripe.module.css";
 
@@ -19,54 +22,83 @@ const stripePromsie = loadStripe(
 
 export default function Stripe() {
   const cart = useSelector((state) => state.cart);
-  
+  const [user, load] = useUser();
+  const history = useHistory();
+
+  if (!load && user === undefined) {
+    return <Error error="Necesitas iniciar sesion para comprar" />;
+  }
+
   return (
-    <div className={style.container}>
-      <div className={style.product}>
-        <h5 className={style.precioUnidad}>Precio Unidad</h5>
-        {cart.length &&
-          cart.map((product) => {
-            return <div className={style.detail}>
-            <div className={`col-7 text-center ${style.detail_product}`}>
-              <img
-                src={product.image}
-                alt="Portada"
-                className={style.detail_img}
-              ></img>
-              <div className={style.detail_info}>
-                <Link to={`/detail/${product.id}`}>
-                  <h2 className={style.detail_info_h2}>{product.name}</h2>
-                </Link>
-                <h5 className={style.detail_info_h4}>{product.author}</h5>
-              </div>
-            </div>
-            <h3 className={`col-2 text-center ${style.detail_price}`}>
-              {product.price}$
-            </h3>
-            <hr className={style.hr}/>
-            </div>
-          })}
-            <div className={style.total}>Total</div>
-            <div className={style.totalPrice}>{cart.length && 
-              Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))}
-            $
-            </div>  
+    <>
+      <button className={style.backButton} onClick={() => history.goBack()}>
+        <AiOutlineArrowLeft className={style.btn} />
+      </button>
+      <div className={style.container}>
+        <div className={style.product}>
+          <div className={style.stock}>
+            <h5 className={style.priceStock}>Producto</h5>
+            <h5 className={style.priceStock}>Precio Unidad</h5>
+          </div>
+          <hr className={style.hr} />
+          <div className={style.detail}>
+            {cart.length &&
+              cart.map((product) => (
+                <div className={style.bookInfo}>
+                  <div className={style.detailProduct}>
+                    <img
+                      src={product.image}
+                      alt="Portada"
+                      className={style.detailImg}
+                    ></img>
+
+                    <div className={style.detailInfo}>
+                      <Link to={`/detail/${product.id}`}>
+                        <h2 className={style.detail_info_h2}>{product.name}</h2>
+                      </Link>
+                      <h5 className={style.detail_info_h4}>{product.author}</h5>
+                      <div className={style.infoProduct}>
+                        <p className={style.quantityProduct}>
+                          Cantidad: {product.quantity}
+                        </p>
+                        <p className={style.detail_price}>{product.price}$</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className={style.hr} />
+                </div>
+              ))}
+          </div>
+          <div className={style.prices}>
+            <span className={style.total}>Total</span>
+            <span className={style.totalPrice}>
+              {cart.length &&
+                Math.round(
+                  cart.reduce(
+                    (acc, act) => acc + Number(act.price * act.quantity),
+                    0
+                  )
+                )}
+              $
+            </span>
+          </div>
+        </div>
+        <div className={style.payment}>
+          <Elements stripe={stripePromsie}>
+            <CheckoutForm cart={cart} history={history} user={user} />
+          </Elements>
+        </div>
       </div>
-      <div className={style.payment}>
-        <Elements stripe={stripePromsie}>
-          <CheckoutForm cart={cart} />
-        </Elements>
-      </div>
-    </div>
+    </>
   );
 }
 
-const CheckoutForm = ({ cart }) => {
+const CheckoutForm = ({ cart, history, user }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,6 +115,7 @@ const CheckoutForm = ({ cart }) => {
         const res = await axios.post("http://localhost:3001/checkout", {
           stripeId: id,
           cart: cart,
+          userId: user,
         });
         history.push("/profile");
         console.log(res);
@@ -128,44 +161,29 @@ const CheckoutForm = ({ cart }) => {
     setLoading(false);
   };
   return (
-      <div className={style.stripeContainer}>
-    <form className={style.stripeControl} onSubmit={handleSubmit}>
-        <h1 className={style.pagar}>Pagar</h1>
+    <>
+      <h1 className={style.pagar}>Pagar</h1>
+      <form className={style.stripeControl} onSubmit={handleSubmit}>
         <CardElement className={style.pay} />
         {error && <p className={style.err}>{error}</p>}
-        <form className={style.form}>
-          <input
-              className={style.input}
-              type="text"
-              placeholder="Provincia"
-          ></input>
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Ciudad"
-          ></input>
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Dirección"
-          ></input>
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Código Postal"
-          ></input>
-        </form>
-        <button className={style.button}>
-          {loading ? (
-            <div className={style.loaderContainer}>
-              <span className={style.loader}></span>
-            </div>
-          ) : (
-          `Pagar ${cart.length && 
-              Math.round(cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0))} $`
-          )}
-        </button>
-    </form>
-      </div>
+        <input
+          className={style.input}
+          type="text"
+          placeholder="Provincia"
+        ></input>
+        <input className={style.input} type="text" placeholder="Ciudad"></input>
+        <input
+          className={style.input}
+          type="text"
+          placeholder="Dirección"
+        ></input>
+        <input
+          className={style.input}
+          type="text"
+          placeholder="Código Postal"
+        ></input>
+        <button className={style.button}>Pagar</button>
+      </form>
+    </>
   );
 };
