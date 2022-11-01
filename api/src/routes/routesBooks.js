@@ -69,9 +69,8 @@ router.get("/page", async (req, res) => {
     : res.status(201).json(books);
 });
 
-router.get("/admin/:search", async (req, res) => {
-  let books = await getAllBooksAdmin(req.params);
-  books.length && books.sort((a, b) => a.name.localeCompare(b.name));
+router.get("/admin", async (req, res) => {
+  let books = await getAllBooksAdmin(req.query);
 
   books.messageError
     ? res.status(404).json(books)

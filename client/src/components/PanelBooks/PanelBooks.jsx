@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  BOOKS_ORDER_ADMIN,
   getAllBooks,
   putStatus,
   PUT_STATUS,
@@ -15,36 +16,47 @@ import {
   BsFillPencilFill,
   AiFillEye,
   AiFillEyeInvisible,
+  AiOutlineSortAscending,
+  AiOutlineSortDescending,
+  BsSortNumericDown,
+  BsSortNumericUp,
 } from "react-icons/all";
 import Swal from "sweetalert2";
 import templateAlert from "../../helpers/templateAlert";
+import { templateAlertTopEnd } from "../../helpers/templateAlert";
 import style from "./PanelBooks.module.css";
 
 export default function PanelBooks() {
-  const { allBooks, putStatusBook } = useSelector((state) => state);
+  const { allBooks, putStatusBook, booksFiltersAdmin } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   const history = useHistory();
 
+  //------------------------------------------------------------------------
+
   useEffect(() => {
-    if (putStatusBook.length) {
-      if (putStatusBook.message) {
-        console.log("entra");
-        templateAlert(putStatusBook.message, null, "success", 1000);
-        dispatch({ type: PUT_STATUS, payload: {} });
-      } else {
-        templateAlert(putStatusBook.messageError, null, "error", 1000);
-        dispatch({ type: PUT_STATUS, payload: {} });
-      }
-    }
-    dispatch(getAllBooks());
-  }, [dispatch, putStatusBook]);
+    dispatch(getAllBooks(booksFiltersAdmin));
+  }, [putStatusBook, booksFiltersAdmin.sort]);
 
   useEffect(() => {
     if (allBooks.messageError) {
-      templateAlert(allBooks.messageError, null, "error", 2000);
-      dispatch(getAllBooks());
+      templateAlertTopEnd(2000, "error", allBooks.messageError);
+      dispatch(getAllBooks(booksFiltersAdmin));
     }
-  }, [dispatch, allBooks]);
+  }, [allBooks]);
+
+  useEffect(() => {
+    if (Object.keys(putStatusBook).length) {
+      if (putStatusBook.messageError) {
+        templateAlertTopEnd(2000, "error", putStatusBook.messageError);
+      } else {
+        templateAlertTopEnd(2000, "success", putStatusBook.message);
+      }
+      dispatch({ type: PUT_STATUS, payload: {} });
+    }
+  }, [putStatusBook]);
+  //------------------------------------------------------------------------
 
   const handleImage = (image, name) => {
     Swal.fire({
@@ -123,30 +135,151 @@ export default function PanelBooks() {
 
   return (
     <div className={style.container}>
-      <div className={style.stats_container}>
-        <div className={style.stats_sub_container}>
-          <div className={style.stats}>Crear libro</div>
-          <div className={style.stats}>
-            <h2>Libros unicos: {allBooks.length}</h2>
-          </div>
-        </div>
-        <div className={style.stats_sub_container}>
-          <div className={style.stats}>Libros totales: {totalBooks}</div>
-          <div className={style.stats}>tarjeta 4</div>
-        </div>
-      </div>
       <div className={style.table_container}>
         <div className={`${style.table_row} ${style.table_row_attributtes}`}>
           <span className={style.col0}>#</span>
-          <span className={style.col1}>Nombre</span>
-          <span className={style.col2}>Autor</span>
-          <span className={style.col3}>Año</span>
+          {/* <span className={style.col1}>Nombre</span> */}
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "nam"
+                ? `${style.col1} ${style.col_active}`
+                : style.col1
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "name-A-Z"
+                    ? "name-Z-A"
+                    : "name-A-Z",
+              })
+            }
+          >
+            <span>Nombre</span>
+            {booksFiltersAdmin.sort === "name-A-Z" ? (
+              <AiOutlineSortAscending className={style.i_order} />
+            ) : (
+              <AiOutlineSortDescending className={style.i_order} />
+            )}
+          </span>
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "aut"
+                ? `${style.col2} ${style.col_active}`
+                : style.col2
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "author-A-Z"
+                    ? "author-Z-A"
+                    : "author-A-Z",
+              })
+            }
+          >
+            <span>Autor</span>
+            {booksFiltersAdmin.sort === "author-A-Z" ? (
+              <AiOutlineSortAscending className={style.i_order} />
+            ) : (
+              <AiOutlineSortDescending className={style.i_order} />
+            )}
+          </span>
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "yea"
+                ? `${style.col3} ${style.col_active}`
+                : style.col3
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "year-min-max"
+                    ? "year-max-min"
+                    : "year-min-max",
+              })
+            }
+          >
+            <span>Año</span>
+            {booksFiltersAdmin.sort === "year-min-max" ? (
+              <BsSortNumericDown className={style.i_order} />
+            ) : (
+              <BsSortNumericUp className={style.i_order} />
+            )}
+          </span>
           <span className={style.col4}>Categorías</span>
           <span className={style.col5}>Portada</span>
           <span className={style.col6}>Descripción</span>
-          <span className={style.col7}>Editorial</span>
-          <span className={style.col8}>Precio</span>
-          <span className={style.col9}>Stock</span>
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "edi"
+                ? `${style.col7} ${style.col_active}`
+                : style.col7
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "editorial-A-Z"
+                    ? "editorial-Z-A"
+                    : "editorial-A-Z",
+              })
+            }
+          >
+            <span>Editorial</span>
+            {booksFiltersAdmin.sort === "editorial-A-Z" ? (
+              <AiOutlineSortAscending className={style.i_order} />
+            ) : (
+              <AiOutlineSortDescending className={style.i_order} />
+            )}
+          </span>
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "pri"
+                ? `${style.col8} ${style.col_active}`
+                : style.col8
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "price-min-max"
+                    ? "price-max-min"
+                    : "price-min-max",
+              })
+            }
+          >
+            <span>Precio</span>
+            {booksFiltersAdmin.sort === "price-min-max" ? (
+              <BsSortNumericDown className={style.i_order} />
+            ) : (
+              <BsSortNumericUp className={style.i_order} />
+            )}
+          </span>
+          <span
+            className={
+              booksFiltersAdmin.sort.slice(0, 3) === "sto"
+                ? `${style.col9} ${style.col_active}`
+                : style.col9
+            }
+            onClick={() =>
+              dispatch({
+                type: BOOKS_ORDER_ADMIN,
+                payload:
+                  booksFiltersAdmin.sort === "stock-min-max"
+                    ? "stock-max-min"
+                    : "stock-min-max",
+              })
+            }
+          >
+            <span>Stock</span>
+            {booksFiltersAdmin.sort === "stock-min-max" ? (
+              <BsSortNumericDown className={style.i_order} />
+            ) : (
+              <BsSortNumericUp className={style.i_order} />
+            )}
+          </span>
           <span className={style.col10}>Editar</span>
           <span className={style.col11}>Ocultar</span>
         </div>
@@ -163,21 +296,16 @@ export default function PanelBooks() {
               <span className={style.col2}>{el.author}</span>
               <span className={style.col3}>{el.edition}</span>
               <span className={style.col4}>
-                {el.Genres.length > 1 ? (
-                  <button
-                    className={style.btn}
-                    onClick={() =>
-                      templateAlert(
-                        "Categorías",
-                        el.Genres.map((ele) => ele.name).join(", ")
-                      )
-                    }
-                  >
-                    <BiCategory />
-                  </button>
-                ) : (
-                  el.Genres.map((ele) => ele.name)
-                )}
+                <span
+                  onClick={() =>
+                    templateAlert(
+                      "Categorías",
+                      el.Genres.map((ele) => ele.name).join(", ")
+                    )
+                  }
+                >
+                  {el.Genres.map((ele) => ele.name).join(", ")}
+                </span>
               </span>
               <span className={style.col5}>
                 <button

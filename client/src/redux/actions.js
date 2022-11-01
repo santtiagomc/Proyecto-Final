@@ -28,8 +28,11 @@ export const GET_ALL_CARTS = "GET_ALL_CARTS";
 export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
 export const TABLE_VIEW = "TABLE_VIEW";
 export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
+export const USERS_SEARCH_ADMIN = "USERS_SEARCH_ADMIN";
 export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
+export const BOOKS_SEARCH_ADMIN = "BOOKS_SEARCH_ADMIN";
 export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const CARTS_SEARCH_ADMIN = "CARTS_SEARCH_ADMIN";
 export const POST_GENRE = "POST_GENRE";
 export const DELETE_GENRE = "DELETE_GENRE";
 export const PUT_CART_STATUS = "PUT_CART_STATUS";
@@ -396,11 +399,11 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers(sort, searchValue) {
+export function getAllUsers({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/user?sort=${sort}&search=${searchValue}`
+        `http://localhost:3001/user?sort=${sort}&searchValue=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_USERS,
@@ -435,11 +438,11 @@ export function putUser(input) {
 }
 
 //-------para traer todos los carritos con el estado que le pasemos
-export function getCarts(searchValue) {
+export function getCarts({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart/orders?search=${searchValue}`
+        `http://localhost:3001/cart/orders?sort=${sort}&searchValue=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_CARTS,
@@ -454,7 +457,7 @@ export function getCarts(searchValue) {
   };
 }
 
-//-------para traer todos los carritos con el estado que le pasemos
+//-------para modificar el estado de un carrito
 export function putCartStatus(id) {
   return async function (dispatch) {
     try {
@@ -475,11 +478,11 @@ export function putCartStatus(id) {
 }
 
 //------para traer todos los libros (para dashboard)
-export function getAllBooks(value) {
+export function getAllBooks({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/books/admin/${value}`
+        `http://localhost:3001/books/admin?sort=${sort}&searchValue=${searchValue}`
       );
       console.log(response.data);
       return dispatch({
