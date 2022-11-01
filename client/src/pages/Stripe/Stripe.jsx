@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import style from "./Stripe.module.css";
 
@@ -19,11 +20,18 @@ const stripePromsie = loadStripe(
 
 export default function Stripe() {
   const cart = useSelector((state) => state.cart);
-  
+  const history = useHistory();
+
   return (
+    <>
+      <button className={style.btnBack} onClick={() => history.goBack()}>
+        <AiOutlineArrowLeft className={style.btnArr} />
+      </button>
     <div className={style.container}>
       <div className={style.product}>
-        <h5 className={style.precioUnidad}>Precio Unidad</h5>
+        <div className={style.productos}>Productos</div>
+        <div className={style.precioUnidad}>Precio Unidad</div>
+        <hr className={style.hr1}></hr>
         {cart.length &&
           cart.map((product) => {
             return <div className={style.detail}>
@@ -38,6 +46,7 @@ export default function Stripe() {
                   <h2 className={style.detail_info_h2}>{product.name}</h2>
                 </Link>
                 <h5 className={style.detail_info_h4}>{product.author}</h5>
+                <h5 className={style.detail_info_quantity}>Cantidad: {product.quantity}</h5>
               </div>
             </div>
             <h3 className={`col-2 text-center ${style.detail_price}`}>
@@ -58,6 +67,7 @@ export default function Stripe() {
         </Elements>
       </div>
     </div>
+    </>
   );
 }
 
@@ -67,6 +77,7 @@ const CheckoutForm = ({ cart }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

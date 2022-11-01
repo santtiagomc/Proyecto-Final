@@ -13,6 +13,18 @@
   background: red;
 }
 
+.productos{
+  color: rgb(169, 169, 169);
+  right: 63.5rem;
+  bottom: 55rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1.25rem;
+  width: 39.99%;
+  padding: 0.233%;
+  position: absolute;
+}
+
 .precioUnidad{
   color: rgb(169, 169, 169);
   margin-block-start: 1.67em;
@@ -20,7 +32,7 @@
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   display: block;
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -32,7 +44,7 @@
   background-color: transparent;
   position: absolute;
   margin-bottom: 10rem;
-  bottom: 1rem;
+  /* bottom: 1rem; */
   right: 63.9rem;
   color: var(--extra-color);
   display: block;
@@ -45,7 +57,7 @@
   background-color: #202020;
   position: absolute;
   margin-bottom: 10rem;
-  bottom: 1rem;
+  /* bottom: 1rem; */
   right: 64.5rem;
   color: var(--extra-color);
   display: block;
@@ -144,17 +156,43 @@
   border-color: #FFF 1px;
   margin-left: -15rem;
   margin-top: 0.6rem;
+  overflow-y: auto;
 }
 
 .detail_product {
   display: flex;
   align-items: center;
-  margin-bottom: 2%;
+  margin-bottom: 1.5%;
+}
+
+.btnBack {
+  width: 3rem;
+  height: fit-content;
+  text-align: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 0.3125rem;
+  font-size: 14px;
+  color: #ffffff;
+  border: 0.0625rem solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-top: 6em;
+}
+
+.btnArr{
+  font-size: large;
 }
 
 .detail_price {
   margin-left: 13rem;
   font-size: 1.3rem;
+  bottom: 1rem;
+}
+
+.hr1{
+  position: absolute;
+  width: 42%;
+  left: 7rem;
+  margin-top: 0rem;
 }
 
 .hr{
@@ -186,6 +224,10 @@
 
 .detail_info_h2:hover {
   color: var(--azul-complementario);
+ }
+
+.detail_info_quantity{
+  font-size: 15px;
  }
 
 
