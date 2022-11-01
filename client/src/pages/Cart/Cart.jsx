@@ -316,6 +316,10 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
+                <Link to="/login" className={style.see_form}>
+                  <p>Inicia sesión para comprar</p>
+                  <i className="fa-solid fa-user"></i>
+                </Link>
               </div>
             ))}
           </div>
@@ -435,8 +439,7 @@ export default function Cart() {
                   </div>
                   <hr></hr>
                 </div>
-              ))}
-            {/*BOTON PROVISIONAL*/}
+              ))} 
             <Link to="/stripe">
               <button className={style.botonComprar}>Comprar</button>
             </Link>
