@@ -6,11 +6,8 @@ require("dotenv").config();
 
 const stripe = new Stripe(process.env.STRIPE);
 
-async function postCheckout({ cart, stripeId }) {
+async function postCheckout({ cart, stripeId, userId }) {
   try {
-    console.log(cart, "EL CART");
-    console.log(stripeId, "EL stripeId");
-
     const cartBuy = await Cart.findByPk(cart[0].cartId);
     const total = Math.round(
       cart.reduce((acc, act) => acc + Number(act.price), 0)
@@ -32,9 +29,9 @@ async function postCheckout({ cart, stripeId }) {
       await findBook.save();
     });
 
-    /* const user = await Users.findByPk(userId); */
+    const user = await Users.findByPk(userId);
 
-    //sendEmail("purchase", {});
+    sendEmail("purchase", { user, cart, stripeId });
     return { message: "Pago realizado correctamente" };
   } catch (error) {
     console.log(error);

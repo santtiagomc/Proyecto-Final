@@ -2,10 +2,11 @@ const nodemailer = require("nodemailer");
 const { templateHTML, templateSubject } = require("./templates");
 
 const sendEmail = async (subject, data) => {
-  if (!data.email) throw new Error("El email es necesario.");
-  if (!data.fullName)
+  if (!data.user.email) throw new Error("El email es necesario.");
+  if (!data.user.fullName)
     throw new Error("El nombre completo (fullName) es necesario.");
 
+  console.log(data);
   const config = {
     host: `${process.env.NM_HOST}`,
     port: process.env.NM_PORT,
@@ -17,7 +18,7 @@ const sendEmail = async (subject, data) => {
 
   const message = {
     from: `${process.env.NM_USER}`,
-    to: data.email,
+    to: data.user.email,
     subject: templateSubject(subject),
     html: templateHTML(subject, data),
   };
