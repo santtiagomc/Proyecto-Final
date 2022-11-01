@@ -44,7 +44,7 @@ export default function PanelBooks() {
       templateAlertTopEnd(2000, "error", allBooks.messageError);
       dispatch({ type: BOOKS_SEARCH_ADMIN, payload: [] });
     }
-  }, [dispatch, allBooks]);
+  }, [allBooks]);
 
   useEffect(() => {
     if (Object.keys(putStatusBook).length) {
@@ -56,19 +56,6 @@ export default function PanelBooks() {
       dispatch({ type: PUT_STATUS, payload: {} });
     }
   }, [putStatusBook]);
-  //------------------------------------------------------------------------
-
-  useEffect(() => {
-    if (Object.keys(putStatusBook).length) {
-      if (putStatusBook.messageError) {
-        templateAlertTopEnd(2000, "error", putStatusBook.messageError);
-      } else {
-        templateAlertTopEnd(2000, "success", putStatusBook.message);
-      }
-      dispatch({ type: PUT_STATUS, payload: {} });
-    }
-  }, [putStatusBook]);
-  //------------------------------------------------------------------------
 
   const handleImage = (image, name) => {
     Swal.fire({
