@@ -9,11 +9,12 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
+  getUserDb,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
-import Loader from "./GIF_neón_BooksNook.gif";
+// import Loader from "./GIF_neón_BooksNook.gif";
 import Loader2 from "./GIF_aparecer_BooksNook.gif";
-import Loader3 from "./GIF_bloque_BooksNook.gif";
+// import Loader3 from "./GIF_bloque_BooksNook.gif";
 
 import style from "./HomePrueba.module.css";
 
@@ -26,6 +27,8 @@ export default function Home() {
     total,
     editorials,
     books,
+    user,
+    userDb,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -34,8 +37,26 @@ export default function Home() {
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
-    dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied]);
+    if (user && user.uid) {
+      console.log(userDb);
+      if (userDb.role === "Admin++" || userDb.role === "Admin") {
+        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
+      } else {
+        dispatch(searchBook(filtersApplied, searchApplied, page));
+      }
+    } else {
+      dispatch(searchBook(filtersApplied, searchApplied, page));
+    }
+  }, [
+    filtersApplied,
+    page,
+    searchApplied,
+    user,
+    userDb,
+    dispatch,
+    editorials.length,
+    genres.length,
+  ]);
 
   useEffect(() => {
     if (books.messageError) {
@@ -51,7 +72,7 @@ export default function Home() {
       dispatch(changeFilter());
       dispatch(changeSearch());
     }
-  }, [books]);
+  }, [books, dispatch]);
 
   const nextPage = () => {
     if (page + 12 < total) {

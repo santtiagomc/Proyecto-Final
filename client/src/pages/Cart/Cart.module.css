@@ -107,6 +107,65 @@
   font-size: 14px;
 }
 
+.botonComprar{
+  width: 15%;
+  /* padding: 0.57rem; */
+  height: 4%;
+  background-color: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid var(--violeta-primario);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 80.5rem;
+}
+
+.see_form {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 225px;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(88, 152, 202);
+  border-bottom: 1px solid rgb(88, 152, 202);
+  margin-bottom: 20px;
+  padding-right: 5px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 80.5rem;
+}
+
+.see_form:hover {
+  color: rgb(43, 131, 198);
+  border-bottom: 1px solid rgb(43, 131, 198);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(88, 152, 202);
+}
+
+.see_form i {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.see_form p {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
 .button_disabled {
   opacity: 20%;
 }
@@ -159,8 +218,8 @@
   color: #ffffff;
   border: 0.0625rem solid var(--violeta-primario);
   padding: 0.3em 0.6em;
-  margin-right: 1em;
-  margin-bottom: 2.5em;
+  margin-left: 7.7em;
+  margin-top: 6.3em;
 
 }
 
@@ -190,3 +249,46 @@
   font-size: large;
 }
 
+@media (max-width:700px) {
+  .cart_container{
+    margin: 1em 1rem 0 1em;
+    height: 100%;
+  }
+  
+  .attributes{
+    visibility: hidden;
+    margin-top: -4rem;
+  }
+  .detail_img{
+    height: 8rem;
+    width: 5rem;
+  }
+  .detail{
+    padding: 0;
+  }
+  .detail_info{
+    font-size: 18px;
+  }
+  .detail_product{
+    flex-wrap: wrap;
+    width: 7rem;
+  }
+  .detail_info{
+    margin: 0;
+  }
+  .detail_info_h2{
+    font-size: 22px;
+    width: 7rem;
+    margin-left: -14px;
+    margin-top: 8px;
+  }
+  h5{
+    margin-left: -8px;
+  }
+  h3{
+    margin-right: 6px;
+  }
+  .detail_quantity{
+    width: 6rem;
+  }
+}

@@ -63,10 +63,12 @@
 
 .navigation ul a {
 	color: var(--negro-backgound);
+
 }
 
 .navigation ul li:nth-child(1) {
 	margin-bottom: 8.75rem;
+	
 }
 
 .navigation ul li {
@@ -79,6 +81,7 @@
 	align-items: center;
 	border-radius: 2.1875rem 0 0 2.1875rem;
 	cursor: pointer;
+
 }
 
 .navigation ul li:hover,
@@ -90,8 +93,8 @@
 .navigation ul li i,
 .navigation ul li .i {
 	text-align: center;
-	font-size: 1.76em;
-	margin: 20px;
+	font-size: 18px;
+	margin: 27px;
 	min-width: 1.2em;
 }
 
@@ -183,9 +186,7 @@
 	transform: scale(0.95);
 }
 
-
 .containerP {
-	width: 80%;
   margin: 2em 8em;
 }
 
@@ -197,20 +198,18 @@
 }
 
 .label {
-	font-size: 18px;
+	font-size: 16px;
 	color: var(--extra-color);
 	float: left;
-	width: 450px;
-	border-bottom: 0.125rem var(--extra-color) solid;
-	padding: 1em 4em;
-	
+	padding: 0.4em 3.8em;
+	margin-left: 12%;
 }
 
 .p {
-	font-size: 18px;
+	font-size: 16px;
 	color: var(--extra-color);
-	border-bottom: 0.125rem var(--extra-color) solid; 
-	padding: 1em 4em;
+	padding: 0.7em 3.8em;
+	margin-left: 65%
 }
 
 .form {
@@ -253,7 +252,6 @@
 }
 
 .containerA {
-	width: 80%;
 	height: 65px;
 	background-color: var(--gris-complementario);
 	border-radius: 5px;
@@ -271,8 +269,51 @@
 
 .loader {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 51%;
   transform: translate(-50%, -50%);
-  width: 20%;
+  width: 20em;
+}
+
+.shopping {
+	margin: 2em 8em;
+}
+
+.misCompras {
+	color: var(--extra-color);
+	font-size: 18px;
+}
+
+.status {
+	color: var(--extra-color);
+	font-size: 14px;
+}
+
+.portada {
+	width: 100px;
+}
+
+.name {
+	color: var(--extra-color);
+	font-size: 18px;
+}
+
+.info {
+	color: var(--extra-color);
+	font-size: 14px;
+}
+
+.btn {
+  width: 6rem;
+  height: fit-content;
+  text-align: center;
+  justify-content: center;
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid var(--violeta-primario);
+  padding: 0.3em 0.6em;
+  margin-right: 1em;
+  margin-bottom: 2.5em;
 }

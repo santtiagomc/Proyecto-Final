@@ -1,4 +1,4 @@
-import { sessionGoogle, singUp } from "../../firebase/auth";
+import { sessionGoogle, singUp, singInGoogle } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
-import templateAlert from "../../helpers/templateAlert";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Register() {
@@ -33,12 +32,12 @@ export default function Register() {
 
   useEffect(() => {
     if (user && user.uid) {
-      setLoader(true)
+      setLoader(true);
       if (uniqueIdArrayCart.length) {
-        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
 
         setTimeout(() => {
-          setLoader(false)
+          setLoader(false);
           Swal.fire({
             title: "Tienes productos en tu carrito de invitado",
             width: 650,
@@ -80,7 +79,7 @@ export default function Register() {
         }, 1000);
       }
     }
-  }, [user]);
+  }, [user, dispatch, history]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
@@ -111,6 +110,7 @@ export default function Register() {
     try {
       await sessionGoogle();
     } catch (error) {
+      AlertError();
       console.log(error);
     }
   };

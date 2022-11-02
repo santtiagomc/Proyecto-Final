@@ -18,15 +18,21 @@ import { useHistory } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  BOOKS_SEARCH_ADMIN,
+  CARTS_SEARCH_ADMIN,
   getAllBooks,
   getAllUsers,
   getCarts,
   TABLE_VIEW,
+  USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
+import { logOut } from "../../firebase/auth";
+import { templateAlertTopEnd } from "../../helpers/templateAlert";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { tableViewGlobal, detail, usersOrderAdmin } = useSelector(
+  const { tableViewGlobal, detail, usersFiltersAdmin, cartsFiltersAdmin, booksFiltersAdmin } = useSelector(
     (state) => state
   );
   const dispatch = useDispatch();
@@ -39,19 +45,33 @@ export default function Dashboard() {
     e.preventDefault();
     if (searchValue.trim().length !== 0) {
       tableViewGlobal === "users" &&
-        dispatch(getAllUsers(usersOrderAdmin, searchValue));
-      tableViewGlobal === "orders" && dispatch(getCarts(searchValue));
-      tableViewGlobal === "books" && dispatch(getAllBooks(searchValue));
+        dispatch({ type: USERS_SEARCH_ADMIN, payload: searchValue });
+      tableViewGlobal === "orders" &&
+        dispatch({ type: CARTS_SEARCH_ADMIN, payload: searchValue });
+      tableViewGlobal === "books" &&
+        dispatch({ type: BOOKS_SEARCH_ADMIN, payload: searchValue });
     } else {
       templateAlert("El campo no puede estar vacío", null, "warning", 3000);
     }
+
+    setSearch("")
+    e.target.reset()
   };
 
   const handleClear = (e) => {
     e.preventDefault();
-    tableViewGlobal === "users" && dispatch(getAllUsers(usersOrderAdmin));
-    tableViewGlobal === "orders" && dispatch(getCarts());
-    tableViewGlobal === "books" && dispatch(getAllBooks());
+    tableViewGlobal === "users" && dispatch({ type: USERS_SEARCH_ADMIN, payload: [] });
+    tableViewGlobal === "orders" && dispatch({ type: CARTS_SEARCH_ADMIN, payload: [] });
+    tableViewGlobal === "books" && dispatch({ type: BOOKS_SEARCH_ADMIN, payload: [] });
+  };
+
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -66,67 +86,71 @@ export default function Dashboard() {
             <i className="fa-solid fa-house"></i>
             <span className={style.title}>Inicio</span>
           </li>
+          <div>
+
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+              }}
+              className={tableViewGlobal === "dashboard" && style.hovered}
+            >
+              <MdDashboardCustomize className={style.i} />
+              <span className={style.title}>Dashboard</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "users" });
+              }}
+              className={tableViewGlobal === "users" && style.hovered}
+            >
+              <FaUsers className={style.i} />
+              <span className={style.title}>Usuarios</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "orders" });
+              }}
+              className={tableViewGlobal === "orders" && style.hovered}
+            >
+              <FaFileInvoiceDollar className={style.i} />
+              <span className={style.title}>Órdenes</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "books" });
+              }}
+              className={tableViewGlobal === "books" && style.hovered}
+            >
+              <ImBooks className={style.i} />
+              <span className={style.title}>Libros</span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "addBook" });
+              }}
+              className={tableViewGlobal === "addBook" && style.hovered}
+            >
+              <FaBook className={style.i} />
+              <span className={style.title}>
+                {detail.name ? "Editar libro" : "Agregar un libro"}
+              </span>
+            </li>
+            <li
+              onClick={() => {
+                dispatch({ type: TABLE_VIEW, payload: "genres" });
+              }}
+              className={tableViewGlobal === "genres" && style.hovered}
+            >
+              <MdCategory className={style.i} />
+              <span className={style.title}>Categorías</span>
+            </li>
+          </div>
           <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "dashboard" });
-            }}
-            className={tableViewGlobal === "dashboard" && style.hovered}
-          >
-            <MdDashboardCustomize className={style.i} />
-            <span className={style.title}>Dashboard</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "users" });
-            }}
-            className={tableViewGlobal === "users" && style.hovered}
-          >
-            <FaUsers className={style.i} />
-            <span className={style.title}>Usuarios</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "orders" });
-            }}
-            className={tableViewGlobal === "orders" && style.hovered}
-          >
-            <FaFileInvoiceDollar className={style.i} />
-            <span className={style.title}>Órdenes</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "books" });
-            }}
-            className={tableViewGlobal === "books" && style.hovered}
-          >
-            <ImBooks className={style.i} />
-            <span className={style.title}>Libros</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "addBook" });
-            }}
-            className={tableViewGlobal === "addBook" && style.hovered}
-          >
-            <FaBook className={style.i} />
-            <span className={style.title}>
-              {detail.name ? "Editar libro" : "Agregar un libro"}
-            </span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "genres" });
-            }}
-            className={tableViewGlobal === "genres" && style.hovered}
-          >
-            <MdCategory className={style.i} />
-            <span className={style.title}>Categorías</span>
-          </li>
-          <li
-            onClick={() => {
-              dispatch({ type: TABLE_VIEW, payload: "logOff" });
-            }}
+            // onClick={() => {
+            //   dispatch({ type: TABLE_VIEW, payload: "logOff" });
+            // }}
             className={tableViewGlobal === "logOff" && style.hovered}
+            onClick={handleLogOut}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span className={style.title}>Cerrar sesión</span>
@@ -178,6 +202,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

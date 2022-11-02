@@ -15,7 +15,7 @@ const { getAllBooksAdmin } = require("../utils/getAllBooksAdmin");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, author, all, page } = req.query;
+  const { name, author, all, page, admin } = req.query;
 
   let books;
   if (all) {
@@ -28,13 +28,29 @@ router.get("/", async (req, res) => {
     books = await getAllBooks();
   }
 
-  let booksFiltereds = books.messageError
-    ? books
-    : await getBooksByFilters(books, req.query);
+  let booksFiltereds;
 
-  booksFiltereds = booksFiltereds.messageError
-    ? booksFiltereds
-    : pagination(booksFiltereds, page);
+  if (admin === "Admin++" || admin === "Admin") {
+    booksFiltereds = books.messageError
+      ? books
+      : await getBooksByFilters(books, req.query);
+
+    booksFiltereds = booksFiltereds.messageError
+      ? booksFiltereds
+      : pagination(booksFiltereds, page);
+  } else {
+    let booksVisible = books.messageError
+      ? books
+      : books.filter((b) => b.visible === true);
+
+    booksFiltereds = booksVisible.messageError
+      ? booksVisible
+      : await getBooksByFilters(booksVisible, req.query);
+
+    booksFiltereds = booksFiltereds.messageError
+      ? booksFiltereds
+      : pagination(booksFiltereds, page);
+  }
 
   booksFiltereds.messageError
     ? res.status(404).json(booksFiltereds)
@@ -69,9 +85,8 @@ router.get("/page", async (req, res) => {
     : res.status(201).json(books);
 });
 
-router.get("/admin/:search", async (req, res) => {
-  let books = await getAllBooksAdmin(req.params);
-  books.length && books.sort((a, b) => a.name.localeCompare(b.name));
+router.get("/admin", async (req, res) => {
+  let books = await getAllBooksAdmin(req.query);
 
   books.messageError
     ? res.status(404).json(books)

@@ -50,6 +50,7 @@
 
 @media (max-width:700px) {
   .navContainer{
+    margin-top: 0;
     flex-wrap: wrap;
   }
 }

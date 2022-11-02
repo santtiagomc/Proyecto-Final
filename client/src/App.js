@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { userExist } from "./redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { userExist, getUserDb } from "./redux/actions";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { auth } from "./firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -16,35 +16,38 @@ import Footer from "./components/Footer/Footer";
 import Stripe from "./pages/Stripe/Stripe";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import PruebaNav from "./components/NavBar/pruebaNav";
 import UserProfile from "./pages/UserProfile/UserProfile";
-
 
 function App() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user);
       dispatch(userExist(user));
+      // dispatch(getUserDb(user.uid));
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user && user.uid) {
+      dispatch(getUserDb(user.uid));
+    }
+  }, [dispatch, user]);
 
   return (
     <BrowserRouter>
       <NavBar />
       <Switch>
         <Route exact path="/landing" component={LandingPage} />
-        <Route exact path="/prueba" component={PruebaNav} />
-        
         <Route exact path="/" component={Home} />
-        <Route exact path="/create" component={CreateBook} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/detail/:id" component={Detail} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/stripe" component={Stripe} />
         <Route exact path="/profile" component={UserProfile} />
-        <Route path="/edit/:id" component={CreateBook} />
         <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />

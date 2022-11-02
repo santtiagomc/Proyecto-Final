@@ -14,15 +14,18 @@ import { useHistory } from "react-router-dom";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { logOut } from "../../firebase/auth";
 import Avatar from "./avatar.png";
+import { Link } from "react-router-dom";
 
 export default function ProfileUser() {
 	const [hovered, setHovered] = useState(0);
 	const [hidden, setHidden] = useState(false);
-	const history = useHistory();
 	const [dataUser, setDataUser] = useState({});
+	const [booksBuyed, setBooksBuyed] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [edit, setEdit] = useState({ change: false, edited: false });
 	const [user, load] = useUser();
+	const [page, setPage] = useState(0);
+	const history = useHistory();
 	const {
 		register,
 		formState: { errors },
@@ -34,6 +37,10 @@ export default function ProfileUser() {
 			try {
 				const res = await axios.get(`http://localhost:3001/user/${userId}`);
 				setDataUser(res.data);
+				const userHistory = await axios.get(
+					`http://localhost:3001/cart/${userId}-0`
+				);
+				setBooksBuyed(userHistory.data);
 				setLoading(false);
 			} catch (error) {
 				console.log(error);
@@ -41,7 +48,7 @@ export default function ProfileUser() {
 		};
 
 		if (!load) getUser(user);
-	}, [load, edit.edited]);
+	}, [load, edit.edited, user]);
 
 	const onSubmit = async (data) => {
 		try {
@@ -55,10 +62,27 @@ export default function ProfileUser() {
 		}
 	};
 
-	if (user === undefined && !loading) {
-		return <Error error="No estas autenticado" />;
-	}
-
+	const nextPage = async () => {
+		console.log("a");
+		console.log(booksBuyed.total);
+		if (page + 5 < booksBuyed.total) {
+			console.log("xd");
+			setPage(page + 5);
+			try {
+				const userHistory = await axios.get(
+					`http://localhost:3001/cart/${user}-${page + 5}`
+				);
+				console.log(userHistory);
+				setBooksBuyed({
+					...booksBuyed,
+					books: [...booksBuyed.books, ...userHistory.data.books],
+				});
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
+	console.log(booksBuyed);
 	const handleLogOut = async () => {
 		try {
 			await logOut();
@@ -68,12 +92,16 @@ export default function ProfileUser() {
 		}
 	};
 
+	if (user === undefined && !loading) {
+		return <Error error="No estas autenticado" />;
+	}
+
 	return (
-		<>
+		<div className={style.container}>
 			{loading ? (
 				<img src={Loader} alt="Logo loader" className={style.loader} />
 			) : (
-				<div className={style.container}>
+				<>
 					<div
 						className={
 							!hidden ? style.navigation : `${style.navigation} ${style.active}`
@@ -103,9 +131,9 @@ export default function ProfileUser() {
 								<span className={style.title}>Historial de compras</span>
 							</li>
 							{/* <li className={hovered === 5 && style.hovered}>
-								<MdPassword className={style.i} />
-								<span className={style.title}>Cambiar contraseña</span>
-							</li> */}
+        						<MdPassword className={style.i} />
+        						<span className={style.title}>Cambiar contraseña</span>
+    						</li> */}
 							<li className={hovered === 6 && style.hovered}>
 								<i className="fa-solid fa-arrow-right-from-bracket"></i>
 								<span onClick={handleLogOut} className={style.title}>
@@ -128,11 +156,11 @@ export default function ProfileUser() {
 									<i className="fa-solid fa-bars"></i>
 								</div>
 								{/* <div className={style.search}>
-									<label>
-										<input type="text" placeholder="Búsque aquí" />
-										<i class="fa-solid fa-magnifying-glass"></i>
-									</label>
-								</div> */}
+        					<label>
+            				<input type="text" placeholder="Búsque aquí" />
+            				<i class="fa-solid fa-magnifying-glass"></i>
+        					</label>
+    						</div> */}
 								<div className={style.logo}></div>
 							</div>
 
@@ -141,24 +169,32 @@ export default function ProfileUser() {
 									{!edit.change ? (
 										<>
 											<div className={style.containerA}>
-												<img src={Avatar} className={style.avatar} />
+												<img
+													src={Avatar}
+													className={style.avatar}
+													alt="avatar"
+												/>
 												<p className={style.user}>{dataUser.fullName}</p>
 											</div>
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-												<label className={style.label}>
-													Correo Electrónico{" "}
-												</label>
+												<hr/>
+												<label className={style.label}>E-mail</label>
 												<p className={style.p}>{dataUser.email}</p>
-												<label className={style.label}>Provincia </label>
+												<hr/> 
+												<label className={style.label}>Provincia</label>
 												<p className={style.p}>{dataUser?.province}</p>
-												<label className={style.label}>Ciudad </label>
+												<hr/>
+												<label className={style.label}>Ciudad</label>
 												<p className={style.p}>{dataUser?.city}</p>
-												<label className={style.label}>Dirección </label>
+												<hr/>
+												<label className={style.label}>Dirección</label>
 												<p className={style.p}>{dataUser?.address}</p>
-												<label className={style.label}>Código Postal </label>
+												<hr/>
+												<label className={style.label}>Código Postal</label>
 												<p className={style.p}>{dataUser?.zipCode}</p>
+												<hr/>
 											</div>
 										</>
 									) : (
@@ -229,20 +265,39 @@ export default function ProfileUser() {
 											</button>
 										</form>
 									)}
-									{/* <div>
-              <h2>Historial de compras</h2>
-              <h4>Compra 1</h4>
-              <h4>Compra 2</h4>
-              <h4>Compra 3</h4>
-              <button>Ver todas 🛒</button>
-            	</div> */}
 									<br></br>
 								</div>
 							</div>
+							{/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
+							<div className={style.shopping}>
+								<h2 className={style.misCompras}>Mis compras</h2>
+								{booksBuyed.books &&
+									booksBuyed.books.map((book) => (
+										<div>
+											<h3 className={style.status}>{book.status}</h3>
+											<div>
+												<hr/>
+												{book.Books.map((purchase) => (
+													<div>
+														<img src={purchase.image} className={style.portada} />
+														<h3 className={style.name}>{purchase.name}</h3>
+														<p className={style.info}>
+															{purchase.price * purchase.Books_Carts.quantity}
+														</p>
+														<p className={style.info}>Cantidad {purchase.Books_Carts.quantity}</p>
+														<Link to={`/detail/${purchase.id}`}>Detalle</Link>
+													</div>
+												))}
+											</div>
+											<hr />
+										</div>
+									))}
+								<button onClick={nextPage} className={style.btn}>Ver más</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</>
 			)}
-		</>
+		</div>
 	);
 }

@@ -1,12 +1,12 @@
 const { Op } = require("sequelize");
 const { Books, Genres, Reviews } = require("../db");
 
-const getAllBooksAdmin = async ({ search }) => {
+const getAllBooksAdmin = async ({ sort, searchValue }) => {
   try {
-    console.log(search.length);
-    if (search !== "undefined") {
-      let searchedBook = await Books.findAll({
-        where: { name: { [Op.iLike]: `${search}%` } },
+    let allBooks
+    if (searchValue) {
+      allBooks = await Books.findAll({
+        where: { name: { [Op.iLike]: `${searchValue}%` } },
         include: [
           {
             model: Genres,
@@ -20,16 +20,10 @@ const getAllBooksAdmin = async ({ search }) => {
         ],
       });
 
-      if (!searchedBook.length) return { messageError: "Libro no encontrado." };
-      return searchedBook;
+      if (!allBooks.length) return { messageError: "Libro no encontrado." };
+
     } else {
-      const allBooksDb = await Books.findAll({
-        // where: {
-        // 	/* visible: true, */
-        // 	stock: {
-        // 		[Op.gt]: 0,
-        // 	},
-        // },
+      allBooks = await Books.findAll({
         include: [
           {
             model: Genres,
@@ -43,10 +37,41 @@ const getAllBooksAdmin = async ({ search }) => {
         ],
       });
 
-      if (!allBooksDb.length)
+      if (!allBooks.length)
         return { messageError: "No hay libros disponibles." };
-      return allBooksDb;
     }
+
+    sort === "name-A-Z" &&
+      allBooks.sort((a, b) => a.name.localeCompare(b.name));
+    sort === "name-Z-A" &&
+      allBooks.sort((b, a) => a.name.localeCompare(b.name));
+    sort === "author-A-Z" &&
+      allBooks.sort((a, b) => a.author.localeCompare(b.author));
+    sort === "author-Z-A" &&
+      allBooks.sort((b, a) => a.author.localeCompare(b.author));
+    sort === "editorial-A-Z" &&
+      allBooks.sort((a, b) => a.editorial.localeCompare(b.editorial));
+    sort === "editorial-Z-A" &&
+      allBooks.sort((b, a) => a.editorial.localeCompare(b.editorial));
+    sort === "year-min-max" &&
+      allBooks.sort((a, b) => a.edition - b.edition);
+    sort === "year-max-min" &&
+      allBooks.sort((b, a) => a.edition - b.edition);
+    sort === "price-min-max" &&
+      allBooks.sort((a, b) => a.price - b.price);
+    sort === "price-max-min" &&
+      allBooks.sort((b, a) => a.price - b.price);
+    sort === "stock-min-max" &&
+      allBooks.sort((a, b) => a.stock - b.stock);
+    sort === "stock-max-min" &&
+      allBooks.sort((b, a) => a.stock - b.stock);
+
+
+
+
+
+
+    return allBooks;
   } catch (error) {
     return { messageError: "Se ha producido un error." };
   }

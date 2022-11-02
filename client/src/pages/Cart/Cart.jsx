@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
@@ -105,8 +105,8 @@ export default function Cart() {
       }
     } else {
       if (quantity[e.target.value] > 1) {
-        let index = repeatedIdArrayCart.indexOf(e.target.value);
-        let filtered = repeatedIdArrayCart.splice(index, 1);
+        // let index = repeatedIdArrayCart.indexOf(e.target.value);
+        // let filtered = repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
@@ -195,8 +195,10 @@ export default function Cart() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (user) {
-          dispatch(deleteUserCart(cart[0].cartId));
+        if (user && user.uid) {
+          setTimeout(function () {
+            dispatch(deleteUserCart(cart[0].cartId));
+          }, 300);
           Swal.fire({
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
@@ -204,6 +206,7 @@ export default function Cart() {
             width: 650,
             background: "#19191a",
             color: "#e1e1e1",
+            timer: 2000,
           });
 
           setTimeout(function () {
@@ -316,6 +319,9 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
+                <Link to="/login">
+                  <button className={style.botonComprar}>Comprar</button>
+                </Link>
               </div>
             ))}
           </div>
@@ -436,9 +442,8 @@ export default function Cart() {
                   <hr></hr>
                 </div>
               ))}
-            {/*BOTON PROVISIONAL*/}
             <Link to="/stripe">
-              <button>Comprar</button>
+              <button className={style.botonComprar}>Comprar</button>
             </Link>
           </div>
         )
