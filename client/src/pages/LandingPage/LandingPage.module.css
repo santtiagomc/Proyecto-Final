@@ -76,3 +76,10 @@
     width: 10rem;
     pointer-events: none;
 }
+
+@media (max-width: 700px) {
+    .containerPromo {
+        margin: 4px;
+        width: 98vw;
+    }
+}

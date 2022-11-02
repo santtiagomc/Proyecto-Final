@@ -52,8 +52,8 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route exact path="/landing" component={LandingPage} />
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/detail/:id" component={Detail} />

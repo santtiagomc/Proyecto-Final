@@ -26,6 +26,7 @@ async function postUser({
     });
     if (created) {
       sendEmail("welcome", { user: { email, fullName } });
+      console.log("CORREO WELCOME ENVIADO");
       return { message: "Usuario creado correctamente" };
     }
 
