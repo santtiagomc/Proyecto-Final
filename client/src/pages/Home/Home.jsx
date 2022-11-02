@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
@@ -9,10 +9,12 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
-  postCart,
-  getUserCart,
+  getUserDb,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
+// import Loader from "./GIF_neón_BooksNook.gif";
+import Loader2 from "./GIF_aparecer_BooksNook.gif";
+// import Loader3 from "./GIF_bloque_BooksNook.gif";
 
 import style from "./HomePrueba.module.css";
 
@@ -26,39 +28,37 @@ export default function Home() {
     editorials,
     books,
     user,
+    userDb,
+    putStatusBook
   } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
   const pages = [];
-
-  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
-  let repeatedIdArrayCart = [];
-  let uniqueIdArrayCart = [];
-  if (localStorage.length) {
-    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
-    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
-  }
-
-  useEffect(() => {
-    if (user && user.uid) {
-      if (uniqueIdArrayCart.length) {
-
-        dispatch(postCart({ userId: user.uid, bookId: uniqueIdArrayCart, suma: true }))
-
-        setTimeout(function () {
-          dispatch(getUserCart(user.uid));
-          localStorage.clear()
-        }, 2500);
-      }
-    }
-  }, [])
-  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
-
 
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
-    dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied]);
+    if (user && user.uid) {
+      console.log(userDb);
+      if (userDb.role === "Admin++" || userDb.role === "Admin") {
+        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
+      } else {
+        dispatch(searchBook(filtersApplied, searchApplied, page));
+      }
+    } else {
+      dispatch(searchBook(filtersApplied, searchApplied, page));
+    }
+  }, [
+    filtersApplied,
+    page,
+    searchApplied,
+    user,
+    userDb,
+    dispatch,
+    editorials.length,
+    genres.length,
+    putStatusBook
+  ]);
 
   useEffect(() => {
     if (books.messageError) {
@@ -69,31 +69,44 @@ export default function Home() {
         text: books.messageError,
         icon: "error",
         timer: 4000,
+        confirmButtonColor: "#355070",
       });
       dispatch(changeFilter());
       dispatch(changeSearch());
     }
-  }, [books]);
-
-
+  }, [books, dispatch]);
 
   const nextPage = () => {
-    if (page + 10 < total) {
-      dispatch(changePage(page + 10));
+    if (page + 12 < total) {
+      setLoader(true);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1000);
+      dispatch(changePage(page + 12));
     }
   };
 
   const prevPage = () => {
     if (page > 0) {
-      dispatch(changePage(page - 10));
+      setLoader(true);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1000);
+      dispatch(changePage(page - 12));
     }
   };
 
-  const handlePage = (page) => {
-    dispatch(changePage(page * 10 - 10));
+  const handlePage = (newPage) => {
+    if (newPage * 12 - 12 !== page) {
+      setLoader(true);
+      setTimeout(() => {
+        setLoader(false);
+      }, 1000);
+      dispatch(changePage(newPage * 12 - 12));
+    }
   };
 
-  for (let i = 1; i <= Math.ceil(total / 10); i++) {
+  for (let i = 1; i <= Math.ceil(total / 12); i++) {
     pages.push(i);
   }
 
@@ -101,32 +114,47 @@ export default function Home() {
     <div className={style.homeContainer}>
       <FiltersNav editorials={editorials} />
       <div className={style.cardsContainer}>
-        <div className={style.pagination}>
-          <button className={style.btnNextPrev} onClick={prevPage}>
-            Anterior
-          </button>
-          {pages.map((el, index) => (
+        {books.length && !books.messageError && (
+          <div className={style.pagination}>
             <button
               className={
-                index === page / 10
-                  ? style.btnNumbersSelected
-                  : style.btnNumbers
+                page > 1
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
               }
-              key={el}
-              onClick={() => handlePage(el)}
+              onClick={prevPage}
             >
-              {el}
+              Anterior
             </button>
-          ))}
-          <button className={style.btnNextPrev} onClick={nextPage}>
-            Siguiente
-          </button>
-        </div>
-
+            {pages.map((el, index) => (
+              <button
+                className={
+                  index === page / 12
+                    ? style.btnNumbersSelected
+                    : style.btnNumbers
+                }
+                key={el}
+                onClick={() => handlePage(el)}
+              >
+                {el}
+              </button>
+            ))}
+            <button
+              className={
+                page / 12 !== Math.floor(total / 12)
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={nextPage}
+            >
+              Siguiente
+            </button>
+          </div>
+        )}
         <div className={style.grid}>
           {!books.messageError ? (
-            books.map((book) => {
-              return (
+            books.length && !loader ? (
+              books.map((book) => (
                 <Card
                   key={book.id}
                   id={book.id}
@@ -137,34 +165,52 @@ export default function Home() {
                   edition={book.edition}
                   visible={book.visible}
                 />
-              );
-            })
+              ))
+            ) : (
+              <img src={Loader2} alt="Logo loader" className={style.loader} />
+            )
           ) : (
-            <span className={style.span}></span>
+            ""
           )}
         </div>
 
-        <div className={style.pagination}>
-          <button className={style.btnNextPrev} onClick={prevPage}>
-            Anterior
-          </button>
-          {pages.map((el, index) => (
+        {books.length && !books.messageError && !loader && (
+          <div className={style.pagination}>
             <button
               className={
-                index === page / 10
-                  ? style.btnNumbersSelected
-                  : style.btnNumbers
+                page > 1
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
               }
-              key={el}
-              onClick={() => handlePage(el)}
+              onClick={prevPage}
             >
-              {el}
+              Anterior
             </button>
-          ))}
-          <button className={style.btnNextPrev} onClick={nextPage}>
-            Siguiente
-          </button>
-        </div>
+            {pages.map((el, index) => (
+              <button
+                className={
+                  index === page / 12
+                    ? style.btnNumbersSelected
+                    : style.btnNumbers
+                }
+                key={el}
+                onClick={() => handlePage(el)}
+              >
+                {el}
+              </button>
+            ))}
+            <button
+              className={
+                page / 12 !== Math.floor(total / 12)
+                  ? style.btnNextPrev
+                  : `${style.btnNextPrev} ${style.btnNextPrevDisabled}`
+              }
+              onClick={nextPage}
+            >
+              Siguiente
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 .label_rating {
   margin-bottom: 6px;
+
 }
 
 .stars {
@@ -36,6 +37,7 @@ label {
 
 .container_title {
   color: white;
+  font-size: 24px;
 }
 
 .see_form {
@@ -84,13 +86,13 @@ a:hover {
 
 .title {
   color: #ffffff;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bolder;
   margin: 20px 0;
 }
 
 .reviews_container {
-  margin: 120px 0;
+  margin: 50px auto;
 }
 
 hr {
@@ -98,6 +100,7 @@ hr {
 }
 
 .single_review {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -123,6 +126,7 @@ hr {
   display: flex;
   height: 100%;
   margin: 0;
+  font-size: 24px;
 }
 
 .stars_single_review {
@@ -148,4 +152,61 @@ hr {
 .description_single_review {
   padding: 0 12px;
   text-align: justify;
+}
+
+.delete_single_review {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  /* background-color: rgb(88, 152, 202); */
+  padding: 0.2em 0.4em;
+  position: absolute;
+  bottom: 1.5em;
+  right: 1%;
+  cursor: pointer;
+  transition: .5s;
+  color: rgb(186, 46, 46);
+}
+
+.delete_single_review:hover {
+  transform: scale(1.05);
+}
+
+.delete_single_review i {
+  display: flex;
+  height: 100%;
+  margin-left: 0.4em;
+  text-align: center;
+  height: 100%;
+}
+
+.baneado{
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  color: #C70039;
+  border-bottom: 1px solid #ED8D8D;
+  margin-bottom: 20px;
+  padding-right: 5px;
+  cursor: pointer;
+  background-color: #181818;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+}
+
+.baneadoText{
+  margin-bottom: 0px;
+}
+
+.iconForb{
+  font-size: 22px;
+}
+@media (max-width: 700px) {
+  .reviews_container{
+    margin: 0;
+  }
 }

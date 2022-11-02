@@ -1,18 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
-import { getGuestCart, postCart } from "../../redux/actions";
+import {
+  getGuestCart,
+  getUserCart,
+  postCart,
+  putUserCart,
+  deleteUserCart,
+} from "../../redux/actions";
 import Swal from "sweetalert2";
+import { FaRegTrashAlt } from "react-icons/fa";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { cart, user } = useSelector((state) => state);
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+
+  //----------------- Function sweetAlert + Const -----------------
+
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
+
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
   let quantity = {};
-  if (localStorage.length) {
+  if (localStorage.length && localStorage.cart) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
     repeatedIdArrayCart.length &&
@@ -21,7 +49,9 @@ export default function Cart() {
       });
   }
 
-  let [buttonDisabled, setButtonDisabled] = useState(false);
+  //----------------- END Function sweetAlert + Const -----------------
+
+  //----------------- Function add product -----------------
 
   const handleCartAdd = (e) => {
     e.preventDefault();
@@ -32,31 +62,9 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
       }
     } else {
       if (quantity[e.target.value] < 5) {
@@ -65,31 +73,9 @@ export default function Cart() {
           `${repeatedIdArrayCart.toString()},${e.target.value}`
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -99,6 +85,10 @@ export default function Cart() {
       setButtonDisabled(false);
     }, 1000);
   };
+
+  //----------------- END Function add product -----------------
+
+  //----------------- Function subs product -----------------
 
   const handleCartSubs = (e) => {
     e.preventDefault();
@@ -109,64 +99,20 @@ export default function Cart() {
           postCart({ userId: user.uid, bookId: e.target.value, suma: false })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el máximo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el mínimo de este producto");
       }
     } else {
       if (quantity[e.target.value] > 1) {
         let index = repeatedIdArrayCart.indexOf(e.target.value);
-        let filtered = repeatedIdArrayCart.splice(index, 1);
+        repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Has modificado la cantidad del producto",
-        });
+        swalAlert(2000, "success", "Has modificado la cantidad del producto");
       } else {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "error",
-          title: "Alcanzaste el mínimo de este producto",
-        });
+        swalAlert(2000, "error", "Alcanzaste el mínimo de este producto");
       }
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
@@ -177,11 +123,128 @@ export default function Cart() {
     }, 1000);
   };
 
+  //----------------- END Function subs product -----------------
+
+  //----------------- Function remove book ----------------------
+
+  const handleRemoveBook = (bookId) => {
+    //e.preventDefault();
+    let bookName = cart.find((b) => b.id === bookId);
+    Swal.fire({
+      title: `¿Seguro quieres eliminar '${bookName.name}' de tu carrito?`,
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      width: 650,
+      background: "#19191a",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user) {
+          dispatch(putUserCart(cart[0].cartId, bookId));
+
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${bookName.name}' de tu carrito`
+          );
+
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 2000);
+        } else {
+          let filterLocalStorage = repeatedIdArrayCart.filter(
+            (id) => id !== bookId
+          );
+          localStorage.setItem("cart", `${filterLocalStorage.toString()}`);
+
+          swalAlert(
+            2000,
+            "success",
+            `Se eliminó '${bookName.name}' de tu carrito`
+          );
+
+          setTimeout(function () {
+            dispatch(getGuestCart(filterLocalStorage.toString()));
+          }, 2000);
+        }
+      }
+    });
+  };
+
+  //----------------- END Function remove book ----------------------
+
+  //----------------- Function remove cart --------------------------
+
+  const handleRemoveCart = () => {
+    Swal.fire({
+      title: "¿Seguro quieres eliminar tu carrito?",
+      text: "Se borrarán todos los libros añadidos",
+      icon: "warning",
+      width: 650,
+      background: "#19191a",
+      color: "#e1e1e1",
+      showCancelButton: true,
+      confirmButtonColor: "#355070",
+      cancelButtonColor: "#B270A2",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user && user.uid) {
+          setTimeout(function () {
+            dispatch(deleteUserCart(cart[0].cartId));
+          }, 300);
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            width: 650,
+            background: "#19191a",
+            color: "#e1e1e1",
+            timer: 2000,
+          });
+
+          setTimeout(function () {
+            dispatch(getUserCart(user.uid));
+          }, 700);
+        } else {
+          localStorage.clear();
+
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "Tu carrito se encuentra vacío",
+            icon: "success",
+            width: 650,
+            background: "#19191a",
+            color: "#e1e1e1",
+          });
+
+          setTimeout(function () {
+            dispatch(getGuestCart());
+          }, 700);
+        }
+      }
+    });
+  };
+
+  //----------------- END Function remove cart --------------------------
+
   return (
     <>
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
+            </button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -195,8 +258,9 @@ export default function Cart() {
               </h4>
             </div>
             <hr></hr>
+
             {cart.map((book) => (
-              <div key={book.id}>
+              <div key={book.id} className={style.detailContainer}>
                 <div className={style.detail}>
                   <div className={`col-7 text-center ${style.detail_product}`}>
                     <img
@@ -246,24 +310,56 @@ export default function Cart() {
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}
                   </h3>
+                  <button
+                    onClick={() => handleRemoveBook(book.id)}
+                    className={style.btnTrash}
+                  >
+                    <FaRegTrashAlt />
+                    {/* <i class="fa-regular fa-trash-can"></i> */}
+                  </button>
                 </div>
                 <hr></hr>
               </div>
             ))}
+            <Link to="/login">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         ) : !uniqueIdArrayCart.length ? (
-          <h1 className={style.message}>
-            ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
-            muchos que te van a encantar!
-          </h1>
+          <div>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              <AiOutlineArrowLeft className={style.btnArr} />
+            </button>
+            <h1 className={style.message}>
+              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
+              muchos que te van a encantar!
+            </h1>
+          </div>
         ) : (
-          <h1 className={style.message}>Cargando...</h1>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
         )
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
-          <h1 className={style.message}>{cart.messageError}</h1>
+          <div>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              <AiOutlineArrowLeft className={style.btnArr} />
+            </button>
+            <h1 className={style.message}>{cart.messageError}</h1>
+          </div>
         ) : (
           <div className={style.cart_container}>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
+            </button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -334,32 +430,26 @@ export default function Cart() {
                     <h3 className={`col-2 text-center ${style.detail_price}`}>
                       {(book.price * book.quantity).toFixed(2)}
                     </h3>
+
+                    <button
+                      onClick={() => handleRemoveBook(book.id)}
+                      className={style.btnTrash}
+                    >
+                      <FaRegTrashAlt />
+                      {/* <i class="fa-regular fa-trash-can"></i> */}
+                    </button>
                   </div>
                   <hr></hr>
                 </div>
               ))}
+            <Link to="/stripe">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         )
       ) : (
-        <h1 className={style.message}>Cargando...</h1>
+        <img src={Loader} alt="Logo loader" className={style.loader} />
       )}
     </>
   );
 }
-
-//   return (
-//     <>
-//       <h1 className={style.h1}>Carrito WIP</h1>
-//       {cartLS &&
-//         filteredBooks.map((el, index) => {
-//           return (
-//             <div key={index}>
-//               <Link to={`/detail/${el}`}>
-//                 <h1>{`Producto: ${el} | Cantidad: ${counts[el]}`}</h1>
-//               </Link>
-//             </div>
-//           );
-//         })}
-//     </>
-//   );
-// }

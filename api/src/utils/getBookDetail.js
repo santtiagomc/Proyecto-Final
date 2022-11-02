@@ -17,7 +17,7 @@ async function getBookDetail(idBook) {
           include: [
             {
               model: Users,
-              attributes: ["fullName"]
+              attributes: ["fullName", "id"]
             }
           ],
         },

@@ -14,47 +14,65 @@
 
 .homeContainer {
   display: flex;
-  margin-top: 20px;
+  margin: 1.5em 3em 1.5em 3em;
+  flex-direction: row; 
+  gap: 0.2em;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2em 0.6em;
 }
 
 .cardsContainer {
+  flex-grow: 1;
   width: 100%;
+  min-height: 1200px;
 }
 
 .btnNextPrev {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  border: 2px solid #d97197;
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 90px;
 }
 
+.btnNextPrevDisabled {
+  opacity: 40%;
+  cursor: not-allowed;
+}
+
 .btnNextPrev:hover {
-  background-color: #d97197;
+  background-color: var(--violeta-primario);
+}
+
+.btnNextPrevDisabled:hover {
+  background-color: transparent;
+  cursor: auto;
 }
 
 .btnNumbers {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  border: 2px solid #d97197;
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 30px;
 }
 
 .btnNumbers:hover {
-  background-color: #d97197;
+  background-color: var(--violeta-primario);
 }
 
 .btnNumbersSelected {
   color: aliceblue;
-  background-color: #181818;
+  background-color: var(--negro-backgound);
   border-radius: 5px;
-  background-color: #d97197;
-  border: 2px solid #d97197;
+  background-color: var(--violeta-primario);
+  border: 2px solid var(--violeta-primario);
   margin: 20px 5px 0 5px;
   cursor: pointer;
   width: 30px;
@@ -64,9 +82,28 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 80px;
+  padding: 1em;
 }
 
 .pagination_bottom {
   margin-top: -1.875rem;
+}
+
+.loader {
+  /* margin-left: 150px; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20em;
+  
+}
+
+@media (max-width:700px) {
+  .homeContainer{
+    margin: 0.5em 1em 0.5em 1em;
+  }
+  .grid{
+    justify-items: start;
+  }
 }

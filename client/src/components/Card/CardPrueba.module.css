@@ -10,7 +10,7 @@
 
 .btnStatusT {
   margin-right: 10px;
-  background-color: #50a7ed;
+  background-color: var(--verde-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -22,7 +22,7 @@
 
 .btnStatusF {
   margin-right: 10px;
-  background-color: #d56a93;
+  background-color: var(--violeta-primario);
   padding: 5px;
   border: none;
   border-radius: 10px;
@@ -33,66 +33,79 @@
 }
 
 .container {
-  width: 450px;
-  height: 250px;
-  background-color: #a35873;
-  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+  width: 24rem; 
+  height: 12rem;
+  background-color: var(--violeta-primario);
+  background: linear-gradient(180deg, var(--violeta-primario) 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
-  margin: 25px;
-  padding: 0 20px;
+  margin: 1.5em 1em;
+  padding:0.2em 0.4em;
   border-radius: 20px;
 }
 
 .containerF {
-  width: 450px;
-  height: 250px;
-  background-color: #a35873;
-  background: linear-gradient(180deg, #d97197 0%, rgba(217, 113, 151, 0) 100%);
+  width: 24rem; 
+  height: 12rem;
+  background-color: var(--violeta-primario);
+  background: linear-gradient(180deg, var(--violeta-primario) 0%, rgba(217, 113, 151, 0) 100%);
   display: flex;
-  margin: 25px;
-  padding: 0 20px;
+  margin: 1.5em 1em;
+  padding: 0.2em 0.4em;
   border-radius: 20px;
   opacity: 0.5;
 }
 
 .imageContainer {
-  width: 155px;
-  height: 230px;
-  margin-left: 15px;
+  width: 8rem;
+  height: 12rem;
+  margin-left: 1em;
 }
 
 .bookCover {
   position: relative;
   z-index: 800;
   top: -60px;
-  width: 155px;
-  height: 230px;
+  width: 8rem;
+  height: 12rem;
+  transition: 0.5s;
 }
+
+.container:hover .bookCover {
+  transform: translate(0, -20px); 
+  /* transform: scale(1.05); */
+  }
 
 .information {
   padding: 25px 10px;
 }
 
 .name {
-  margin: 0px;
+  margin: 0 auto;
+  width: 13rem;
+  height: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: #fff;
   font-weight: bolder;
-  font-size: 21px;
+  font-size: 18px;
   margin-bottom: 5px;
   margin-right: 5px;
-  text-transform: capitalize;
 }
 
 .author {
   margin: 0px;
+  width: 12rem;
+  height: 1.5rem;
   color: #fff;
-  margin-bottom: 5px;
   font-weight: 300;
   font-size: 14px;
 }
 
 .edition {
   margin: 0px;
+  width: 12rem;
+  height: 1.5rem;
   /* border-bottom: 2px solid white;
   width: fit-content; */
   color: #fff;
@@ -103,7 +116,27 @@
 
 .price {
   margin: 0px;
+  width: 12rem;
+  height: 1.5rem;
   font-size: 21px;
   color: #fff;
   font-weight: 600;
+}
+@media (max-width:700px) {
+  .name{
+    margin: 0;
+    width: 10rem;
+  }
+  .container{
+    width: 22rem;
+  }
+  .bookCover{
+    width: 6rem;
+    height: 10rem;
+  }
+  .container{
+    width: 20rem;
+    height: 10rem;
+    margin: 2.5em 1em;
+  }
 }

@@ -3,9 +3,19 @@ const router = Router();
 
 const { getUserCart } = require("../utils/getUserCart");
 const { getGuestCart } = require("../utils/getGuestCart");
+const { getOrders } = require("../utils/getOrders");
 const { postCart } = require("../utils/postCart");
 const { putUserCart } = require("../utils/putUserCart");
+const { putCartStatus } = require("../utils/putCartStatus");
 const { deleteUserCart } = require("../utils/deleteUserCart");
+
+router.get("/orders", async (req, res) => {
+  const response = await getOrders(req.query);
+
+  response.messageError
+    ? res.status(404).json(response)
+    : res.status(201).json(response);
+});
 
 router.get("/:userId", async (req, res) => {
   const userCart = await getUserCart(req.params);
@@ -29,6 +39,14 @@ router.post("/", async (req, res) => {
   userCart.messageError
     ? res.status(404).json(userCart)
     : res.status(201).json(userCart);
+});
+
+router.put("/status", async (req, res) => {
+  const response = await putCartStatus(req.query);
+
+  response.messageError
+    ? res.status(404).json(response)
+    : res.status(201).json(response);
 });
 
 router.put("/", async (req, res) => {
