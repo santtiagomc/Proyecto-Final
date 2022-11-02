@@ -105,8 +105,8 @@ export default function Cart() {
       }
     } else {
       if (quantity[e.target.value] > 1) {
-        // let index = repeatedIdArrayCart.indexOf(e.target.value);
-        // let filtered = repeatedIdArrayCart.splice(index, 1);
+        let index = repeatedIdArrayCart.indexOf(e.target.value);
+        let filtered = repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
@@ -319,11 +319,11 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
-                <Link to="/login">
-                  <button className={style.botonComprar}>Comprar</button>
-                </Link>
               </div>
             ))}
+            <Link to="/login">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>

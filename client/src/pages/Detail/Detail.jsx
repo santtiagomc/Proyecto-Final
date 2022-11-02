@@ -133,14 +133,13 @@ export default function Detail() {
 
       if (cartLS) {
         if (uniqueIdArrayCart.includes(id)) {
-          // if (myBook.stock - quantity[id] === 0) {
-          //   swalAlert(
-          //     2000,
-          //     "error",
-          //     "Alcanzaste el stock máximo de este producto"
-          //   );
-          // } else
-          if (quantity[id] < 5) {
+          if (myBook.stock - quantity[id] === 0) {
+            swalAlert(
+              2000,
+              "error",
+              "Alcanzaste el stock máximo de este producto"
+            );
+          } else if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
             swalAlert(2000, "success", "Producto agregado al carrito");
