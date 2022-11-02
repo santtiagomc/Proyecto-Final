@@ -17,6 +17,7 @@ export default function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const [isOpen, setIsOpen] = useState(false)
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
