@@ -1,17 +1,22 @@
 const { Cart } = require("../db");
+const { sendEmail } = require("../nodemailer");
 
-async function putCartStatus({ id }) {
+async function putCartStatus(cartInfo) {
   try {
-    const cart = await Cart.findByPk(id);
+    const cart = await Cart.findByPk(cartInfo.id);
 
     if (cart === null)
       return { messageError: "No existe ningún carrito con ese ID" };
 
-    cart.status === "Procesando" ? (cart.status = "Entregado") : (cart.status = "Procesando");
+    cart.status === "Procesando"
+      ? (cart.status = "Entregado")
+      : (cart.status = "Procesando");
     await cart.save();
-    return { message: `Has cambiado el estado del carrito a "${cart.status}"` }
 
-    return { message: `Has cambiado el estado del carrito a: ${cart.status}` };
+    if (cart.status === "Entregado")
+      sendEmail("delivered", { user: cartInfo.User, cart: cartInfo.Books });
+
+    return { message: `Has cambiado el estado del carrito a "${cart.status}"` };
   } catch (error) {
     return { messageError: "Error" };
   }

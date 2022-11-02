@@ -1,5 +1,8 @@
+const { templatePurchase } = require("./templatePurchase");
+
 const welcome = "welcome";
 const purchase = "purchase";
+const delivered = "delivered";
 const error = "error";
 
 const templateSubject = (subject) => {
@@ -9,6 +12,9 @@ const templateSubject = (subject) => {
 
     case purchase:
       return "Gracias por comprar en Books Nook!";
+
+    case delivered:
+      return "Recibiste tus libros, ¡que los disfrutes!";
 
     case error:
       return "Error al procesar el pago";
@@ -53,32 +59,34 @@ const templateHTML = (subject, data) => {
         return (acc = acc + el.quantity * el.price);
       }, 0);
 
-      return `<h1>Gracias por tu compra!</h1>
+      return templatePurchase(data.user, data.cart, data.stripeId, totalPrice);
+
+    case delivered:
+      if (!data.user.fullName || !data.cart.length)
+        throw new Error("Necessary values missing");
+
+      return `<h1>Entregamos tus nuevos libros!</h1>
             <p>Hola ${
               data.user.fullName
-            }, aqui te dejamos los datos de tu compra.</p>
-            <ul>
-              ${
-                data.cart &&
-                data.cart
-                  .map((el) => {
-                    return `<li>$${el.price * el.quantity} | ${el.name} x(${
-                      el.quantity
-                    })</li>`;
-                  })
-                  .join("")
-              }
-            </ul>
+            }, dimos por entregada la compra que realizaste con la dirección ${
+        data.user.address
+      } en ${data.user.city}, ${data.user.province}</p>
             
-            <p>Valor total: $${totalPrice}</p>
-            <p>Número de orden: ${data.stripeId}</p>
-
-            <p>Los estaremos enviando a ${data.user.address} en ${
-        data.user.city
-      }, ${data.user.province}$</p>
+            <span>Entregamos los productos</span>
+            <ul>
+            ${
+              data.cart &&
+              data.cart
+                .map((el) => {
+                  return `<li>${el.name}</li>`;
+                })
+                .join("")
+            }
+            </ul>
               
             <span>Por cualquier inconveniente con tu compra puedes comunicarte con booksnookpf@gmail.com, con el asunto "Error en mi compra"</span>
-            <span>Saludos el equipo de Books Nook</span>
+
+            <p>Esperamos que los disfrutes, saludos el equipo de Books Nook</p>
             `;
 
     case error:

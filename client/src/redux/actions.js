@@ -461,11 +461,12 @@ export function getCarts({ sort, searchValue }) {
 }
 
 //-------para modificar el estado de un carrito
-export function putCartStatus(id) {
+export function putCartStatus(cart) {
   return async function (dispatch) {
     try {
       const response = await axios.put(
-        `http://localhost:3001/cart/status?id=${id}`
+        `http://localhost:3001/cart/status`,
+        cart
       );
       return dispatch({
         type: PUT_CART_STATUS,
