@@ -121,6 +121,7 @@ const CheckoutForm = ({ cart, history, user }) => {
         console.log(res);
         Swal.fire({
           title: "Producto comprado correctamente",
+          text: "Te enviaremos un correo con la información de tu compra!",
           width: 650,
           icon: "success",
           iconColor: "#355070",
