@@ -50,9 +50,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-      myBook.Reviews.map((el) => {
-        return el.rating;
-      }).length
+        myBook.Reviews.map((el) => {
+          return el.rating;
+        }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -103,11 +103,16 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-
     if (user) {
       let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
       if (quantityObject) {
-        if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
+        if (quantityObject.stock - quantityObject.quantity === 0) {
+          swalAlert(
+            2000,
+            "error",
+            "Alcanzaste el stock máximo de este producto"
+          );
+        } else if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
           dispatch(
             postCart({ userId: user.uid, bookId: e.target.value, suma: true })
           );
@@ -134,7 +139,13 @@ export default function Detail() {
 
       if (cartLS) {
         if (uniqueIdArrayCart.includes(id)) {
-          if (quantity[id] < 5) {
+          if (myBook.stock - quantity[id] === 0) {
+            swalAlert(
+              2000,
+              "error",
+              "Alcanzaste el stock máximo de este producto"
+            );
+          } else if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
             swalAlert(2000, "success", "Producto agregado al carrito");
@@ -179,7 +190,7 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.btnBack} onClick={() => history.push("/")}>
+          <button className={style.btnBack} onClick={() => history.goBack()}>
             <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
@@ -205,7 +216,7 @@ export default function Detail() {
                 className={style.btnStatusT}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch({ type: EDIT_ID, payload: myBook.id })
+                  dispatch({ type: EDIT_ID, payload: myBook.id });
                   dispatch({ type: TABLE_VIEW, payload: "addBook" });
                   history.push(`/admin`);
                 }}
@@ -303,7 +314,7 @@ export default function Detail() {
 
               {user ? (
                 userDb &&
-                  (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
                   <h3 className={style.price}>USD {myBook.price}</h3>
                 ) : (
                   userDb.role === "Usuario" && (
@@ -311,12 +322,14 @@ export default function Detail() {
                       <h3 className={style.price}>USD {myBook.price}</h3>
                       <button
                         className={
-                          myBook.visible && !buttonDisabled
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
                             ? style.cart
                             : `${style.cart} ${style.cartF} `
                         }
                         disabled={
-                          myBook.visible && !buttonDisabled ? false : true
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
+                            ? false
+                            : true
                         }
                         value={id}
                         type="button"
@@ -343,11 +356,15 @@ export default function Detail() {
                   <h3 className={style.price}>USD {myBook.price}</h3>
                   <button
                     className={
-                      myBook.visible && !buttonDisabled
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
                         ? style.cart
                         : `${style.cart} ${style.cartF} `
                     }
-                    disabled={myBook.visible && !buttonDisabled ? false : true}
+                    disabled={
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
+                        ? false
+                        : true
+                    }
                     value={id}
                     type="button"
                     onClick={(e) => handleCart(e)}

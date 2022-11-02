@@ -260,7 +260,7 @@ export default function Cart() {
             <hr></hr>
 
             {cart.map((book) => (
-              <div key={book.id}>
+              <div key={book.id} className={style.detailContainer}>
                 <div className={style.detail}>
                   <div className={`col-7 text-center ${style.detail_product}`}>
                     <img
@@ -319,11 +319,11 @@ export default function Cart() {
                   </button>
                 </div>
                 <hr></hr>
-                <Link to="/login">
-                  <button className={style.botonComprar}>Comprar</button>
-                </Link>
               </div>
             ))}
+            <Link to="/login">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>

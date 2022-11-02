@@ -37,7 +37,7 @@ import {
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
   GENRES_ORDER_ADMIN,
-  EDIT_ID
+  EDIT_ID,
 } from "./actions";
 
 const initialState = {
@@ -72,17 +72,17 @@ const initialState = {
   allUsers: [],
   usersFiltersAdmin: {
     sort: "name-A-Z",
-    searchValue: ""
+    searchValue: "",
   },
   allBooks: [],
   booksFiltersAdmin: {
     sort: "name-A-Z",
-    searchValue: ""
+    searchValue: "",
   },
   allCarts: [],
   cartsFiltersAdmin: {
     sort: "status-Z-A",
-    searchValue: ""
+    searchValue: "",
   },
   genresFiltersAdmin: "name-A-Z",
   putUserResponse: [],
@@ -91,7 +91,7 @@ const initialState = {
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
-  edit_id: ""
+  edit_id: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -149,7 +149,7 @@ export default function rootReducer(state = initialState, action) {
 
     case GET_CART:
       if (state.user && state.user.uid) {
-        return { ...state }
+        return { ...state };
       } else {
         return { ...state, cart: action.payload };
       }
@@ -214,25 +214,50 @@ export default function rootReducer(state = initialState, action) {
     case TABLE_VIEW:
       return { ...state, tableViewGlobal: action.payload };
 
-    //------------ LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
-
     case USERS_ORDER_ADMIN:
-      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, sort: action.payload } };
+      return {
+        ...state,
+        usersFiltersAdmin: { ...state.usersFiltersAdmin, sort: action.payload },
+      };
 
     case USERS_SEARCH_ADMIN:
-      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, searchValue: action.payload } };
+      return {
+        ...state,
+        usersFiltersAdmin: {
+          ...state.usersFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
 
     case BOOKS_ORDER_ADMIN:
-      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, sort: action.payload } };
+      return {
+        ...state,
+        booksFiltersAdmin: { ...state.booksFiltersAdmin, sort: action.payload },
+      };
 
     case BOOKS_SEARCH_ADMIN:
-      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, searchValue: action.payload } };
+      return {
+        ...state,
+        booksFiltersAdmin: {
+          ...state.booksFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
 
     case CARTS_ORDER_ADMIN:
-      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, sort: action.payload } };
+      return {
+        ...state,
+        cartsFiltersAdmin: { ...state.cartsFiltersAdmin, sort: action.payload },
+      };
 
     case CARTS_SEARCH_ADMIN:
-      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, searchValue: action.payload } };
+      return {
+        ...state,
+        cartsFiltersAdmin: {
+          ...state.cartsFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
 
     case GENRES_ORDER_ADMIN:
       return { ...state, genresFiltersAdmin: action.payload };
@@ -252,7 +277,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, userDb: action.payload };
 
     case EDIT_ID:
-      return { ...state, edit_id: action.payload }
+      return { ...state, edit_id: action.payload };
 
     default:
       return { ...state };
