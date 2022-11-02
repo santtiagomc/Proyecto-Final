@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import Error from "../../components/Error/Error";
 
 import style from "./Stripe.module.css";
+import { POST_CHECKOUT_RESPONSE } from "../../redux/actions";
 
 const stripePromsie = loadStripe(
   "pk_test_51LwtGzGm2004ZMTNJJTuwMAa47xnU7d3mDoI861T6xSLy0Y2eFsvDzDK5k3RgHGk8WOW711HbHNy6GvCDog76CgJ00GhqRZpD8"
@@ -119,6 +120,7 @@ const CheckoutForm = ({ cart, history, user, address }) => {
   const elements = useElements();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -135,12 +137,6 @@ const CheckoutForm = ({ cart, history, user, address }) => {
       setLoading(true);
       if (!error) {
         const { id } = paymentMethod;
-
-        await axios.post("/checkout", {
-          stripeId: id,
-          cart: cart,
-          userId: user,
-        });
         if (
           !address.province ||
           !address.city ||
@@ -152,6 +148,14 @@ const CheckoutForm = ({ cart, history, user, address }) => {
             id: user,
           });
         }
+        console.log(address);
+        const res = await axios.post("/checkout", {
+          stripeId: id,
+          cart: cart,
+          user: { ...data, email: address.email, fullName: address.fullName },
+        });
+        dispatch({ type: POST_CHECKOUT_RESPONSE, payload: res.data });
+        setLoading(false);
         history.push("/profile");
       }
     } catch (error) {
@@ -236,7 +240,6 @@ const CheckoutForm = ({ cart, history, user, address }) => {
           <input
             className={style.input}
             placeholder="Dirección"
-            value={address.address}
             {...register("address", {
               maxLength: 40,
               value: address.address,
@@ -250,7 +253,6 @@ const CheckoutForm = ({ cart, history, user, address }) => {
           <input
             className={style.input}
             placeholder="Código Postal"
-            value={address.zipCode}
             {...register("zipCode", {
               maxLength: 5,
               pattern: /^[0-9]*$/,
@@ -264,7 +266,11 @@ const CheckoutForm = ({ cart, history, user, address }) => {
             <p className={style.error}>Solo numeros</p>
           )}
         </div>
-        <button className={style.button}>Pagar</button>
+        {loading ? (
+          <div>Cargando</div> // falta cargando
+        ) : (
+          <button className={style.button}>Pagar</button>
+        )}
       </form>
     </>
   );
