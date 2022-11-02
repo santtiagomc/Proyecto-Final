@@ -34,14 +34,14 @@ export default function SearchBar() {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-      <input
+      {/* <input
         className={style.input}
         value={book}
         type="text"
         placeholder="Ingrese un título o autor"
         onChange={(e) => setBook(e.target.value)}
-      /> 
-      {/* <div className={style.search_box}>
+      />  */}
+      <div className={style.search_box}>
         <button className={style.btn_search}>
           <i class="fas fa-search"></i>
         </button>
@@ -52,7 +52,7 @@ export default function SearchBar() {
           value={book}
           onChange={(e) => setBook(e.target.value)}
         />
-      </div> */}
+      </div>
       <div className={style.select2}>
         <select
           defaultValue="all"
