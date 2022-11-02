@@ -10,7 +10,7 @@ async function postCheckout({ cart, stripeId, userId }) {
   try {
     const cartBuy = await Cart.findByPk(cart[0].cartId);
     const total = Math.round(
-      cart.reduce((acc, act) => acc + Number(act.price), 0)
+      cart.reduce((acc, act) => acc + Number(act.price * act.quantity), 0)
     );
 
     const payment = await stripe.paymentIntents.create({
