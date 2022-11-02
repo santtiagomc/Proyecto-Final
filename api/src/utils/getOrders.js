@@ -22,6 +22,9 @@ async function getOrders({ sort, searchValue }) {
           model: Books,
           attributes: ["name", "image", "author", "price"],
           through: { attributes: {} },
+          include: [{
+            model: Genres
+          }]
         }]
       });
 

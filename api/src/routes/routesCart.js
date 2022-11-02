@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/status", async (req, res) => {
-  const response = await putCartStatus(req.query);
+  const response = await putCartStatus(req.body);
 
   response.messageError
     ? res.status(404).json(response)
