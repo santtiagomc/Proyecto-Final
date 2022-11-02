@@ -133,7 +133,7 @@ const CheckoutForm = ({ cart, history, user }) => {
     } catch (error) {
       // console.log(error);
       console.log(error);
-      console.log(error.response.data.messageError);
+      console.log(error?.response?.data.messageError);
       if (error.response) {
         if (
           error.response.data.messageError ===

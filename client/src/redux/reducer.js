@@ -87,7 +87,7 @@ const initialState = {
   genresFiltersAdmin: "name-A-Z",
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "addBook",
+  tableViewGlobal: "users",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
