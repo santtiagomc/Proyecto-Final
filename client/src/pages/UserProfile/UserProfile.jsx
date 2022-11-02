@@ -108,7 +108,7 @@ export default function ProfileUser() {
 						}
 					>
 						<ul>
-							<li onClick={() => history.goBack()}>
+							<li onClick={() => history.push("/")}>
 								{/* <i className="fa-solid fa-house"></i> */}
 								<ImArrowLeft className={style.i} />
 								<span className={style.title}>Regresar</span>
@@ -175,7 +175,6 @@ export default function ProfileUser() {
 											<div className={style.containerP}>
 												{/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-												<hr />
 												<label className={style.label}>E-mail</label>
 												<p className={style.p}>{dataUser.email}</p>
 												<hr />
@@ -265,18 +264,21 @@ export default function ProfileUser() {
 								</div>
 							</div>
 							<div className={style.shopping}>
+								<div className={style.containerC}>
 								<h2 className={style.misCompras}>Mis compras</h2>
+								</div>
 								{booksBuyed.books &&
 									booksBuyed.books.map((book) => (
 										<div>
 												<h3 className={style.status}>{book.status}</h3>
+												<hr/>
 											<div>
 												{book.Books.map((purchase) => (
 													<div className={style.books}>
-														<img
+														{/* <img
 															src={purchase.image}
 															className={style.portada}
-														/>
+														/> */}
 														<h3 className={style.name}>{purchase.name}</h3>
 														<p className={style.price}>
 															USD{" "}
@@ -293,6 +295,7 @@ export default function ProfileUser() {
 														</Link>
 													</div>
 												))}
+												<hr/>
 											</div>
 										</div>
 									))}

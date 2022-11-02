@@ -14,8 +14,8 @@
 	display: flex;
 	flex-direction: row;
 	position: relative;
-	height: 255vh;
-	/* margin-top: -6vh; */
+	height: 100vh;
+	margin-top: -6vh; 
 	margin-bottom: -6.80rem;
 	z-index: 1000;
 	
@@ -31,6 +31,7 @@
 	position: fixed;
 	width: 19em;
 	height: 100%;
+	margin-top: 6vh;
 	background-color: var(--verde-primario);
 	/* background-color: #6F69AC; */
 	/* background-color: #363062; */
@@ -167,7 +168,7 @@
 
 .toggle {
 	position: relative;
-	top: 0;
+	top: 6vh;
 	width: 60px;
 	height: 60px;
 	display: flex;
@@ -271,8 +272,8 @@
 
 .loader {
   position: absolute;
-  top: 20%;
-  left: 51%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 20em;
 }
@@ -291,25 +292,25 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
-	height: auto;
-	background-color: transparent;
-	border: 1px solid var(--extra-color);
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 10px;
 } 
 
-.misCompras {
-	color: var(--extra-color);
-	font-size: 18px;
-	margin-bottom: 20px;
+.containerC {
+	height: 60px;
+	background-color: var(--gris-complementario);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  margin-bottom: 2.5em;
+	width: 100%;
 }
 
-.status {
-	color: var(--extra-color);
-	font-size: 14px;
-	margin-left: 18px;
+.misCompras {
+	color: var(--negro-background);
+	font-size: x-large;
+	font-weight: 600;
+	display: flex;
+	margin-top: 5px;
 }
 
 .portada {
@@ -320,34 +321,39 @@
 .name {
 	color: var(--extra-color);
 	font-size: 16px;
-	overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-	width: 250px;
+
 }
 
 .price {
 	color: var(--extra-color);
 	font-size: 16px;
 	margin-top: 60px;
-	margin-left: -250px;
+	margin-left: -175px;
 }
 
 .quantity {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-left: 175px;
+	margin-left: 135px;
 	margin-top: 7.5px;
 }
 
 .detail {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-left: 250px;
+	margin-left: 100px;
 }
 
 .detail:hover {
 	color: var(--violeta-primario);
+}
+
+
+.status {
+	color: var(--extra-color);
+	font-size: 16px;
+	margin-top: 0px;
+	margin-left: 125px;
 }
 
 .btn {
