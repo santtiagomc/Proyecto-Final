@@ -248,7 +248,7 @@ export default function ProfileUser() {
 						</div>
 						<div className={style.shopping}>
 							<div className={style.containerC}>
-								<h2 className={style.misCompras}>Mis compras</h2>
+								<span className={style.misCompras}>Mis compras</span>
 							</div>
 							{booksBuyed.books &&
 								booksBuyed.books.map((book) => (
@@ -285,7 +285,7 @@ export default function ProfileUser() {
 										{/* <hr /> */}
 									</div>
 								))}
-							<button onClick={nextPage} className={style.btn}>
+							<button onClick={nextPage} className={!booksBuyed ? style.btnDisabled : style.btn}>
 								Ver más
 							</button>
 						</div>
