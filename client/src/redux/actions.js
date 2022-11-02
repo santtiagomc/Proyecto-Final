@@ -68,7 +68,7 @@ export function searchBook(filters, search, page, admin) {
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -100,7 +100,7 @@ export function getEditorials() {
     } catch (err) {
       return dispatch({
         type: GET_EDITORIALS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -118,7 +118,7 @@ export function getGenres(sort) {
     } catch (err) {
       return dispatch({
         type: GET_GENRES,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -136,7 +136,7 @@ export function getDetail(id) {
     } catch (err) {
       return dispatch({
         type: GET_DETAIL,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -154,7 +154,7 @@ export function addBooks(input) {
     } catch (error) {
       return dispatch({
         type: POST_BOOKS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -172,7 +172,7 @@ export function postReviews(input) {
     } catch (error) {
       return dispatch({
         type: POST_REVIEWS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -192,7 +192,7 @@ export function deleteReviews(input) {
     } catch (error) {
       return dispatch({
         type: DELETE_REVIEW,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -217,7 +217,7 @@ export function putStatus(id) {
     } catch (err) {
       return dispatch({
         type: PUT_STATUS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -238,7 +238,7 @@ export function putBook(id, body) {
     } catch (err) {
       return dispatch({
         type: PUT_BOOK,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -256,7 +256,7 @@ export function postCart(cart) {
     } catch (error) {
       return dispatch({
         type: POST_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -276,7 +276,7 @@ export function getGuestCart(localStorage) {
     } catch (error) {
       return dispatch({
         type: GET_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -294,7 +294,7 @@ export function getUserCart(userId) {
     } catch (error) {
       return dispatch({
         type: GET_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -314,7 +314,7 @@ export function getMoreRating() {
     } catch (err) {
       return dispatch({
         type: GET_MORE_RATING,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -334,7 +334,7 @@ export function getMoreVisits() {
     } catch (err) {
       return dispatch({
         type: GET_MORE_VISITS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -354,7 +354,7 @@ export function getOffers() {
     } catch (err) {
       return dispatch({
         type: GET_OFFERS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -375,7 +375,7 @@ export function putUserCart(cartId, bookId) {
     } catch (error) {
       return dispatch({
         type: PUT_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -396,7 +396,7 @@ export function deleteUserCart(cartId) {
     } catch (error) {
       return dispatch({
         type: DELETE_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -415,7 +415,7 @@ export function getAllUsers({ sort, searchValue }) {
     } catch (err) {
       return dispatch({
         type: GET_ALL_USERS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -434,7 +434,7 @@ export function putUser(input) {
     } catch (error) {
       return dispatch({
         type: PUT_USER,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -454,7 +454,7 @@ export function getCarts({ sort, searchValue }) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -474,7 +474,7 @@ export function putCartStatus(id) {
     } catch (error) {
       return dispatch({
         type: PUT_CART_STATUS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -495,7 +495,7 @@ export function getAllBooks({ sort, searchValue }) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_BOOKS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -514,7 +514,7 @@ export function postGenre(genre) {
     } catch (error) {
       return dispatch({
         type: POST_GENRE,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -533,7 +533,7 @@ export function deleteGenre(name) {
     } catch (error) {
       return dispatch({
         type: DELETE_GENRE,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -551,7 +551,7 @@ export function getUserDb(uid) {
     } catch (error) {
       return dispatch({
         type: GET_USER_DB,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
