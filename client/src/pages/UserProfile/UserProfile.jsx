@@ -61,33 +61,33 @@ export default function ProfileUser() {
     }
   };
 
-  const nextPage = async () => {
-    console.log("a");
-    console.log(booksBuyed.total);
-    if (page + 5 < booksBuyed.total) {
-      console.log("xd");
-      setPage(page + 5);
-      try {
-        const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
-        console.log(userHistory);
-        setBooksBuyed({
-          ...booksBuyed,
-          books: [...booksBuyed.books, ...userHistory.data.books],
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-  console.log(booksBuyed);
-  const handleLogOut = async () => {
-    try {
-      await logOut();
-      history.push("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+	const nextPage = async () => {
+		console.log("a");
+		console.log(booksBuyed.total);
+		if (page + 5 < booksBuyed.total) {
+			console.log("xd");
+			setPage(page + 5);
+			try {
+				const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
+				console.log(userHistory);
+				setBooksBuyed({
+					...booksBuyed,
+					books: [...booksBuyed.books, ...userHistory.data.books],
+				});
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
+	console.log(booksBuyed);
+	const handleLogOut = async () => {
+		try {
+			await logOut();
+			history.push("/home");
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
   if (user === undefined && !loading) {
     return <Error error="No estas autenticado" />;
@@ -101,7 +101,7 @@ export default function ProfileUser() {
         }
       >
         <ul>
-          <li onClick={() => history.push("/")}>
+          <li onClick={() => history.push("/home")}>
             <ImArrowLeft className={style.i} />
             <span className={style.title}>Regresar</span>
           </li>

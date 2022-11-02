@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Logo from "./Logo_booksNook_sinmargen.png";
 import style from "./NavBar.module.css";
 import { getGuestCart, getUserCart } from "../../redux/actions";
+import { AiFillHome } from "react-icons/ai"
 
 export default function NavBar() {
   const { user, cart, postCartResponse, userDb } = useSelector(
@@ -49,7 +50,7 @@ export default function NavBar() {
   const handleLogOut = async () => {
     try {
       await logOut();
-      history.push("/");
+      history.push("/home");
     } catch (error) {
       console.log(error);
     }
@@ -63,9 +64,10 @@ export default function NavBar() {
         }
       >
         <div>
-          <Link to="/">
+          <Link to="/landing">
             <img id="logo" src={Logo} alt="bookstore" className={style.logo} />
           </Link>
+          
         </div>
         <div>
           <SearchBar />
@@ -147,6 +149,9 @@ export default function NavBar() {
             </>
           )}
         </div>
+        <Link to="/home">
+          <AiFillHome className={style.homeIcon} />
+        </Link>
         <div className={`${style.navToggle} ${isOpen && style.open}`} onClick={() => setIsOpen(!isOpen)}>
           <div className={style.bar}></div>
         </div>
