@@ -86,7 +86,7 @@ export default function ProfileUser() {
 	const handleLogOut = async () => {
 		try {
 			await logOut();
-			history.push("/");
+			history.push("/home");
 		} catch (error) {
 			console.log(error);
 		}

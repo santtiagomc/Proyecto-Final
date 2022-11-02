@@ -34,12 +34,12 @@ export default function LandingPage() {
           transitionTime={1000}
           className={style.containerPromo}
         >
-          <a href="/">
+          <a href="/home">
             <button className={style.promos}>
               <img src={promo} alt="carousel" className={style.anuncioImg} />
             </button>
           </a>
-          <a href="https://proyecto-f-eight.vercel.app/detail/67d1b118-c328-406b-9506-17bae726d55f">
+          <a href="/detail/b91273e9-bd5d-40aa-81b9-2f8966e790df">
             <button className={style.promos}>
               <img src={promo1} alt="carousel" className={style.anuncioImg} />
             </button>

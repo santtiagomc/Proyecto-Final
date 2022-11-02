@@ -82,7 +82,7 @@ export default function Login() {
         }
       } else {
         // localStorage.clear();
-        history.push("/");
+        history.push("/home");
       }
     }
   }, [userDb, dispatch, history]);
