@@ -35,10 +35,10 @@ export default function ProfileUser() {
 	useEffect(() => {
 		const getUser = async (userId) => {
 			try {
-				const res = await axios.get(`http://localhost:3001/user/${userId}`);
+				const res = await axios.get(`/user/${userId}`);
 				setDataUser(res.data);
 				const userHistory = await axios.get(
-					`http://localhost:3001/cart/${userId}-0`
+					`/cart/${userId}-0`
 				);
 				setBooksBuyed(userHistory.data);
 				setLoading(false);
@@ -52,7 +52,7 @@ export default function ProfileUser() {
 
 	const onSubmit = async (data) => {
 		try {
-			await axios.put("http://localhost:3001/user", {
+			await axios.put("/user", {
 				...data,
 				id: user,
 			});
@@ -70,7 +70,7 @@ export default function ProfileUser() {
 			setPage(page + 5);
 			try {
 				const userHistory = await axios.get(
-					`http://localhost:3001/cart/${user}-${page + 5}`
+					`/cart/${user}-${page + 5}`
 				);
 				console.log(userHistory);
 				setBooksBuyed({
