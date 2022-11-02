@@ -283,7 +283,7 @@ export default function ProfileUser() {
 										<hr />
 									</div>
 								))}
-							<button onClick={nextPage} className={style.btn}>
+							<button onClick={nextPage} className={ !page ? btnDisabled : style.btn}>
 								Ver más
 							</button>
 						</div>
