@@ -38,6 +38,7 @@ import {
   CARTS_SEARCH_ADMIN,
   GENRES_ORDER_ADMIN,
   EDIT_ID,
+  POST_CHECKOUT_RESPONSE,
 } from "./actions";
 
 const initialState = {
@@ -92,6 +93,7 @@ const initialState = {
   messageDeleteGlobal: [],
   userDb: {},
   edit_id: "",
+  postCheckoutResponse: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -278,6 +280,9 @@ export default function rootReducer(state = initialState, action) {
 
     case EDIT_ID:
       return { ...state, edit_id: action.payload };
+
+    case POST_CHECKOUT_RESPONSE:
+      return { ...state, postCheckoutResponse: action.payload };
 
     default:
       return { ...state };

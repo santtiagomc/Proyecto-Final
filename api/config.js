@@ -1,9 +1,9 @@
 const PORT = process.env.PORT || 3001
-const DB_USER = process.env.PGUSER 
-const DB_PASSWORD = process.env.PGPASSWORD  
-const DB_HOST = process.env.PGHOST  
-const DB_PORT = process.env.PGPORT  
-const DB_NAME = process.env.PGDATABASE  
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = process.env.DB_PASSWORD
+const DB_HOST = process.env.DB_HOST
+const DB_PORT = process.env.DB_PORT
+const DB_NAME = process.env.DB_NAME
 
 module.exports = {
   PORT,
@@ -11,5 +11,5 @@ module.exports = {
   DB_PASSWORD,
   DB_HOST,
   DB_NAME,
-  DB_PORT 
+  DB_PORT
 }

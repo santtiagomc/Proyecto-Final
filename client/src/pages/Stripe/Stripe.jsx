@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,6 +15,7 @@ import { useUser } from "../../helpers/useUser";
 import Error from "../../components/Error/Error";
 
 import style from "./Stripe.module.css";
+import { POST_CHECKOUT_RESPONSE } from "../../redux/actions";
 
 const stripePromsie = loadStripe(
   "pk_test_51LwtGzGm2004ZMTNJJTuwMAa47xnU7d3mDoI861T6xSLy0Y2eFsvDzDK5k3RgHGk8WOW711HbHNy6GvCDog76CgJ00GhqRZpD8"
@@ -99,6 +100,7 @@ const CheckoutForm = ({ cart, history, user }) => {
   const elements = useElements();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,6 +119,7 @@ const CheckoutForm = ({ cart, history, user }) => {
           cart: cart,
           userId: user,
         });
+        dispatch({ type: POST_CHECKOUT_RESPONSE, payload: res })
         history.push("/profile");
         console.log(res);
         Swal.fire({

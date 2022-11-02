@@ -10,7 +10,7 @@ import style from "./NavBar.module.css";
 import { getGuestCart, getUserCart } from "../../redux/actions";
 
 export default function NavBar() {
-  const { user, cart, postCartResponse, userDb } = useSelector(
+  const { user, cart, postCartResponse, userDb, postCheckoutResponse } = useSelector(
     (state) => state
   );
   const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ export default function NavBar() {
   }
 
   let quantityCart;
-  if (user && user.uid && cart.length && !cart.messageError) {
+  if (user && user.uid && cart && cart.length && !cart.messageError) {
     quantityCart = cart.length;
   }
 
@@ -44,7 +44,7 @@ export default function NavBar() {
     } else {
       dispatch(getGuestCart(uniqueIdArrayCart.toString()));
     }
-  }, [dispatch, user, postCartResponse]);
+  }, [dispatch, user, postCartResponse, postCheckoutResponse]);
 
   const handleLogOut = async () => {
     try {
@@ -98,54 +98,56 @@ export default function NavBar() {
                 </Link>
               </div>
             </>
-          ) : userDb.role === "Admin++" || userDb.role === "Admin" ? (
-            <div>
-              <Link to="/admin" className={style.aa}>
-                <button className={style.buttonDash}>Dashboard</button>
-              </Link>
-            </div>
-          ) : (
-            <>
+          ) : userDb
+            ? userDb.role === "Admin++" || userDb.role === "Admin" ? (
               <div>
-                <button
-                  onClick={() => setShow(!show)}
-                  className={style.userBtn}
-                >
-                  <i class="fa-solid fa-user"></i>
-                </button>
-                <div
-                  className={`${style.menu} ${show ? style.show : style.hide}`}
-                >
-                  <ul className={style.list}>
-                    <Link to="/profile" className={style.aa}>
-                      <li onClick={() => setShow(false)} className={style.text}>
-                        Mi cuenta
-                      </li>
-                    </Link>
-                    <li onClick={handleLogOut} className={style.text}>
-                      Cerrar sesión
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <Link to="/cart" className={style.aa}>
-                  <button className={style.cart}>
-                    <i className="fa-solid fa-cart-shopping"></i>
-                    {!user ? (
-                      <div className={style.number}>
-                        {uniqueIdArrayCart && uniqueIdArrayCart.length}
-                      </div>
-                    ) : (
-                      <div className={style.number}>
-                        {cart && !cart.messageError ? quantityCart : 0}
-                      </div>
-                    )}
-                  </button>
+                <Link to="/admin" className={style.aa}>
+                  <button className={style.buttonDash}>Dashboard</button>
                 </Link>
               </div>
-            </>
-          )}
+            ) : (
+              <>
+                <div>
+                  <button
+                    onClick={() => setShow(!show)}
+                    className={style.userBtn}
+                  >
+                    <i class="fa-solid fa-user"></i>
+                  </button>
+                  <div
+                    className={`${style.menu} ${show ? style.show : style.hide}`}
+                  >
+                    <ul className={style.list}>
+                      <Link to="/profile" className={style.aa}>
+                        <li onClick={() => setShow(false)} className={style.text}>
+                          Mi cuenta
+                        </li>
+                      </Link>
+                      <li onClick={handleLogOut} className={style.text}>
+                        Cerrar sesión
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <Link to="/cart" className={style.aa}>
+                    <button className={style.cart}>
+                      <i className="fa-solid fa-cart-shopping"></i>
+                      {!user ? (
+                        <div className={style.number}>
+                          {uniqueIdArrayCart && uniqueIdArrayCart.length}
+                        </div>
+                      ) : (
+                        <div className={style.number}>
+                          {cart && !cart.messageError ? quantityCart : 0}
+                        </div>
+                      )}
+                    </button>
+                  </Link>
+                </div>
+              </>
+            )
+            : null}
         </div>
         <div className={`${style.navToggle} ${isOpen && style.open}`} onClick={() => setIsOpen(!isOpen)}>
           <div className={style.bar}></div>
