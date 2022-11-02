@@ -318,12 +318,12 @@ export default function Cart() {
                     {/* <i class="fa-regular fa-trash-can"></i> */}
                   </button>
                 </div>
-                <Link to="/login">
-                  <button className={style.botonComprar}>Comprar</button>
-                </Link>
                 <hr></hr>
               </div>
             ))}
+            <Link to="/login">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>

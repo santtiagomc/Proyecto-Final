@@ -85,7 +85,7 @@ export default function Login() {
         history.push("/");
       }
     }
-  }, [user, dispatch, history]);
+  }, [userDb, dispatch, history]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
