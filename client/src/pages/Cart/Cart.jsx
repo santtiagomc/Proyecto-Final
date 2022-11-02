@@ -334,8 +334,8 @@ export default function Cart() {
               <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <h1 className={style.message}>
-              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
-              muchos que te van a encantar!
+              ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos nuestra sección de <br/>
+              <a href="/#popular">recomendados.</a>
             </h1>
           </div>
         ) : (
@@ -350,7 +350,10 @@ export default function Cart() {
             >
               <AiOutlineArrowLeft className={style.btnArr} />
             </button>
-            <h1 className={style.message}>{cart.messageError}</h1>
+            <h1 className={style.message}>{cart.messageError} <br/>
+            <a href="/landing">Click aqui</a>
+            </h1>
+
           </div>
         ) : (
           <div className={style.cart_container}>
