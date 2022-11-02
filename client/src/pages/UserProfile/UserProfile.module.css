@@ -351,7 +351,20 @@
 .status {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-top: 20px;
+	/* padding: 0.2em; */
+}
+
+.statusDiv {
+	width: 100%;
+	height: auto;
+	background-color: transparent;
+	border: 1px solid var(--extra-color);
+	border-radius: 5px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 0.2em;
 }
 
 .btn {
@@ -367,7 +380,7 @@
 	font-size: 16px;
 	color: #ffffff;
 	padding: 7px 20px;
-  margin-left: 42%;
+ 
 	justify-content: center;
 }
 

@@ -252,9 +252,10 @@ export default function ProfileUser() {
 							{booksBuyed.books &&
 								booksBuyed.books.map((book) => (
 									<div>
-										<h3 className={style.status}>Estado: {book.status}</h3>
+										<div className={style.statusDiv}>
+										<span className={style.status}>Estado: {book.status}</span>
+										</div>
 										<div>
-											<hr />
 											<ul>
 												{book.Books.map((purchase) => (
 													<div className={style.books}>
@@ -280,7 +281,7 @@ export default function ProfileUser() {
 												))}
 											</ul>
 										</div>
-										<hr />
+										{/* <hr /> */}
 									</div>
 								))}
 							<button onClick={nextPage} className={ !page ? style.btnDisabled : style.btn}>
