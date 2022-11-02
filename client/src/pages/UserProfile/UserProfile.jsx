@@ -15,6 +15,7 @@ import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { logOut } from "../../firebase/auth";
 import Avatar from "./avatar.png";
 import { Link } from "react-router-dom";
+import { useDeprecatedInvertedScale } from "framer-motion";
 
 export default function ProfileUser() {
 	const [hovered, setHovered] = useState(0);
@@ -254,7 +255,7 @@ export default function ProfileUser() {
 									<div>
 										<div className={style.statusDiv}>
 										<span className={style.status}>Estado: {book.status}</span>
-										</div>
+								</div>
 										<div>
 											<ul>
 												{book.Books.map((purchase) => (
@@ -284,7 +285,7 @@ export default function ProfileUser() {
 										{/* <hr /> */}
 									</div>
 								))}
-							<button onClick={nextPage} className={ !page ? style.btnDisabled : style.btn}>
+							<button onClick={nextPage} className={style.btn}>
 								Ver más
 							</button>
 						</div>
