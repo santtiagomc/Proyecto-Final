@@ -50,7 +50,7 @@ export default function LandingPage() {
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -1923 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByOffers.map((el) => {
               return (
@@ -94,7 +94,7 @@ export default function LandingPage() {
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2223 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByRating.map((el) => {
               return (
@@ -127,7 +127,7 @@ export default function LandingPage() {
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2223 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByVisits.map((el) => {
               return (

@@ -2,10 +2,10 @@
   display: flex;
   position: fixed;
   height: fit-content;
-  width: 100vw;
+  width: 100%;
   z-index: 1000;
   background-color: var(--negro-navBar-filters-btn);
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   top: 0%;
   left: 0%;
@@ -44,6 +44,7 @@
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-left: 5em;
 }
 
 .userBtn i {
@@ -63,6 +64,7 @@
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
   padding: 4.5px 10px 4.5px 10px;
+  margin-left: 5em;
 }
 
 .guestBtn i {
@@ -83,6 +85,7 @@
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-right: 5em;
 }
 
 .cart i {
@@ -157,9 +160,8 @@
   right: -10%;
 }
 .homeIcon{
-  height: 1.5rem;
   color: #ffffff;
-  width: 1.5rem;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 700px) {
