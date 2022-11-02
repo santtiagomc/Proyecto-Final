@@ -30,13 +30,13 @@ const templatePurchase = (user, cart, totalPrice) => {
     </a>
 
     <h1 style="border-bottom: 2px solid #95d9c3; padding-bottom: 5px">
-      Gracias por tu compra!
+    ¡Gracias por tu compra!
     </h1>
     <p style="margin-bottom: 5px">
       Hola <b>${user.fullName}</b>, actualmente estamos procesando tu
       compra,
     </p>
-    <p style="margin-top: 0">aqui te dejamos los datos de la misma.</p>
+    <p style="margin-top: 0">aquí te dejamos los datos de la misma.</p>
 
     <div style="margin: 30px 0px">
       <ul
