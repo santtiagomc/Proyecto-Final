@@ -56,8 +56,10 @@ export default function Cart() {
   const handleCartAdd = (e) => {
     e.preventDefault();
     if (user) {
-      let { quantity } = cart.find((b) => b.id === e.target.value);
-      if (quantity < 5) {
+      let { quantity, stock } = cart.find((b) => b.id === e.target.value);
+      if (stock - quantity === 0) {
+        swalAlert(2000, "error", "Alcanzaste el stock máximo de este producto");
+      } else if (quantity < 5) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
@@ -67,7 +69,10 @@ export default function Cart() {
         swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
       }
     } else {
-      if (quantity[e.target.value] < 5) {
+      let { stock } = cart.find((b) => b.id === e.target.value);
+      if (stock - quantity[e.target.value] === 0) {
+        swalAlert(2000, "error", "Alcanzaste el stock máximo de este producto");
+      } else if (quantity[e.target.value] < 5) {
         localStorage.setItem(
           "cart",
           `${repeatedIdArrayCart.toString()},${e.target.value}`
