@@ -14,10 +14,12 @@
 	display: flex;
 	flex-direction: row;
 	position: relative;
-	height: 100vh;
-	/* margin-top: -6vh; */
-	margin-bottom: -6.60rem;
+	height: calc(100vh - 60px);
+	
+	/* margin-top: -6vh;  */
+	/* margin-bottom: -6.80rem; */
 	z-index: 1000;
+	
 }
 
 /* .container {
@@ -30,6 +32,7 @@
 	position: fixed;
 	width: 19em;
 	height: 100%;
+	/* margin-top: 6vh; */
 	background-color: var(--verde-primario);
 	/* background-color: #6F69AC; */
 	/* background-color: #363062; */
@@ -166,7 +169,7 @@
 
 .toggle {
 	position: relative;
-	top: 0;
+	/* top: 6vh; */
 	width: 60px;
 	height: 60px;
 	display: flex;
@@ -188,33 +191,32 @@
 
 .containerP {
   margin: 2em 8em;
+	justify-content: center;
 }
 
 .user {
 	font-size: x-large;
 	font-weight: 600;
 	display: flex;
-	margin-top: 18px;
 }
 
 .label {
 	font-size: 16px;
 	color: var(--extra-color);
-	float: left;
 	padding: 0.4em 3.8em;
-	margin-left: 12%;
+	width: 50%;
 }
 
-.p {
+.span {
 	font-size: 16px;
 	color: var(--extra-color);
-	padding: 0.7em 3.8em;
-	margin-left: 65%
+	padding: 0.4em 3.8em;
+	width: 50%;
+
 }
 
 .form {
   margin: 5em 7em;
-	width: 75%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,7 +225,7 @@
 
 .input {
 	flex-grow: 1;
-	width: 60rem;
+	width: 65rem;
 	height: auto;
 	position: relative;
 	cursor: text;
@@ -233,6 +235,7 @@
 	font-size: 18px;
 	padding: 7px 20px;
   margin: 1em;
+	width: 100%;
 }
 
 .button {
@@ -245,14 +248,15 @@
 	border: 1px solid var(--verde-primario);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #ffffff;
 	padding: 7px 20px;
   margin: 1em;
+	justify-content: center;
 }
 
 .containerA {
-	height: 65px;
+	height: 60px;
 	background-color: var(--gris-complementario);
 	border-radius: 5px;
 	display: flex;
@@ -269,51 +273,117 @@
 
 .loader {
   position: absolute;
-  top: 40%;
-  left: 51%;
+  top: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
   width: 20em;
 }
 
 .shopping {
 	margin: 2em 8em;
+	display: flex;	
+	flex-direction: column;
+} 
+
+.books {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start; 
+	flex-direction: row;
+	margin-bottom: 1em;
+	padding-right: 1em;
+} 
+
+.containerC {
+	height: 60px;
+	background-color: var(--gris-complementario);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  margin-bottom: 2.5em;
+	width: 100%;
 }
 
 .misCompras {
+	color: var(--negro-background);
+	font-size: x-large;
+	font-weight: 600;
+	display: flex;
+	margin-top: 5px;
+}
+
+.portada {
+	width: 50px;
+	margin-right: 20px;
+} 
+
+.name {
 	color: var(--extra-color);
-	font-size: 18px;
+	font-size: 16px;
+	width: 50%;
+	padding-right: 2em;
+
+}
+
+.price {
+	color: var(--extra-color);
+	font-size: 16px;
+	width: 20%;
+}
+
+.quantity {
+	color: var(--extra-color);
+	font-size: 16px;
+	width: 20%;
+}
+
+.detail {
+	color: var(--extra-color);
+	font-size: 16px;
+	width: 10%;
+}
+
+.detail:hover {
+	color: var(--violeta-primario);
 }
 
 .status {
 	color: var(--extra-color);
-	font-size: 14px;
+	font-size: 16px;
+	/* padding: 0.2em; */
 }
 
-.portada {
-	width: 100px;
-}
-
-.name {
-	color: var(--extra-color);
-	font-size: 18px;
-}
-
-.info {
-	color: var(--extra-color);
-	font-size: 14px;
+.statusDiv {
+	width: 100%;
+	height: auto;
+	background-color: transparent;
+	border: 1px solid var(--extra-color);
+	border-radius: 5px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding: 0.2em;
 }
 
 .btn {
-  width: 6rem;
-  height: fit-content;
-  text-align: center;
-  justify-content: center;
-  background: var(--negro-navBar-filters-btn);
-  border-radius: 5px;
-  font-size: 14px;
-  color: #ffffff;
-  border: 1px solid var(--violeta-primario);
-  padding: 0.3em 0.6em;
-  margin-right: 1em;
-  margin-bottom: 2.5em;
+	display: flex;
+	width: 7.5rem;
+	height: auto;
+	position: relative;
+	cursor: pointer;
+	background: var(--negro-navBar-filters-btn);
+	border: 1px solid var(--verde-primario);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	font-size: 16px;
+	color: #ffffff;
+	padding: 7px 20px;
+ 
+	justify-content: center;
+}
+
+.btnDisabled {
+  display: none;
 }

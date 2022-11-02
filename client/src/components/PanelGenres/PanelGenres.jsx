@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  BOOKS_SEARCH_ADMIN,
+  CARTS_SEARCH_ADMIN,
   deleteGenre,
   DELETE_GENRE,
   GENRES_ORDER_ADMIN,
@@ -17,7 +19,11 @@ import {
   AiOutlineSortAscending,
   AiOutlineSortDescending,
   BsSortNumericDown,
-  BsSortNumericUp
+  BsSortNumericUp,
+  GiPodiumWinner,
+  GiPodiumSecond,
+  GiPodiumThird,
+  GiPodium
 } from "react-icons/all";
 
 import Swal from "sweetalert2";
@@ -31,7 +37,7 @@ const validationJS = (input) => {
   let errors = "";
 
   if (input.length < 3 || input.length > 30 || !patternOWords.test(input))
-    errors = "El nombre no es valido!";
+    errors = "El nombre no es válido!";
   if (!input.trim().length) errors = "El campo no puede estar vacío!";
 
   return errors;
@@ -48,11 +54,19 @@ export default function PanelBooks() {
   let [errors, setErrors] = useState("");
 
   useEffect(() => {
-    if (!allBooks.length) {
-      dispatch(getAllBooks(booksFiltersAdmin))
+    if (!allBooks.length || booksFiltersAdmin.searchValue.length) {
+      dispatch({ type: BOOKS_SEARCH_ADMIN, payload: "" })
+      dispatch(getAllBooks({
+        sort: "name-A-Z",
+        searchValue: "",
+      }))
     }
-    if (!allCarts.length) {
-      dispatch(getCarts(cartsFiltersAdmin))
+    if (!allCarts.length || cartsFiltersAdmin.searchValue.length) {
+      dispatch({ type: CARTS_SEARCH_ADMIN, payload: "" })
+      dispatch(getCarts({
+        sort: "status-Z-A",
+        searchValue: "",
+      }))
     }
   }, [])
 
@@ -82,6 +96,13 @@ export default function PanelBooks() {
       }
     });
   }
+  console.log(allCarts)
+  let orderArray = []
+  for (const key in quantitySalesProcessing) {
+    orderArray.push({ name: key, quantity: quantitySalesProcessing[key] })
+  }
+  orderArray.sort((b, a) => a.quantity - b.quantity)
+
 
   let quantityBooksGenre = {}
   if (allBooks && !allBooks.messageError && allBooks.length) {
@@ -259,30 +280,46 @@ export default function PanelBooks() {
                 })}
             </div>
 
-            {/* <div className={style.stats_container}>
+            <div className={style.stats_container}>
+              <div className={style.stats_add_container}>
+                <span className={style.stats_label}>Crear categoría</span>
+                <div className={style.search}>
+                  <form onSubmit={(e) => handleSubmit(e)} className={style.searchForm}>
+                    <input
+                      type="text"
+                      placeholder="Escribe una categoría"
+                      autoFocus
+                      onChange={(e) => handleChange(e)}
+                      className={style.searchFormInput}
+                    />
+                    {errors.length > 1 && <span className={style.stats_errors}>{errors}</span>}
+                    <button type="submit" className={style.stats_submit}>Añadir categoría</button>
+                  </form>
+                </div>
+              </div>
               <div className={style.subContainer}>
-                <div className={style.stats}>
-                  <div className={style.addGenre}>
-                    <label className={style.label}>Crear categoría</label>
-                    <form onSubmit={(e) => handleSubmit(e)} className={style.form}>
-                      <input
-                        type="text"
-                        placeholder="Misterio"
-                        autoFocus
-                        onChange={(e) => handleChange(e)}
-                      />
-                      {errors.length > 1 && <span>{errors}</span>}
-                      <button type="submit">Añadir categoría</button>
-                    </form>
+                <span className={style.stats_label}>Los más populares!</span>
+                <div className={style.stats_rank_container_total}>
+                  <div className={style.stats_rank_container}>
+                    <GiPodiumWinner className={style.stats_rank_i} />
+                    <span className={style.stats_rank_name}>{orderArray && orderArray.length && orderArray[0].name}</span>
+                    <span className={style.stats_rank_quantity}>{orderArray && orderArray.length && `${orderArray[0].quantity} órdenes`}</span>
+                  </div>
+                  <div className={style.stats_rank_container}>
+                    <GiPodiumSecond className={style.stats_rank_i2} />
+                    <span className={style.stats_rank_name}>{orderArray && orderArray.length && orderArray[1].name}</span>
+                    <span className={style.stats_rank_quantity}>{orderArray && orderArray.length && `${orderArray[1].quantity} órdenes`}</span>
+
+                  </div>
+                  <div className={style.stats_rank_container}>
+                    <GiPodiumThird className={style.stats_rank_i3} />
+                    <span className={style.stats_rank_name}>{orderArray && orderArray.length && orderArray[2].name}</span>
+                    <span className={style.stats_rank_quantity}>{orderArray && orderArray.length && `${orderArray[2].quantity} órdenes`}</span>
+
                   </div>
                 </div>
-                <div className={style.stats}>tarjeta2</div>
               </div>
-              <div className={style.subContainer}>
-                <div className={style.stats}>tarjeta3</div>
-                <div className={style.stats}>tarjeta 4</div>
-              </div>
-            </div> */}
+            </div>
           </div>
         )}
     </div>

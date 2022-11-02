@@ -39,6 +39,7 @@ export const DELETE_GENRE = "DELETE_GENRE";
 export const PUT_CART_STATUS = "PUT_CART_STATUS";
 export const GET_USER_DB = "GET_USER_DB";
 export const EDIT_ID = "EDIT_ID";
+export const POST_CHECKOUT_RESPONSE = "POST_CHECKOUT_RESPONSE";
 
 export function userExist(payload) {
   return {
@@ -68,7 +69,7 @@ export function searchBook(filters, search, page, admin) {
     } catch (err) {
       return dispatch({
         type: GET_SEARCH,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -100,7 +101,7 @@ export function getEditorials() {
     } catch (err) {
       return dispatch({
         type: GET_EDITORIALS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -118,7 +119,7 @@ export function getGenres(sort) {
     } catch (err) {
       return dispatch({
         type: GET_GENRES,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -136,7 +137,7 @@ export function getDetail(id) {
     } catch (err) {
       return dispatch({
         type: GET_DETAIL,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -154,7 +155,7 @@ export function addBooks(input) {
     } catch (error) {
       return dispatch({
         type: POST_BOOKS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -172,7 +173,7 @@ export function postReviews(input) {
     } catch (error) {
       return dispatch({
         type: POST_REVIEWS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -192,7 +193,7 @@ export function deleteReviews(input) {
     } catch (error) {
       return dispatch({
         type: DELETE_REVIEW,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -217,7 +218,7 @@ export function putStatus(id) {
     } catch (err) {
       return dispatch({
         type: PUT_STATUS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -227,10 +228,7 @@ export function putStatus(id) {
 export function putBook(id, body) {
   return async function (dispatch) {
     try {
-      const json = await axios.put(
-        `/book/details/${id}`,
-        body
-      );
+      const json = await axios.put(`/book/details/${id}`, body);
       return dispatch({
         type: PUT_BOOK,
         payload: json.data,
@@ -238,7 +236,7 @@ export function putBook(id, body) {
     } catch (err) {
       return dispatch({
         type: PUT_BOOK,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -256,7 +254,7 @@ export function postCart(cart) {
     } catch (error) {
       return dispatch({
         type: POST_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -266,9 +264,7 @@ export function postCart(cart) {
 export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `/cart?localS=${localStorage}`
-      );
+      const response = await axios.get(`/cart?localS=${localStorage}`);
       return dispatch({
         type: GET_CART,
         payload: response.data,
@@ -276,7 +272,7 @@ export function getGuestCart(localStorage) {
     } catch (error) {
       return dispatch({
         type: GET_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -294,7 +290,7 @@ export function getUserCart(userId) {
     } catch (error) {
       return dispatch({
         type: GET_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -314,7 +310,7 @@ export function getMoreRating() {
     } catch (err) {
       return dispatch({
         type: GET_MORE_RATING,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -334,7 +330,7 @@ export function getMoreVisits() {
     } catch (err) {
       return dispatch({
         type: GET_MORE_VISITS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -354,7 +350,7 @@ export function getOffers() {
     } catch (err) {
       return dispatch({
         type: GET_OFFERS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -375,7 +371,7 @@ export function putUserCart(cartId, bookId) {
     } catch (error) {
       return dispatch({
         type: PUT_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -385,9 +381,7 @@ export function putUserCart(cartId, bookId) {
 export function deleteUserCart(cartId) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `/cart?cartId=${cartId}`
-      );
+      const response = await axios.delete(`/cart?cartId=${cartId}`);
 
       return dispatch({
         type: DELETE_USER_CART,
@@ -396,7 +390,7 @@ export function deleteUserCart(cartId) {
     } catch (error) {
       return dispatch({
         type: DELETE_USER_CART,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -405,9 +399,7 @@ export function deleteUserCart(cartId) {
 export function getAllUsers({ sort, searchValue }) {
   return async function (dispatch) {
     try {
-      const json = await axios(
-        `/user?sort=${sort}&searchValue=${searchValue}`
-      );
+      const json = await axios(`/user?sort=${sort}&searchValue=${searchValue}`);
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -415,7 +407,7 @@ export function getAllUsers({ sort, searchValue }) {
     } catch (err) {
       return dispatch({
         type: GET_ALL_USERS,
-        payload: err.response.data,
+        payload: err?.response?.data,
       });
     }
   };
@@ -434,7 +426,7 @@ export function putUser(input) {
     } catch (error) {
       return dispatch({
         type: PUT_USER,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -454,19 +446,17 @@ export function getCarts({ sort, searchValue }) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
 }
 
 //-------para modificar el estado de un carrito
-export function putCartStatus(id) {
+export function putCartStatus(cart) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `/cart/status?id=${id}`
-      );
+      const response = await axios.put(`/cart/status`, cart);
       return dispatch({
         type: PUT_CART_STATUS,
         payload: response.data,
@@ -474,7 +464,7 @@ export function putCartStatus(id) {
     } catch (error) {
       return dispatch({
         type: PUT_CART_STATUS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -495,7 +485,7 @@ export function getAllBooks({ sort, searchValue }) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_BOOKS,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -514,7 +504,7 @@ export function postGenre(genre) {
     } catch (error) {
       return dispatch({
         type: POST_GENRE,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -523,9 +513,7 @@ export function postGenre(genre) {
 export function deleteGenre(name) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `/genres/${name}`
-      );
+      const response = await axios.delete(`/genres/${name}`);
       return dispatch({
         type: DELETE_GENRE,
         payload: response.data,
@@ -533,7 +521,7 @@ export function deleteGenre(name) {
     } catch (error) {
       return dispatch({
         type: DELETE_GENRE,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
@@ -551,7 +539,7 @@ export function getUserDb(uid) {
     } catch (error) {
       return dispatch({
         type: GET_USER_DB,
-        payload: error.response.data,
+        payload: error?.response?.data,
       });
     }
   };
