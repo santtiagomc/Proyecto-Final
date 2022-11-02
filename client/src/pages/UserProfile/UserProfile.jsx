@@ -61,10 +61,7 @@ export default function ProfileUser() {
   };
 
   const nextPage = async () => {
-    console.log("a");
-    console.log(booksBuyed.total);
     if (page + 5 < booksBuyed.total) {
-      console.log("xd");
       setPage(page + 5);
       try {
         const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
@@ -289,7 +286,7 @@ export default function ProfileUser() {
               <button
                 onClick={nextPage}
                 className={
-                  page + 5 > booksBuyed.total ? style.btnDisabled : style.btn
+                  page + 5 >= booksBuyed.total ? style.btnDisabled : style.btn
                 }
               >
                 Ver más
