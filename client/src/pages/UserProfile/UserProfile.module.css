@@ -292,6 +292,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: row;
 } 
 
 .containerC {
@@ -313,9 +314,13 @@
 	margin-top: 5px;
 }
 
-.portada {
+/* .portada {
 	width: 70px;
 	margin-right: 20px;
+} */
+
+.li {
+	color: var(--extra-color);
 }
 
 .name {
@@ -327,21 +332,19 @@
 .price {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-top: 60px;
-	margin-left: -175px;
+
 }
 
 .quantity {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-left: 135px;
-	margin-top: 7.5px;
+
 }
 
 .detail {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-left: 100px;
+
 }
 
 .detail:hover {

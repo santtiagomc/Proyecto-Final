@@ -108,7 +108,7 @@ export default function ProfileUser() {
             }
           >
             <ul>
-              <li onClick={() => history.goBack()}>
+              <li onClick={() => history.push("/")}>
                 {/* <i className="fa-solid fa-house"></i> */}
                 <ImArrowLeft className={style.i} />
                 <span className={style.title}>Regresar</span>
@@ -179,7 +179,6 @@ export default function ProfileUser() {
                       <div className={style.containerP}>
                         {/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-                        <hr />
                         <label className={style.label}>E-mail</label>
                         <p className={style.p}>{dataUser.email}</p>
                         <hr />
@@ -268,31 +267,34 @@ export default function ProfileUser() {
                   <br></br>
                 </div>
               </div>
-              {/* {lo pongo por aca por ahora, despues muevanlo a donde quieran} */}
               <div className={style.shopping}>
+								<div className={style.containerC}>
                 <h2 className={style.misCompras}>Mis compras</h2>
+								</div>
                 {booksBuyed.books &&
                   booksBuyed.books.map((book) => (
                     <div>
                       <h3 className={style.status}>{book.status}</h3>
                       <div>
                         <hr />
+												<ul>
                         {book.Books.map((purchase) => (
-                          <div>
-                            <img
+                          <li className={style.li}>
+                            {/* <img
                               src={purchase.image}
                               className={style.portada}
-                            />
+                            /> */}
                             <h3 className={style.name}>{purchase.name}</h3>
-                            <p className={style.info}>
-                              {purchase.price * purchase.Books_Carts.quantity}
+                            <p className={style.price}>
+                              USD {purchase.price * purchase.Books_Carts.quantity}
                             </p>
-                            <p className={style.info}>
-                              Cantidad {purchase.Books_Carts.quantity}
+                            <p className={style.quantity}>
+                              Cantidad: {purchase.Books_Carts.quantity}
                             </p>
-                            <Link to={`/detail/${purchase.id}`}>Detalle</Link>
-                          </div>
+                            <Link to={`/detail/${purchase.id}`} className={style.detail}>Detalle</Link>
+                          </li>
                         ))}
+												</ul>
                       </div>
                       <hr />
                     </div>
