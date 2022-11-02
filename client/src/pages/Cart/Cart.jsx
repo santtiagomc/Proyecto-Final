@@ -239,6 +239,43 @@ export default function Cart() {
 
   //----------------- END Function remove cart --------------------------
 
+  //----------------- Function control de stock -------------------------
+
+  function handleStock(e) {
+    e.preventDefault();
+    console.log(cart);
+    if (user && user.uid) {
+      cart.forEach((c) => {
+        if (c.stock - c.quantity <= 0) {
+          Swal.fire({
+            title: "Superaste el stock disponible",
+            text: `${c.name} posee solo ${c.stock} libros disponibles`,
+            icon: "warning",
+            width: 650,
+            background: "#19191a",
+            color: "#e1e1e1",
+            // showCancelButton: true,
+            confirmButtonColor: "#355070",
+            cancelButtonColor: "#B270A2",
+            confirmButtonText: "Aceptar",
+            // cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              postCart({ userId: user.uid, bookId: c.id, stock: c.stock });
+              dispatch(getUserCart(user.uid));
+            }
+          });
+        }
+      });
+    }
+
+    // setTimeout(function () {
+    //   history.push("/stripe");
+    // }, 500);
+  }
+
+  //----------------- END Function control de stock -------------------------
+
   return (
     <>
       {!user ? (
@@ -448,7 +485,9 @@ export default function Cart() {
                 </div>
               ))}
             <Link to="/stripe">
-              <button className={style.botonComprar}>Comprar</button>
+              <button className={style.botonComprar} onClick={handleStock}>
+                Comprar
+              </button>
             </Link>
           </div>
         )
