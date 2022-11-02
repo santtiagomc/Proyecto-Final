@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Genres } = require('../db');
 
 async function postAllGenres(allGenres) {
@@ -5,7 +6,7 @@ async function postAllGenres(allGenres) {
     allGenres.forEach(async (genre) => {
       let newGenre = await Genres.findOrCreate({
         where: {
-          name: genre.name
+          name: genre.name,
         }
       })
     })

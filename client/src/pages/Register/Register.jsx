@@ -1,12 +1,14 @@
-import { sessionGoogle, singUp } from "../../firebase/auth";
+import { sessionGoogle, singUp, singInGoogle } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import style from "./Register.module.css";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { postCart } from "../../redux/actions";
+import { useEffect, useState } from "react";
+import { getUserCart, postCart } from "../../redux/actions";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Register() {
   const history = useHistory();
@@ -15,134 +17,179 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { user } = useSelector(state => state)
-  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
+
+  //---------------- Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
+
+  let repeatedIdArrayCart = [];
+  let uniqueIdArrayCart = [];
+  if (localStorage.length && localStorage.cart) {
+    repeatedIdArrayCart = localStorage.getItem("cart").split(",");
+    uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
+  }
 
   useEffect(() => {
     if (user && user.uid) {
-      dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }))
+      setLoader(true);
+      if (uniqueIdArrayCart.length) {
+        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
+
+        setTimeout(() => {
+          setLoader(false);
+          Swal.fire({
+            title: "Tienes productos en tu carrito de invitado",
+            width: 650,
+            text: "¿Quieres pasar estos productos a tu carrito de usuario?",
+            icon: "warning",
+            iconColor: "#355070",
+            showCancelButton: true,
+            background: "#19191a",
+            color: "#e1e1e1",
+            confirmButtonColor: "#355070",
+            cancelButtonColor: "#B270A2",
+            confirmButtonText: "¡Si! Guardar carrito",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dispatch(
+                postCart({
+                  userId: user.uid,
+                  bookId: uniqueIdArrayCart,
+                  suma: true,
+                })
+              );
+              setLoader(true);
+              setTimeout(function () {
+                dispatch(getUserCart(user.uid));
+                localStorage.clear();
+              }, 1900);
+              setTimeout(() => {
+                history.goBack();
+              }, 2000);
+            } else {
+              history.goBack();
+            }
+          });
+        }, 1500);
+      } else {
+        setTimeout(() => {
+          history.goBack();
+        }, 1000);
+      }
     }
-  }, [user])
+  }, [user, dispatch, history]);
+
+  //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
+
+  //--------------------------sweetAlert de Correo Existente ----------------//
+  const AlertError = () => {
+    Swal.fire({
+      icon: "warning",
+      title: "Este correo ya se encuentra en uso",
+      text: "Ingrese otro por favor",
+      confirmButtonColor: "#355070",
+      width: 650,
+      background: "#19191a",
+      color: "#e1e1e1",
+    });
+  };
+  //--------------END sweetAlert -------------//
 
   const onSubmit = async (data) => {
     try {
       await singUp(data);
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Te has registrado con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
     } catch (error) {
+      AlertError();
       console.log(error);
-      // "Un error ha ocurrido"
     }
   };
 
   const handleSignInGoogle = async () => {
     try {
       await sessionGoogle();
-      const Toast = Swal.mixin({
-        background: "#19191a",
-        color: "#e1e1e1",
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        title: `Te has registrado con la cuenta: ${user.email}`,
-      });
-      setTimeout(() => {
-        history.push("/");
-      }, 4000);
     } catch (error) {
+      AlertError();
       console.log(error);
-      // "Un error ha ocurrido"
     }
   };
 
   return (
     <div className={style.login_body}>
-      <div className={style.container}>
-        <h2 className={style.login}>Crear cuenta</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
-          <div className={style.container_input}>
-            <input
-              required
-              className={style.input}
-              // placeholder="Email"
-              type="text"
-              {...register("email", {
-                required: true,
-                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-              })}
-            ></input>
-            <span></span>
-            <label className={style.labelText}>Correo</label>
-            {errors.email?.type === "required" && (
-              <p className={style.error}>Obligatorio</p>
-            )}
-            {errors.email?.type === "pattern" && (
-              <div className={style.error}>
-                <p>Ingresa un correo válido</p>
-                <i class="fa-solid fa-circle-exclamation"></i>
-              </div>
-            )}
-          </div>
-          <div className={style.container_input}>
-            <input
-              required
-              className={style.input}
-              // placeholder="Contraseña"
-              type="password"
-              {...register("password", {
-                required: true,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              })}
-            ></input>
-            <span></span>
-            <label className={style.labelText}>Contraseña</label>
-            {errors.password?.type === "required" && (
-              <p className={style.error}>Obligatorio</p>
-            )}
-            {errors.password?.type === "pattern" && (
-              <div className={style.error}>
-                <p >Mínimo 8 caracteres, (letras y números)</p>
-                <i class="fa-solid fa-circle-exclamation"></i>
-              </div>
-            )}
-          </div>
-          <div className={style.container_input}>
-            <input
-              required
-              className={style.input}
-              // placeholder="Nombre Completo"
-              type="text"
-              {...register("fullName", {
-                required: true,
-                maxLength: 20,
-              })}
-            ></input>
-            <span></span>
-            <label className={style.labelText}>Nombre completo</label>
-            {errors.fullName?.type === "required" && (
-              <p className={style.error}>Obligatorio</p>
-            )}
-          </div>
-          {/* <div className={style.inputContainer}>
+      <div className={style.volverContainer}>
+        <button className={style.btnBack} onClick={() => history.goBack()}>
+          <AiOutlineArrowLeft className={style.btnArr} />
+        </button>
+      </div>
+      {!loader ? (
+        <div className={style.container}>
+          <h2 className={style.login}>Crear cuenta</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+            <div className={style.container_input}>
+              <input
+                required
+                className={style.input}
+                // placeholder="Email"
+                type="text"
+                {...register("email", {
+                  required: true,
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                })}
+              ></input>
+              <span></span>
+              <label className={style.labelText}>Correo</label>
+              {errors.email?.type === "required" && (
+                <p className={style.error}>Obligatorio</p>
+              )}
+              {errors.email?.type === "pattern" && (
+                <div className={style.error}>
+                  <p>Ingresa un correo válido</p>
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+              )}
+            </div>
+            <div className={style.container_input}>
+              <input
+                required
+                className={style.input}
+                // placeholder="Contraseña"
+                type="password"
+                {...register("password", {
+                  required: true,
+                  pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                })}
+              ></input>
+              <span></span>
+              <label className={style.labelText}>Contraseña</label>
+              {errors.password?.type === "required" && (
+                <p className={style.error}>Obligatorio</p>
+              )}
+              {errors.password?.type === "pattern" && (
+                <div className={style.error}>
+                  <p>Mínimo 8 caracteres, (letras y números)</p>
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+              )}
+            </div>
+            <div className={style.container_input}>
+              <input
+                required
+                className={style.input}
+                // placeholder="Nombre Completo"
+                type="text"
+                {...register("fullName", {
+                  required: true,
+                  maxLength: 20,
+                })}
+              ></input>
+              <span></span>
+              <label className={style.labelText}>Nombre completo</label>
+              {errors.fullName?.type === "required" && (
+                <p className={style.error}>Obligatorio</p>
+              )}
+            </div>
+            {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Provincia"
@@ -155,7 +202,7 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-          {/* <div className={style.inputContainer}>
+            {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Ciudad"
@@ -168,7 +215,7 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-          {/* <div className={style.inputContainer}>
+            {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Codigo Postal"
@@ -189,7 +236,7 @@ export default function Register() {
             <p className={style.error}>Maximo 5 numeros</p>
           )}
         </div> */}
-          {/* <div className={style.inputContainer}>
+            {/* <div className={style.inputContainer}>
           <input
             className={style.input}
             placeholder="Direccion"
@@ -203,14 +250,20 @@ export default function Register() {
             <p className={style.error}>Obligatorio</p>
           )}
         </div> */}
-          {/* <div className={style.register}> */}
-          <button className={style.button_form}>Crear cuenta</button>
-          <div className={style.google} onClick={handleSignInGoogle}>
-            Registrarse con google
-          </div>
-          {/* </div> */}
-        </form>
-      </div>
+            {/* <div className={style.register}> */}
+            <button className={style.button_form}>Crear cuenta</button>
+            <div className={style.google} onClick={handleSignInGoogle}>
+              Registrarse con Google
+            </div>
+            <Link to="/login">
+              <p className={style.link}>¿Ya tienes una cuenta? Inicia sesión</p>
+            </Link>
+            {/* </div> */}
+          </form>
+        </div>
+      ) : (
+        <img className={style.loader} src={Loader} alt="Loader" />
+      )}
     </div>
   );
 }

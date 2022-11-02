@@ -9,7 +9,9 @@ const router = Router();
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+
   const response = await getBookDetail(id);
+
   let statusCode;
   response.messageError ? (statusCode = 404) : (statusCode = 201);
 
@@ -17,7 +19,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  console.log(req.params);
   let response = await putBookVisibility(req.params);
 
   let statusCode;

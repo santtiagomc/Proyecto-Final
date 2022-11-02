@@ -16,6 +16,29 @@ export const USER_EXIST = "USER_EXIST";
 export const POST_CART = "POST_CART";
 export const GET_CART = "GET_CART";
 export const GET_USER_CART = "GET_USER_CART";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_MORE_VISITS = "GET_MORE_VISITS";
+export const GET_MORE_RATING = "GET_MORE_RATING";
+export const GET_OFFERS = "GET_OFFERS";
+export const PUT_USER_CART = "PUT_USER_CART";
+export const DELETE_USER_CART = "DELETE_USER_CART";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const PUT_USER = "PUT_USER";
+export const GET_ALL_CARTS = "GET_ALL_CARTS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const TABLE_VIEW = "TABLE_VIEW";
+export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
+export const USERS_SEARCH_ADMIN = "USERS_SEARCH_ADMIN";
+export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
+export const BOOKS_SEARCH_ADMIN = "BOOKS_SEARCH_ADMIN";
+export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const CARTS_SEARCH_ADMIN = "CARTS_SEARCH_ADMIN";
+export const GENRES_ORDER_ADMIN = "GENRES_ORDER_ADMIN";
+export const POST_GENRE = "POST_GENRE";
+export const DELETE_GENRE = "DELETE_GENRE";
+export const PUT_CART_STATUS = "PUT_CART_STATUS";
+export const GET_USER_DB = "GET_USER_DB";
+export const EDIT_ID = "EDIT_ID";
 
 export function userExist(payload) {
   return {
@@ -23,19 +46,19 @@ export function userExist(payload) {
     payload,
   };
 }
-export const ADD_TO_CART = "ADD_TO_CART";
 
-export function searchBook(filters, search, page) {
+//-------para obtener los libros con filtros y páginado.
+export function searchBook(filters, search, page, admin) {
   return async function (dispatch) {
     try {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       } else {
         json = await axios(
-          `/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       }
       return dispatch({
@@ -65,6 +88,7 @@ export function changePage(page = 0) {
   return { type: CHANGE_PAGE, payload: page };
 }
 
+//-------para obtener las editoriales
 export function getEditorials() {
   return async function (dispatch) {
     try {
@@ -82,10 +106,11 @@ export function getEditorials() {
   };
 }
 
-export function getGenres() {
+//-------para obtener las categorías
+export function getGenres(sort) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`/genres`);
+      const json = await axios.get(`/genres?sort=${sort}`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,
@@ -99,6 +124,7 @@ export function getGenres() {
   };
 }
 
+//-------para obtener el detalle de un libro
 export function getDetail(id) {
   return async function (dispatch) {
     try {
@@ -116,6 +142,7 @@ export function getDetail(id) {
   };
 }
 
+//-------para agregar un nuevo libro
 export function addBooks(input) {
   return async function (dispatch) {
     try {
@@ -133,6 +160,7 @@ export function addBooks(input) {
   };
 }
 
+//-------para crear reviews
 export function postReviews(input) {
   return async function (dispatch) {
     try {
@@ -150,6 +178,26 @@ export function postReviews(input) {
   };
 }
 
+//-------para eliminar reviews
+export function deleteReviews(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `/reviews?UserId=${input.UserId}&BookId=${input.BookId}`
+      );
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
 export function resetCreate() {
   return {
     type: RESET_CREATE,
@@ -157,6 +205,7 @@ export function resetCreate() {
   };
 }
 
+//-------para modificar uel status de un libro
 export function putStatus(id) {
   return async function (dispatch) {
     try {
@@ -174,15 +223,14 @@ export function putStatus(id) {
   };
 }
 
+//-------para modificar un libro
 export function putBook(id, body) {
-  console.log(body);
   return async function (dispatch) {
     try {
       const json = await axios.put(
         `/book/details/${id}`,
         body
       );
-      console.log(json);
       return dispatch({
         type: PUT_BOOK,
         payload: json.data,
@@ -196,6 +244,7 @@ export function putBook(id, body) {
   };
 }
 
+//-------para crear carrito de usuario
 export function postCart(cart) {
   return async function (dispatch) {
     try {
@@ -213,6 +262,7 @@ export function postCart(cart) {
   };
 }
 
+//-------para obtener carrito de invitado
 export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
@@ -232,12 +282,11 @@ export function getGuestCart(localStorage) {
   };
 }
 
+//-------para obtener carrito de usuario
 export function getUserCart(userId) {
   return async function (dispatch) {
     try {
       const response = await axios.get(`/cart/${userId}`);
-      console.log(response.data);
-
       return dispatch({
         type: GET_USER_CART,
         payload: response.data,
@@ -245,6 +294,263 @@ export function getUserCart(userId) {
     } catch (error) {
       return dispatch({
         type: GET_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para obtener libros más puntuados (Landing Page)
+export function getMoreRating() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `/books?sort=rating&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_RATING,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para obtener libros más visitados (Landing Page)
+export function getMoreVisits() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `/books?sort=visits&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_MORE_VISITS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para obtener libros más baratos (Landing Page)
+export function getOffers() {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `/books?sort=price-min-max&genres=none&editorial=none&page=0`
+      );
+      return dispatch({
+        type: GET_OFFERS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_OFFERS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para borrar un libro del carrito del usuario
+export function putUserCart(cartId, bookId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `/cart?cartId=${cartId}&bookId=${bookId}`
+      );
+
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para borrar el carrito de un usuario
+export function deleteUserCart(cartId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `/cart?cartId=${cartId}`
+      );
+
+      return dispatch({
+        type: DELETE_USER_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_USER_CART,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+//------para traer todos los usuarios (para dashboard)
+export function getAllUsers({ sort, searchValue }) {
+  return async function (dispatch) {
+    try {
+      const json = await axios(
+        `/user?sort=${sort}&searchValue=${searchValue}`
+      );
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: json.data,
+      });
+    } catch (err) {
+      return dispatch({
+        type: GET_ALL_USERS,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+//-------para modificar estado o rol de usuarios
+export function putUser(input) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`/user`, input);
+
+      return dispatch({
+        type: PUT_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_USER,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para traer todos los carritos con el estado que le pasemos
+export function getCarts({ sort, searchValue }) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(
+        `/cart/orders?sort=${sort}&searchValue=${searchValue}`
+      );
+      return dispatch({
+        type: GET_ALL_CARTS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_CARTS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para modificar el estado de un carrito
+export function putCartStatus(id) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `/cart/status?id=${id}`
+      );
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer todos los libros (para dashboard)
+export function getAllBooks({ sort, searchValue }) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(
+        `/books/admin?sort=${sort}&searchValue=${searchValue}`
+      );
+      console.log(response.data);
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function postGenre(genre) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`/genres`, {
+        name: genre,
+      });
+      return dispatch({
+        type: POST_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function deleteGenre(name) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `/genres/${name}`
+      );
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer la info del user de la db
+export function getUserDb(uid) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`/user/${uid}`);
+      return dispatch({
+        type: GET_USER_DB,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_USER_DB,
         payload: error.response.data,
       });
     }

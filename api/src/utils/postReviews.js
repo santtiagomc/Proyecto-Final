@@ -6,15 +6,22 @@ async function postReviews({ title, description, rating, UserId, BookId }) {
 
     if (!title || !description || !rating || !UserId || !BookId) return { message: "Faltaron datos obligatorios" };
 
-    let newReviews = await Reviews.create({
-      title,
-      description,
-      rating,
-      UserId,
-      BookId
+    let [newReviews, created] = await Reviews.findOrCreate({
+      where: {
+        UserId,
+        BookId
+      },
+      defaults: {
+        title,
+        description,
+        rating,
+      }
     });
 
+    if (!created) return { messageError: "Solo puedes agregar una reseña por libro!" }
+
     return { message: "La reseña ha sido agregada con éxito!" };
+
   } catch (error) {
     return { messageError: "Error" };
   }

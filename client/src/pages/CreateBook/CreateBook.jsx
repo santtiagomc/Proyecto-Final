@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import {
   addBooks,
+  EDIT_ID,
   getDetail,
   getGenres,
   GET_DETAIL,
   putBook,
   resetCreate,
+  TABLE_VIEW,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  BiErrorAlt,
+  BsFillImageFill,
+  AiFillEyeInvisible,
+  AiFillEye,
+  TiDeleteOutline,
+} from "react-icons/all";
+
+import { uploadFile } from "../../firebase/firebase";
+
 import style from "./CreateBook.module.css";
 import Swal from "sweetalert2";
+import templateAlert from "../../helpers/templateAlert";
 
 function validation(input) {
   let errors = {};
@@ -18,7 +31,7 @@ function validation(input) {
   const regexDecimal = /^\d{1,3}(\.\d{1,2})?$/;
   const regexNotNumbers =
     /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
-  const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/;
+  /* const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/; */
   const regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!*:;]{2,50}$/;
   const regexAutor = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 .]{2,30}$/;
 
@@ -30,8 +43,8 @@ function validation(input) {
     errors.name =
       "Sólo puede contener letras, números y los siguientes caracteres: .,!*:-()";
   }
-  if (!input.image.match(regexUrl)) {
-    errors.image = "Ingresa url de una imagen";
+  if (!input.image) {
+    errors.image = "Ingresar una imagen es obligatorio";
   }
 
   if (input.author.length <= 1) {
@@ -75,21 +88,25 @@ function validation(input) {
 export default function CreateBook() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const query = location.search.slice(4);
 
-  const detail = useSelector((state) => state.detail);
+  const { genres, create, edit_id, detail } = useSelector((state) => state);
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+  let [imageName, setImageName] = useState("");
 
   const params = useParams();
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getDetail(params.id));
+    if (edit_id) {
+      dispatch(getDetail(edit_id));
     }
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
+      dispatch({ type: EDIT_ID, payload: "" });
     };
-  }, []);
+  }, [dispatch, edit_id]);
 
-  const { genres, create } = useSelector((state) => state);
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
@@ -105,7 +122,7 @@ export default function CreateBook() {
   });
 
   useEffect(() => {
-    if (params.id) {
+    if (detail) {
       if (Array.isArray(detail)) return;
 
       setInput({
@@ -127,14 +144,7 @@ export default function CreateBook() {
 
   function handleSelect(e) {
     if (input.genre.includes(e.target.value)) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: "La categoría seleccionada ya se encuentra en la lista",
-        text: "Seleccione otra categoría",
-        icon: "warning",
-        timer: 4000,
-      });
+      templateAlert("Categoría ya seleccionada", null, "warning", 4000);
     } else {
       setInput({
         ...input,
@@ -150,46 +160,52 @@ export default function CreateBook() {
     });
   };
 
-  function handleSubmit(e) {
+  const handleNewImage = async (e) => {
+    setButtonDisabled(true);
+    setImageName(e.target.files[0].name);
+
+    const imageUrl = await uploadFile(e.target.files[0], detail.id);
+    console.log(imageUrl);
+    setInput({ ...input, image: imageUrl });
+
+    setTimeout(function () {
+      setButtonDisabled(false);
+    }, 5000);
+  };
+
+  const handleShowImage = (e) => {
     e.preventDefault();
-    if (!params.id) {
+    Swal.fire({
+      background: "#19191a",
+      color: "#e1e1e1",
+      imageUrl: input.image,
+      imageWidth: 361,
+      imageHeight: 554,
+      imageAlt: `Cover of ${input.name}`,
+      confirmButtonColor: "#355070",
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!detail.id) {
       if (Object.keys(errors).length === 0) {
         dispatch(addBooks(input));
       } else {
-        Swal.fire({
-          background: "#19191a",
-          color: "#e1e1e1",
-          title: "Todos los campos son requeridos",
-          // text: "Faltan campos por llenar",
-          icon: "info",
-          timer: 4000,
-        });
+        templateAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     } else {
       if (Object.keys(errors).length === 0) {
-        console.log(input);
-        dispatch(putBook(params.id, input));
+        dispatch(putBook(detail.id, input));
       } else {
-        Swal.fire({
-          background: "#19191a",
-          color: "#e1e1e1",
-          title: "Todos los campos son requeridos",
-          // text:  "Faltan campos por llenar",
-          icon: "info",
-          timer: 4000,
-        });
+        templateAlert("Todos los campos son requeridos", null, "info", 4000);
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (create.message) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: create.message,
-        icon: "success",
-      });
+      templateAlert(create.message, null, "success", null);
       dispatch(resetCreate());
       setInput({
         name: "",
@@ -202,17 +218,19 @@ export default function CreateBook() {
         edition: "",
         genre: [],
       });
-      history.push("/");
+
+      // if (edit_id) {
+      //   history.push(`/detail/${edit_id}`);
+      //   dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+      // }
+
+      dispatch({ type: TABLE_VIEW, payload: "books" });
+
     } else if (create.messageError) {
-      Swal.fire({
-        background: "#19191a",
-        color: "#e1e1e1",
-        title: create.messageError,
-        icon: "warning",
-      });
+      templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
-  }, [create]);
+  }, [create, dispatch]);
 
   function handleChange(e) {
     setInput({
@@ -230,15 +248,13 @@ export default function CreateBook() {
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     setErrors(validation(input));
-  }, [dispatch, input]);
+  }, [dispatch, input, genres.length]);
 
   return (
     <div className={style.container}>
-      <div className={style.divh1}>
-        <h1 className={style.h1}>
-          {params.id ? "Editar libro " : "Agregar Libro"}
-        </h1>
-      </div>
+      {/* <h1 className={style.h1}>
+        {params.id ? "Editar libro " : "Agregar Libro"}
+      </h1> */}
 
       <form
         className={style.form}
@@ -246,20 +262,25 @@ export default function CreateBook() {
           handleSubmit(e);
         }}
       >
-        <div className={style.divs}>
+        <div className={`${style.divs} ${style.divs_one}`}>
           <div className={style.incontainer}>
-            <label className={style.label}>Nombre</label>
+            <span className={style.label}>Nombre</span>
             <input
               className={style.input}
               type="text"
-              placeholder={params.id ? detail.name : "Nombre del libro"}
-              value={input.name.toLowerCase()}
+              placeholder={detail.id ? detail.name : "Nombre del libro"}
+              value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
+              autofocus="true"
             />
-            {input.name && <p className={style.err}>{errors.name}</p>}
+            {input.name && errors.name && (
+              <div className={style.err}>
+                <BiErrorAlt className={style.err_i} />
+                <span>{errors.name}</span>
+              </div>
+            )}
           </div>
-
           <div className={style.incontainer}>
             <label className={style.label}>Autor</label>
             <input
@@ -270,94 +291,13 @@ export default function CreateBook() {
               name="author"
               onChange={(e) => handleChange(e)}
             />
-            {input.author && <p className={style.err}>{errors.author}</p>}
-          </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Año de edición</label>
-            <input
-              className={style.input}
-              type="number"
-              placeholder="Año"
-              value={input.edition}
-              name="edition"
-              onChange={(e) => handleChange(e)}
-            />
-            {input.edition && <p className={style.err}>{errors.edition}</p>}
-          </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Categorías</label>
-            <select
-              value="0"
-              onChange={(e) => handleSelect(e)}
-              className={style.selectGenre}
-            >
-              <option selected disabled value="0">
-                Categorías
-              </option>
-              {genres.map((el) => {
-                return (
-                  <option key={el} value={el}>
-                    {" "}
-                    {el}{" "}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-          <div className={style.genreContain}>
-            {input.genre.map((c) => {
-              return (
-                <div key={c} className={style.divGenre}>
-                  <ul>
-                    <li>{c}</li>
-                    <button
-                      className={style.btnx}
-                      onClick={() => handleDelete(c)}
-                    >
-                      X
-                    </button>
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className={style.incontainer}>
-            <label className={style.label}>Portada</label>
-            <input
-              className={style.input}
-              type="url"
-              placeholder="Url portada"
-              value={input.image}
-              name="image"
-              onChange={(e) => handleChange(e)}
-            />
-            {input.image && <p className={style.err}>{errors.image}</p>}
-          </div>
-        </div>
-
-        <div className={style.divs}>
-          <div className={style.incontainer}>
-            <label className={style.label}>Descripción</label>
-            <textarea
-              className={style.textArea}
-              name="description"
-              id=""
-              cols="30"
-              rows="100"
-              type="text"
-              placeholder="Descripción del libro"
-              value={input.description}
-              onChange={(e) => handleChange(e)}
-            ></textarea>
-            {input.description && (
-              <p className={style.err}>{errors.description}</p>
+            {input.author && errors.author && (
+              <div className={style.err}>
+                <BiErrorAlt className={style.err_i} />
+                <span>{errors.author}</span>
+              </div>
             )}
           </div>
-
           <div className={style.incontainer}>
             <label className={style.label}>Editorial</label>
             <input
@@ -368,40 +308,219 @@ export default function CreateBook() {
               name="editorial"
               onChange={(e) => handleChange(e)}
             />
-            {input.editorial && <p className={style.err}>{errors.editorial}</p>}
+            {input.editorial && errors.editorial && (
+              <div className={style.err}>
+                <BiErrorAlt className={style.err_i} />
+                <span>{errors.editorial}</span>
+              </div>
+            )}
           </div>
+          <div className={style.container_cat_box}>
+            <div className={style.container_cat}>
+              <div className={style.incontainer}>
+                <label className={style.label}>Categorías</label>
+                <select
+                  value="0"
+                  onChange={(e) => handleSelect(e)}
+                  className={style.selectGenre}
+                >
+                  <option selected disabled value="0">
+                    Seleccione las categorías
+                  </option>
+                  {genres.map((el) => {
+                    return (
+                      <option key={el} value={el}>
+                        {" "}
+                        {el}{" "}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className={style.genreContain}>
+                <label className={style.label}>Categorías seleccionadas</label>
+                <div className={style.genreContain_int}>
+                  {input.genre.map((c) => {
+                    return (
+                      <div key={c} className={style.divGenre}>
+                        <span className={style.text}>{c}</span>
+                        <span
+                          className={style.btn_delete}
+                          onClick={() => handleDelete(c)}
+                        >
+                          <TiDeleteOutline />
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className={style.container_box}>
+              <div className={style.incontainer}>
+                <label className={style.label}>Año de edición</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Año"
+                  value={input.edition}
+                  name="edition"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.edition && errors.edition && (
+                  <div className={style.err}>
+                    <BiErrorAlt className={style.err_i} />
+                    <span>{errors.edition}</span>
+                  </div>
+                )}
+              </div>
+              <div className={style.incontainer}>
+                <label className={style.label}>Precio</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Precio"
+                  value={input.price}
+                  name="price"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.price && errors.price && (
+                  <div className={style.err}>
+                    <BiErrorAlt className={style.err_i} />
+                    <span>{errors.price}</span>
+                  </div>
+                )}
+              </div>
+              <div className={style.incontainer}>
+                <label className={style.label}>Stock</label>
+                <input
+                  className={style.input}
+                  type="number"
+                  placeholder="Stock"
+                  value={input.stock}
+                  name="stock"
+                  onChange={(e) => handleChange(e)}
+                />
+                {input.stock && errors.stock && (
+                  <div className={style.err}>
+                    <BiErrorAlt className={style.err_i} />
+                    <span>{errors.stock}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <div className={style.incontainer}>
-            <label className={style.label}>Precio</label>
-            <input
-              className={style.input}
-              type="number"
-              placeholder="Precio"
-              value={input.price}
-              name="price"
+        <div className={`${style.divs} ${style.divs_two}`}>
+          <div className={style.incontainer_textArea}>
+            <label className={style.label}>Descripción</label>
+            <textarea
+              className={style.textArea}
+              name="description"
+              id=""
+              type="text"
+              placeholder="Descripción del libro"
+              value={input.description}
               onChange={(e) => handleChange(e)}
-            />
-            {input.price && <p className={style.err}>{errors.price}</p>}
+            ></textarea>
+            {input.description && errors.description && (
+              <div className={style.err}>
+                <BiErrorAlt className={style.err_i} />
+                <span>{errors.description}</span>
+              </div>
+            )}
           </div>
           <div className={style.incontainer}>
-            <label className={style.label}>Stock</label>
-            <input
+            <label className={style.label}>Portada</label>
+            {/* <input
               className={style.input}
-              type="number"
-              placeholder="Stock"
-              value={input.stock}
-              name="stock"
+              type="url"
+              placeholder="Url portada"
+              value={input.image}
+              name="image"
               onChange={(e) => handleChange(e)}
-            />
-            {input.stock && <p className={style.err}>{errors.stock}</p>}
+            /> */}
+            <div className={style.fileDiv}>
+              <div
+                className={!buttonDisabled ? style.divLabel : style.divLabelF}
+              >
+                <label
+                  className={
+                    !buttonDisabled ? style.fileLabel : style.fileLabelF
+                  }
+                >
+                  <input
+                    className={style.fileInput}
+                    type="file"
+                    onChange={(e) => handleNewImage(e)}
+                    disabled={buttonDisabled}
+                  />
+                  <div className={style.fileLabel_text}>
+                    <BsFillImageFill className={style.i_img} />
+                    <span>
+                      {input.image && !buttonDisabled && imageName
+                        ? imageName
+                        : "Subir una imagen"}
+                    </span>
+                  </div>
+                </label>
+              </div>
+
+              <div
+                className={
+                  input.image ? style.container_eye : style.container_eye_f
+                }
+              >
+                {buttonDisabled ? (
+                  <span className={style.loader}></span>
+                ) : (
+                  <button
+                    disabled={input.image ? false : true}
+                    onClick={(e) => handleShowImage(e)}
+                  >
+                    {input.image ? (
+                      <AiFillEye className={style.i_eye} />
+                    ) : (
+                      <AiFillEyeInvisible className={style.i_eye_f} />
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+            {input.image && <p className={style.err}>{errors.image}</p>}
           </div>
-          <div className={style.btnContainer}>
-            <button className={style.btn} type="submit">
-              {params.id ? "Completar edición" : "Crear"}
-            </button>
-            <Link to="/">
-              <button className={style.btn}>Volver</button>
-            </Link>
+          <div className={style.incontainer}>
+            <label className={style.label}></label>
+            <div className={style.container_buttons}>
+              <button
+                className={buttonDisabled ? style.btnF : style.btn}
+                type="submit"
+                disabled={buttonDisabled}
+              >
+                {detail.id ? "Completar edición" : "Crear libro"}
+              </button>
+              {/* <Link to={detail.id ? `/detail/${detail.id}` : "/"}> */}
+              <button
+                className={style.btn_link}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (edit_id) {
+                    history.goBack();
+                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                  }
+                  detail.id &&
+                    !edit_id &&
+                    dispatch({ type: TABLE_VIEW, payload: "books" });
+                  !detail.id &&
+                    !edit_id &&
+                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                }}
+              >
+                {edit_id || detail.id ? "Cancelar" : "Volver"}
+              </button>
+              {/*   </Link> */}
+            </div>
           </div>
         </div>
       </form>

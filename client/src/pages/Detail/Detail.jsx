@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useHistory, NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 
 import {
   getDetail,
@@ -8,17 +9,40 @@ import {
   putStatus,
   postCart,
   getGuestCart,
+  putBook,
+  TABLE_VIEW,
+  EDIT_ID,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
 
 import style from "./DetailPrueba.module.css";
 import Swal from "sweetalert2";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Detail() {
   const dispatch = useDispatch();
   const myBook = useSelector((state) => state.detail);
-  const { user, cart, postCartResponse } = useSelector((state) => state);
+  const { user, cart, deleteReview, putStatusBook, userDb } = useSelector(
+    (state) => state
+  );
+  let [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const { id } = useParams();
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getDetail(id));
+    return () => {
+      dispatch({ type: GET_DETAIL, payload: [] });
+    };
+  }, [dispatch, user, deleteReview, putStatusBook, id]);
+
+  useEffect(() => {
+    dispatch(putBook(id, { visits: 1 }));
+  }, [dispatch, id]);
+
+  //----------------- Function averageRating + sweetAlert + Const -----------------
 
   let avarageRating =
     myBook.Reviews &&
@@ -31,29 +55,25 @@ export default function Detail() {
         }).length
     );
 
-  console.log(postCartResponse);
+  function swalAlert(timer, icon, message) {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: timer,
+      timerProgressBar: true,
+    });
 
-  let [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(getDetail(id));
-    return () => {
-      dispatch({ type: GET_DETAIL, payload: [] });
-    };
-  }, [user]);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(putStatus(myBook.id));
-  };
+    Toast.fire({
+      icon: icon,
+      title: message,
+    });
+  }
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
   let quantity = {};
-
-  if (localStorage.length) {
+  if (localStorage.length && localStorage.cart) {
     repeatedIdArrayCart = localStorage.getItem("cart").split(",");
     uniqueIdArrayCart = [...new Set(repeatedIdArrayCart)];
     repeatedIdArrayCart.length &&
@@ -66,138 +86,91 @@ export default function Detail() {
   if (user && user.uid && cart.length && !cart.messageError) {
     quantityUser = cart.find((b) => b.id === id);
     quantityUser = quantityUser && quantityUser.quantity;
-    console.log(quantityUser);
   }
+
+  //----------------- END Function averageRating + sweetAlert + Const -----------------
+
+  //----------------- Function click edit book -----------------
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(putStatus(myBook.id));
+  };
+
+  //----------------- END Function click edit book -----------------
+
+  //----------------- Function click add to cart -----------------
 
   const handleCart = (e) => {
     e.preventDefault();
-
     if (user) {
       let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
       if (quantityObject) {
-        if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
+        if (quantityObject.stock - quantityObject.quantity === 0) {
+          swalAlert(
+            2000,
+            "error",
+            "Alcanzaste el stock máximo de este producto"
+          );
+        } else if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
           dispatch(
             postCart({ userId: user.uid, bookId: e.target.value, suma: true })
           );
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-
-          Toast.fire({
-            icon: "success",
-            title: "Producto agregado al carrito",
-          });
+          swalAlert(2000, "success", "Producto agregado al carrito");
         } else {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-
-          Toast.fire({
-            icon: "error",
-            title: "Alcanzaste el máximo de este producto",
-          });
+          swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
         }
-      } else {
+      } else if (!Array.isArray(cart) || cart.length < 10) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Producto agregado al carrito",
-        });
+        swalAlert(2000, "success", "Producto agregado al carrito");
+      } else {
+        swalAlert(
+          2000,
+          "error",
+          "Has alcanzado el límite de productos distintos"
+        );
       }
     } else {
       const cartLS = localStorage.getItem("cart");
 
       if (cartLS) {
         if (uniqueIdArrayCart.includes(id)) {
-          if (quantity[id] < 5) {
+          if (myBook.stock - quantity[id] === 0) {
+            swalAlert(
+              2000,
+              "error",
+              "Alcanzaste el stock máximo de este producto"
+            );
+          } else if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-            });
-            Toast.fire({
-              icon: "success",
-              title: "Producto agregado al carrito",
-            });
+            swalAlert(2000, "success", "Producto agregado al carrito");
           } else {
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "top-end",
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-            });
-            Toast.fire({
-              icon: "error",
-              title: "Has alcanzado el límite de este producto",
-            });
+            swalAlert(
+              2000,
+              "error",
+              "Has alcanzado el límite de este producto"
+            );
           }
         } else if (uniqueIdArrayCart.length < 10) {
           localStorage.setItem("cart", `${cartLS},${id}`);
 
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Producto agregado al carrito",
-          });
+          swalAlert(2000, "success", "Producto agregado al carrito");
         } else {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-          Toast.fire({
-            icon: "error",
-            title: "Has alcanzado el límite de productos distintos",
-          });
+          swalAlert(
+            2000,
+            "error",
+            "Has alcanzado el límite de productos distintos"
+          );
         }
       } else {
         localStorage.setItem("cart", id);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-
-        Toast.fire({
-          icon: "success",
-          title: "Producto agregado al carrito",
-        });
+        swalAlert(2000, "success", "Producto agregado al carrito");
       }
 
       repeatedIdArrayCart = localStorage.getItem("cart").split(",");
@@ -211,31 +184,50 @@ export default function Detail() {
     }, 1000);
   };
 
+  //----------------- END Function click add to cart -----------------
+
   return (
     <>
-      <div className={style.adminContainer}>
-        <button
-          className={myBook.visible ? style.btnStatusF : style.btnStatusT}
-          onClick={(e) => handleClick(e)}
-        >
-          {myBook.visible ? (
-            <div>
-              Ocultar producto <i class="fa-solid fa-eye-slash"></i>
-            </div>
-          ) : (
-            <div>
-              Mostrar producto <i class="fa-solid fa-eye"></i>
+      <div className={style.commandsContainer}>
+        <div className={style.volverContainer}>
+          <button className={style.btnBack} onClick={() => history.goBack()}>
+            <AiOutlineArrowLeft className={style.btnArr} />
+          </button>
+        </div>
+        {user &&
+          userDb &&
+          (userDb.role === "Admin++" || userDb.role === "Admin") && (
+            <div className={style.adminContainer}>
+              <button
+                className={myBook.visible ? style.btnStatusF : style.btnStatusT}
+                onClick={(e) => handleClick(e)}
+              >
+                {myBook.visible ? (
+                  <div>
+                    Ocultar producto <i class="fa-solid fa-eye-slash"></i>
+                  </div>
+                ) : (
+                  <div>
+                    Mostrar producto <i class="fa-solid fa-eye"></i>
+                  </div>
+                )}
+              </button>
+              <button
+                className={style.btnStatusT}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({ type: EDIT_ID, payload: myBook.id });
+                  dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                  history.push(`/admin`);
+                }}
+              >
+                Editar producto <i class="fa-solid fa-pencil"></i>
+              </button>
             </div>
           )}
-        </button>
-        <NavLink to={`/edit/${id}`}>
-          <button className={style.btnStatusT}>
-            Editar producto <i class="fa-solid fa-pencil"></i>
-          </button>
-        </NavLink>
       </div>
       {myBook.name ? (
-        <div>
+        <div className={style.detailInfo}>
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
@@ -319,34 +311,86 @@ export default function Detail() {
                 <span className={style.noDisponible}>No disponible</span>
               )}
               <p className={style.description}>{myBook.description}</p>
-              <div className={style.containerBuy}>
-                <h3 className={style.price}>USD {myBook.price}</h3>
-                <button
-                  className={
-                    myBook.visible && !buttonDisabled
-                      ? style.cart
-                      : `${style.cart} ${style.cartF} `
-                  }
-                  disabled={myBook.visible && !buttonDisabled ? false : true}
-                  value={id}
-                  type="button"
-                  onClick={(e) => handleCart(e)}
-                >
-                  Agregar al carrito ---{" "}
-                  {!user
-                    ? quantity && quantity[id]
-                      ? quantity[id]
-                      : 0
-                    : quantityUser}
-                </button>
-              </div>
+
+              {user ? (
+                userDb &&
+                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                  <h3 className={style.price}>USD {myBook.price}</h3>
+                ) : (
+                  userDb.role === "Usuario" && (
+                    <div className={style.containerBuy}>
+                      <h3 className={style.price}>USD {myBook.price}</h3>
+                      <button
+                        className={
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
+                            ? style.cart
+                            : `${style.cart} ${style.cartF} `
+                        }
+                        disabled={
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
+                            ? false
+                            : true
+                        }
+                        value={id}
+                        type="button"
+                        onClick={(e) => handleCart(e)}
+                      >
+                        Agregar al carrito{" "}
+                        {!user ? (
+                          quantity && quantity[id] ? (
+                            <div className={style.number}>{quantity[id]}</div>
+                          ) : (
+                            <div className={style.number}>0</div>
+                          )
+                        ) : quantityUser ? (
+                          <div className={style.number}>{quantityUser}</div>
+                        ) : (
+                          <div className={style.number}>0</div>
+                        )}
+                      </button>
+                    </div>
+                  )
+                )
+              ) : (
+                <div className={style.containerBuy}>
+                  <h3 className={style.price}>USD {myBook.price}</h3>
+                  <button
+                    className={
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
+                        ? style.cart
+                        : `${style.cart} ${style.cartF} `
+                    }
+                    disabled={
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
+                        ? false
+                        : true
+                    }
+                    value={id}
+                    type="button"
+                    onClick={(e) => handleCart(e)}
+                  >
+                    Agregar al carrito{" "}
+                    {!user ? (
+                      quantity && quantity[id] ? (
+                        <div className={style.number}>{quantity[id]}</div>
+                      ) : (
+                        <div className={style.number}>0</div>
+                      )
+                    ) : quantityUser ? (
+                      <div className={style.number}>{quantityUser}</div>
+                    ) : (
+                      <div className={style.number}>0</div>
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <Review id={id} />
         </div>
       ) : (
         <div className={style.loaderContainer}>
-          <span className={style.loader}></span>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
         </div>
       )}
     </>
