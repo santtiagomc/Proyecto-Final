@@ -159,3 +159,98 @@
   top: -20%;
   right: -10%;
 }
+
+@media (max-width: 700px) {
+  .nav {
+    justify-content: space-between;
+    width: 100vw;
+  }
+  .forms {
+    position: absolute;
+    top: 4rem;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    width: 100%;
+    height: 14rem;
+    transform: translateX(-100%);
+    transition: all .45s;
+    background: rgba(255, 255, 255, .25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, .37);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    
+  }
+
+  .nav .forms .aa::before {
+      background: transparent;
+  }
+
+  .nav .forms.open {
+      transform: translateX(0);
+  }
+
+  .nav .navToggle {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .navToggle .bar {
+    position: relative;
+    width: 32px;
+    height: 2px;
+    background: #ffffff;
+    transition: all 0.45s ease-in-out;
+  }
+
+  .navToggle .bar::before,
+  .navToggle .bar::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.45s ease-in-out;
+  }
+
+  .navToggle .bar::before {
+    width: 25px;
+    transform: translateY(-8px);
+    right: 0;
+  }
+
+  .navToggle .bar::after {
+    width: 32px;
+    transform: translateY(8px);
+  }
+
+  .navToggle.open .bar {
+      transform: translateX(-40px);
+      background: transparent;
+  }
+
+  .navToggle.open .bar::before {
+      width: 32px;
+      transform: rotate(45deg) translate(26px, -26px);
+  }
+
+  .navToggle.open .bar::after {
+    transform: rotate(-45deg) translate(26px, 26px);
+  }
+
+  .userBtn{
+    background-color: var(--negro-navBar-filters-btn);
+    margin: auto;
+  }
+  .cart{
+    margin: auto;
+  }
+  .guestBtn{
+    margin-left: 0;
+    background-color: var(--negro-navBar-filters-btn);
+  }
+}
