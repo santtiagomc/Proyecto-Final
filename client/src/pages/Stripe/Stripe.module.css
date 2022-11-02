@@ -1,80 +1,78 @@
 .container {
   display: flex;
-  margin-top: 100px;
-  justify-content: center;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+  gap: 20px;
+  position: relative;
+  margin-top: 150px;
+}
+
+.backButton {
+  background: var(--negro-navBar-filters-btn);
+  border-radius: 0.3125rem;
+  font-size: 14px;
+  color: #ffffff;
+  border: 0.0625rem solid var(--violeta-primario);
+  padding: 5px 30px;
+  top: -70px;
+  position: absolute;
 }
 
 .pagar{
   color: #FFF;
-  margin-left: 16.5rem;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .priceTotalContainer{
   background: red;
 }
 
-.precioUnidad{
+.stock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceStock{
   color: rgb(169, 169, 169);
-  margin-block-start: 1.67em;
-  margin-block-end: 1.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  display: block;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
   font-size: 1.25rem;
-  margin-left: 30rem;
 }
 
 .totalPrice {
-  background-color: transparent;
-  position: absolute;
-  margin-bottom: 10rem;
-  bottom: 1rem;
-  right: 63.9rem;
   color: var(--extra-color);
-  display: block;
-  font-size: 1.5rem;
-  padding: 0.23%;
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .total{
-  background-color: #202020;
-  position: absolute;
-  margin-bottom: 10rem;
-  bottom: 1rem;
-  right: 64.5rem;
   color: var(--extra-color);
-  display: block;
   font-size: 1.5rem;
-  left: 8rem;
-  width: 39.99%;
-  padding: 0.233%;
   font-weight: bold;
 }
 
+.prices {
+  margin-top: 15px;
+  display: flex;
+  background-color: #202020;
+  align-items: center;
+  padding: 13px;
+  justify-content: space-between;
+}
+
 .product {
-  width: 40rem;
-  height: 50rem;
+  width: 640px;
   border-radius: 0.2rem;
-  margin-right: 0.1rem;
 }
 
 .payment {
-  width: 40rem;
-  height: 50rem;
-  /* border-radius: 0.2rem;
-  display: grid; */
-  justify-content: center;
+  width: 620px;
 }
 
 .button {
-  width: 35%;
-  /* padding: 0.57rem; */
-  margin-left: 20rem;
+  padding: 0.2rem 2.8rem;
   height: 4%;
   background-color: var(--negro-navBar-filters-btn);
   border-radius: 5px;
@@ -83,22 +81,16 @@
   font-weight: 500;
   cursor: pointer;
   border: 2px solid var(--violeta-primario);
-  margin-top: 1.5rem;
-  margin-left: 13.5rem;
 }
 
 
 .pay {
-    /* margin-bottom: 20px; */
-    /* position: relative; */
-    /* padding: 3.61rem; */
     padding: 1.5rem;
     background-color: var(--extra-color);
     width: 80%;
-    margin-left: 5rem;
-    margin-top: 5rem;
     border: 2px solid var(--violeta-primario);
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .err {
@@ -107,21 +99,14 @@
     top: 20px;
 }
 
-.form {
-  margin: 1.5em 6em;
-	width: 75%;
+.stripeControl {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .input {
-	flex-grow: 1;
-	width: 60rem;
-	height: auto;
-	position: relative;
-	cursor: text;
+  width: 75%;
 	background: #d9d9d9;
 	box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 5px;
@@ -136,50 +121,52 @@
 
 .detail {
   display: flex;
-  flex-direction: row;
-  align-items: end;
+  flex-direction: column;
   color: rgb(169, 169, 169);
-  padding: 1em 2.5em 1em 2.5em;
-  overflow: hidden;
   border-color: #FFF 1px;
-  margin-left: -15rem;
-  margin-top: 0.6rem;
+  overflow-y: auto;
+  height: 450px;
 }
 
-.detail_product {
+.quantityProduct {
+  font-size: 1.3rem;
+}
+
+.infoProduct {
   display: flex;
-  align-items: center;
-  margin-bottom: 2%;
+  justify-content: space-between;
 }
 
 .detail_price {
-  margin-left: 13rem;
   font-size: 1.3rem;
+}
+
+.detailProduct {
+  display: flex;
+}
+
+.bookInfo {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.detailInfo {
+  width: 100%;
+  padding: 15px;
 }
 
 .hr{
   background: red;
-  width: 42%;
-  position: absolute;
-  margin-bottom: 0%;
+  margin: 0;
 }
 
-.detail_img {
-  height: 5rem;
-  width: auto;
-  object-fit: cover;
-  object-position: center;
-}
-
-.detail_info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 1.875rem;
+.detailImg {
+  height: 6rem;
+  width: 3.4rem;
+  margin-top: 9px;
 }
 
 .detail_info_h2 {
-  margin-bottom: 0.9375rem;
   color: #ffffff;
   font-size: 20px;
  }
@@ -230,4 +217,16 @@
 	justify-content: center;
 	width: 100px;
     height: 100px;
+}
+
+
+@media (max-width: 1450px) {
+  .product {
+    width: 500px;
+  }
+  
+  .payment {
+    width: 500px
+  }
+  
 }

@@ -33,6 +33,11 @@ import {
   DELETE_GENRE,
   PUT_CART_STATUS,
   GET_USER_DB,
+  USERS_SEARCH_ADMIN,
+  BOOKS_SEARCH_ADMIN,
+  CARTS_SEARCH_ADMIN,
+  GENRES_ORDER_ADMIN,
+  EDIT_ID,
 } from "./actions";
 
 const initialState = {
@@ -65,17 +70,28 @@ const initialState = {
   putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
-  usersOrderAdmin: "name-A-Z",
+  usersFiltersAdmin: {
+    sort: "name-A-Z",
+    searchValue: "",
+  },
   allBooks: [],
-  booksOrderAdmin: "name-A-Z",
+  booksFiltersAdmin: {
+    sort: "name-A-Z",
+    searchValue: "",
+  },
   allCarts: [],
-  cartsOrderAdmin: "price-max-min",
+  cartsFiltersAdmin: {
+    sort: "status-Z-A",
+    searchValue: "",
+  },
+  genresFiltersAdmin: "name-A-Z",
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "orders",
+  tableViewGlobal: "addBook",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
+  edit_id: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -132,7 +148,11 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
 
     case GET_CART:
-      return { ...state, cart: action.payload };
+      if (state.user && state.user.uid) {
+        return { ...state };
+      } else {
+        return { ...state, cart: action.payload };
+      }
 
     case GET_USER_CART:
       // console.log(action.payload);
@@ -195,14 +215,54 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, tableViewGlobal: action.payload };
 
     case USERS_ORDER_ADMIN:
-      return { ...state, usersOrderAdmin: action.payload };
+      return {
+        ...state,
+        usersFiltersAdmin: { ...state.usersFiltersAdmin, sort: action.payload },
+      };
+
+    case USERS_SEARCH_ADMIN:
+      return {
+        ...state,
+        usersFiltersAdmin: {
+          ...state.usersFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
 
     case BOOKS_ORDER_ADMIN:
-      return { ...state, booksOrderAdmin: action.payload };
+      return {
+        ...state,
+        booksFiltersAdmin: { ...state.booksFiltersAdmin, sort: action.payload },
+      };
+
+    case BOOKS_SEARCH_ADMIN:
+      return {
+        ...state,
+        booksFiltersAdmin: {
+          ...state.booksFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
 
     case CARTS_ORDER_ADMIN:
-      return { ...state, cartsOrderAdmin: action.payload };
+      return {
+        ...state,
+        cartsFiltersAdmin: { ...state.cartsFiltersAdmin, sort: action.payload },
+      };
 
+    case CARTS_SEARCH_ADMIN:
+      return {
+        ...state,
+        cartsFiltersAdmin: {
+          ...state.cartsFiltersAdmin,
+          searchValue: action.payload,
+        },
+      };
+
+    case GENRES_ORDER_ADMIN:
+      return { ...state, genresFiltersAdmin: action.payload };
+
+    //------------ END LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
     case POST_GENRE:
       return { ...state, messageGlobal: action.payload };
 
@@ -215,6 +275,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_DB:
       // console.log(action.payload);
       return { ...state, userDb: action.payload };
+
+    case EDIT_ID:
+      return { ...state, edit_id: action.payload };
 
     default:
       return { ...state };

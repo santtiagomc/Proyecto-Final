@@ -58,7 +58,7 @@
   transition: 0.5s;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .table_container {
     margin: 2.5em 2em;
   }
@@ -146,6 +146,7 @@
 
 .i_order {
   font-size: 1.4em;
+  background-color: transparent;
 }
 
 .col0,
@@ -266,7 +267,7 @@
 
 .btn {
   color: var(--extra-color);
-  background-color: var(--negro-backgound);
+  background-color: transparent;
   border: none;
 }
 

@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Cart, Users, Books } = require('../db');
+const { Cart, Users, Books, Genres } = require('../db');
 
 async function getOrders({ sort, searchValue }) {
   try {
@@ -39,6 +39,9 @@ async function getOrders({ sort, searchValue }) {
           model: Books,
           attributes: ["name", "image", "author", "price"],
           through: { attributes: {} },
+          include: [{
+            model: Genres
+          }]
         }]
       });
 

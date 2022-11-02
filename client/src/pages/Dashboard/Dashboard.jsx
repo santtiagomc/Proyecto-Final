@@ -12,17 +12,20 @@ import {
   FaFileInvoiceDollar,
   MdDashboardCustomize,
   MdClear,
+  BsFillPencilFill,
 } from "react-icons/all";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import CreateBook from "../CreateBook/CreateBook";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
+  EDIT_ID,
   getAllBooks,
   getAllUsers,
   getCarts,
+  GET_DETAIL,
   TABLE_VIEW,
   USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
@@ -32,14 +35,29 @@ import { templateAlertTopEnd } from "../../helpers/templateAlert";
 import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { tableViewGlobal, detail, usersFiltersAdmin, cartsFiltersAdmin, booksFiltersAdmin } = useSelector(
-    (state) => state
-  );
+  const {
+    tableViewGlobal,
+    detail,
+    usersFiltersAdmin,
+    cartsFiltersAdmin,
+    booksFiltersAdmin,
+    edit_id
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+
+  const query = location.search.slice(4);
 
   const [hidden, setHidden] = useState(false);
   const [searchValue, setSearch] = useState("");
+
+  // useEffect(() => {
+  //   if (tableViewGlobal !== "addBook") {
+  //     dispatch({ type: EDIT_ID, payload: "" })
+  //     dispatch({ type: GET_DETAIL, payload: [] })
+  //   }
+  // }, [tableViewGlobal])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,15 +72,18 @@ export default function Dashboard() {
       templateAlert("El campo no puede estar vacío", null, "warning", 3000);
     }
 
-    setSearch("")
-    e.target.reset()
+    setSearch("");
+    e.target.reset();
   };
 
   const handleClear = (e) => {
     e.preventDefault();
-    tableViewGlobal === "users" && dispatch({ type: USERS_SEARCH_ADMIN, payload: [] });
-    tableViewGlobal === "orders" && dispatch({ type: CARTS_SEARCH_ADMIN, payload: [] });
-    tableViewGlobal === "books" && dispatch({ type: BOOKS_SEARCH_ADMIN, payload: [] });
+    tableViewGlobal === "users" &&
+      dispatch({ type: USERS_SEARCH_ADMIN, payload: [] });
+    tableViewGlobal === "orders" &&
+      dispatch({ type: CARTS_SEARCH_ADMIN, payload: [] });
+    tableViewGlobal === "books" &&
+      dispatch({ type: BOOKS_SEARCH_ADMIN, payload: [] });
   };
 
   const handleLogOut = async () => {
@@ -87,10 +108,10 @@ export default function Dashboard() {
             <span className={style.title}>Inicio</span>
           </li>
           <div>
-
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "dashboard" && style.hovered}
             >
@@ -100,6 +121,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "users" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "users" && style.hovered}
             >
@@ -109,6 +131,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "orders" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "orders" && style.hovered}
             >
@@ -118,6 +141,7 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "books" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "books" && style.hovered}
             >
@@ -127,17 +151,23 @@ export default function Dashboard() {
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "addBook" && style.hovered}
             >
-              <FaBook className={style.i} />
+              {detail.id || query ? (
+                <BsFillPencilFill className={style.i} />
+              ) : (
+                <FaBook className={style.i} />
+              )}
               <span className={style.title}>
-                {detail.name ? "Editar libro" : "Agregar un libro"}
+                {detail.name || query ? "Editar libro" : "Agregar un libro"}
               </span>
             </li>
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "genres" });
+                setHidden(false);
               }}
               className={tableViewGlobal === "genres" && style.hovered}
             >
@@ -191,7 +221,7 @@ export default function Dashboard() {
             <div className={style.logo}></div>
           </div>
 
-          <div>
+          <div className={style.main_panels}>
             {tableViewGlobal === "dashboard" && <PanelUsers />}
             {tableViewGlobal === "users" && <PanelUsers />}
             {tableViewGlobal === "orders" && <PanelOrders />}
@@ -202,6 +232,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

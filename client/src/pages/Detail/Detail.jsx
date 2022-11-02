@@ -10,6 +10,8 @@ import {
   postCart,
   getGuestCart,
   putBook,
+  TABLE_VIEW,
+  EDIT_ID,
 } from "../../redux/actions";
 
 import Review from "../../components/Review/Review.jsx";
@@ -30,7 +32,6 @@ export default function Detail() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(userDb);
     dispatch(getDetail(id));
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
@@ -49,9 +50,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-        myBook.Reviews.map((el) => {
-          return el.rating;
-        }).length
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -178,7 +179,7 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.btnBack} onClick={() => history.goBack()}>
+          <button className={style.btnBack} onClick={() => history.push("/")}>
             <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>
@@ -200,16 +201,22 @@ export default function Detail() {
                   </div>
                 )}
               </button>
-              <NavLink to={`/edit/${id}`}>
-                <button className={style.btnStatusT}>
-                  Editar producto <i class="fa-solid fa-pencil"></i>
-                </button>
-              </NavLink>
+              <button
+                className={style.btnStatusT}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({ type: EDIT_ID, payload: myBook.id })
+                  dispatch({ type: TABLE_VIEW, payload: "addBook" });
+                  history.push(`/admin`);
+                }}
+              >
+                Editar producto <i class="fa-solid fa-pencil"></i>
+              </button>
             </div>
           )}
       </div>
       {myBook.name ? (
-        <div>
+        <div className={style.detailInfo}>
           {myBook.visible ? null : (
             <h2 className={style.h2alert}>Producto no disponible</h2>
           )}
@@ -296,7 +303,7 @@ export default function Detail() {
 
               {user ? (
                 userDb &&
-                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                  (userDb.role === "Admin++" || userDb.role === "Admin") ? (
                   <h3 className={style.price}>USD {myBook.price}</h3>
                 ) : (
                   userDb.role === "Usuario" && (
@@ -371,7 +378,9 @@ export default function Detail() {
           <Review id={id} />
         </div>
       ) : (
-        <img src={Loader} alt="Logo loader" className={style.loader} />
+        <div className={style.loaderContainer}>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
+        </div>
       )}
     </>
   );

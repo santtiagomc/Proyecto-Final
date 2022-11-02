@@ -29,6 +29,7 @@ export default function Home() {
     books,
     user,
     userDb,
+    putStatusBook
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -56,6 +57,7 @@ export default function Home() {
     dispatch,
     editorials.length,
     genres.length,
+    putStatusBook
   ]);
 
   useEffect(() => {
