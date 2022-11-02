@@ -249,3 +249,61 @@ a:hover {
   font-size: large;
 }
 
+@media (max-width:700px) {
+  .cart_container{
+    margin: 1em 1rem 0 1em;
+    height: 100%;
+  }
+  
+  .attributes{
+    visibility: hidden;
+    margin-top: -4rem;
+  }
+  .detail_img{
+    height: 8rem;
+    width: 5rem;
+  }
+  .detail{
+    padding: 0;
+  }
+  .detail_info{
+    font-size: 18px;
+  }
+  .detail_product{
+    flex-wrap: wrap;
+    width: 6rem;
+    justify-content: center;
+  }
+  .detail_info_h2{
+    font-size: 22px;
+    width: 7rem;
+    margin-left: -14px;
+    margin-top: 8px;
+  }
+  .detail_info_h4{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 7rem;
+  }
+  h5{
+    margin-left: -8px;
+  }
+  h3{
+    margin-right: 6px;
+  }
+  .detail_quantity{
+    width: 6rem;
+    margin: 0 12px;
+  }
+  .btnDelete{
+    margin-left: 10rem;
+  }
+  .botonComprar{
+    margin-left: 18rem;
+    width: -webkit-fill-available;
+  }
+  .btnBack{
+    margin-top: 4rem;
+  }
+}

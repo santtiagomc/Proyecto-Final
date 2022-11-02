@@ -245,3 +245,38 @@
   height: 320px;
 }
 
+@media (max-width: 700px) {
+  .image{
+    width: 10rem;
+    height: 14rem;
+  }
+  .commandsContainer{
+    margin: 4rem 0 0 1rem;;
+  }
+  .container{
+    margin-left: 8px;
+    display: flex;
+    padding: 0;
+    margin: 0px;
+    align-items: center;
+    flex-direction: column;
+  }
+  .containerBuy{
+    margin-bottom: 4rem;
+    flex-direction: column;
+  }
+  .info{
+    padding: 1rem;
+  }
+  .cart{
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .number{
+    top: -2%;
+    right: -2%;
+  }
+  .price{
+    margin: 0;
+  }
+}
