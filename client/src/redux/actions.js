@@ -227,10 +227,7 @@ export function putStatus(id) {
 export function putBook(id, body) {
   return async function (dispatch) {
     try {
-      const json = await axios.put(
-        `/book/details/${id}`,
-        body
-      );
+      const json = await axios.put(`/book/details/${id}`, body);
       return dispatch({
         type: PUT_BOOK,
         payload: json.data,
@@ -266,9 +263,7 @@ export function postCart(cart) {
 export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `/cart?localS=${localStorage}`
-      );
+      const response = await axios.get(`/cart?localS=${localStorage}`);
       return dispatch({
         type: GET_CART,
         payload: response.data,
@@ -385,9 +380,7 @@ export function putUserCart(cartId, bookId) {
 export function deleteUserCart(cartId) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `/cart?cartId=${cartId}`
-      );
+      const response = await axios.delete(`/cart?cartId=${cartId}`);
 
       return dispatch({
         type: DELETE_USER_CART,
@@ -405,9 +398,7 @@ export function deleteUserCart(cartId) {
 export function getAllUsers({ sort, searchValue }) {
   return async function (dispatch) {
     try {
-      const json = await axios(
-        `/user?sort=${sort}&searchValue=${searchValue}`
-      );
+      const json = await axios(`/user?sort=${sort}&searchValue=${searchValue}`);
       return dispatch({
         type: GET_ALL_USERS,
         payload: json.data,
@@ -461,12 +452,10 @@ export function getCarts({ sort, searchValue }) {
 }
 
 //-------para modificar el estado de un carrito
-export function putCartStatus(id) {
+export function putCartStatus(cart) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `/cart/status?id=${id}`
-      );
+      const response = await axios.put(`/cart/status`, cart);
       return dispatch({
         type: PUT_CART_STATUS,
         payload: response.data,
@@ -523,9 +512,7 @@ export function postGenre(genre) {
 export function deleteGenre(name) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `/genres/${name}`
-      );
+      const response = await axios.delete(`/genres/${name}`);
       return dispatch({
         type: DELETE_GENRE,
         payload: response.data,

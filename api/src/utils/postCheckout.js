@@ -31,7 +31,9 @@ async function postCheckout({ cart, stripeId, userId }) {
 
     const user = await Users.findByPk(userId);
 
-    sendEmail("purchase", { user, cart, stripeId });
+    sendEmail("purchase", { user, cart });
+    console.log("CORREO PURCHASE ENVIADO");
+
     return { message: "Pago realizado correctamente" };
   } catch (error) {
     console.log(error);
