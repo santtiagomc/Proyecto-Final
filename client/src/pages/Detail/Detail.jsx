@@ -50,9 +50,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-      myBook.Reviews.map((el) => {
-        return el.rating;
-      }).length
+        myBook.Reviews.map((el) => {
+          return el.rating;
+        }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -103,7 +103,6 @@ export default function Detail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-
     if (user) {
       let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
       if (quantityObject) {
@@ -134,6 +133,13 @@ export default function Detail() {
 
       if (cartLS) {
         if (uniqueIdArrayCart.includes(id)) {
+          // if (myBook.stock - quantity[id] === 0) {
+          //   swalAlert(
+          //     2000,
+          //     "error",
+          //     "Alcanzaste el stock máximo de este producto"
+          //   );
+          // } else
           if (quantity[id] < 5) {
             localStorage.setItem("cart", `${cartLS},${id}`);
 
@@ -205,7 +211,7 @@ export default function Detail() {
                 className={style.btnStatusT}
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch({ type: EDIT_ID, payload: myBook.id })
+                  dispatch({ type: EDIT_ID, payload: myBook.id });
                   dispatch({ type: TABLE_VIEW, payload: "addBook" });
                   history.push(`/admin`);
                 }}
@@ -303,7 +309,7 @@ export default function Detail() {
 
               {user ? (
                 userDb &&
-                  (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
                   <h3 className={style.price}>USD {myBook.price}</h3>
                 ) : (
                   userDb.role === "Usuario" && (
