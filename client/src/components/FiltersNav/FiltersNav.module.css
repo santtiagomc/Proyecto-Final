@@ -46,3 +46,9 @@
   cursor: pointer;
   margin: 1em 1em 0.5em 1em;
 }
+@media (max-width:700px) {
+  .navContainer{
+    margin-top: 4rem;
+    flex-wrap: wrap;
+  }
+}

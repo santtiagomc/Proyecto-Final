@@ -70,11 +70,11 @@ export default function NavBar() {
         <div>
           <SearchBar />
         </div>
-        <div className={style.forms}>
+        <div className={`${style.forms} ${isOpen && style.open}`}>
           {!user ? (
             <>
               <div>
-                <Link to="/login">
+                <Link to="/login" className={style.aa}>
                   <button className={style.guestBtn}>
                     Iniciar sesión
                     {/* <i className="fa-solid fa-user"></i> */}
@@ -82,7 +82,7 @@ export default function NavBar() {
                 </Link>
               </div>
               <div>
-                <Link to="/cart">
+                <Link to="/cart" className={style.aa}>
                   <button className={style.cart}>
                     <i className="fa-solid fa-cart-shopping"></i>
                     {!user ? (
@@ -100,7 +100,7 @@ export default function NavBar() {
             </>
           ) : userDb.role === "Admin++" || userDb.role === "Admin" ? (
             <div>
-              <Link to="/admin">
+              <Link to="/admin" className={style.aa}>
                 <button className={style.buttonDash}>Dashboard</button>
               </Link>
             </div>
@@ -117,7 +117,7 @@ export default function NavBar() {
                   className={`${style.menu} ${show ? style.show : style.hide}`}
                 >
                   <ul className={style.list}>
-                    <Link to="/profile">
+                    <Link to="/profile" className={style.aa}>
                       <li onClick={() => setShow(false)} className={style.text}>
                         Mi cuenta
                       </li>
@@ -129,7 +129,7 @@ export default function NavBar() {
                 </div>
               </div>
               <div>
-                <Link to="/cart">
+                <Link to="/cart" className={style.aa}>
                   <button className={style.cart}>
                     <i className="fa-solid fa-cart-shopping"></i>
                     {!user ? (
@@ -146,6 +146,9 @@ export default function NavBar() {
               </div>
             </>
           )}
+        </div>
+        <div className={`${style.navToggle} ${isOpen && style.open}`} onClick={() => setIsOpen(!isOpen)}>
+          <div className={style.bar}></div>
         </div>
       </nav>
     </>
