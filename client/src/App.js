@@ -26,7 +26,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001/";
 
 function App() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state);
+  const { user, userDb } = useSelector((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -42,6 +42,12 @@ function App() {
     }
   }, [dispatch, user]);
 
+  /*
+  user && userDb 
+  ? userDb.role === "Admin" || userDb.role === "Admin++"
+  */
+
+
   return (
     <BrowserRouter>
       <NavBar />
@@ -54,7 +60,16 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/stripe" component={Stripe} />
         <Route exact path="/profile" component={UserProfile} />
-        <Route exact path="/admin" component={Dashboard} />
+        {user && userDb
+          ? userDb.role === "Admin" || userDb.role === "Admin++"
+            ? <Route exact path="/admin" component={Dashboard} />
+            : <Route path="/admin">
+              <Redirect to="/" />
+            </Route>
+          : <Route path="/admin">
+            <Redirect to="/" />
+          </Route>}
+        {/* <Route exact path="/admin" component={Dashboard} /> */}
         <Route path="*">
           <Redirect to="/" />
         </Route>
