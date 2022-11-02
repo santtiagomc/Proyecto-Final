@@ -60,7 +60,7 @@ export default function NavBar() {
     <>
       <nav
         className={
-          pathname === "/admin" ? `${style.nav} ${style.none}` : style.nav
+          pathname === "/admin" || pathname === "/profile" ? `${style.nav} ${style.none}` : style.nav
         }
       >
         <div>
