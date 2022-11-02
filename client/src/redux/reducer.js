@@ -36,6 +36,8 @@ import {
   USERS_SEARCH_ADMIN,
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
+  GENRES_ORDER_ADMIN,
+  EDIT_ID
 } from "./actions";
 
 const initialState = {
@@ -82,12 +84,14 @@ const initialState = {
     sort: "status-Z-A",
     searchValue: ""
   },
+  genresFiltersAdmin: "name-A-Z",
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "users",
+  tableViewGlobal: "addBook",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
+  edit_id: ""
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -230,6 +234,9 @@ export default function rootReducer(state = initialState, action) {
     case CARTS_SEARCH_ADMIN:
       return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, searchValue: action.payload } };
 
+    case GENRES_ORDER_ADMIN:
+      return { ...state, genresFiltersAdmin: action.payload };
+
     //------------ END LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
     case POST_GENRE:
       return { ...state, messageGlobal: action.payload };
@@ -243,6 +250,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_DB:
       // console.log(action.payload);
       return { ...state, userDb: action.payload };
+
+    case EDIT_ID:
+      return { ...state, edit_id: action.payload }
 
     default:
       return { ...state };
