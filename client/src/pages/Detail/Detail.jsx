@@ -184,7 +184,7 @@ export default function Detail() {
     <>
       <div className={style.commandsContainer}>
         <div className={style.volverContainer}>
-          <button className={style.btnBack} onClick={() => history.push("/")}>
+          <button className={style.btnBack} onClick={() => history.goBack()}>
             <AiOutlineArrowLeft className={style.btnArr} />
           </button>
         </div>

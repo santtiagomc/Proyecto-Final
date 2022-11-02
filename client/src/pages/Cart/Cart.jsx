@@ -106,7 +106,7 @@ export default function Cart() {
     } else {
       if (quantity[e.target.value] > 1) {
         let index = repeatedIdArrayCart.indexOf(e.target.value);
-        let filtered = repeatedIdArrayCart.splice(index, 1);
+        repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
