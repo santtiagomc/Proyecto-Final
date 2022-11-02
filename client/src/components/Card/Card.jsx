@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { putStatus, TABLE_VIEW } from "../../redux/actions";
+import { EDIT_ID, putStatus, TABLE_VIEW } from "../../redux/actions";
 import style from "./CardPrueba.module.css";
 
 export default function Card({
@@ -44,8 +44,8 @@ export default function Card({
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch({ type: TABLE_VIEW, payload: "addBook" });
-
-                    history.push(`/admin?id=${id}`);
+                    history.push(`/admin`);
+                    dispatch({ type: EDIT_ID, payload: id })
                   }}
                 >
                   <i class="fa-solid fa-pencil"></i>

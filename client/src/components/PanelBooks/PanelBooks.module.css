@@ -58,7 +58,7 @@
   transition: 0.5s;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .table_container {
     margin: 2.5em 2em;
   }

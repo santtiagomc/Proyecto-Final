@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import {
   addBooks,
+  EDIT_ID,
   getDetail,
   getGenres,
   GET_DETAIL,
@@ -90,21 +91,21 @@ export default function CreateBook() {
   const location = useLocation();
   const query = location.search.slice(4);
 
-  const { genres, create } = useSelector((state) => state);
-  const detail = useSelector((state) => state.detail);
+  const { genres, create, edit_id, detail } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
   let [imageName, setImageName] = useState("");
 
   const params = useParams();
 
   useEffect(() => {
-    if (query) {
-      dispatch(getDetail(query));
+    if (edit_id) {
+      dispatch(getDetail(edit_id));
     }
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
+      dispatch({ type: EDIT_ID, payload: "" });
     };
-  }, [dispatch, query, create]);
+  }, [dispatch, edit_id]);
 
   const [errors, setErrors] = useState({});
 
@@ -187,10 +188,6 @@ export default function CreateBook() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(input);
-    console.log(detail);
-    console.log(query);
-
     if (!detail.id) {
       if (Object.keys(errors).length === 0) {
         dispatch(addBooks(input));
@@ -221,17 +218,19 @@ export default function CreateBook() {
         edition: "",
         genre: [],
       });
-      if (query) {
-        history.push(`/detail/${query}`);
-        dispatch({ type: TABLE_VIEW, payload: "dashboard" });
-      }
-      detail.id && !query && dispatch({ type: TABLE_VIEW, payload: "books" });
-      !detail.id && !query && dispatch({ type: TABLE_VIEW, payload: "books" });
+
+      // if (edit_id) {
+      //   history.push(`/detail/${edit_id}`);
+      //   dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+      // }
+
+      dispatch({ type: TABLE_VIEW, payload: "books" });
+
     } else if (create.messageError) {
       templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
     }
-  }, [create, dispatch, detail.id, history]);
+  }, [create, dispatch]);
 
   function handleChange(e) {
     setInput({
@@ -273,6 +272,7 @@ export default function CreateBook() {
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
+              autofocus="true"
             />
             {input.name && errors.name && (
               <div className={style.err}>
@@ -505,19 +505,19 @@ export default function CreateBook() {
                 className={style.btn_link}
                 onClick={(e) => {
                   e.preventDefault();
-                  if (query) {
+                  if (edit_id) {
                     history.goBack();
                     dispatch({ type: TABLE_VIEW, payload: "dashboard" });
                   }
                   detail.id &&
-                    !query &&
+                    !edit_id &&
                     dispatch({ type: TABLE_VIEW, payload: "books" });
                   !detail.id &&
-                    !query &&
+                    !edit_id &&
                     dispatch({ type: TABLE_VIEW, payload: "dashboard" });
                 }}
               >
-                {query || detail.id ? "Cancelar" : "Volver"}
+                {edit_id || detail.id ? "Cancelar" : "Volver"}
               </button>
               {/*   </Link> */}
             </div>
