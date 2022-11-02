@@ -14,9 +14,10 @@
 	display: flex;
 	flex-direction: row;
 	position: relative;
-	height: 100vh;
-	margin-top: -6vh; 
-	margin-bottom: -6.80rem;
+	height: calc(100vh - 60px);
+	
+	/* margin-top: -6vh;  */
+	/* margin-bottom: -6.80rem; */
 	z-index: 1000;
 	
 }
@@ -31,7 +32,7 @@
 	position: fixed;
 	width: 19em;
 	height: 100%;
-	margin-top: 6vh;
+	/* margin-top: 6vh; */
 	background-color: var(--verde-primario);
 	/* background-color: #6F69AC; */
 	/* background-color: #363062; */
@@ -168,7 +169,7 @@
 
 .toggle {
 	position: relative;
-	top: 6vh;
+	/* top: 6vh; */
 	width: 60px;
 	height: 60px;
 	display: flex;
@@ -203,16 +204,16 @@
 .label {
 	font-size: 16px;
 	color: var(--extra-color);
-	float: left;
 	padding: 0.4em 3.8em;
-	margin-left: 12%;
+	width: 50%;
 }
 
-.p {
+.span {
 	font-size: 16px;
 	color: var(--extra-color);
-	padding: 0.7em 3.8em;
-	margin-left: 65%
+	padding: 0.4em 3.8em;
+	width: 50%;
+
 }
 
 .form {
@@ -273,7 +274,7 @@
 .loader {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
   width: 20em;
 }
@@ -284,15 +285,13 @@
 	flex-direction: column;
 } 
 
-.shopping:disabled{
-	display: none;
-}
-
 .books {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start; 
 	flex-direction: row;
+	margin-bottom: 1em;
+	padding-right: 1em;
 } 
 
 .containerC {
@@ -314,10 +313,10 @@
 	margin-top: 5px;
 }
 
-/* .portada {
-	width: 70px;
+.portada {
+	width: 50px;
 	margin-right: 20px;
-} */
+} 
 
 .li {
 	color: var(--extra-color);
@@ -326,37 +325,37 @@
 .name {
 	color: var(--extra-color);
 	font-size: 16px;
+	width: 50%;
+	padding-right: 2em;
 
 }
 
 .price {
 	color: var(--extra-color);
 	font-size: 16px;
-
+	width: 20%;
 }
 
 .quantity {
 	color: var(--extra-color);
 	font-size: 16px;
-
+	width: 20%;
 }
 
 .detail {
 	color: var(--extra-color);
 	font-size: 16px;
-
+	width: 10%;
 }
 
 .detail:hover {
 	color: var(--violeta-primario);
 }
 
-
 .status {
 	color: var(--extra-color);
 	font-size: 16px;
-	margin-top: 0px;
-	margin-left: 125px;
+	margin-top: 20px;
 }
 
 .btn {
