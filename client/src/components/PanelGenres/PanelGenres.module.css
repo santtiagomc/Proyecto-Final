@@ -12,6 +12,7 @@
 .panel_genres {
   height: calc(100vh - 60px);
   position: relative;
+  background-color: red;
 }
 
 .panel_genres img {
@@ -32,10 +33,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-direction: row;
+  gap: 2em;
   height: calc(100vh - 60px);
   /* padding: 0 2em; */
   color: var(--extra-color);
   overflow: hidden;
+  background-color: green;
 }
 
 .container.active {

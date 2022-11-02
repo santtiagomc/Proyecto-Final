@@ -259,7 +259,7 @@ export default function PanelBooks() {
                 })}
             </div>
 
-            {/* <div className={style.stats_container}>
+            <div className={style.stats_container}>
               <div className={style.subContainer}>
                 <div className={style.stats}>
                   <div className={style.addGenre}>
@@ -282,7 +282,7 @@ export default function PanelBooks() {
                 <div className={style.stats}>tarjeta3</div>
                 <div className={style.stats}>tarjeta 4</div>
               </div>
-            </div> */}
+            </div>
           </div>
         )}
     </div>
