@@ -1,4 +1,6 @@
+const { templateDelivered } = require("./templateDelivered");
 const { templatePurchase } = require("./templatePurchase");
+const { templateWelcome } = require("./templateWelcome");
 
 const welcome = "welcome";
 const purchase = "purchase";
@@ -30,64 +32,23 @@ const templateHTML = (subject, data) => {
       if (!data.user.email || !data.user.fullName)
         throw new Error("Necessary values missing");
 
-      return `<h1>Bienvenido a Books Nook!</h1>
-            <h3>Hola ${data.user.fullName},</h3> 
-            <p>aqui te dejamos los datos de tu cuenta.</p>
-            <ul>
-              <li>Correo: ${data.user.email}</li>
-              <li>Nombre de usuario: ${data.user.fullName}</li>
-            </ul>
-            <span>Saludos el equipo de Books Nook</span>
-            `;
+      return templateWelcome(data.user);
 
     case purchase:
-      if (!data.user.fullName || !data.cart.length || !data.stripeId)
+      if (!data.user.fullName || !data.cart.length)
         throw new Error("Necessary values missing");
 
-      console.log(data.user.fullName);
-      console.log(data.cart);
-      console.log(data.stripeId);
-
-      /* let booksQuantity = data.cart.map((el) => {
-        return {
-          name: el.name,
-          quantity: el.quantity,
-          price: el.price,
-        };
-      }); */
       let totalPrice = data.cart.reduce((acc, el) => {
         return (acc = acc + el.quantity * el.price);
       }, 0);
-
-      return templatePurchase(data.user, data.cart, data.stripeId, totalPrice);
+      console.log(data.cart);
+      return templatePurchase(data.user, data.cart, totalPrice);
 
     case delivered:
       if (!data.user.fullName || !data.cart.length)
         throw new Error("Necessary values missing");
 
-      return `<h1>Entregamos tus nuevos libros!</h1>
-            <p>Hola ${
-              data.user.fullName
-            }, dimos por entregada la compra que realizaste con la dirección ${
-        data.user.address
-      } en ${data.user.city}, ${data.user.province}</p>
-            
-            <span>Entregamos los productos</span>
-            <ul>
-            ${
-              data.cart &&
-              data.cart
-                .map((el) => {
-                  return `<li>${el.name}</li>`;
-                })
-                .join("")
-            }
-            </ul>
-              
-            <span>Por cualquier inconveniente con tu compra puedes comunicarte con booksnookpf@gmail.com, con el asunto "Error en mi compra"</span>
-
-            <p>Esperamos que los disfrutes, saludos el equipo de Books Nook</p>
-            `;
+      return templateDelivered(data.user, data.cart);
 
     case error:
       if (!data.user.fullName || !data.cart.length || !data.stripeId)

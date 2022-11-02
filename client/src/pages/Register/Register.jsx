@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserCart, postCart } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import templateAlert from "../../helpers/templateAlert";
 
 export default function Register() {
   const history = useHistory();
@@ -74,6 +75,12 @@ export default function Register() {
           });
         }, 1500);
       } else {
+        templateAlert(
+          "Registro completado!",
+          "Te enviaremos un correo con tu información",
+          "success",
+          4000
+        );
         setTimeout(() => {
           history.goBack();
         }, 1000);

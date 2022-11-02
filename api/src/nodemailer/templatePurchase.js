@@ -1,30 +1,30 @@
-const templatePurchase = (user, cart, stripeId, totalPrice) => {
+const templatePurchase = (user, cart, totalPrice) => {
   return `<div
-    style="
-      height: 95%;
-      background-color: #181818;
-      width: fit-content;
-
-      color: white;
-      padding: 10px;
-      font-family: Helvetica, sans-serif;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      border-radius: 5px;
-    "
-  >
+  style="
+    height: fit-content;
+    background-color: #181818;
+    width: fit-content;
+    color: white;
+    padding: 10px;
+    font-family: Helvetica, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 5px;
+  "
+>
+  <div style="margin-top: 15px">
     <a
       href="https://proyecto-f-eight.vercel.app/"
       target="_blank"
       style="text-decoration: none"
     >
       <img
-        src="https://i.ibb.co/LprbYkm/Logo-Books-Nook.png"
-        height="250px"
-        width="250px"
+        src="https://i.ibb.co/b2RBPyq/Logo-Books-Nook.png"
+        height="155px"
+        width="300px"
         alt="Books Nook logo"
       />
     </a>
@@ -33,46 +33,46 @@ const templatePurchase = (user, cart, stripeId, totalPrice) => {
       Gracias por tu compra!
     </h1>
     <p style="margin-bottom: 5px">
-        Hola <b>${user.fullName}</b>, actualmente estamos procesando tu compra,
-      </p>
-      <p style="margin-top: 0">aqui te dejamos los datos de la misma.</p>
+      Hola <b>${user.fullName}</b>, actualmente estamos procesando tu
+      compra,
+    </p>
+    <p style="margin-top: 0">aqui te dejamos los datos de la misma.</p>
 
     <div style="margin: 30px 0px">
       <ul
         style="
-          background-color: #b270a2;
           padding: 20px 50px;
           color: #181818;
           border-radius: 10px;
           text-align: center;
           font-size: 1.2rem;
-          list-style-position: inside;
+          list-style: none;
         "
       >
-      ${
-        cart &&
-        cart
-          .map((el) => {
-            return `<li>$${el.price * el.quantity} | ${el.name} x(${
-              el.quantity
-            })</li>`;
-          })
-          .join("")
-      }
+        ${
+          cart &&
+          cart
+            .map((el) => {
+              return `
+        <li
+          style="
+            background-color: #b270a2;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+          "
+        >
+          $${el.price * el.quantity} | ${el.name} x(${el.quantity})
+        </li>
+        `;
+            })
+            .join("")
+        }
       </ul>
-      <!-- <div style="display: flex; padding: 10px">
-        <a href="https://ibb.co/6HCxzz8"
-          ><img
-            src="https://i.ibb.co/n7Jv99B/eternauta.jpg"
-            alt="eternauta"
-            width="128"
-            height="200"
-            border="0"
-        /></a>
-      </div> -->
+
       <span
         style="background-color: #355070; padding: 10px; border-radius: 5px"
-        >Número de orden: <b>${stripeId}</b></span
+        >Número de orden: <b>${cart[0].cartId}</b></span
       >
       <span
         style="
@@ -82,18 +82,18 @@ const templatePurchase = (user, cart, stripeId, totalPrice) => {
           border-radius: 5px;
           margin-left: 5px;
         "
-        >Valor total: <b>$${totalPrice}</b></span
+        >Valor total: <b>$${Math.round(totalPrice)}</b></span
       >
 
       <p style="margin-top: 30px">
-          Lo estaremos enviando a <b>${user.address} en ${user.city}, ${
-    user.province
-  }</b>
-        </p>
+        Lo estaremos enviando a
+        <b>${user.address} en ${user.city}, ${user.province}</b>
+      </p>
     </div>
     <div>
       <p style="font-size: 1.5rem; margin-top: 70px">
-        Saludos, el equipo de <b style="color: #b270a2">Books Nook</b>
+        Saludos, el equipo de <b style="color: #95d9c3">Books</b>
+        <b style="color: #b270a2">Nook</b>
       </p>
       <p>Nuestras redes sociales</p>
       <a
@@ -118,7 +118,8 @@ const templatePurchase = (user, cart, stripeId, totalPrice) => {
         />
       </a>
     </div>
-  </div>`;
+  </div>
+</div>`;
 };
 
 module.exports = {

@@ -13,8 +13,10 @@ async function putCartStatus(cartInfo) {
       : (cart.status = "Procesando");
     await cart.save();
 
-    if (cart.status === "Entregado")
+    if (cart.status === "Entregado") {
       sendEmail("delivered", { user: cartInfo.User, cart: cartInfo.Books });
+      console.log("CORREO COMPRA ENTREGADA ENVIADO");
+    }
 
     return { message: `Has cambiado el estado del carrito a "${cart.status}"` };
   } catch (error) {
