@@ -54,11 +54,11 @@ export function searchBook(filters, search, page, admin) {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
+          `/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       } else {
         json = await axios(
-          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
+          `/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       }
       return dispatch({
@@ -92,7 +92,7 @@ export function changePage(page = 0) {
 export function getEditorials() {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/editorials`);
+      const json = await axios.get(`/editorials`);
       return dispatch({
         type: GET_EDITORIALS,
         payload: json.data,
@@ -110,7 +110,7 @@ export function getEditorials() {
 export function getGenres(sort) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/genres?sort=${sort}`);
+      const json = await axios.get(`/genres?sort=${sort}`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,
@@ -128,7 +128,7 @@ export function getGenres(sort) {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/book/${id}`);
+      const json = await axios.get(`/book/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: json.data,
@@ -146,7 +146,7 @@ export function getDetail(id) {
 export function addBooks(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/books", input);
+      const response = await axios.post("/books", input);
       return dispatch({
         type: POST_BOOKS,
         payload: response.data,
@@ -164,7 +164,7 @@ export function addBooks(input) {
 export function postReviews(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/reviews", input);
+      const response = await axios.post("/reviews", input);
       return dispatch({
         type: POST_REVIEWS,
         payload: response.data,
@@ -183,7 +183,7 @@ export function deleteReviews(input) {
   return async function (dispatch) {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/reviews?UserId=${input.UserId}&BookId=${input.BookId}`
+        `/reviews?UserId=${input.UserId}&BookId=${input.BookId}`
       );
       return dispatch({
         type: DELETE_REVIEW,
@@ -209,7 +209,7 @@ export function resetCreate() {
 export function putStatus(id) {
   return async function (dispatch) {
     try {
-      const json = await axios.put(`http://localhost:3001/book/${id}`);
+      const json = await axios.put(`/book/${id}`);
       return dispatch({
         type: PUT_STATUS,
         payload: json.data,
@@ -228,7 +228,7 @@ export function putBook(id, body) {
   return async function (dispatch) {
     try {
       const json = await axios.put(
-        `http://localhost:3001/book/details/${id}`,
+        `/book/details/${id}`,
         body
       );
       return dispatch({
@@ -248,7 +248,7 @@ export function putBook(id, body) {
 export function postCart(cart) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/cart", cart);
+      const response = await axios.post("/cart", cart);
       return dispatch({
         type: POST_CART,
         payload: response.data,
@@ -267,7 +267,7 @@ export function getGuestCart(localStorage) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart?localS=${localStorage}`
+        `/cart?localS=${localStorage}`
       );
       return dispatch({
         type: GET_CART,
@@ -286,7 +286,7 @@ export function getGuestCart(localStorage) {
 export function getUserCart(userId) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/${userId}`);
+      const response = await axios.get(`/cart/${userId}`);
       return dispatch({
         type: GET_USER_CART,
         payload: response.data,
@@ -305,7 +305,7 @@ export function getMoreRating() {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/books?sort=rating&genres=none&editorial=none&page=0`
+        `/books?sort=rating&genres=none&editorial=none&page=0`
       );
       return dispatch({
         type: GET_MORE_RATING,
@@ -325,7 +325,7 @@ export function getMoreVisits() {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/books?sort=visits&genres=none&editorial=none&page=0`
+        `/books?sort=visits&genres=none&editorial=none&page=0`
       );
       return dispatch({
         type: GET_MORE_VISITS,
@@ -345,7 +345,7 @@ export function getOffers() {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/books?sort=price-min-max&genres=none&editorial=none&page=0`
+        `/books?sort=price-min-max&genres=none&editorial=none&page=0`
       );
       return dispatch({
         type: GET_OFFERS,
@@ -365,7 +365,7 @@ export function putUserCart(cartId, bookId) {
   return async function (dispatch) {
     try {
       const response = await axios.put(
-        `http://localhost:3001/cart?cartId=${cartId}&bookId=${bookId}`
+        `/cart?cartId=${cartId}&bookId=${bookId}`
       );
 
       return dispatch({
@@ -386,7 +386,7 @@ export function deleteUserCart(cartId) {
   return async function (dispatch) {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/cart?cartId=${cartId}`
+        `/cart?cartId=${cartId}`
       );
 
       return dispatch({
@@ -406,7 +406,7 @@ export function getAllUsers({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/user?sort=${sort}&searchValue=${searchValue}`
+        `/user?sort=${sort}&searchValue=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_USERS,
@@ -425,7 +425,7 @@ export function getAllUsers({ sort, searchValue }) {
 export function putUser(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(`http://localhost:3001/user`, input);
+      const response = await axios.put(`/user`, input);
 
       return dispatch({
         type: PUT_USER,
@@ -445,7 +445,7 @@ export function getCarts({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/cart/orders?sort=${sort}&searchValue=${searchValue}`
+        `/cart/orders?sort=${sort}&searchValue=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_CARTS,
@@ -465,7 +465,7 @@ export function putCartStatus(id) {
   return async function (dispatch) {
     try {
       const response = await axios.put(
-        `http://localhost:3001/cart/status?id=${id}`
+        `/cart/status?id=${id}`
       );
       return dispatch({
         type: PUT_CART_STATUS,
@@ -485,7 +485,7 @@ export function getAllBooks({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/books/admin?sort=${sort}&searchValue=${searchValue}`
+        `/books/admin?sort=${sort}&searchValue=${searchValue}`
       );
       console.log(response.data);
       return dispatch({
@@ -504,7 +504,7 @@ export function getAllBooks({ sort, searchValue }) {
 export function postGenre(genre) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`http://localhost:3001/genres`, {
+      const response = await axios.post(`/genres`, {
         name: genre,
       });
       return dispatch({
@@ -524,7 +524,7 @@ export function deleteGenre(name) {
   return async function (dispatch) {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/genres/${name}`
+        `/genres/${name}`
       );
       return dispatch({
         type: DELETE_GENRE,
@@ -543,7 +543,7 @@ export function deleteGenre(name) {
 export function getUserDb(uid) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/user/${uid}`);
+      const response = await axios.get(`/user/${uid}`);
       return dispatch({
         type: GET_USER_DB,
         payload: response.data,

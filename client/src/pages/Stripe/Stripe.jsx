@@ -112,7 +112,7 @@ const CheckoutForm = ({ cart, history, user }) => {
         const { id } = paymentMethod;
         console.log(id);
         console.log(paymentMethod);
-        const res = await axios.post("http://localhost:3001/checkout", {
+        const res = await axios.post("/checkout", {
           stripeId: id,
           cart: cart,
           userId: user,
@@ -127,7 +127,7 @@ const CheckoutForm = ({ cart, history, user }) => {
           background: "#19191a",
           color: "#e1e1e1",
           confirmButtonColor: "#355070",
-          confirmButtonText: `<a href="http://localhost:3000/profile">Aceptar</a>`,
+          confirmButtonText: `<a href="/profile">Aceptar</a>`,
         });
       }
     } catch (error) {

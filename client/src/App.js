@@ -18,6 +18,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
 
+import axios from 'axios'
+import dotenv from "dotenv";
+dotenv.config();
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001/";
+
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
