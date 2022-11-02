@@ -121,12 +121,18 @@ export default function Detail() {
         } else {
           swalAlert(2000, "error", "Alcanzaste el máximo de este producto");
         }
-      } else {
+      } else if (!Array.isArray(cart) || cart.length < 10) {
         dispatch(
           postCart({ userId: user.uid, bookId: e.target.value, suma: true })
         );
 
         swalAlert(2000, "success", "Producto agregado al carrito");
+      } else {
+        swalAlert(
+          2000,
+          "error",
+          "Has alcanzado el límite de productos distintos"
+        );
       }
     } else {
       const cartLS = localStorage.getItem("cart");
@@ -239,7 +245,7 @@ export default function Detail() {
               <h3 className={style.edition}>{myBook.edition}</h3>
               <div
                 className={style.stars}
-                hidden={!avarageRating ? true : false}
+                  hidden={!avarageRating ? true : false}
               >
                 <div className={style.star}>
                   <i
