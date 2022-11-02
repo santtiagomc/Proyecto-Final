@@ -105,8 +105,8 @@ export default function Cart() {
       }
     } else {
       if (quantity[e.target.value] > 1) {
-        // let index = repeatedIdArrayCart.indexOf(e.target.value);
-        // let filtered = repeatedIdArrayCart.splice(index, 1);
+        let index = repeatedIdArrayCart.indexOf(e.target.value);
+        repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
@@ -260,7 +260,7 @@ export default function Cart() {
             <hr></hr>
 
             {cart.map((book) => (
-              <div key={book.id}>
+              <div key={book.id} className={style.detailContainer}>
                 <div className={style.detail}>
                   <div className={`col-7 text-center ${style.detail_product}`}>
                     <img
@@ -318,10 +318,10 @@ export default function Cart() {
                     {/* <i class="fa-regular fa-trash-can"></i> */}
                   </button>
                 </div>
-                <hr></hr>
                 <Link to="/login">
                   <button className={style.botonComprar}>Comprar</button>
                 </Link>
+                <hr></hr>
               </div>
             ))}
           </div>
