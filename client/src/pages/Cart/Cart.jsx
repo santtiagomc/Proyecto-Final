@@ -294,18 +294,33 @@ export default function Cart() {
                     <h3 className={style.detail_quantity_p}>
                       {quantity[book.id]}
                     </h3>
-                    <button
-                      value={book.id}
-                      onClick={handleCartAdd}
-                      className={
-                        buttonDisabled
-                          ? `${style.detail_quantity_button} ${style.button_disabled}`
-                          : style.detail_quantity_button
-                      }
-                      disabled={buttonDisabled}
-                    >
-                      +
-                    </button>
+                    {book.stock - book.quantity === 0 ? (
+                      <button
+                        value={book.id}
+                        //onClick={handleCartS}
+                        // className={
+                        //   buttonDisabled
+                        //     ? `${style.detail_quantity_button} ${style.button_disabled}`
+                        //     : style.detail_quantity_button
+                        // }
+                        disabled="true"
+                      >
+                        +
+                      </button>
+                    ) : (
+                      <button
+                        value={book.id}
+                        onClick={handleCartAdd}
+                        className={
+                          buttonDisabled
+                            ? `${style.detail_quantity_button} ${style.button_disabled}`
+                            : style.detail_quantity_button
+                        }
+                        disabled={buttonDisabled}
+                      >
+                        +
+                      </button>
+                    )}
                   </div>
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
                     {(book.price * quantity[book.id]).toFixed(2)}

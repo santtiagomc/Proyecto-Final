@@ -106,7 +106,13 @@ export default function Detail() {
     if (user) {
       let quantityObject = Array.isArray(cart) && cart.find((b) => b.id === id);
       if (quantityObject) {
-        if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
+        if (quantityObject.stock - quantityObject.quantity === 0) {
+          swalAlert(
+            2000,
+            "error",
+            "Alcanzaste el stock máximo de este producto"
+          );
+        } else if (quantityObject.quantity < 5 || !Array.isArray(cart)) {
           dispatch(
             postCart({ userId: user.uid, bookId: e.target.value, suma: true })
           );
@@ -298,12 +304,14 @@ export default function Detail() {
                       <h3 className={style.price}>USD {myBook.price}</h3>
                       <button
                         className={
-                          myBook.visible && !buttonDisabled
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
                             ? style.cart
                             : `${style.cart} ${style.cartF} `
                         }
                         disabled={
-                          myBook.visible && !buttonDisabled ? false : true
+                          myBook.stock > 0 && myBook.visible && !buttonDisabled
+                            ? false
+                            : true
                         }
                         value={id}
                         type="button"
@@ -330,11 +338,15 @@ export default function Detail() {
                   <h3 className={style.price}>USD {myBook.price}</h3>
                   <button
                     className={
-                      myBook.visible && !buttonDisabled
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
                         ? style.cart
                         : `${style.cart} ${style.cartF} `
                     }
-                    disabled={myBook.visible && !buttonDisabled ? false : true}
+                    disabled={
+                      myBook.stock > 0 && myBook.visible && !buttonDisabled
+                        ? false
+                        : true
+                    }
                     value={id}
                     type="button"
                     onClick={(e) => handleCart(e)}

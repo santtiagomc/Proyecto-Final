@@ -34,7 +34,7 @@ async function getUserCart({ userId }) {
         },
         {
           model: Books,
-          attributes: ["name", "image", "author", "price"],
+          attributes: ["name", "image", "author", "price", "stock"],
           through: { attributes: {} },
         },
       ],
@@ -55,6 +55,7 @@ async function getUserCart({ userId }) {
         author: b.author,
         price: b.price,
         quantity: b.Books_Carts.quantity,
+        stock: b.stock,
       };
     });
 

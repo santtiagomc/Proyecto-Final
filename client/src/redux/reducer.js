@@ -33,9 +33,6 @@ import {
   DELETE_GENRE,
   PUT_CART_STATUS,
   GET_USER_DB,
-  USERS_SEARCH_ADMIN,
-  BOOKS_SEARCH_ADMIN,
-  CARTS_SEARCH_ADMIN,
 } from "./actions";
 
 const initialState = {
@@ -68,23 +65,14 @@ const initialState = {
   putStatusBook: {},
   deleteUserCartResponse: {},
   allUsers: [],
-  usersFiltersAdmin: {
-    sort: "name-A-Z",
-    searchValue: ""
-  },
+  usersOrderAdmin: "name-A-Z",
   allBooks: [],
-  booksFiltersAdmin: {
-    sort: "name-A-Z",
-    searchValue: ""
-  },
+  booksOrderAdmin: "name-A-Z",
   allCarts: [],
-  cartsFiltersAdmin: {
-    sort: "status-Z-A",
-    searchValue: ""
-  },
+  cartsOrderAdmin: "price-max-min",
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "users",
+  tableViewGlobal: "orders",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
@@ -144,11 +132,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, create: action.payload };
 
     case GET_CART:
-      if (state.user && state.user.uid) {
-        return { ...state }
-      } else {
-        return { ...state, cart: action.payload };
-      }
+      return { ...state, cart: action.payload };
 
     case GET_USER_CART:
       // console.log(action.payload);
@@ -210,27 +194,15 @@ export default function rootReducer(state = initialState, action) {
     case TABLE_VIEW:
       return { ...state, tableViewGlobal: action.payload };
 
-    //------------ LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
-
     case USERS_ORDER_ADMIN:
-      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, sort: action.payload } };
-
-    case USERS_SEARCH_ADMIN:
-      return { ...state, usersFiltersAdmin: { ...state.usersFiltersAdmin, searchValue: action.payload } };
+      return { ...state, usersOrderAdmin: action.payload };
 
     case BOOKS_ORDER_ADMIN:
-      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, sort: action.payload } };
-
-    case BOOKS_SEARCH_ADMIN:
-      return { ...state, booksFiltersAdmin: { ...state.booksFiltersAdmin, searchValue: action.payload } };
+      return { ...state, booksOrderAdmin: action.payload };
 
     case CARTS_ORDER_ADMIN:
-      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, sort: action.payload } };
+      return { ...state, cartsOrderAdmin: action.payload };
 
-    case CARTS_SEARCH_ADMIN:
-      return { ...state, cartsFiltersAdmin: { ...state.cartsFiltersAdmin, searchValue: action.payload } };
-
-    //------------ END LUPA + ORDENAMIENTO TABLAS DE ADMIN -----------
     case POST_GENRE:
       return { ...state, messageGlobal: action.payload };
 
