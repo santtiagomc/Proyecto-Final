@@ -12,16 +12,16 @@ import { getMoreRating, getMoreVisits, getOffers } from "../../redux/actions";
 import { motion } from "framer-motion";
 import { NavLink, Link } from "react-router-dom";
 
-export default function LandingPage(id) {
+export default function LandingPage() {
   const dispatch = useDispatch();
   const { booksByRating, booksByVisits, booksByOffers } = useSelector(
     (state) => state
   );
   useEffect(() => {
-    dispatch(getOffers(id));
+    dispatch(getOffers());
     dispatch(getMoreVisits());
     dispatch(getMoreRating());
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   return (
     <div className={style.container}>
