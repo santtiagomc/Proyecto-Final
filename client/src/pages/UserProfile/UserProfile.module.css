@@ -198,7 +198,6 @@
 	font-size: x-large;
 	font-weight: 600;
 	display: flex;
-	margin-top: 18px;
 }
 
 .label {
@@ -318,10 +317,6 @@
 	width: 50px;
 	margin-right: 20px;
 } 
-
-.li {
-	color: var(--extra-color);
-}
 
 .name {
 	color: var(--extra-color);
