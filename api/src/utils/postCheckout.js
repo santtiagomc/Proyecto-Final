@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const stripe = new Stripe(process.env.STRIPE);
 
-async function postCheckout({ cart, stripeId, userId }) {
+async function postCheckout({ cart, stripeId, user }) {
   try {
     const cartBuy = await Cart.findByPk(cart[0].cartId);
     const total = Math.round(
@@ -29,7 +29,7 @@ async function postCheckout({ cart, stripeId, userId }) {
       await findBook.save();
     });
 
-    const user = await Users.findByPk(userId);
+    // const user = await Users.findByPk(userId);
 
     sendEmail("purchase", { user, cart });
     console.log("CORREO PURCHASE ENVIADO");
