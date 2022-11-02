@@ -385,5 +385,93 @@
     "stock": 8,
     "editorial": "Planeta",
     "edition": 2022
+  },
+  {
+    "name": "Look Back",
+    "author": "Tatsuki Fujimoto",
+    "description": "La imparable pasión por dibujar mangane a estas dos chicas que viven en un pueblo apartado. Por mucho que pasen los días y meses, hay algo que siempre las ha apoyado... De un pincel inigualable nace una historia autoconclusiva que rebosa juventud..",
+    "price": 8.95,
+    "image": "https://cdn.normacomics.com/media/catalog/product/cache/1/thumbnail/9df78eab33525d08d6e5fb8d27136e95/l/o/look_back.jpg",
+    "genres": ["Manga"],
+    "stock": 3,
+    "editorial": "Norma Editorial",
+    "edition": 2021
+  },
+  {
+    "name": "Goodbye, Eri",
+    "author": "Tatsuki Fujimoto",
+    "description": "Yuuta filma con su móvil a su madre enferma hasta su muerte. Abatido por la desgracia, Yuuta se dirije a la azotea de un hospital para suicidarse. Sin embargo, allí se encuentra con una joven y comienza a filmar una película que marcará su vida...",
+    "price": 11.95,
+    "image": "https://cdn.myanimelist.net/images/manga/3/263979.jpg",
+    "genres": ["Manga"],
+    "stock": 3,
+    "editorial": "Shounen Jump",
+    "edition": 2022
+  },
+  {
+    "name": "El Eternauta Edicion Integral",
+    "author": "Héctor Germán Oesterheld",
+    "description": "El Eternauta cuenta una historia que transcurre la mayor parte del tiempo en la ciudad de Buenos Aires, Argentina, en un futuro distópico en el que una invasión de seres sobrenaturales se ha apoderado del territorio y ha desterrado a la población humana a socavones y cuevas en los que llevan vidas comunitarias y sencillas. Un estilo de vida que se contrapone al de los nuevos dueños del mundo, seres con conocimientos y tecnologías mucho más avanzadas.",
+    "price": 38.95,
+    "image": "https://ouroboros.world/sites/default/files/inline-images/tapa%20integral%20eternauta.jpg",
+    "genres": ["Historietas"],
+    "stock": 3,
+    "editorial": "Doedytores",
+    "edition": 1957
+  },
+  {
+    "name": "V de Vendetta",
+    "author": "Alan Moore",
+    "description": "El Eternauta cuenta una historia que transcurre la mayor parte del tiempo en la ciudad de Buenos Aires, Argentina, en un futuro distópico en el que una invasión de seres sobrenaturales se ha apoderado del territorio y ha desterrado a la población humana a socavones y cuevas en los que llevan vidas comunitarias y sencillas. Un estilo de vida que se contrapone al de los nuevos dueños del mundo, seres con conocimientos y tecnologías mucho más avanzadas.",
+    "price": 11.00,
+    "image": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/184/069/products/v-de-vendetta-cov-arg1-a4e0493a79077b70c716142990626962-1024-1024.jpg",
+    "genres": ["Historietas"],
+    "stock": 3,
+    "editorial": "Ovni Press",
+    "edition": 1980
+  },
+  {
+    "name": "Solanin",
+    "author": "Inio Asano",
+    "description": "Solanin es un manga escrito y dibujado por Inio Asano. La historia trata sobre la vida de cinco jóvenes veinteañeros que se enfrentan a la incertidumbre del futuro y a la falta de expectativas.",
+    "price": 21.00,
+    "image": "https://i1.whakoom.com/large/0e/0e/de932ffaa6f349fa84d5afff9e2a1a20.jpg",
+    "genres": ["Manga"],
+    "stock": 3,
+    "editorial": "Ivrea Argentina",
+    "edition": 2005
+  },
+  {
+    "name": "El fin de la infancia",
+    "author": "Arthur C. Clarke",
+    "description": "Perteneciente a la tradicional y ya casi extinta «literatura de ideas», El fin de la infancia tiene como tema la futura evolución del hombre. Una raza extraña llega a la Tierra y trae consigo paz, prosperidad..., y la inesperada tragedia de la perfección.",
+    "price": 21.00,
+    "image": "https://www.planetadelibros.com/usuaris/libros/fotos/326/m_libros/portada_el-fin-de-la-infancia__202105251258.jpg",
+    "genres": ["Ficción"],
+    "stock": 3,
+    "editorial": "Minotauro",
+    "edition": 1953
+  },
+  {
+    "name": "Estudio en escarlata",
+    "author": "Arthur Conan Doyle",
+    "description": "Se trata de la primera aparición de Sherlock Holmes y el Dr. Watson.",
+    "price": 11.00,
+    "image": "https://www.nordicalibros.com/wp-content/uploads/2018/10/estudiodeescarlata.jpg",
+    "genres": ["Misterio"],
+    "stock": 3,
+    "editorial": "Nordical Libros",
+    "edition": 1887
+  },
+  {
+    "name": "Carrie",
+    "author": "King Stephen",
+    "description": "Carrie, una joven de apariencia insignificante, acosada por sus compañeras de instituto, vive con su madre, una fanática religiosa. Un día en las duchas, la primera menstruación de Carrie provoca las burlas de las demás chicas y desencadena una sucesión de hechos sobrenaturales y terroríficos.",
+    "price": 8.00,
+    "image": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQEcxo04ICwQGZkOYyVWFPQVBVvIQMeyTSWKxZu-_PEdMJC-XTW",
+    "genres": ["Terror"],
+    "stock": 3,
+    "editorial": "Debolsillo",
+    "edition": 1974
   }
 ]

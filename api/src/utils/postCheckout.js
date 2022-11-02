@@ -1,11 +1,12 @@
 const Stripe = require("stripe");
-const { Cart, Books } = require("../db");
+const { Cart, Books, Users } = require("../db");
 const { Op } = require("sequelize");
+const { sendEmail } = require("../nodemailer");
 require("dotenv").config();
 
 const stripe = new Stripe(process.env.STRIPE);
 
-async function postCheckout({ cart, stripeId }) {
+async function postCheckout({ cart, stripeId, userId }) {
   try {
     const cartBuy = await Cart.findByPk(cart[0].cartId);
     const total = Math.round(
@@ -28,6 +29,9 @@ async function postCheckout({ cart, stripeId }) {
       await findBook.save();
     });
 
+    const user = await Users.findByPk(userId);
+
+    sendEmail("purchase", { user, cart, stripeId });
     return { message: "Pago realizado correctamente" };
   } catch (error) {
     console.log(error);

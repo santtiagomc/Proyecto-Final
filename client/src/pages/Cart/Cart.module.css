@@ -271,16 +271,20 @@ a:hover {
   }
   .detail_product{
     flex-wrap: wrap;
-    width: 7rem;
-  }
-  .detail_info{
-    margin: 0;
+    width: 6rem;
+    justify-content: center;
   }
   .detail_info_h2{
     font-size: 22px;
     width: 7rem;
     margin-left: -14px;
     margin-top: 8px;
+  }
+  .detail_info_h4{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 7rem;
   }
   h5{
     margin-left: -8px;
@@ -290,5 +294,9 @@ a:hover {
   }
   .detail_quantity{
     width: 6rem;
+    margin: 0 12px;
+  }
+  .btnDelete{
+    margin-left: 10rem;
   }
 }

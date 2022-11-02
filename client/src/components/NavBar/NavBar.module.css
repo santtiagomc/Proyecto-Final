@@ -51,6 +51,26 @@
   height: 100%;
 }
 
+.guestBtn{
+  display: flex;
+  width: 6.5rem;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid var(--violeta-primario);
+  padding: 4.5px 10px 4.5px 10px;
+  margin-left: 5em;
+}
+
+.guestBtn i {
+  height: 100%;
+}
+
 .cart {
   display: flex;
   width: 4.5rem;
@@ -230,6 +250,10 @@
   }
   .cart{
     margin: auto;
+  }
+  .guestBtn{
+    margin-left: 0;
+    background-color: var(--negro-navBar-filters-btn);
   }
 }
 
