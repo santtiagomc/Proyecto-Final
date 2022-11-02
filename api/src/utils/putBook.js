@@ -21,7 +21,7 @@ async function putBook({ id }, body) {
       return { message: "Libro editado con éxito!" };
     } else {
       await book.increment("visits")
-      return { message: "Se ha registrado una nueva visita" }
+      return [false]
     }
 
   } catch (error) {

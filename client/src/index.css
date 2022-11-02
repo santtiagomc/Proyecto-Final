@@ -1,10 +1,12 @@
 /* variables paleta de colores */
 :root {
   --violeta-primario: #B270A2;
-  --verde-primario: #7CE1CE;
+  --verde-primario: #95d9c3;
   --azul-complementario: #355070;
-  --negro-backgound: #181818;
+  --gris-complementario: #aeb4a9;
+  --negro-background: #181818;
   --negro-navBar-filters-btn: #101010;
+  --verde-confirm-alerts: #37AA9C;
 }
 
 * {
@@ -15,9 +17,6 @@
 
 body {
   margin: 0;
-  padding-bottom: 6.25rem;
-  min-height: 97.8vh;
-  position: relative;
   background-color: var(--negro-backgound);
   box-sizing: border-box;
   font-family: "Helvetica", -apple-system, "Roboto", sans-serif;

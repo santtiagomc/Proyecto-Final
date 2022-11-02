@@ -13,6 +13,10 @@
   flex-flow: row;
 }
 
+.nav.none {
+  display: none;
+}
+
 .navbar nav {
   height: 100%;
 }
@@ -36,13 +40,34 @@
   align-self: center;
   border-radius: 5px;
   font-size: 14px;
-  color:#ffffff;
+  color: #ffffff;
   background-color: transparent;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-left: 5em;
 }
 
 .userBtn i {
+  height: 100%;
+}
+
+.guestBtn{
+  display: flex;
+  width: 6.5rem;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid var(--violeta-primario);
+  padding: 4.5px 10px 4.5px 10px;
+  margin-left: 5em;
+}
+
+.guestBtn i {
   height: 100%;
 }
 
@@ -60,6 +85,7 @@
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 8px 10px 8px 10px;
+  margin-right: 5em;
 }
 
 .cart i {
@@ -73,10 +99,10 @@
   align-items: center;
 }
 
-.button {
+.buttonDash {
   display: flex;
   position: relative;
-  width: 4.5rem;
+  width: 7rem;
   height: auto;
   text-align: center;
   justify-content: center;
@@ -86,6 +112,7 @@
   color: #ffffff;
   border: 1px solid var(--violeta-primario);
   padding: 5px 10px 5px 10px;
+  margin-right: 7em;
 }
 
 .menu {
@@ -96,6 +123,7 @@
   border-radius: 4px;
   padding: 4px;
   top: 60px;
+  margin-left: 1em;
 }
 
 .hide {
@@ -107,7 +135,7 @@
 }
 
 .list {
-  list-style: none;
+  list-style:none;
   padding: 0;
   margin: 0;
 }

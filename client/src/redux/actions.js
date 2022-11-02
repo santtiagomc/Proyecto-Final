@@ -25,6 +25,20 @@ export const DELETE_USER_CART = "DELETE_USER_CART";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const PUT_USER = "PUT_USER";
 export const GET_ALL_CARTS = "GET_ALL_CARTS";
+export const GET_ALL_BOOKS = "GET_ALL_BOOKS";
+export const TABLE_VIEW = "TABLE_VIEW";
+export const USERS_ORDER_ADMIN = "USERS_ORDER_ADMIN";
+export const USERS_SEARCH_ADMIN = "USERS_SEARCH_ADMIN";
+export const BOOKS_ORDER_ADMIN = "BOOKS_ORDER_ADMIN";
+export const BOOKS_SEARCH_ADMIN = "BOOKS_SEARCH_ADMIN";
+export const CARTS_ORDER_ADMIN = "CARTS_ORDER_ADMIN";
+export const CARTS_SEARCH_ADMIN = "CARTS_SEARCH_ADMIN";
+export const GENRES_ORDER_ADMIN = "GENRES_ORDER_ADMIN";
+export const POST_GENRE = "POST_GENRE";
+export const DELETE_GENRE = "DELETE_GENRE";
+export const PUT_CART_STATUS = "PUT_CART_STATUS";
+export const GET_USER_DB = "GET_USER_DB";
+export const EDIT_ID = "EDIT_ID";
 
 export function userExist(payload) {
   return {
@@ -34,17 +48,17 @@ export function userExist(payload) {
 }
 
 //-------para obtener los libros con filtros y páginado.
-export function searchBook(filters, search, page) {
+export function searchBook(filters, search, page, admin) {
   return async function (dispatch) {
     try {
       let json;
       if (search.option && search.name) {
         json = await axios(
-          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `http://localhost:3001/books?${search.option}=${search.name}&sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       } else {
         json = await axios(
-          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}`
+          `http://localhost:3001/books?sort=${filters.sort}&genres=${filters.genres}&editorial=${filters.editorial}&page=${page}&admin=${admin}`
         );
       }
       return dispatch({
@@ -93,10 +107,10 @@ export function getEditorials() {
 }
 
 //-------para obtener las categorías
-export function getGenres() {
+export function getGenres(sort) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`http://localhost:3001/genres`);
+      const json = await axios.get(`http://localhost:3001/genres?sort=${sort}`);
       return dispatch({
         type: GET_GENRES,
         payload: json.data,
@@ -388,11 +402,11 @@ export function deleteUserCart(cartId) {
   };
 }
 //------para traer todos los usuarios (para dashboard)
-export function getAllUsers() {
+export function getAllUsers({ sort, searchValue }) {
   return async function (dispatch) {
     try {
       const json = await axios(
-        `http://localhost:3001/user`
+        `http://localhost:3001/user?sort=${sort}&searchValue=${searchValue}`
       );
       return dispatch({
         type: GET_ALL_USERS,
@@ -411,9 +425,7 @@ export function getAllUsers() {
 export function putUser(input) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `http://localhost:3001/user`, input
-      );
+      const response = await axios.put(`http://localhost:3001/user`, input);
 
       return dispatch({
         type: PUT_USER,
@@ -428,11 +440,13 @@ export function putUser(input) {
   };
 }
 
-//-------para traer todos los carritos con el estdo que le pasemos
-export function getCarts(status) {
+//-------para traer todos los carritos con el estado que le pasemos
+export function getCarts({ sort, searchValue }) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/orders?status=${status}`);
+      const response = await axios.get(
+        `http://localhost:3001/cart/orders?sort=${sort}&searchValue=${searchValue}`
+      );
       return dispatch({
         type: GET_ALL_CARTS,
         payload: response.data,
@@ -440,6 +454,103 @@ export function getCarts(status) {
     } catch (error) {
       return dispatch({
         type: GET_ALL_CARTS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//-------para modificar el estado de un carrito
+export function putCartStatus(id) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/cart/status?id=${id}`
+      );
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: PUT_CART_STATUS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer todos los libros (para dashboard)
+export function getAllBooks({ sort, searchValue }) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/books/admin?sort=${sort}&searchValue=${searchValue}`
+      );
+      console.log(response.data);
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_ALL_BOOKS,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function postGenre(genre) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`http://localhost:3001/genres`, {
+        name: genre,
+      });
+      return dispatch({
+        type: POST_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: POST_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function deleteGenre(name) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/genres/${name}`
+      );
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: DELETE_GENRE,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+//------para traer la info del user de la db
+export function getUserDb(uid) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/user/${uid}`);
+      return dispatch({
+        type: GET_USER_DB,
+        payload: response.data,
+      });
+    } catch (error) {
+      return dispatch({
+        type: GET_USER_DB,
         payload: error.response.data,
       });
     }

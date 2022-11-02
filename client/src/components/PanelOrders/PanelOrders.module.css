@@ -1,0 +1,291 @@
+:root {
+  --violeta-primario: #b270a2;
+  --verde-primario: #95d9c3;
+  --verde-secundario: #7ce1ce;
+  --azul-complementario: #355070;
+  --negro-backgound: #181818;
+  --negro-navBar-filters-btn: #101010;
+  /* --extra-color: #AEB4A9; */
+  --extra-color: #ccd0c8;
+}
+
+.panel_orders {
+  height: calc(100vh - 60px);
+  position: relative;
+}
+
+.panel_orders img {
+  position: absolute;
+  top: 40%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  width: 20em;
+}
+
+@media (max-width: 545px) {
+  .panel_orders img {
+    width: 12em;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  /* padding: 0 2em; */
+  color: var(--extra-color);
+  overflow: hidden;
+}
+
+.container.active {
+  margin: 0 20px;
+}
+
+.table_container {
+  /* border: 2px solid var(--extra-color); */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 2.5em 5em;
+  padding: 0.5em 1em;
+  overflow-x: auto;
+  overflow-y: auto;
+  min-width: 220px;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.552);
+  background-color: #131313;
+  transition: 0.5s;
+}
+
+@media (max-width: 1300px) {
+  .table_container {
+    margin: 2.5em 2em;
+  }
+}
+
+.table_container::-webkit-scrollbar {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.table_container::-webkit-scrollbar-thumb {
+  background: var(--extra-color);
+  border-radius: 2em;
+  border: 8px solid #131313;
+}
+
+.table_container::-webkit-scrollbar-corner {
+  background-color: #131313;
+}
+
+.table_row {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.1em;
+}
+
+.table_row_attributtes {
+  margin-bottom: 1em;
+}
+
+.table_row_attributtes .col0,
+.table_row_attributtes .col1,
+.table_row_attributtes .col2,
+.table_row_attributtes .col3,
+.table_row_attributtes .col4,
+.table_row_attributtes .col5 {
+  border-bottom: 1px solid var(--extra-color);
+  padding-bottom: 0.3em;
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 0em;
+}
+
+.table_row_attributtes .col1,
+.table_row_attributtes .col2,
+.table_row_attributtes .col3 {
+  cursor: pointer;
+}
+
+.table_row_attributtes .col5:hover {
+  background-color: transparent;
+  color: var(--extra-color);
+}
+
+.table_row_attributtes .col_active .i_order {
+  background-color: var(--extra-color);
+  color: var(--negro-backgound);
+}
+
+.table_row_attributtes .col0 span,
+.table_row_attributtes .col1 span,
+.table_row_attributtes .col2 span,
+.table_row_attributtes .col3 span,
+.table_row_attributtes .col4 span,
+.table_row_attributtes .col5 span {
+  padding-right: 1em;
+}
+
+.i_order {
+  font-size: 1.4em;
+}
+
+.col0,
+.col1,
+.col2,
+.col3,
+.col4,
+.col5 {
+  align-items: center;
+  margin-bottom: 0.3em;
+}
+
+.col0 {
+  padding-right: 3rem;
+  min-width: 24em;
+  display: flex;
+}
+
+.col1 {
+  min-width: 11em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 3.5em;
+}
+
+.text {
+  margin-right: 0.5em;
+}
+
+.icon {
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.col1 .icon {
+  transition: 0.3s;
+}
+
+.col1 .icon:hover {
+  font-size: 1.4em;
+  color: var(--violeta-primario);
+}
+
+.col2 {
+  min-width: 10em;
+  max-width: 10em;
+  padding-right: 2em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.col3 {
+  padding-right: 2rem;
+  min-width: 16em;
+  max-width: 16em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.col4 {
+  padding-right: 2rem;
+  min-width: 21em;
+  max-width: 21em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.col5 {
+  min-width: 11em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.col5:hover {
+  font-size: 1.1em;
+  color: var(--violeta-primario);
+}
+
+.table_row_attributtes .col5:hover {
+  background-color: transparent;
+  color: var(--extra-color);
+  cursor: default;
+  font-size: 1em;
+}
+
+.swal_title {
+  color: var(--extra-color);
+  margin-bottom: -0.5em;
+}
+
+.swal_books {
+  margin-top: 50px;
+  position: relative;
+}
+
+.swal_books div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid var(--extra-color);
+  padding: 0;
+  padding-left: 1em;
+  color: var(--extra-color);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.swal_books .text_empty {
+  text-align: center;
+  width: 100%;
+  margin-right: 1em;
+}
+
+.swal_books .price {
+  min-width: 4em;
+  display: flex;
+  font-size: 1em;
+}
+
+.swal_books .quantity {
+  margin-right: 1.5em;
+  font-size: 1em;
+}
+
+.swal_books a {
+  padding-right: 2em;
+  width: 23em;
+  font-size: 0.9em;
+  transition: 0.25s;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  justify-content: flex-start;
+  text-align: start;
+  color: var(--extra-color);
+}
+
+.swal_books a:hover {
+  color: var(--violeta-primario);
+}
+
+.swal_books .total {
+  background-color: var(--extra-color);
+  color: var(--negro-backgound);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.81em;
+  width: 5.1em;
+}

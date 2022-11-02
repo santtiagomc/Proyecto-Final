@@ -9,5 +9,21 @@ export default function templateAlert(title, text, icon, timer) {
     text: text,
     icon: icon,
     timer: timer,
+    confirmButtonColor: "#355070",
+  });
+}
+
+export function templateAlertTopEnd(timer, icon, message) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: timer,
+    timerProgressBar: true,
+  });
+
+  Toast.fire({
+    icon: icon,
+    title: message,
   });
 }

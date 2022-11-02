@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card.jsx";
 import FiltersNav from "../../components/FiltersNav/FiltersNav.jsx";
-import { getGenres, searchBook, changePage, getEditorials, changeFilter, changeSearch } from "../../redux/actions";
+import {
+  getGenres,
+  searchBook,
+  changePage,
+  getEditorials,
+  changeFilter,
+  changeSearch,
+  getUserDb,
+} from "../../redux/actions";
 import Swal from "sweetalert2";
-import Loader from "./GIF_neón_BooksNook.gif"
-import Loader2 from "./GIF_aparecer_BooksNook.gif"
-import Loader3 from "./GIF_bloque_BooksNook.gif"
+// import Loader from "./GIF_neón_BooksNook.gif";
+import Loader2 from "./GIF_aparecer_BooksNook.gif";
+// import Loader3 from "./GIF_bloque_BooksNook.gif";
 
 import style from "./HomePrueba.module.css";
 
@@ -19,6 +27,9 @@ export default function Home() {
     total,
     editorials,
     books,
+    user,
+    userDb,
+    putStatusBook
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -27,8 +38,27 @@ export default function Home() {
   useEffect(() => {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
-    dispatch(searchBook(filtersApplied, searchApplied, page));
-  }, [filtersApplied, page, searchApplied]);
+    if (user && user.uid) {
+      console.log(userDb);
+      if (userDb.role === "Admin++" || userDb.role === "Admin") {
+        dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
+      } else {
+        dispatch(searchBook(filtersApplied, searchApplied, page));
+      }
+    } else {
+      dispatch(searchBook(filtersApplied, searchApplied, page));
+    }
+  }, [
+    filtersApplied,
+    page,
+    searchApplied,
+    user,
+    userDb,
+    dispatch,
+    editorials.length,
+    genres.length,
+    putStatusBook
+  ]);
 
   useEffect(() => {
     if (books.messageError) {
@@ -39,11 +69,12 @@ export default function Home() {
         text: books.messageError,
         icon: "error",
         timer: 4000,
+        confirmButtonColor: "#355070",
       });
       dispatch(changeFilter());
       dispatch(changeSearch());
     }
-  }, [books]);
+  }, [books, dispatch]);
 
   const nextPage = () => {
     if (page + 12 < total) {

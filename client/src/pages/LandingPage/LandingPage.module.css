@@ -1,47 +1,78 @@
 .container {
-    display: grid;
-    justify-content: center;
+    margin: 0 auto;
 }
 
-.container2{
-    margin-top: 6rem;
-    width: 76rem;
+.subContainer {
+    margin-top: 4rem;
 }
-.card{
+
+.containerPromo{
+    margin: 4rem;
+}
+.promos{
     width: 100%;
     border-color: var(--violeta-primario);
     border-left: 0;
     border-right: 0;
 }
 
-.card2 {
-    width: 100px;
-}
-
-.card6 {
-    display: flex;
-    color: aliceblue;
-    width: 100px;
-}
-.cards2{
-    width: 100px;
-}
-
-.infoBooks img {
+.slideBooks {
     display: flex;
     justify-content: center;
-    width: 300px;
-    height: 300px;
+}
+.infoBooks{
+    display: flex;
+}
+.titles {
+    text-align: center;
+    color: white;
 }
 
-.slideBooks {
-    margin: auto;
-    width: 200px;
-}
 .name {
-    color: aliceblue;
+    text-align: center;
+    margin-top: 8px;
+    font-size: large;
+    font-weight: bolder;
+    color: white;
 }
-.price {
-    color: #b270a2;
-    margin-bottom: 10px;
+.other {
+    color: #00c4c4;
+}
+
+.sliderContain {
+    margin: 2rem;
+    overflow-x: hidden;
+    cursor: grab;
+}
+.slider {
+    display: flex;
+    cursor: grab;
+    scroll-behavior: auto;
+}
+.navlink{
+    /* width: 100%;
+    height: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: min-content;
+    cursor: grab;
+}
+.item{
+    display: flex;
+    margin: 4px;
+    align-items: center;
+    justify-content: center;
+    height: 26rem;
+    min-width: 14rem;
+    padding: 8px;
+    background: linear-gradient(rgb(0, 0, 0), rgb(107, 106, 106)) padding-box,linear-gradient(45deg, rgb(69, 255, 246), rgb(177, 72, 247)) border-box;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    color: #01e1c7  #bd01f7;
+}
+.imagen{
+    height: 14rem;
+    width: 10rem;
+    pointer-events: none;
 }

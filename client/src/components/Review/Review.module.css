@@ -1,5 +1,6 @@
 .label_rating {
   margin-bottom: 6px;
+
 }
 
 .stars {
@@ -36,6 +37,7 @@ label {
 
 .container_title {
   color: white;
+  font-size: 24px;
 }
 
 .see_form {
@@ -84,13 +86,13 @@ a:hover {
 
 .title {
   color: #ffffff;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bolder;
   margin: 20px 0;
 }
 
 .reviews_container {
-  margin: 120px 0;
+  margin: 50px auto;
 }
 
 hr {
@@ -124,6 +126,7 @@ hr {
   display: flex;
   height: 100%;
   margin: 0;
+  font-size: 24px;
 }
 
 .stars_single_review {
@@ -175,4 +178,30 @@ hr {
   margin-left: 0.4em;
   text-align: center;
   height: 100%;
+}
+
+.baneado{
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  color: #C70039;
+  border-bottom: 1px solid #ED8D8D;
+  margin-bottom: 20px;
+  padding-right: 5px;
+  cursor: pointer;
+  background-color: #181818;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+}
+
+.baneadoText{
+  margin-bottom: 0px;
+}
+
+.iconForb{
+  font-size: 22px;
 }

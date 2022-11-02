@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Cart.module.css";
 import {
@@ -10,9 +10,13 @@ import {
   deleteUserCart,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
+import { FaRegTrashAlt } from "react-icons/fa";
+import Loader from "../Home/GIF_aparecer_BooksNook.gif";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { cart, user } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -101,8 +105,8 @@ export default function Cart() {
       }
     } else {
       if (quantity[e.target.value] > 1) {
-        let index = repeatedIdArrayCart.indexOf(e.target.value);
-        let filtered = repeatedIdArrayCart.splice(index, 1);
+        // let index = repeatedIdArrayCart.indexOf(e.target.value);
+        // let filtered = repeatedIdArrayCart.splice(index, 1);
 
         localStorage.setItem("cart", `${repeatedIdArrayCart.toString()}`);
 
@@ -191,8 +195,10 @@ export default function Cart() {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (user) {
-          dispatch(deleteUserCart(cart[0].cartId));
+        if (user && user.uid) {
+          setTimeout(function () {
+            dispatch(deleteUserCart(cart[0].cartId));
+          }, 300);
           Swal.fire({
             title: "¡Eliminado!",
             text: "Tu carrito se encuentra vacío",
@@ -200,6 +206,7 @@ export default function Cart() {
             width: 650,
             background: "#19191a",
             color: "#e1e1e1",
+            timer: 2000,
           });
 
           setTimeout(function () {
@@ -232,10 +239,12 @@ export default function Cart() {
       {!user ? (
         cart.length ? (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
-            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -305,17 +314,24 @@ export default function Cart() {
                     onClick={() => handleRemoveBook(book.id)}
                     className={style.btnTrash}
                   >
-                    <i class="fa-regular fa-trash-can"></i>
+                    <FaRegTrashAlt />
+                    {/* <i class="fa-regular fa-trash-can"></i> */}
                   </button>
                 </div>
                 <hr></hr>
+                <Link to="/login">
+                  <button className={style.botonComprar}>Comprar</button>
+                </Link>
               </div>
             ))}
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()">Volver</a>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? ¡Tenemos
@@ -323,22 +339,27 @@ export default function Cart() {
             </h1>
           </div>
         ) : (
-          <h1 className={style.message}>Cargando...</h1>
+          <img src={Loader} alt="Logo loader" className={style.loader} />
         )
       ) : Object.keys(cart) || cart.length ? (
         cart.messageError ? (
           <div>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
+            <button
+              onClick={() => history.goBack()}
+              className={style.btnBackEmptyCart}
+            >
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
             <h1 className={style.message}>{cart.messageError}</h1>
           </div>
         ) : (
           <div className={style.cart_container}>
-            <button className={style.btnBack}>
-              <a href="javascript:history.back()"> Volver </a>
+            <button className={style.btnBack} onClick={() => history.goBack()}>
+              <AiOutlineArrowLeft className={style.btnArr} />
             </button>
-            <button onClick={handleRemoveCart} className={style.btnDelete}>Vaciar carrito</button>
+            <button onClick={handleRemoveCart} className={style.btnDelete}>
+              Vaciar carrito
+            </button>
             <div className={`${style.attributes}`}>
               <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
               <h4 className={`col-2 text-center ${style.attributes_h2}`}>
@@ -414,19 +435,21 @@ export default function Cart() {
                       onClick={() => handleRemoveBook(book.id)}
                       className={style.btnTrash}
                     >
-                      <i class="fa-regular fa-trash-can"></i>
+                      <FaRegTrashAlt />
+                      {/* <i class="fa-regular fa-trash-can"></i> */}
                     </button>
                   </div>
                   <hr></hr>
                 </div>
               ))}
+            <Link to="/stripe">
+              <button className={style.botonComprar}>Comprar</button>
+            </Link>
           </div>
         )
       ) : (
-        <h1 className={style.message}>Cargando...</h1>
+        <img src={Loader} alt="Logo loader" className={style.loader} />
       )}
     </>
   );
 }
-
-
