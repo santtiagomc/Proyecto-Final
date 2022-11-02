@@ -185,3 +185,16 @@ form .container_input {
 .btnArr{
   font-size: large;
 }
+
+@media (max-width:700px) {
+  .btnBack{
+    left: 1em;
+    top: 1.5em;
+  }
+  .volverContainer{
+    margin-top: 4rem;
+  }
+  .container{
+    top: 42%;
+  }
+}
