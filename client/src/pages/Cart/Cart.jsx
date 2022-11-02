@@ -335,7 +335,7 @@ export default function Cart() {
             </button>
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos nuestra sección de <br/>
-              <a href="http://localhost:3000/landing/#popular">recomendados.</a>
+              <a href="/#popular">recomendados.</a>
             </h1>
           </div>
         ) : (
