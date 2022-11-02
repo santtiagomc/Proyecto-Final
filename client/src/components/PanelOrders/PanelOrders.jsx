@@ -165,7 +165,7 @@ export default function PanelBooks() {
                       acc += (el.Books_Carts.quantity * el.price)
                       return Number(acc.toFixed(2))
                     }, 0)}</span>
-                    <span className={style.col3}>{cart.User.fullName}</span>
+                    <span className={style.col3}>{cart.User && cart.User.fullName}</span>
                     <span className={style.col4}>{cart.User && cart.User.email}</span>
                     <span className={style.col5} onClick={() =>
                       templateAlertBooks(

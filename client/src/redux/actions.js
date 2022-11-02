@@ -38,6 +38,7 @@ export const POST_GENRE = "POST_GENRE";
 export const DELETE_GENRE = "DELETE_GENRE";
 export const PUT_CART_STATUS = "PUT_CART_STATUS";
 export const GET_USER_DB = "GET_USER_DB";
+export const EDIT_ID = "EDIT_ID";
 
 export function userExist(payload) {
   return {

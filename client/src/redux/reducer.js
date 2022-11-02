@@ -37,6 +37,7 @@ import {
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
   GENRES_ORDER_ADMIN,
+  EDIT_ID
 } from "./actions";
 
 const initialState = {
@@ -86,10 +87,11 @@ const initialState = {
   genresFiltersAdmin: "name-A-Z",
   putUserResponse: [],
   putCartResponse: [],
-  tableViewGlobal: "genres",
+  tableViewGlobal: "addBook",
   messageGlobal: [],
   messageDeleteGlobal: [],
   userDb: {},
+  edit_id: ""
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -248,6 +250,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_DB:
       // console.log(action.payload);
       return { ...state, userDb: action.payload };
+
+    case EDIT_ID:
+      return { ...state, edit_id: action.payload }
 
     default:
       return { ...state };
