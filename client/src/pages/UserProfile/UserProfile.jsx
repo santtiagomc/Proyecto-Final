@@ -60,33 +60,30 @@ export default function ProfileUser() {
     }
   };
 
-	const nextPage = async () => {
-		console.log("a");
-		console.log(booksBuyed.total);
-		if (page + 5 < booksBuyed.total) {
-			console.log("xd");
-			setPage(page + 5);
-			try {
-				const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
-				console.log(userHistory);
-				setBooksBuyed({
-					...booksBuyed,
-					books: [...booksBuyed.books, ...userHistory.data.books],
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
-	console.log(booksBuyed);
-	const handleLogOut = async () => {
-		try {
-			await logOut();
-			history.push("/home");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const nextPage = async () => {
+    if (page + 5 < booksBuyed.total) {
+      setPage(page + 5);
+      try {
+        const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
+        console.log(userHistory);
+        setBooksBuyed({
+          ...booksBuyed,
+          books: [...booksBuyed.books, ...userHistory.data.books],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  console.log(booksBuyed);
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (user === undefined && !loading) {
     return <Error error="No estas autenticado" />;
@@ -288,7 +285,9 @@ export default function ProfileUser() {
                 ))}
               <button
                 onClick={nextPage}
-                className={!page ? style.btnDisabled : style.btn}
+                className={
+                  page + 5 >= booksBuyed.total ? style.btnDisabled : style.btn
+                }
               >
                 Ver más
               </button>
