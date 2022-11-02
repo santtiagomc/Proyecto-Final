@@ -10,7 +10,7 @@ import axios from "axios";
 
 export const singUp = async ({ email, password, fullName }) => {
   const userAuth = await createUserWithEmailAndPassword(auth, email, password);
-  await axios.post("http://localhost:3001/user", {
+  await axios.post("/user", {
     id: userAuth.user.uid,
     email,
     fullName,
@@ -28,11 +28,11 @@ export const sessionGoogle = async () => {
 export const singInGoogle = async (googleProvider) => {
   const res = await signInWithPopup(auth, googleProvider);
   const userExists = await axios.get(
-    `http://localhost:3001/user/${res.user.uid}`
+    `/user/${res.user.uid}`
   );
 
   if (userExists.data.message) {
-    await axios.post("http://localhost:3001/user", {
+    await axios.post("/user", {
       id: res.user.uid,
       fullName: res.user.displayName,
       email: res.user.email,
