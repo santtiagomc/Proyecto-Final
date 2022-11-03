@@ -117,9 +117,8 @@ export default function NavBar() {
                     <i class="fa-solid fa-user"></i>
                   </button>
                   <div
-                    className={`${style.menu} ${
-                      show ? style.show : style.hide
-                    }`}
+                    className={`${style.menu} ${show ? style.show : style.hide
+                      }`}
                   >
                     <ul className={style.list}>
                       <Link to="/profile" className={style.aa}>
@@ -155,10 +154,11 @@ export default function NavBar() {
               </>
             )
           ) : null}
+          <Link to="/home">
+            <AiFillHome className={style.homeIcon} />
+          </Link>
         </div>
-        <Link to="/home">
-          <AiFillHome className={style.homeIcon} />
-        </Link>
+
         <div
           className={`${style.navToggle} ${isOpen && style.open}`}
           onClick={() => setIsOpen(!isOpen)}
