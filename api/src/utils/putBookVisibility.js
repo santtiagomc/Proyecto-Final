@@ -29,7 +29,7 @@ async function putBookVisibility({ id }) {
     book.visible ? (book.visible = false) : (book.visible = true);
     await book.save();
 
-    return { message: "Success" };
+    return { message: book.visible ? "El libro es visible nuevamente" : "El producto ha sido ocultado" };
   } catch (error) {
     return { messageError: "Error" };
   }

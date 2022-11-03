@@ -10,11 +10,12 @@ import axios from "axios";
 
 export const singUp = async ({ email, password, fullName }) => {
   const userAuth = await createUserWithEmailAndPassword(auth, email, password);
-  await axios.post("/user", {
+  let response = await axios.post("/user", {
     id: userAuth.user.uid,
     email,
     fullName,
   });
+  return response.data
 };
 
 export const singIn = (email, password) =>
@@ -22,7 +23,8 @@ export const singIn = (email, password) =>
 
 export const sessionGoogle = async () => {
   const googleProvider = new GoogleAuthProvider();
-  await singInGoogle(googleProvider);
+  let response = await singInGoogle(googleProvider);
+  return response
 };
 
 export const singInGoogle = async (googleProvider) => {
