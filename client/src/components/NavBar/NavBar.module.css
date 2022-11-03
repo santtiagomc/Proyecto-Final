@@ -51,7 +51,7 @@
   height: 100%;
 }
 
-.guestBtn{
+.guestBtn {
   display: flex;
   width: 6.5rem;
   height: auto;
@@ -135,7 +135,7 @@
 }
 
 .list {
-  list-style:none;
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -159,9 +159,14 @@
   top: -20%;
   right: -10%;
 }
-.homeIcon{
+
+.homeIcon {
   color: #ffffff;
   font-size: 1.5rem;
+}
+
+.navToggle {
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -169,6 +174,7 @@
     justify-content: space-between;
     width: 100vw;
   }
+
   .forms {
     position: absolute;
     top: 4rem;
@@ -183,15 +189,15 @@
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, .37);
     backdrop-filter: blur(4px);
     border-radius: 10px;
-    
+
   }
 
   .nav .forms .aa::before {
-      background: transparent;
+    background: transparent;
   }
 
   .nav .forms.open {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 
   .nav .navToggle {
@@ -233,26 +239,28 @@
   }
 
   .navToggle.open .bar {
-      transform: translateX(-40px);
-      background: transparent;
+    transform: translateX(-40px);
+    background: transparent;
   }
 
   .navToggle.open .bar::before {
-      width: 32px;
-      transform: rotate(45deg) translate(26px, -26px);
+    width: 32px;
+    transform: rotate(45deg) translate(26px, -26px);
   }
 
   .navToggle.open .bar::after {
     transform: rotate(-45deg) translate(26px, 26px);
   }
 
-  .userBtn{
+  .userBtn {
     background-color: var(--negro-navBar-filters-btn);
     margin: auto;
   }
-  .cart{
+
+  .cart {
     margin: auto;
   }
+
   /* .guestBtn{
     margin-left: 0;
     background-color: var(--negro-navBar-filters-btn);
