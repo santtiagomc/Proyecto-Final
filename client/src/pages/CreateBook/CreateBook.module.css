@@ -1,7 +1,7 @@
 :root {
-  --violeta-primario: #B270A2;
+  --violeta-primario: #b270a2;
   --verde-primario: #95d9c3;
-  --verde-secundario: #7CE1CE;
+  --verde-secundario: #7ce1ce;
   --azul-complementario: #355070;
   --negro-backgound: #181818;
   --negro-navBar-filters-btn: #101010;
@@ -225,7 +225,7 @@
   align-items: center;
   font-size: 1.4em;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .btn_delete:hover {
@@ -417,8 +417,8 @@
 .loader {
   width: 1.5em;
   height: 1.5em;
-  border: 3px solid #FFF;
-  border-bottom-color: #a04022;
+  border: 3px solid #fff;
+  border-bottom-color: var(--violeta-primario);
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
