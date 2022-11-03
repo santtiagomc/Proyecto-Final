@@ -3,10 +3,10 @@ const { Books, Genres, Reviews } = require("../db");
 
 const getAllBooksAdmin = async ({ sort, searchValue }) => {
   try {
-    let allBooks
+    let allBooks;
     if (searchValue) {
       allBooks = await Books.findAll({
-        where: { name: { [Op.iLike]: `${searchValue}%` } },
+        where: { name: { [Op.iLike]: `%${searchValue}%` } },
         include: [
           {
             model: Genres,
@@ -21,7 +21,6 @@ const getAllBooksAdmin = async ({ sort, searchValue }) => {
       });
 
       if (!allBooks.length) return { messageError: "Libro no encontrado." };
-
     } else {
       allBooks = await Books.findAll({
         include: [
@@ -53,23 +52,12 @@ const getAllBooksAdmin = async ({ sort, searchValue }) => {
       allBooks.sort((a, b) => a.editorial.localeCompare(b.editorial));
     sort === "editorial-Z-A" &&
       allBooks.sort((b, a) => a.editorial.localeCompare(b.editorial));
-    sort === "year-min-max" &&
-      allBooks.sort((a, b) => a.edition - b.edition);
-    sort === "year-max-min" &&
-      allBooks.sort((b, a) => a.edition - b.edition);
-    sort === "price-min-max" &&
-      allBooks.sort((a, b) => a.price - b.price);
-    sort === "price-max-min" &&
-      allBooks.sort((b, a) => a.price - b.price);
-    sort === "stock-min-max" &&
-      allBooks.sort((a, b) => a.stock - b.stock);
-    sort === "stock-max-min" &&
-      allBooks.sort((b, a) => a.stock - b.stock);
-
-
-
-
-
+    sort === "year-min-max" && allBooks.sort((a, b) => a.edition - b.edition);
+    sort === "year-max-min" && allBooks.sort((b, a) => a.edition - b.edition);
+    sort === "price-min-max" && allBooks.sort((a, b) => a.price - b.price);
+    sort === "price-max-min" && allBooks.sort((b, a) => a.price - b.price);
+    sort === "stock-min-max" && allBooks.sort((a, b) => a.stock - b.stock);
+    sort === "stock-max-min" && allBooks.sort((b, a) => a.stock - b.stock);
 
     return allBooks;
   } catch (error) {

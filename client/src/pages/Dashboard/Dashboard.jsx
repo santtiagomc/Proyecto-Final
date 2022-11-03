@@ -13,6 +13,7 @@ import {
   MdDashboardCustomize,
   MdClear,
   BsFillPencilFill,
+  AiOutlineArrowRight
 } from "react-icons/all";
 
 import { useHistory, useLocation } from "react-router-dom";
@@ -108,7 +109,7 @@ export default function Dashboard() {
             <span className={style.title}>Inicio</span>
           </li>
           <div>
-            <li
+            {/* <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "dashboard" });
                 setHidden(false);
@@ -117,7 +118,7 @@ export default function Dashboard() {
             >
               <MdDashboardCustomize className={style.i} />
               <span className={style.title}>Dashboard</span>
-            </li>
+            </li> */}
             <li
               onClick={() => {
                 dispatch({ type: TABLE_VIEW, payload: "users" });
@@ -179,7 +180,7 @@ export default function Dashboard() {
             // onClick={() => {
             //   dispatch({ type: TABLE_VIEW, payload: "logOff" });
             // }}
-            className={tableViewGlobal === "logOff" && style.hovered}
+            // className={tableViewGlobal === "logOff" && style.hovered}
             onClick={handleLogOut}
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
@@ -199,7 +200,7 @@ export default function Dashboard() {
 
             <div className={style.search}>
               <form
-                className={style.searchForm}
+                className={tableViewGlobal === "users" || tableViewGlobal === "orders" || tableViewGlobal === "books" ? style.searchForm : `${style.searchForm} ${style.searchFormF}`}
                 onSubmit={(e) => handleSubmit(e)}
               >
                 <input
@@ -207,28 +208,69 @@ export default function Dashboard() {
                   type="text"
                   placeholder={"Buscar aquí"}
                   onChange={(e) => setSearch(e.target.value)}
+                  disabled={
+                    tableViewGlobal === "users"
+                      && usersFiltersAdmin.searchValue.length
+                      ? true
+                      : tableViewGlobal === "orders"
+                        && cartsFiltersAdmin.searchValue.length
+                        ? true
+                        : tableViewGlobal === "books"
+                          && booksFiltersAdmin.searchValue.length
+                          ? true
+                          : tableViewGlobal !== "users" && tableViewGlobal !== "orders" && tableViewGlobal !== "books"
+                            ? true
+                            : false
+                  }
                 />
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <button ><AiOutlineArrowRight className={
+                  tableViewGlobal === "users"
+                    && usersFiltersAdmin.searchValue.length
+                    ? `${style.searchButton} ${style.searchButtonF}`
+                    : tableViewGlobal === "orders"
+                      && cartsFiltersAdmin.searchValue.length
+                      ? `${style.searchButton} ${style.searchButtonF}`
+                      : tableViewGlobal === "books"
+                        && booksFiltersAdmin.searchValue.length
+                        ? `${style.searchButton} ${style.searchButtonF}`
+                        : `${style.searchButton}`
+                } /></button>
+                {tableViewGlobal === "users"
+                  && usersFiltersAdmin.searchValue.length
+                  ? <MdClear className={style.searchDelete} onClick={(e) => handleClear(e)} />
+                  : null}
+                {tableViewGlobal === "books"
+                  && booksFiltersAdmin.searchValue.length
+                  ? <MdClear className={style.searchDelete} onClick={(e) => handleClear(e)} />
+                  : null}
+                {tableViewGlobal === "orders"
+                  && cartsFiltersAdmin.searchValue.length
+                  ? <MdClear className={style.searchDelete} onClick={(e) => handleClear(e)} />
+                  : null}
+
+                {/* <MdClear className={style.searchDelete} onClick={(e) => handleClear(e)} /> */}
+                {/* <span></span> */}
               </form>
-              <button
+              {/* <button
                 className={style.searchBtn}
                 onClick={(e) => handleClear(e)}
               >
                 <MdClear className={style.clear} />
-              </button>
+              </button> */}
             </div>
 
             <div className={style.logo}></div>
           </div>
 
           <div className={style.main_panels}>
-            {tableViewGlobal === "dashboard" && <PanelUsers />}
+            {/* {tableViewGlobal === "dashboard" && <PanelUsers />} */}
             {tableViewGlobal === "users" && <PanelUsers />}
             {tableViewGlobal === "orders" && <PanelOrders />}
             {tableViewGlobal === "books" && <PanelBooks />}
             {tableViewGlobal === "addBook" && <CreateBook />}
             {tableViewGlobal === "genres" && <PanelGenres />}
-            {tableViewGlobal === "logOff" && <PanelGenres />}
+            {/* {tableViewGlobal === "logOff" && <PanelGenres />} */}
           </div>
         </div>
       </div>

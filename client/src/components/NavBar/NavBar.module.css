@@ -159,6 +159,10 @@
   top: -20%;
   right: -10%;
 }
+.homeIcon{
+  color: #ffffff;
+  font-size: 1.5rem;
+}
 
 @media (max-width: 700px) {
   .nav {
@@ -249,8 +253,8 @@
   .cart{
     margin: auto;
   }
-  .guestBtn{
+  /* .guestBtn{
     margin-left: 0;
     background-color: var(--negro-navBar-filters-btn);
-  }
+  } */
 }

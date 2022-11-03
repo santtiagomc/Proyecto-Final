@@ -34,23 +34,24 @@ export default function LandingPage() {
           transitionTime={1000}
           className={style.containerPromo}
         >
-          <a href="/">
+          <a href="/home">
             <button className={style.promos}>
               <img src={promo} alt="carousel" className={style.anuncioImg} />
             </button>
           </a>
-          <a href="https://proyecto-f-eight.vercel.app/detail/67d1b118-c328-406b-9506-17bae726d55f">
+          <a href="/detail/b91273e9-bd5d-40aa-81b9-2f8966e790df">
             <button className={style.promos}>
               <img src={promo1} alt="carousel" className={style.anuncioImg} />
             </button>
           </a>
         </Carousel>
+        <a href="#popular"></a>
         <motion.div className={style.sliderContain}>
           <h2 className={style.titles}>Promociones</h2>
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -1923 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByOffers.map((el) => {
               return (
@@ -90,11 +91,11 @@ export default function LandingPage() {
           </button>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Mas Puntuado</h2>
+          <h2 className={style.titles}>Mejores puntuados</h2>
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2223 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByRating.map((el) => {
               return (
@@ -102,7 +103,7 @@ export default function LandingPage() {
                   <Link to={`/detail/${el.id}`} className={style.navlink}>
                     <img src={el.image} className={style.imagen} alt="image" />
                     <p className={style.name}>{el.name}</p>
-                    <p className={style.other}>Calificacion: {el.rating}</p>
+                    <p className={style.other}>Calificación: {el.rating}</p>
                   </Link>
                 </motion.div>
               );
@@ -123,11 +124,13 @@ export default function LandingPage() {
           </button>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Populares</h2>
+          <h2 id="popular" className={style.titles}>
+            Recomendados
+          </h2>
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2223 }}
+            dragConstraints={{ right: 0, left: -2423 }}
           >
             {booksByVisits.map((el) => {
               return (
