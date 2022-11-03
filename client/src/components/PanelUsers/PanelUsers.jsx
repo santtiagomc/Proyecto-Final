@@ -97,7 +97,7 @@ export default function PanelUsers() {
 
   return (
     <div className={style.panel_users}>
-      {!allUsers.length ? (
+      {allUsers && !allUsers.length ? (
         <img src={Loader} alt="Loader_Logo"></img>
       ) : (
         <div className={style.container}>
@@ -218,7 +218,7 @@ export default function PanelUsers() {
                           value={user.id}
                         />
                         : null
-                      : userDb.role === "Admin" && userDb.id !== user.id
+                      : userDb.role === "Admin" && userDb.id !== user.id && user.status === "Activo" && user.role !== "Admin++"
                         ? <AiFillEdit
                           className={style.icon}
                           onClick={(e, id, fullName, role) =>

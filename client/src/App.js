@@ -25,7 +25,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001/";
 
 function App() {
   const dispatch = useDispatch();
-  const { user, userDb } = useSelector((state) => state);
+  const { user, userCreateResponse } = useSelector((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -37,7 +37,7 @@ function App() {
     if (user && user.uid) {
       dispatch(getUserDb(user.uid));
     }
-  }, [dispatch, user]);
+  }, [user, userCreateResponse]);
 
   return (
     <BrowserRouter>

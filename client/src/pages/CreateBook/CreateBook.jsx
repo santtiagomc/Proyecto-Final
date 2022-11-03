@@ -7,6 +7,7 @@ import {
   getGenres,
   GET_DETAIL,
   putBook,
+  PUT_STATUS,
   resetCreate,
   TABLE_VIEW,
 } from "../../redux/actions";
@@ -106,7 +107,7 @@ export default function CreateBook() {
   const location = useLocation();
   const query = location.search.slice(4);
 
-  const { genres, create, edit_id, detail } = useSelector((state) => state);
+  const { genres, create, edit_id, detail, putStatusBook } = useSelector((state) => state);
   let [buttonDisabled, setButtonDisabled] = useState(false);
   let [imageName, setImageName] = useState("");
 
@@ -115,6 +116,9 @@ export default function CreateBook() {
   useEffect(() => {
     if (edit_id) {
       dispatch(getDetail(edit_id));
+    }
+    if (Object.keys(putStatusBook).length) {
+      dispatch({ type: PUT_STATUS, payload: {} })
     }
     return () => {
       dispatch({ type: GET_DETAIL, payload: [] });
