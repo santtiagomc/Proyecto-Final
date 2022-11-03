@@ -9,6 +9,11 @@
   --verde-confirm-alerts: #37AA9C;
 }
 
+@font-face {
+  font-family: 'Urbanistic-Regular';
+  src: url("./fonts/static/Urbanist-Regular.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -19,7 +24,8 @@ body {
   margin: 0;
   background-color: var(--negro-backgound);
   box-sizing: border-box;
-  font-family: "Helvetica", -apple-system, "Roboto", sans-serif;
+  font-family: 'Urbanistic-Regular';
+  /* font-family: "Helvetica", -apple-system, "Roboto", sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
