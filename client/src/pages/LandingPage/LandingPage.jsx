@@ -45,6 +45,7 @@ export default function LandingPage() {
             </button>
           </a>
         </Carousel>
+        <a href="#popular"></a>
         <motion.div className={style.sliderContain}>
           <h2 className={style.titles}>Promociones</h2>
           <motion.div
@@ -123,7 +124,9 @@ export default function LandingPage() {
           </button>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Recomendados</h2>
+          <h2 id="popular" className={style.titles}>
+            Recomendados
+          </h2>
           <motion.div
             className={style.slider}
             drag="x"

@@ -18,7 +18,7 @@ export default function SearchBar() {
       dispatch(changeSearch({ option: options, name: book }));
       dispatch(changeFilter());
       setBook("");
-      history.push("/");
+      history.push("/home");
     } else {
       Swal.fire({
         background: "#19191a",
