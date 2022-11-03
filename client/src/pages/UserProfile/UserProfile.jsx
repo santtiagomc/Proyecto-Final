@@ -14,6 +14,7 @@ import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { logOut } from "../../firebase/auth";
 import Avatar from "./avatar.png";
 import { Link } from "react-router-dom";
+import { useDeprecatedInvertedScale } from "framer-motion";
 
 export default function ProfileUser() {
   const [hovered, /*setHovered*/] = useState(0);

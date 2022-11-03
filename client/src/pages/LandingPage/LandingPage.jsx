@@ -58,7 +58,7 @@ export default function LandingPage() {
                 <motion.div className={style.item}>
                   <Link to={`/detail/${el.id}`} className={style.navlink}>
                     <img src={el.image} className={style.imagen} alt="image" />
-                    <p className={style.name}>{el.name}</p>
+                    {/* <p className={style.name}>{el.name}</p> */}
                     <p className={style.other}>USD: {el.price}</p>
                   </Link>
                 </motion.div>
@@ -95,7 +95,7 @@ export default function LandingPage() {
           </a>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Mejores puntuados</h2>
+          <h2 className={style.titles}>Mejor puntuados</h2>
           <motion.div
             className={style.slider}
             drag="x"
@@ -106,7 +106,7 @@ export default function LandingPage() {
                 <motion.div className={style.item}>
                   <Link to={`/detail/${el.id}`} className={style.navlink}>
                     <img src={el.image} className={style.imagen} alt="image" />
-                    <p className={style.name}>{el.name}</p>
+                    {/* <p className={style.name}>{el.name}</p> */}
                     <p className={style.other}>Calificación: {el.rating}</p>
                   </Link>
                 </motion.div>
@@ -131,7 +131,7 @@ export default function LandingPage() {
         </Carousel>
         <motion.div className={style.sliderContain}>
           <h2 id="popular" className={style.titles}>
-            Recomendados
+            Más visitados
           </h2>
           <motion.div
             className={style.slider}
@@ -143,7 +143,7 @@ export default function LandingPage() {
                 <motion.div className={style.item}>
                   <NavLink to={`/detail/${el.id}`} className={style.navlink}>
                     <img src={el.image} className={style.imagen} alt="image" />
-                    <p className={style.name}>{el.name}</p>
+                    {/* <p className={style.name}>{el.name}</p> */}
                     <p className={style.other}>Visualizaciones: {el.visits}</p>
                   </NavLink>
                 </motion.div>
