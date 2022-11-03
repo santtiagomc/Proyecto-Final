@@ -6,7 +6,6 @@ import Error from "../../components/Error/Error";
 import style from "./UserProfile.module.css";
 import {
   FaUser,
-  FaShoppingCart,
   FaUserEdit,
   ImArrowLeft,
 } from "react-icons/all";
@@ -17,7 +16,7 @@ import Avatar from "./avatar.png";
 import { Link } from "react-router-dom";
 
 export default function ProfileUser() {
-  const [hovered, setHovered] = useState(0);
+  const [hovered, /*setHovered*/] = useState(0);
   const [hidden, setHidden] = useState(false);
   const [dataUser, setDataUser] = useState({});
   const [booksBuyed, setBooksBuyed] = useState({});
@@ -60,33 +59,28 @@ export default function ProfileUser() {
     }
   };
 
-	const nextPage = async () => {
-		console.log("a");
-		console.log(booksBuyed.total);
-		if (page + 5 < booksBuyed.total) {
-			console.log("xd");
-			setPage(page + 5);
-			try {
-				const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
-				console.log(userHistory);
-				setBooksBuyed({
-					...booksBuyed,
-					books: [...booksBuyed.books, ...userHistory.data.books],
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
-	console.log(booksBuyed);
-	const handleLogOut = async () => {
-		try {
-			await logOut();
-			history.push("/home");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const nextPage = async () => {
+    if (page + 5 < booksBuyed.total) {
+      setPage(page + 5);
+      try {
+        const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
+        setBooksBuyed({
+          ...booksBuyed,
+          books: [...booksBuyed.books, ...userHistory.data.books],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (user === undefined && !loading) {
     return <Error error="No estas autenticado" />;
@@ -288,7 +282,9 @@ export default function ProfileUser() {
                 ))}
               <button
                 onClick={nextPage}
-                className={!page ? style.btnDisabled : style.btn}
+                className={
+                  page + 5 >= booksBuyed.total ? style.btnDisabled : style.btn
+                }
               >
                 Ver más
               </button>

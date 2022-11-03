@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, NavLink, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 
@@ -50,9 +50,9 @@ export default function Detail() {
       myBook.Reviews.map((el) => {
         return el.rating;
       }).reduce((a, b) => a + b, 0) /
-        myBook.Reviews.map((el) => {
-          return el.rating;
-        }).length
+      myBook.Reviews.map((el) => {
+        return el.rating;
+      }).length
     );
 
   function swalAlert(timer, icon, message) {
@@ -245,7 +245,7 @@ export default function Detail() {
               <h3 className={style.edition}>{myBook.edition}</h3>
               <div
                 className={style.stars}
-                  hidden={!avarageRating ? true : false}
+                hidden={!avarageRating ? true : false}
               >
                 <div className={style.star}>
                   <i
@@ -314,7 +314,7 @@ export default function Detail() {
 
               {user ? (
                 userDb &&
-                (userDb.role === "Admin++" || userDb.role === "Admin") ? (
+                  (userDb.role === "Admin++" || userDb.role === "Admin") ? (
                   <h3 className={style.price}>USD {myBook.price}</h3>
                 ) : (
                   userDb.role === "Usuario" && (

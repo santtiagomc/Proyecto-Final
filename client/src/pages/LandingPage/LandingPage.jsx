@@ -45,6 +45,7 @@ export default function LandingPage() {
             </button>
           </a>
         </Carousel>
+        <a href="#popular"></a>
         <motion.div className={style.sliderContain}>
           <h2 className={style.titles}>Promociones</h2>
           <motion.div
@@ -94,7 +95,7 @@ export default function LandingPage() {
           </a>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Mas Puntuado</h2>
+          <h2 className={style.titles}>Mejores puntuados</h2>
           <motion.div
             className={style.slider}
             drag="x"
@@ -106,7 +107,7 @@ export default function LandingPage() {
                   <Link to={`/detail/${el.id}`} className={style.navlink}>
                     <img src={el.image} className={style.imagen} alt="image" />
                     <p className={style.name}>{el.name}</p>
-                    <p className={style.other}>Calificacion: {el.rating}</p>
+                    <p className={style.other}>Calificación: {el.rating}</p>
                   </Link>
                 </motion.div>
               );
@@ -129,7 +130,9 @@ export default function LandingPage() {
           </a>
         </Carousel>
         <motion.div className={style.sliderContain}>
-          <h2 className={style.titles}>Populares</h2>
+          <h2 id="popular" className={style.titles}>
+            Recomendados
+          </h2>
           <motion.div
             className={style.slider}
             drag="x"

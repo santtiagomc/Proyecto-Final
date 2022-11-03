@@ -6,28 +6,28 @@ async function postCart({ userId, bookId, suma }) {
       const userCart = await Cart.findOne({
         where: {
           UserId: userId,
-          status: "Abierto"
-        }
+          status: "Abierto",
+        },
       });
       if (!userCart) {
         const newCart = await Cart.create({
-          UserId: userId
+          UserId: userId,
         });
         await newCart.addBook(bookId);
 
-        return { message: "Su libro ha sido añadido al carrito exitosamente!" }
-      };
+        return { message: "Su libro ha sido añadido al carrito exitosamente!" };
+      }
 
       const booksCart = await Books_Carts.findOne({
         where: {
           CartId: userCart.id,
-          BookId: bookId
-        }
+          BookId: bookId,
+        },
       });
       if (!booksCart) {
         await userCart.addBook(bookId);
-        return { message: "Su libro ha sido añadido al carrito exitosamente!" }
-      };
+        return { message: "Su libro ha sido añadido al carrito exitosamente!" };
+      }
       if (suma) {
         if (booksCart.quantity < 5) {
           booksCart.quantity = booksCart.quantity + 1;
@@ -37,37 +37,37 @@ async function postCart({ userId, bookId, suma }) {
         booksCart.quantity = booksCart.quantity - 1;
         await booksCart.save();
       }
-      return { message: "Su libro ha sido modificado exitosamente!" }
-    } else {
 
-      let [bId] = bookId
+      return { message: "Su libro ha sido modificado exitosamente!" };
+    } else {
+      let [bId] = bookId;
 
       if (bId) {
-        bookId.forEach(async b => {
+        bookId.forEach(async (b) => {
           const userCart = await Cart.findOne({
             where: {
               UserId: userId,
-              status: "Abierto"
-            }
+              status: "Abierto",
+            },
           });
           if (!userCart) {
             const newCart = await Cart.create({
-              UserId: userId
+              UserId: userId,
             });
             await newCart.addBook(b);
-            return [false]
-          };
+            return [false];
+          }
           if (b) {
             const booksCart = await Books_Carts.findOne({
               where: {
                 CartId: userCart.id,
-                BookId: b
-              }
+                BookId: b,
+              },
             });
             if (!booksCart) {
               await userCart.addBook(b);
-              return [false]
-            };
+              return [false];
+            }
             if (suma) {
               if (booksCart.quantity < 5) {
                 booksCart.quantity = booksCart.quantity + 1;
@@ -78,29 +78,29 @@ async function postCart({ userId, bookId, suma }) {
               await booksCart.save();
             }
           }
-        })
+        });
       } else {
         const userCart = await Cart.findOne({
           where: {
             UserId: userId,
-            status: "Abierto"
-          }
+            status: "Abierto",
+          },
         });
         if (!userCart) {
           const newCart = await Cart.create({
-            UserId: userId
+            UserId: userId,
           });
-        };
+        }
       }
 
-      return [false]
+      return [false];
     }
   } catch (error) {
     console.log(error);
     return { messageError: "Se ha producido un error." };
-  };
-};
+  }
+}
 
 module.exports = {
-  postCart
+  postCart,
 };

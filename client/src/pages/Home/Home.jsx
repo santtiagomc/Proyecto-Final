@@ -9,7 +9,6 @@ import {
   getEditorials,
   changeFilter,
   changeSearch,
-  getUserDb,
 } from "../../redux/actions";
 import Swal from "sweetalert2";
 // import Loader from "./GIF_neón_BooksNook.gif";
@@ -39,7 +38,6 @@ export default function Home() {
     if (!genres.length) dispatch(getGenres());
     if (!editorials.length) dispatch(getEditorials());
     if (user && user.uid) {
-      console.log(userDb);
       if (userDb.role === "Admin++" || userDb.role === "Admin") {
         dispatch(searchBook(filtersApplied, searchApplied, page, userDb.role));
       } else {

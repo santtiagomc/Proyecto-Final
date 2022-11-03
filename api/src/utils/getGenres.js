@@ -4,7 +4,6 @@ const { getAllBooksAdmin } = require("./getAllBooksAdmin");
 
 async function getGenres({ sort }) {
   try {
-    console.log(sort)
     let genresDb = await Genres.findAll();
     let allCarts = await getOrders({
       sort: "status-Z-A",

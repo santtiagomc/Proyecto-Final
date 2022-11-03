@@ -11,10 +11,9 @@ async function postBook({
   stock,
   editorial,
   edition,
-  genres,
+  genre,
 }) {
   try {
-    console.log(image, "el img del postbook funcion");
     let capitalizeEditorial = await capitalize(editorial);
     let capitalizeAuthor = await capitalize(author);
     let [newBook, created] = await Books.findOrCreate({
@@ -44,7 +43,7 @@ async function postBook({
     let genresDb = await Genres.findAll();
 
     if (genresDb.length) {
-      newBook.addGenres(genres);
+      newBook.addGenres(genre);
     }
 
     return { message: "El libro ha sido agregado con éxito!" };

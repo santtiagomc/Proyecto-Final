@@ -63,7 +63,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  color: rgb(169, 169, 169);
+  color: rgb(186, 179, 179);
   background-color: transparent;
   font-size: 24px;
 }
@@ -167,11 +167,11 @@ a:hover {
 }
 
 .button_disabled {
-  opacity: 20%;
+  opacity: 0.60;
 }
 
 .button_disabled:hover {
-  opacity: 20%;
+  opacity: 0.30;
 }
 
 .button_disabled:active {
@@ -306,4 +306,17 @@ a:hover {
   .btnBack{
     margin-top: 4rem;
   }
+}
+
+.soldOutBook{
+  color: #C70039;
+  /* margin-top: 0em; */
+}
+
+.lastBook{
+  color: #B270A2;
+}
+
+.availableBook{
+  color: #37aa8f;
 }

@@ -253,8 +253,8 @@
   .cart{
     margin: auto;
   }
-  .guestBtn{
+  /* .guestBtn{
     margin-left: 0;
     background-color: var(--negro-navBar-filters-btn);
-  }
+  } */
 }
