@@ -31,17 +31,18 @@ function validation(input) {
   const regexDecimal = /^\d{1,3}(\.\d{1,2})?$/;
   const regexNotNumbers =
     /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
-  /* const regexUrl = /^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/; */
-  const regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!*:;]{2,50}$/;
-  const regexAutor = /^[a-zA-ZÀ-ÿ\u00f1\u00d1 .]{2,30}$/;
+  const regexOnlyNumbers = RegExp(/^\d+$/);
+  const regexName = /^[a-zA-ZÀ-ÿ\u00f1\u00d10-9-() .,!:;]{2,100}$/;
+  const regexAutor =
+    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
 
-  if (input.name.length <= 1) {
+  if (input.name.length < 2) {
     errors.name = "Mínimo 2 caracteres";
-  } else if (input.name.length >= 50) {
-    errors.name = "Máximo 50 caracteres";
+  } else if (input.name.length >= 100) {
+    errors.name = "Máximo 100 caracteres";
   } else if (!input.name.match(regexName)) {
     errors.name =
-      "Sólo puede contener letras, números y los siguientes caracteres: .,!*:-()";
+      "Sólo puede contener letras, números y los siguientes caracteres: .,!:-()";
   }
   if (!input.image) {
     errors.image = "Ingresar una imagen es obligatorio";
@@ -51,7 +52,10 @@ function validation(input) {
     errors.author = "Mínimo 2 caracteres";
   } else if (!input.author.match(regexAutor)) {
     errors.author = "El autor sólo puede contener letras";
+  } else if (input.author.length > 50) {
+    errors.author = "Máximo 50 caracteres";
   }
+
   if (input.description.length <= 1) {
     errors.description = "Mínimo 2 caracteres";
   } else if (input.description.length > 2000) {
@@ -65,14 +69,22 @@ function validation(input) {
   } else if (!regexDecimal.test(input.price)) {
     errors.price = "El precio debe tener como máximo dos decimales";
   }
+
   if (input.stock < 0) {
-    errors.stock = "El stock tiene que ser mayor o igual a 0";
+    errors.stock = "El stock no puede ser menor a 0";
+  } else if (input.stock > 1000) {
+    errors.stock = "Stock máximo 1000";
+  } else if (!regexOnlyNumbers.test(input.stock)) {
+    errors.stock = "El campo solo admite números";
   }
 
   if (input.editorial.length <= 1) {
-    errors.editorial = "El campo editorial debe ser mayor a una letra";
-  } else if (!input.editorial.match(regexNotNumbers)) {
-    errors.editorial = "La editorial sólo puede contener letras";
+    errors.editorial = "Mínimo 2 caracteres";
+  } else if (!input.editorial.match(regexName)) {
+    errors.editorial =
+      "La editorial sólo puede contener letras y caracteres especiales";
+  } else if (input.editorial.length > 50) {
+    errors.editorial = "Máximo 50 caracteres";
   }
 
   if (!input.edition) {
@@ -81,7 +93,10 @@ function validation(input) {
     errors.edition = "El año debe ser mayor a 1800";
   } else if (input.edition > 2023) {
     errors.edition = "El año debe ser menor a 2023";
+  } else if (!regexOnlyNumbers.test(input.edition)) {
+    errors.edition = "El campo solo admite números";
   }
+
   return errors;
 }
 
@@ -165,7 +180,6 @@ export default function CreateBook() {
     setImageName(e.target.files[0].name);
 
     const imageUrl = await uploadFile(e.target.files[0], detail.id);
-    console.log(imageUrl);
     setInput({ ...input, image: imageUrl });
 
     setTimeout(function () {
@@ -225,7 +239,6 @@ export default function CreateBook() {
       // }
 
       dispatch({ type: TABLE_VIEW, payload: "books" });
-
     } else if (create.messageError) {
       templateAlert(create.messageError, null, "warning", null);
       dispatch(resetCreate());
@@ -272,7 +285,7 @@ export default function CreateBook() {
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
-              autofocus="true"
+              autoFocus
             />
             {input.name && errors.name && (
               <div className={style.err}>
@@ -361,7 +374,6 @@ export default function CreateBook() {
                 <label className={style.label}>Año de edición</label>
                 <input
                   className={style.input}
-                  type="number"
                   placeholder="Año"
                   value={input.edition}
                   name="edition"
@@ -377,8 +389,8 @@ export default function CreateBook() {
               <div className={style.incontainer}>
                 <label className={style.label}>Precio</label>
                 <input
-                  className={style.input}
                   type="number"
+                  className={style.input}
                   placeholder="Precio"
                   value={input.price}
                   name="price"
@@ -395,7 +407,6 @@ export default function CreateBook() {
                 <label className={style.label}>Stock</label>
                 <input
                   className={style.input}
-                  type="number"
                   placeholder="Stock"
                   value={input.stock}
                   name="stock"
@@ -507,14 +518,14 @@ export default function CreateBook() {
                   e.preventDefault();
                   if (edit_id) {
                     history.goBack();
-                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                    dispatch({ type: TABLE_VIEW, payload: "users" });
                   }
                   detail.id &&
                     !edit_id &&
                     dispatch({ type: TABLE_VIEW, payload: "books" });
                   !detail.id &&
                     !edit_id &&
-                    dispatch({ type: TABLE_VIEW, payload: "dashboard" });
+                    dispatch({ type: TABLE_VIEW, payload: "users" });
                 }}
               >
                 {edit_id || detail.id ? "Cancelar" : "Volver"}

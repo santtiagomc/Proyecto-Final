@@ -41,7 +41,6 @@ const templateHTML = (subject, data) => {
       let totalPrice = data.cart.reduce((acc, el) => {
         return (acc = acc + el.quantity * el.price);
       }, 0);
-      console.log(data.cart);
       return templatePurchase(data.user, data.cart, totalPrice);
 
     case delivered:

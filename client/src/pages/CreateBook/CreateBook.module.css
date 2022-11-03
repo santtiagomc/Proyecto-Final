@@ -1,7 +1,7 @@
 :root {
-  --violeta-primario: #B270A2;
+  --violeta-primario: #b270a2;
   --verde-primario: #95d9c3;
-  --verde-secundario: #7CE1CE;
+  --verde-secundario: #7ce1ce;
   --azul-complementario: #355070;
   --negro-backgound: #181818;
   --negro-navBar-filters-btn: #101010;
@@ -200,6 +200,21 @@
   border-radius: 1rem;
 }
 
+.genreContain_int::-webkit-scrollbar {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.genreContain_int::-webkit-scrollbar-thumb {
+  background: var(--extra-color);
+  border-radius: 2em;
+  border: 8px solid #131313;
+}
+
+.genreContain_int::-webkit-scrollbar-corner {
+  background-color: #131313;
+}
+
 .divGenre {
   padding: 0 0.3em;
   margin-bottom: 0.3em;
@@ -225,7 +240,7 @@
   align-items: center;
   font-size: 1.4em;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .btn_delete:hover {
@@ -269,6 +284,21 @@
   border-radius: 1rem;
 }
 
+.textArea::-webkit-scrollbar {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.textArea::-webkit-scrollbar-thumb {
+  background: var(--extra-color);
+  border-radius: 2em;
+  border: 8px solid #131313;
+}
+
+.textArea::-webkit-scrollbar-corner {
+  background-color: #131313;
+}
+
 .fileDiv {
   display: flex;
   flex-direction: row;
@@ -279,7 +309,7 @@
   margin-bottom: 0.2em;
   color: var(--extra-color);
   font-size: 1.1em;
-  gap: 3em;
+  gap: 2em;
 }
 
 .divLabel,
@@ -361,6 +391,7 @@
   margin-top: -0.2em;
   height: 2.7em;
   width: 10%;
+  min-width: 4em;
   background-color: var(--negro-backgound);
   color: var(--extra-color);
   border: 1px solid var(--extra-color);
@@ -417,8 +448,8 @@
 .loader {
   width: 1.5em;
   height: 1.5em;
-  border: 3px solid #FFF;
-  border-bottom-color: #a04022;
+  border: 3px solid #fff;
+  border-bottom-color: var(--violeta-primario);
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
@@ -473,7 +504,7 @@
 
 .btn_link {
   height: 100%;
-  width: 100%;
+  width: 50%;
   font-size: 1.1em;
   transition: 0.5s;
 }
@@ -548,5 +579,11 @@
 
   .divs_one {
     height: fit-content;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 1em;
   }
 }

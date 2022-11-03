@@ -36,7 +36,6 @@ export const storage = getStorage(app);
 export const userExist = async (uid) => {
   try {
     const res = await axios.get(`/user/${uid}`);
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);

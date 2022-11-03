@@ -6,7 +6,6 @@ import Error from "../../components/Error/Error";
 import style from "./UserProfile.module.css";
 import {
   FaUser,
-  FaShoppingCart,
   FaUserEdit,
   ImArrowLeft,
 } from "react-icons/all";
@@ -18,7 +17,7 @@ import { Link } from "react-router-dom";
 import { useDeprecatedInvertedScale } from "framer-motion";
 
 export default function ProfileUser() {
-  const [hovered, setHovered] = useState(0);
+  const [hovered, /*setHovered*/] = useState(0);
   const [hidden, setHidden] = useState(false);
   const [dataUser, setDataUser] = useState({});
   const [booksBuyed, setBooksBuyed] = useState({});
@@ -61,33 +60,28 @@ export default function ProfileUser() {
     }
   };
 
-	const nextPage = async () => {
-		console.log("a");
-		console.log(booksBuyed.total);
-		if (page + 5 < booksBuyed.total) {
-			console.log("xd");
-			setPage(page + 5);
-			try {
-				const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
-				console.log(userHistory);
-				setBooksBuyed({
-					...booksBuyed,
-					books: [...booksBuyed.books, ...userHistory.data.books],
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
-	console.log(booksBuyed);
-	const handleLogOut = async () => {
-		try {
-			await logOut();
-			history.push("/home");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const nextPage = async () => {
+    if (page + 5 < booksBuyed.total) {
+      setPage(page + 5);
+      try {
+        const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
+        setBooksBuyed({
+          ...booksBuyed,
+          books: [...booksBuyed.books, ...userHistory.data.books],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      history.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (user === undefined && !loading) {
     return <Error error="No estas autenticado" />;
@@ -160,138 +154,145 @@ export default function ProfileUser() {
                     <div className={style.containerP}>
                       {/* <label className={style.label}>Nombre: </label>
 												<p className={style.p}>{dataUser.fullName}</p> */}
-											<label className={style.label}>E-mail</label>
-											<span className={style.span}>{dataUser.email}</span>
-											<hr />
-											<label className={style.label}>Provincia</label>
-											<span className={style.span}>{dataUser?.province}</span>
-											<hr />
-											<label className={style.label}>Ciudad</label>
-											<span className={style.span}>{dataUser?.city}</span>
-											<hr />
-											<label className={style.label}>Dirección</label>
-											<span className={style.span}>{dataUser?.address}</span>
-											<hr />
-											<label className={style.label}>Código Postal</label>
-											<span className={style.span}>{dataUser?.zipCode}</span>
-											<hr />
-										</div>
-									</>
-								) : (
-									<form
-										className={style.form}
-										onSubmit={handleSubmit(onSubmit)}
-									>
-										<input
-											className={style.input}
-											type="text"
-											placeholder="Provincia"
-											{...register("province", {
-												maxLength: 40,
-												value: null,
-											})}
-										></input>
-										{errors.province?.type === "maxLength" && (
-											<p className={style.error}>maximo 40</p>
-										)}
-										<input
-											className={style.input}
-											type="text"
-											placeholder="Ciudad"
-											{...register("city", {
-												maxLength: 40,
-												value: null,
-											})}
-										></input>
-										{errors.city?.type === "maxLength" && (
-											<p className={style.error}>maximo 40</p>
-										)}
-										<input
-											className={style.input}
-											type="text"
-											placeholder="Dirección"
-											{...register("address", {
-												maxLength: 40,
-												value: null,
-											})}
-										></input>
-										{errors.address?.type === "maxLength" && (
-											<p className={style.error}>maximo 40</p>
-										)}
-										<input
-											className={style.input}
-											type="text"
-											placeholder="Código Postal"
-											{...register("zipCode", {
-												maxLength: 5,
-												value: null,
-												pattern: /^[0-9]*$/,
-											})}
-										></input>
-										{errors.zipCode?.type === "maxLength" && (
-											<p className={style.error}>maximo 5</p>
-										)}
-										{errors.zipCode?.type === "pattern" && (
-											<p className={style.error}>Solo numeros</p>
-										)}
-										<button className={style.button}>Confirmar</button>
-										<button
-											className={style.button}
-											onClick={() => setEdit({ ...edit, change: !edit.change })}
-										>
-											Cancelar
-										</button>
-									</form>
-								)}
-								<br></br>
-							</div>
-						</div>
-						<div className={style.shopping}>
-							<div className={style.containerC}>
-								<span className={style.misCompras}>Mis compras</span>
-							</div>
-							{booksBuyed.books &&
-								booksBuyed.books.map((book) => (
-									<div>
-										<div className={style.statusDiv}>
-										<span className={style.status}>Estado: {book.status}</span>
-								</div>
-										<div>
-											<ul>
-												{book.Books.map((purchase) => (
-													<div className={style.books}>
-														<img
-															src={purchase.image}
-															className={style.portada}
-														/>
-														<span className={style.name}>{purchase.name}</span>
-														<span className={style.price}>
-															USD{" "}
-															{purchase.price * purchase.Books_Carts.quantity}
-														</span>
-														<span className={style.quantity}>
-															Cantidad: {purchase.Books_Carts.quantity}
-														</span>
-														<Link
-															to={`/detail/${purchase.id}`}
-															className={style.detail}
-														>
-															Detalle
-														</Link>
-													</div>
-												))}
-											</ul>
-										</div>
-										{/* <hr /> */}
-									</div>
-								))}
-							<button onClick={nextPage} className={!booksBuyed ? style.btnDisabled : style.btn}>
-								Ver más
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
-		</div>
-	);
+                      <label className={style.label}>E-mail</label>
+                      <span className={style.span}>{dataUser.email}</span>
+                      <hr />
+                      <label className={style.label}>Provincia</label>
+                      <span className={style.span}>{dataUser?.province}</span>
+                      <hr />
+                      <label className={style.label}>Ciudad</label>
+                      <span className={style.span}>{dataUser?.city}</span>
+                      <hr />
+                      <label className={style.label}>Dirección</label>
+                      <span className={style.span}>{dataUser?.address}</span>
+                      <hr />
+                      <label className={style.label}>Código Postal</label>
+                      <span className={style.span}>{dataUser?.zipCode}</span>
+                      <hr />
+                    </div>
+                  </>
+                ) : (
+                  <form
+                    className={style.form}
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <input
+                      className={style.input}
+                      type="text"
+                      placeholder="Provincia"
+                      {...register("province", {
+                        maxLength: 40,
+                        value: null,
+                      })}
+                    ></input>
+                    {errors.province?.type === "maxLength" && (
+                      <p className={style.error}>maximo 40</p>
+                    )}
+                    <input
+                      className={style.input}
+                      type="text"
+                      placeholder="Ciudad"
+                      {...register("city", {
+                        maxLength: 40,
+                        value: null,
+                      })}
+                    ></input>
+                    {errors.city?.type === "maxLength" && (
+                      <p className={style.error}>maximo 40</p>
+                    )}
+                    <input
+                      className={style.input}
+                      type="text"
+                      placeholder="Dirección"
+                      {...register("address", {
+                        maxLength: 40,
+                        value: null,
+                      })}
+                    ></input>
+                    {errors.address?.type === "maxLength" && (
+                      <p className={style.error}>maximo 40</p>
+                    )}
+                    <input
+                      className={style.input}
+                      type="text"
+                      placeholder="Código Postal"
+                      {...register("zipCode", {
+                        maxLength: 5,
+                        value: null,
+                        pattern: /^[0-9]*$/,
+                      })}
+                    ></input>
+                    {errors.zipCode?.type === "maxLength" && (
+                      <p className={style.error}>maximo 5</p>
+                    )}
+                    {errors.zipCode?.type === "pattern" && (
+                      <p className={style.error}>Solo numeros</p>
+                    )}
+                    <button className={style.button}>Confirmar</button>
+                    <button
+                      className={style.button}
+                      onClick={() => setEdit({ ...edit, change: !edit.change })}
+                    >
+                      Cancelar
+                    </button>
+                  </form>
+                )}
+                <br></br>
+              </div>
+            </div>
+            <div className={style.shopping}>
+              <div className={style.containerC}>
+                <h2 className={style.misCompras}>Mis compras</h2>
+              </div>
+              {booksBuyed.books &&
+                booksBuyed.books.map((book) => (
+                  <div>
+                    <div className={style.statusDiv}>
+                      <span className={style.status}>
+                        Estado: {book.status}
+                      </span>
+                    </div>
+                    <div>
+                      <ul>
+                        {book.Books.map((purchase) => (
+                          <div className={style.books}>
+                            <img
+                              src={purchase.image}
+                              className={style.portada}
+                            />
+                            <span className={style.name}>{purchase.name}</span>
+                            <span className={style.price}>
+                              USD{" "}
+                              {purchase.price * purchase.Books_Carts.quantity}
+                            </span>
+                            <span className={style.quantity}>
+                              Cantidad: {purchase.Books_Carts.quantity}
+                            </span>
+                            <Link
+                              to={`/detail/${purchase.id}`}
+                              className={style.detail}
+                            >
+                              Detalle
+                            </Link>
+                          </div>
+                        ))}
+                      </ul>
+                    </div>
+                    {/* <hr /> */}
+                  </div>
+                ))}
+              <button
+                onClick={nextPage}
+                className={
+                  page + 5 >= booksBuyed.total ? style.btnDisabled : style.btn
+                }
+              >
+                Ver más
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

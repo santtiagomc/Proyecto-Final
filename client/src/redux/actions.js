@@ -477,7 +477,6 @@ export function getAllBooks({ sort, searchValue }) {
       const response = await axios.get(
         `/books/admin?sort=${sort}&searchValue=${searchValue}`
       );
-      console.log(response.data);
       return dispatch({
         type: GET_ALL_BOOKS,
         payload: response.data,

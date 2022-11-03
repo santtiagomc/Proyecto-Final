@@ -34,10 +34,10 @@ const templateWelcome = (user) => {
     </h1>
     <h3 style="margin-bottom: 5px">Hola ${user.fullName},</h3>
     <p style="margin-top: 0; margin-bottom: 5px">
-      graicas por unirte a Books Nook, esperamos que encuetres tus libros
+      gracias por unirte a Books Nook, esperamos que encuentres tus libros
       deseados!
     </p>
-    <p style="margin-top: 0">Aqui te dejamos los datos de tu cuenta.</p>
+    <p style="margin-top: 0">Aquí te dejamos los datos de tu cuenta.</p>
     <ul
       style="
         background-color: #b270a2;
@@ -54,7 +54,7 @@ const templateWelcome = (user) => {
     </ul>
   </div>
   <div style="margin-top: 30px; width: fit-content">
-    <h3>Te adjuntamos algunos de nuestros titulos más exitosos!</h3>
+    <h3>Te adjuntamos algunos de nuestros títulos más exitosos!</h3>
     <div
       style="
         background-color: #355070;

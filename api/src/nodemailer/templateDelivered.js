@@ -29,7 +29,7 @@ const templateDelivered = (user, cart) => {
       />
     </a>
     <h1 style="border-bottom: 2px solid #95d9c3; padding-bottom: 5px">
-      Entregamos tus nuevos libros!
+      ¡Entregamos tus nuevos libros!
     </h1>
     <p>
       Hola <b>${user.fullName}</b>, dimos por entregada la compra que
@@ -86,7 +86,7 @@ const templateDelivered = (user, cart) => {
     </p>
     <p>Nuestras redes sociales</p>
     <a
-      href="https://www.instagram.com/"
+      href="https://www.facebook.com/"
       target="_blank"
       style="text-decoration: none"
     >
@@ -97,7 +97,7 @@ const templateDelivered = (user, cart) => {
       />
     </a>
     <a
-      href="https://www.facebook.com/"
+      href="https://www.instagram.com/"
       target="_blank"
       style="text-decoration: none"
     >
