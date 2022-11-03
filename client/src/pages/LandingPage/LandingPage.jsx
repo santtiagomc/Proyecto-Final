@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import promo from "./promo.png";
-import promo1 from "./promo1.png";
-import calificacion from "./calificacion.png";
-import calificacion1 from "./calificacion1.png";
-import visitas from "./vistas.png";
+import promo from "./555.jpg";
+import promo1 from "./444.jpg";
+import calificacion from "./222.jpg";
+import calificacion1 from "./333.jpg";
+import visitas from "./111.jpg";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,7 @@ export default function LandingPage() {
               <img src={promo} alt="carousel" className={style.anuncioImg} />
             </button>
           </a>
-          <a href="/detail/b91273e9-bd5d-40aa-81b9-2f8966e790df">
+          <a href="detail/cf4c3c8b-4c0e-4505-b27f-0180ce5da78a">
             <button className={style.promos}>
               <img src={promo1} alt="carousel" className={style.anuncioImg} />
             </button>
@@ -51,7 +51,7 @@ export default function LandingPage() {
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2423 }}
+            dragConstraints={{ right: 0, left: -1823 }}
           >
             {booksByOffers.map((el) => {
               return (
@@ -75,27 +75,31 @@ export default function LandingPage() {
           transitionTime={1000}
           className={style.containerPromo}
         >
-          <button className={style.promos}>
-            <img
-              src={calificacion}
-              alt="carousel"
-              className={style.anuncioImg}
-            />
-          </button>
-          <button className={style.promos}>
-            <img
-              src={calificacion1}
-              alt="carousel"
-              className={style.anuncioImg}
-            />
-          </button>
+          <a href="/">
+            <button className={style.promos}>
+              <img
+                src={calificacion}
+                alt="carousel"
+                className={style.anuncioImg}
+              />
+            </button>
+          </a>
+          <a href="/">
+            <button className={style.promos}>
+              <img
+                src={calificacion1}
+                alt="carousel"
+                className={style.anuncioImg}
+              />
+            </button>
+          </a>
         </Carousel>
         <motion.div className={style.sliderContain}>
           <h2 className={style.titles}>Mejores puntuados</h2>
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2423 }}
+            dragConstraints={{ right: 0, left: -1823 }}
           >
             {booksByRating.map((el) => {
               return (
@@ -119,9 +123,11 @@ export default function LandingPage() {
           transitionTime={1000}
           className={style.containerPromo}
         >
-          <button className={style.promos}>
-            <img src={visitas} alt="carousel" className={style.anuncioImg} />
-          </button>
+          <a href="/">
+            <button className={style.promos}>
+              <img src={visitas} alt="carousel" className={style.anuncioImg} />
+            </button>
+          </a>
         </Carousel>
         <motion.div className={style.sliderContain}>
           <h2 id="popular" className={style.titles}>
@@ -130,7 +136,7 @@ export default function LandingPage() {
           <motion.div
             className={style.slider}
             drag="x"
-            dragConstraints={{ right: 0, left: -2423 }}
+            dragConstraints={{ right: 0, left: -1823 }}
           >
             {booksByVisits.map((el) => {
               return (
