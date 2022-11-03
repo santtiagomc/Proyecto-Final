@@ -8,17 +8,16 @@ import SearchBar from "../SearchBar/SearchBar";
 import Logo from "./Logo_booksNook_sinmargen.png";
 import style from "./NavBar.module.css";
 import { getGuestCart, getUserCart } from "../../redux/actions";
-import { AiFillHome } from "react-icons/ai"
+import { AiFillHome } from "react-icons/ai";
 
 export default function NavBar() {
-  const { user, cart, postCartResponse, userDb, postCheckoutResponse } = useSelector(
-    (state) => state
-  );
+  const { user, cart, postCartResponse, userDb, postCheckoutResponse } =
+    useSelector((state) => state);
   const [show, setShow] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   let repeatedIdArrayCart = [];
   let uniqueIdArrayCart = [];
@@ -50,7 +49,7 @@ export default function NavBar() {
   const handleLogOut = async () => {
     try {
       await logOut();
-      history.push("/home");
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -60,14 +59,15 @@ export default function NavBar() {
     <>
       <nav
         className={
-          pathname === "/admin" || pathname === "/profile" ? `${style.nav} ${style.none}` : style.nav
+          pathname === "/admin" || pathname === "/profile"
+            ? `${style.nav} ${style.none}`
+            : style.nav
         }
       >
         <div>
           <Link to="/landing">
             <img id="logo" src={Logo} alt="bookstore" className={style.logo} />
           </Link>
-          
         </div>
         <div>
           <SearchBar />
@@ -100,8 +100,8 @@ export default function NavBar() {
                 </Link>
               </div>
             </>
-          ) : userDb
-            ? userDb.role === "Admin++" || userDb.role === "Admin" ? (
+          ) : userDb ? (
+            userDb.role === "Admin++" || userDb.role === "Admin" ? (
               <div>
                 <Link to="/admin" className={style.aa}>
                   <button className={style.buttonDash}>Dashboard</button>
@@ -117,11 +117,16 @@ export default function NavBar() {
                     <i class="fa-solid fa-user"></i>
                   </button>
                   <div
-                    className={`${style.menu} ${show ? style.show : style.hide}`}
+                    className={`${style.menu} ${
+                      show ? style.show : style.hide
+                    }`}
                   >
                     <ul className={style.list}>
                       <Link to="/profile" className={style.aa}>
-                        <li onClick={() => setShow(false)} className={style.text}>
+                        <li
+                          onClick={() => setShow(false)}
+                          className={style.text}
+                        >
                           Mi cuenta
                         </li>
                       </Link>
@@ -149,12 +154,15 @@ export default function NavBar() {
                 </div>
               </>
             )
-            : null}
+          ) : null}
         </div>
         <Link to="/home">
           <AiFillHome className={style.homeIcon} />
         </Link>
-        <div className={`${style.navToggle} ${isOpen && style.open}`} onClick={() => setIsOpen(!isOpen)}>
+        <div
+          className={`${style.navToggle} ${isOpen && style.open}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <div className={style.bar}></div>
         </div>
       </nav>

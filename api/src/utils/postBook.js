@@ -11,7 +11,7 @@ async function postBook({
   stock,
   editorial,
   edition,
-  genres,
+  genre,
 }) {
   try {
     let capitalizeEditorial = await capitalize(editorial);
@@ -43,7 +43,7 @@ async function postBook({
     let genresDb = await Genres.findAll();
 
     if (genresDb.length) {
-      newBook.addGenres(genres);
+      newBook.addGenres(genre);
     }
 
     return { message: "El libro ha sido agregado con éxito!" };

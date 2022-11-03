@@ -16,6 +16,7 @@ import Error from "../../components/Error/Error";
 
 import style from "./Stripe.module.css";
 import { POST_CHECKOUT_RESPONSE } from "../../redux/actions";
+import templateAlert from "../../helpers/templateAlert";
 
 const stripePromsie = loadStripe(
   "pk_test_51LwtGzGm2004ZMTNJJTuwMAa47xnU7d3mDoI861T6xSLy0Y2eFsvDzDK5k3RgHGk8WOW711HbHNy6GvCDog76CgJ00GhqRZpD8"
@@ -153,6 +154,12 @@ const CheckoutForm = ({ cart, history, user, address }) => {
         });
         dispatch({ type: POST_CHECKOUT_RESPONSE, payload: res.data });
         setLoading(false);
+        templateAlert(
+          "Compra realizada!",
+          "Tu compra está siendo procesada, te hemos enviado un email con toda la información",
+          "success",
+          5000
+        );
         history.push("/profile");
       }
     } catch (error) {
