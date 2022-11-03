@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import promo from "./promo.png";
-import promo1 from "./promo1.png";
-import calificacion from "./calificacion.png";
-import calificacion1 from "./calificacion1.png";
+import promo from "./landing2.png";
+import promo1 from "./landing1.png";
+import calificacion from "./landing3.png";
+import calificacion1 from "./landing4.png";
 import visitas from "./vistas.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
