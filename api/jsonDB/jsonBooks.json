@@ -26,7 +26,7 @@
     "author": "Nik",
     "description": "¡Gaturro va al mundial y lo quiere compartir con vos! En este comic encontrará 39 tiras inéditas, datos y curiosidadesde sobre los 32 países que participarán del Mundial Qatar. Información sobre los jugadores estrella y contenido exclusivo sobre los estadios increíbles donde tendrán lugar los partidos. Los mejores chistes de Mundial, jugadores de los 32 países participantes, datos curiosos, los 8 estadios y mucho más!!!",
     "price": 20.55,
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRv50e55lGAJjaYN8gidFJveBzZJi4wI3yQFpvMzP9Fdcyx_heEo6OR286eB5tsa_Ffbc&usqp=CAU",
+    "image": "https://contentv2.tap-commerce.com/cover/large/9789878150819_1.jpg?id_com=1113",
     "genres": ["Infantil", "Juvenil", "Humor y Comedia"],
     "stock": 20,
     "editorial": "Catapulta",
@@ -484,6 +484,49 @@
     "stock": 20,
     "editorial": "LZR Ediciones SRL",
     "edition": 2021
+  },
+  {
+    "name": "El Señor de los Anillos: La Comunidad del Anillo",
+    "author": "J. R. R. Tolkien",
+    "description": "En la adormecida e idílica Comarca, un joven hobbit recibe un encargo: custodiar el Anillo Único y emprender el viaje para su destrucción en la Grieta del Destino. Acompañado por magos, hombres, elfos y enanos, atravesará la Tierra Media y se internará en las sombras de Mordor, perseguido siempre por las huestes de Sauron, el Señor Oscuro, dispuesto a recuperar su creación para establecer el dominio definitivo del Mal.",
+    "price": 68.75,
+    "image": "https://images.cdn3.buscalibre.com/fit-in/360x360/13/c3/13c309f57dcc3319d5e4fd4281c2a0b0.jpg",
+    "genres": ["Fantasía"],
+    "stock": 15,
+    "editorial": "Booket",
+    "edition": 1990
+  },
+  {
+    "name": "El Señor de los Anillos: El retorno Del Rey",
+    "author": "J. R. R. Tolkien",
+    "description": "Tras la caída de Saruman, los miembros de la Comunidad deben dirigirse a Gondor, último baluarte de la resistencia contra las tropas del mal, para la batalla final. Allí Aragorn podrá asumir el papel para el que ha sido destinado: dirigir las fuerzas de los Pueblos Libres de la Tierra-Media y reclamar el trono de Gondor como sucesor del antiguo linaje de los Reyes de los Hombres. Mientras, Frodo y Sam, guiados por Gollum, continúan su camino hacia el Monte del Destino para destruir el Anillo Único.",
+    "price": 59.20,
+    "image": "https://http2.mlstatic.com/D_NQ_NP_998468-MLA49100356633_022022-O.jpg",
+    "genres": ["Fantasía"],
+    "stock": 8,
+    "editorial": "Minotauro",
+    "edition": 2000
+  },
+  {
+    "name": "El Señor de los Anillos: Las dos torres",
+    "author": "J. R. R. Tolkien",
+    "description": "La Compañía se ha disuelto y sus integrantes emprenden caminos separados. Frodo y Sam continúan solos su viaje a lo largo del gran río Anduin, perseguidos por la sombra misteriosa de un ser extraño que también ambiciona la posesión del Anillo. Mientras los hobbits deben enfrentarse al horror y tomar graves decisiones a las puertas del País Oscuro, hombres, elfos y enanos se preparan para la batalla final con las fuerzas del Señor del Mal.",
+    "price": 30.10,
+    "image": "https://m.media-amazon.com/images/I/81U5RVCuTHL.jpg",
+    "genres": ["Fantasía", "Ficción"],
+    "stock": 5,
+    "editorial": "Minotauro",
+    "edition": 2002
+  },
+  {
+    "name": "Transcrepuscular",
+    "author": "Emilio Bueso",
+    "description": "Esta es la historia de una búsqueda que arranca con el canto de los caracoles para viajar más allá del ocaso, de los huertos surcados por escarabajos de tiro, de los refugios de tormentas, los funcionarios simbióticos, los establos de las libélulas, los templos de cristal de los animistas, los círculos de dólmenes de los astrólogos, las cuevas de hielo siete y los bosques de helechos plagados de arañas gigantes.",
+    "price": 23.16,
+    "image": "https://http2.mlstatic.com/D_NQ_NP_810616-MLA27063998205_032018-O.jpg",
+    "genres": ["Ciencia Ficción"],
+    "stock": 3,
+    "editorial": "Gigamesh",
+    "edition": 2017
   }
-
 ]
