@@ -8,12 +8,15 @@
 
 .containerPromo{
     margin: 4rem;
+
 }
 .promos{
     width: 100%;
     border-color: var(--violeta-primario);
     border-left: 0;
     border-right: 0;
+    box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.552);
+    background-color: #131313;
 }
 
 .slideBooks {
@@ -36,7 +39,8 @@
     color: white;
 }
 .other {
-    color: #00c4c4;
+    color: var(--extra-color);
+    margin: 10px;
 }
 
 .sliderContain {
@@ -60,20 +64,22 @@
 }
 .item{
     display: flex;
-    margin: 4px;
+    margin: 20px;
     align-items: center;
     justify-content: center;
-    height: 26rem;
+    height: 20rem;
     min-width: 14rem;
     padding: 8px;
-    background: linear-gradient(rgb(0, 0, 0), rgb(107, 106, 106)) padding-box,linear-gradient(45deg, rgb(69, 255, 246), rgb(177, 72, 247)) border-box;
-    border: 2px solid transparent;
+    /* background: linear-gradient(rgb(0, 0, 0), rgb(107, 106, 106)) padding-box,linear-gradient(45deg, rgb(69, 255, 246), rgb(177, 72, 247)) border-box;
+    border: 2px solid transparent; */
     border-radius: 10px;
-    color: #01e1c7  #bd01f7;
+    box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.552);
+    background-color: #131313;
 }
+
 .imagen{
     height: 14rem;
-    width: 10rem;
+    width: 11rem;
     pointer-events: none;
 }
 
