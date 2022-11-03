@@ -64,6 +64,12 @@
   }
 }
 
+@media (max-width: 500px) {
+  .table_container {
+    margin: 1em;
+  }
+}
+
 .table_container::-webkit-scrollbar {
   height: 1.3em;
   width: 1.3em;
@@ -162,6 +168,11 @@
 
 .col2 {
   min-width: 16em;
+}
+
+.col2.current {
+  /* background-color: var(--extra-color); */
+  color: var(--violeta-primario);
 }
 
 .col3 {

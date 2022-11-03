@@ -6,7 +6,6 @@ import { auth } from "./firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 import Home from "./pages/Home/Home";
-import CreateBook from "./pages/CreateBook/CreateBook";
 import Detail from "./pages/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 import Login from "./pages/Login/Login";
@@ -26,13 +25,11 @@ axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001/";
 
 function App() {
   const dispatch = useDispatch();
-  const { user, userDb } = useSelector((state) => state);
+  const { user, userCreateResponse } = useSelector((state) => state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       dispatch(userExist(user));
-      // dispatch(getUserDb(user.uid));
     });
   }, [dispatch]);
 
@@ -40,13 +37,7 @@ function App() {
     if (user && user.uid) {
       dispatch(getUserDb(user.uid));
     }
-  }, [dispatch, user]);
-
-  /*
-  user && userDb 
-  ? userDb.role === "Admin" || userDb.role === "Admin++"
-  */
-
+  }, [user, userCreateResponse]);
 
   return (
     <BrowserRouter>
@@ -60,16 +51,7 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/stripe" component={Stripe} />
         <Route exact path="/profile" component={UserProfile} />
-        {user && userDb
-          ? userDb.role === "Admin" || userDb.role === "Admin++"
-            ? <Route exact path="/admin" component={Dashboard} />
-            : <Route path="/admin">
-              <Redirect to="/" />
-            </Route>
-          : <Route path="/admin">
-            <Redirect to="/" />
-          </Route>}
-        {/* <Route exact path="/admin" component={Dashboard} /> */}
+        <Route exact path="/admin" component={Dashboard} />
         <Route path="*">
           <Redirect to="/" />
         </Route>

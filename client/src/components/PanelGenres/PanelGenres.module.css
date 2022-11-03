@@ -399,6 +399,14 @@ input::placeholder {
   .panel_genres {
     padding: 1em;
   }
+
+  .stats_container {
+    min-width: 0;
+  }
+
+  .stats_add_container {
+    min-width: 0;
+  }
 }
 
 /* 

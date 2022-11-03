@@ -11,17 +11,14 @@ import style from "./PanelUsers.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
 import {
   AiFillEdit,
-  // BiDownArrow,
-  // BiUpArrow,
   AiOutlineSortAscending,
   AiOutlineSortDescending,
 } from "react-icons/all";
 import Swal from "sweetalert2";
-import templateAlert from "../../helpers/templateAlert";
 import { templateAlertTopEnd } from "../../helpers/templateAlert";
 
 export default function PanelUsers() {
-  const { allUsers, putUserResponse, usersFiltersAdmin } = useSelector(
+  const { allUsers, putUserResponse, usersFiltersAdmin, userDb } = useSelector(
     (state) => state
   );
   const dispatch = useDispatch();
@@ -100,7 +97,7 @@ export default function PanelUsers() {
 
   return (
     <div className={style.panel_users}>
-      {!allUsers.length ? (
+      {allUsers && !allUsers.length ? (
         <img src={Loader} alt="Loader_Logo"></img>
       ) : (
         <div className={style.container}>
@@ -207,28 +204,46 @@ export default function PanelUsers() {
             </div>
             {allUsers.length &&
               allUsers.map((user) => (
-                <div className={style.table_row}>
+                <div key={user.id} className={style.table_row}>
                   <span className={style.col1}>
                     <span className={style.text}>{user.role}</span>
-                    <AiFillEdit
-                      className={style.icon}
-                      onClick={(e, id, fullName, role) =>
-                        handleRole(e, user.id, user.fullName, user.role)
-                      }
-                      value={user.id}
-                    />
+                    {userDb.role === "Admin++" ?
+                      user.role !== "Admin++" && user.status === "Activo"
+                        ?
+                        <AiFillEdit
+                          className={style.icon}
+                          onClick={(e, id, fullName, role) =>
+                            handleRole(e, user.id, user.fullName, user.role)
+                          }
+                          value={user.id}
+                        />
+                        : null
+                      : userDb.role === "Admin" && userDb.id !== user.id && user.status === "Activo" && user.role !== "Admin++"
+                        ? <AiFillEdit
+                          className={style.icon}
+                          onClick={(e, id, fullName, role) =>
+                            handleRole(e, user.id, user.fullName, user.role)
+                          }
+                          value={user.id}
+                        />
+                        : null
+                    }
                   </span>
-                  <span className={style.col2}>{user.fullName}</span>
+                  <span className={user.id === userDb.id ? `${style.col2} ${style.current}` : style.col2}>{user.fullName}</span>
                   <span className={style.col3}>{user.email}</span>
                   <span className={style.col4}>
                     <span className={style.text}>{user.status}</span>
-                    <AiFillEdit
-                      className={style.icon}
-                      onClick={(e, id, fullName, status) =>
-                        handleStatus(e, user.id, user.fullName, user.status)
-                      }
-                      value={user.id}
-                    />
+                    {
+                      user.role === "Usuario"
+                        ? <AiFillEdit
+                          className={style.icon}
+                          onClick={(e, id, fullName, status) =>
+                            handleStatus(e, user.id, user.fullName, user.status)
+                          }
+                          value={user.id}
+                        />
+                        : null
+                    }
                   </span>
                   <span className={style.col5}>{user.province}</span>
                   <span className={style.col6}>{user.city}</span>

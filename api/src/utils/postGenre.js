@@ -1,12 +1,17 @@
-const { Op } = require("sequelize");
 const { Genres } = require("../db");
+const { Op } = require("sequelize");
 
 async function postGenre({ name }) {
   try {
     let [newGenre, created] = await Genres.findOrCreate({
       where: {
-        name: name.toLowerCase(),
+        name: {
+          [Op.iLike]: name
+        }
       },
+      defaults: {
+        name
+      }
     });
 
     if (!created)

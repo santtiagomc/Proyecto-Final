@@ -39,6 +39,7 @@ import {
   GENRES_ORDER_ADMIN,
   EDIT_ID,
   POST_CHECKOUT_RESPONSE,
+  USER_CREATE_RESPONSE,
 } from "./actions";
 
 const initialState = {
@@ -93,7 +94,8 @@ const initialState = {
   messageDeleteGlobal: [],
   userDb: {},
   edit_id: "",
-  postCheckoutResponse: []
+  postCheckoutResponse: [],
+  userCreateResponse: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -157,8 +159,6 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case GET_USER_CART:
-      // console.log(action.payload);
-      // console.log(action.payload.Books);
       return { ...state, cart: action.payload };
 
     case POST_CART:
@@ -275,7 +275,6 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, putCartResponse: action.payload };
 
     case GET_USER_DB:
-      // console.log(action.payload);
       return { ...state, userDb: action.payload };
 
     case EDIT_ID:
@@ -283,6 +282,9 @@ export default function rootReducer(state = initialState, action) {
 
     case POST_CHECKOUT_RESPONSE:
       return { ...state, postCheckoutResponse: action.payload };
+
+    case USER_CREATE_RESPONSE:
+      return { ...state, userCreateResponse: action.payload }
 
     default:
       return { ...state };

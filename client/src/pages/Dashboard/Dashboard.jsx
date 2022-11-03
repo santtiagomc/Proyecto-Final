@@ -10,7 +10,6 @@ import {
   MdCategory,
   FaUsers,
   FaFileInvoiceDollar,
-  MdDashboardCustomize,
   MdClear,
   BsFillPencilFill,
   AiOutlineArrowRight
@@ -22,18 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   BOOKS_SEARCH_ADMIN,
   CARTS_SEARCH_ADMIN,
-  EDIT_ID,
-  getAllBooks,
-  getAllUsers,
-  getCarts,
-  GET_DETAIL,
   TABLE_VIEW,
   USERS_SEARCH_ADMIN,
 } from "../../redux/actions";
 import templateAlert from "../../helpers/templateAlert";
 import { logOut } from "../../firebase/auth";
-import { templateAlertTopEnd } from "../../helpers/templateAlert";
-import { useEffect } from "react";
 
 export default function Dashboard() {
   const {
@@ -42,7 +34,6 @@ export default function Dashboard() {
     usersFiltersAdmin,
     cartsFiltersAdmin,
     booksFiltersAdmin,
-    edit_id
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,13 +43,6 @@ export default function Dashboard() {
 
   const [hidden, setHidden] = useState(false);
   const [searchValue, setSearch] = useState("");
-
-  // useEffect(() => {
-  //   if (tableViewGlobal !== "addBook") {
-  //     dispatch({ type: EDIT_ID, payload: "" })
-  //     dispatch({ type: GET_DETAIL, payload: [] })
-  //   }
-  // }, [tableViewGlobal])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -264,7 +248,7 @@ export default function Dashboard() {
           </div>
 
           <div className={style.main_panels}>
-            {/* {tableViewGlobal === "dashboard" && <PanelUsers />} */}
+            {tableViewGlobal === "dashboard" && <PanelUsers />}
             {tableViewGlobal === "users" && <PanelUsers />}
             {tableViewGlobal === "orders" && <PanelOrders />}
             {tableViewGlobal === "books" && <PanelBooks />}

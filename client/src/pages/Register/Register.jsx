@@ -1,4 +1,4 @@
-import { sessionGoogle, singUp, singInGoogle } from "../../firebase/auth";
+import { sessionGoogle, singUp } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import style from "./Register.module.css";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserCart, postCart } from "../../redux/actions";
+import { getUserCart, postCart, USER_CREATE_RESPONSE } from "../../redux/actions";
 import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import templateAlert from "../../helpers/templateAlert";
@@ -18,7 +18,7 @@ export default function Register() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { user } = useSelector((state) => state);
+  const { user, userDb } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
 
@@ -34,59 +34,60 @@ export default function Register() {
   useEffect(() => {
     if (user && user.uid) {
       setLoader(true);
-      if (uniqueIdArrayCart.length) {
-        dispatch(postCart({ userId: user.uid, bookId: [false], suma: true }));
-
-        setTimeout(() => {
-          setLoader(false);
-          Swal.fire({
-            title: "Tienes productos en tu carrito de invitado",
-            width: 650,
-            text: "¿Quieres pasar estos productos a tu carrito de usuario?",
-            icon: "warning",
-            iconColor: "#355070",
-            showCancelButton: true,
-            background: "#19191a",
-            color: "#e1e1e1",
-            confirmButtonColor: "#355070",
-            cancelButtonColor: "#B270A2",
-            confirmButtonText: "¡Si! Guardar carrito",
-            cancelButtonText: "Cancelar",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              dispatch(
-                postCart({
-                  userId: user.uid,
-                  bookId: uniqueIdArrayCart,
-                  suma: true,
-                })
-              );
-              setLoader(true);
-              setTimeout(function () {
-                dispatch(getUserCart(user.uid));
-                localStorage.clear();
-              }, 1900);
-              setTimeout(() => {
+      if (userDb && userDb.id) {
+        if (uniqueIdArrayCart.length) {
+          dispatch(postCart({ userId: userDb.id, bookId: [false], suma: true }));
+          setTimeout(() => {
+            setLoader(false);
+            Swal.fire({
+              title: "Has completado tu registro y tienes productos en tu carrito de invitado",
+              width: 650,
+              text: "¿Quieres pasar estos productos a tu carrito de usuario?",
+              icon: "warning",
+              iconColor: "#355070",
+              showCancelButton: true,
+              background: "#19191a",
+              color: "#e1e1e1",
+              confirmButtonColor: "#355070",
+              cancelButtonColor: "#B270A2",
+              confirmButtonText: "¡Si! Guardar carrito",
+              cancelButtonText: "Cancelar",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(
+                  postCart({
+                    userId: userDb.id,
+                    bookId: uniqueIdArrayCart,
+                    suma: true,
+                  })
+                );
+                setLoader(true);
+                setTimeout(function () {
+                  dispatch(getUserCart(userDb.id));
+                  localStorage.clear();
+                }, 1900);
+                setTimeout(() => {
+                  history.goBack();
+                }, 2000);
+              } else {
                 history.goBack();
-              }, 2000);
-            } else {
-              history.goBack();
-            }
-          });
-        }, 1500);
-      } else {
-        templateAlert(
-          "Registro completado!",
-          "Te enviaremos un correo con tu información",
-          "success",
-          4000
-        );
-        setTimeout(() => {
-          history.goBack();
-        }, 1000);
+              }
+            });
+          }, 2000);
+        } else {
+          templateAlert(
+            "Registro completado!",
+            "Te enviaremos un correo con tu información",
+            "success",
+            4000
+          );
+          setTimeout(() => {
+            history.goBack();
+          }, 1000);
+        }
       }
     }
-  }, [user, dispatch, history]);
+  }, [user, dispatch, history, userDb]);
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
@@ -106,7 +107,8 @@ export default function Register() {
 
   const onSubmit = async (data) => {
     try {
-      await singUp(data);
+      let response = await singUp(data);
+      dispatch({ type: USER_CREATE_RESPONSE, payload: response })
     } catch (error) {
       AlertError();
       console.log(error);
@@ -115,7 +117,8 @@ export default function Register() {
 
   const handleSignInGoogle = async () => {
     try {
-      await sessionGoogle();
+      let response = await sessionGoogle();
+      dispatch({ type: USER_CREATE_RESPONSE, payload: response })
     } catch (error) {
       AlertError();
       console.log(error);

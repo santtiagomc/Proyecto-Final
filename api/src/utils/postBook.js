@@ -14,7 +14,6 @@ async function postBook({
   genre,
 }) {
   try {
-    console.log(image, "el img del postbook funcion");
     let capitalizeEditorial = await capitalize(editorial);
     let capitalizeAuthor = await capitalize(author);
     let [newBook, created] = await Books.findOrCreate({

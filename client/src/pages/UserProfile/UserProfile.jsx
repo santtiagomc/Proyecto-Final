@@ -6,7 +6,6 @@ import Error from "../../components/Error/Error";
 import style from "./UserProfile.module.css";
 import {
   FaUser,
-  FaShoppingCart,
   FaUserEdit,
   ImArrowLeft,
 } from "react-icons/all";
@@ -15,9 +14,10 @@ import Loader from "../Home/GIF_aparecer_BooksNook.gif";
 import { logOut } from "../../firebase/auth";
 import Avatar from "./avatar.png";
 import { Link } from "react-router-dom";
+import { useDeprecatedInvertedScale } from "framer-motion";
 
 export default function ProfileUser() {
-  const [hovered, setHovered] = useState(0);
+  const [hovered, /*setHovered*/] = useState(0);
   const [hidden, setHidden] = useState(false);
   const [dataUser, setDataUser] = useState({});
   const [booksBuyed, setBooksBuyed] = useState({});
@@ -65,7 +65,6 @@ export default function ProfileUser() {
       setPage(page + 5);
       try {
         const userHistory = await axios.get(`/cart/${user}-${page + 5}`);
-        console.log(userHistory);
         setBooksBuyed({
           ...booksBuyed,
           books: [...booksBuyed.books, ...userHistory.data.books],
@@ -75,7 +74,6 @@ export default function ProfileUser() {
       }
     }
   };
-  console.log(booksBuyed);
   const handleLogOut = async () => {
     try {
       await logOut();

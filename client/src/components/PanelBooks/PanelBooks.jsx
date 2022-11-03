@@ -13,7 +13,6 @@ import { useHistory } from "react-router-dom";
 
 import {
   MdDescription,
-  BiCategory,
   BiImage,
   BsFillPencilFill,
   AiFillEye,
