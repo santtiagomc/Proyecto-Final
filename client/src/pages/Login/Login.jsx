@@ -89,6 +89,20 @@ export default function Login() {
 
   //---------------- END Pasar carrito de invitado a base de datos de usuario cuando inicia sesión ---------------
 
+  //alert de error de login //
+  const AlertError = () => {
+    Swal.fire({
+      icon: "warning",
+      title: "Usuario o contraseña incorrecto",
+      text: "Ingrese los datos correctamente por favor",
+      confirmButtonColor: "#355070",
+      width: 650,
+      background: "#19191a",
+      color: "#e1e1e1",
+    });
+  };
+  // fin Alert de login //
+
   const handleGoogle = async () => {
     try {
       await sessionGoogle();
@@ -101,7 +115,7 @@ export default function Login() {
     try {
       await singIn(user.email, user.password);
     } catch (error) {
-      setError("Usuario o contraseña incorrecto");
+      AlertError();
       console.log(error);
     }
   };
