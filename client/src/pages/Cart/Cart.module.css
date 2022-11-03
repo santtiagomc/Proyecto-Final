@@ -167,11 +167,11 @@ a:hover {
 }
 
 .button_disabled {
-  opacity: 60%;
+  opacity: 0.60;
 }
 
 .button_disabled:hover {
-  opacity: 30%;
+  opacity: 0.30;
 }
 
 .button_disabled:active {
