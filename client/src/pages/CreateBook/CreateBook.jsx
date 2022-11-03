@@ -180,7 +180,6 @@ export default function CreateBook() {
     setImageName(e.target.files[0].name);
 
     const imageUrl = await uploadFile(e.target.files[0], detail.id);
-    console.log(imageUrl);
     setInput({ ...input, image: imageUrl });
 
     setTimeout(function () {

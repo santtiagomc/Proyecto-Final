@@ -157,8 +157,6 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case GET_USER_CART:
-      // console.log(action.payload);
-      // console.log(action.payload.Books);
       return { ...state, cart: action.payload };
 
     case POST_CART:
@@ -275,7 +273,6 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, putCartResponse: action.payload };
 
     case GET_USER_DB:
-      // console.log(action.payload);
       return { ...state, userDb: action.payload };
 
     case EDIT_ID:

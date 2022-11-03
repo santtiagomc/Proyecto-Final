@@ -1,4 +1,4 @@
-import { sessionGoogle, singUp, singInGoogle } from "../../firebase/auth";
+import { sessionGoogle, singUp } from "../../firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 

@@ -3,14 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CARTS_ORDER_ADMIN,
   CARTS_SEARCH_ADMIN,
-  getAllBooks,
   getCarts,
   putCartStatus,
-  putStatus,
   PUT_CART_STATUS,
-  PUT_STATUS,
 } from "../../redux/actions";
-import { useHistory } from "react-router-dom";
 
 import {
   AiFillEdit,
@@ -21,7 +17,6 @@ import {
   AiOutlineSortDescending,
 } from "react-icons/all";
 import Swal from "sweetalert2";
-import templateAlert from "../../helpers/templateAlert";
 import { templateAlertTopEnd } from "../../helpers/templateAlert";
 import style from "./PanelOrders.module.css";
 import Loader from "../../pages/Home/GIF_aparecer_BooksNook.gif";
@@ -62,20 +57,18 @@ export default function PanelBooks() {
       title: `<span class=${style.title}>Productos</span>`,
       html: Array.isArray(text)
         ? text.map((book) => {
-            return `
+          return `
       <div>
         <span class=${style.price}>$${book.price}</span>
-        <a href="/detail/${book.Books_Carts.BookId}" target="_BLANK">${
-              book.name
+        <a href="/detail/${book.Books_Carts.BookId}" target="_BLANK">${book.name
             }</a>
         <span class=${style.quantity}>${book.Books_Carts.quantity}</span>
-        <span class=${style.total}>$${
-              book.Books_Carts.quantity * book.price
+        <span class=${style.total}>$${book.Books_Carts.quantity * book.price
             }</span>
         <hr></hr>
       </div>
       `;
-          })
+        })
         : `<div>
           <span class=${style.text_empty}>${text}</span>
         </div>`,
@@ -184,10 +177,10 @@ export default function PanelBooks() {
                   <span className={style.col2}>
                     {cart.Books.length &&
                       "$ " +
-                        cart.Books.reduce((acc, el) => {
-                          acc += el.Books_Carts.quantity * el.price;
-                          return Number(acc.toFixed(2));
-                        }, 0)}
+                      cart.Books.reduce((acc, el) => {
+                        acc += el.Books_Carts.quantity * el.price;
+                        return Number(acc.toFixed(2));
+                      }, 0)}
                   </span>
                   <span className={style.col3}>
                     {cart.User && cart.User.fullName}

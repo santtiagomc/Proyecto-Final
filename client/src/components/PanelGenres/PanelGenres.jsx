@@ -15,7 +15,6 @@ import {
 } from "../../redux/actions";
 
 import {
-  BsFillTrashFill,
   AiOutlineSortAscending,
   AiOutlineSortDescending,
   BsSortNumericDown,
@@ -23,7 +22,6 @@ import {
   GiPodiumWinner,
   GiPodiumSecond,
   GiPodiumThird,
-  GiPodium
 } from "react-icons/all";
 
 import Swal from "sweetalert2";
@@ -96,7 +94,7 @@ export default function PanelBooks() {
       }
     });
   }
-  console.log(allCarts)
+
   let orderArray = []
   for (const key in quantitySalesProcessing) {
     orderArray.push({ name: key, quantity: quantitySalesProcessing[key] })

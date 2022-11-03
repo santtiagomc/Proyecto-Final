@@ -6,7 +6,6 @@ const sendEmail = async (subject, data) => {
   if (!data.user.fullName)
     throw new Error("El nombre completo (fullName) es necesario.");
 
-  console.log(data);
   const config = {
     host: `${process.env.NM_HOST}`,
     port: process.env.NM_PORT,
@@ -27,7 +26,6 @@ const sendEmail = async (subject, data) => {
 
   const info = await transport.sendMail(message);
 
-  console.log(info);
 };
 
 /* sendEmail("purchase", {
