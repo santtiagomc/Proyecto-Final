@@ -3,14 +3,16 @@ const { Users } = require("../db");
 
 async function getAllUsers({ sort, searchValue }) {
   try {
-    let allUsers
+    let allUsers;
     if (searchValue) {
       allUsers = await Users.findAll({
-        where: { fullName: { [Op.iLike]: `${searchValue}%` } },
+        where: { fullName: { [Op.iLike]: `%${searchValue}%` } },
       });
 
-      if (!allUsers.length) return { messageError: `No se encontraron coincidencias para "${searchValue}".` };
-
+      if (!allUsers.length)
+        return {
+          messageError: `No se encontraron coincidencias para "${searchValue}".`,
+        };
     } else {
       allUsers = await Users.findAll();
       if (!allUsers.length)
@@ -35,7 +37,6 @@ async function getAllUsers({ sort, searchValue }) {
       allUsers.sort((b, a) => a.status.localeCompare(b.status));
 
     return allUsers;
-
   } catch (error) {
     return { messageError: "Se ha producido un error." };
   }
