@@ -126,8 +126,6 @@ const CheckoutForm = ({ cart, history, user, address }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  console.log(address);
-  console.log(user);
   const onSubmit = async (data) => {
     try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -148,7 +146,6 @@ const CheckoutForm = ({ cart, history, user, address }) => {
             id: user,
           });
         }
-        console.log(address);
         const res = await axios.post("/checkout", {
           stripeId: id,
           cart: cart,

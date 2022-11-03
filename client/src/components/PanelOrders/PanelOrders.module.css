@@ -64,6 +64,12 @@
   }
 }
 
+@media (max-width: 500px) {
+  .table_container {
+    margin: 1em;
+  }
+}
+
 .table_container::-webkit-scrollbar {
   height: 1.3em;
   width: 1.3em;
