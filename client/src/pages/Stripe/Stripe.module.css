@@ -73,7 +73,7 @@
 
 .button {
   padding: 0.2rem 2.8rem;
-  height: 4%;
+  height: 3em;
   background-color: var(--negro-navBar-filters-btn);
   border-radius: 5px;
   color: white;
@@ -82,16 +82,21 @@
   font-weight: 500;
   cursor: pointer;
   border: 2px solid var(--violeta-primario);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .pay {
     padding: 1.5rem;
     background-color: var(--extra-color);
-    width: 80%;
+    width: 100%;
     border: 2px solid var(--violeta-primario);
     border-radius: 5px;
     margin-bottom: 20px;
+    flex-basis: 100%;
 }
 
 .err {
@@ -102,14 +107,18 @@
 
 .stripeControl {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  height: 30em;
 }
 
 .inputContainer {
-  width: 75%;
+  /* width: 85%; */
   position: relative;
-  margin: 1.2em;
+  margin: 1.5em 0em;
 }
 
 .input {
@@ -242,4 +251,34 @@
     width: 500px
   }
   
+}
+
+.loaderBuy {
+  width: 1.5em;
+  height: 1.5em;
+  border: 3px solid #fff;
+  border-bottom-color: var(--violeta-primario);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  /* position: absolute; */
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.containerBuy{
+  width: 80%;
 }
