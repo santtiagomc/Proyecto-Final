@@ -193,9 +193,10 @@ const CheckoutForm = ({ cart, history, user, address }) => {
     <>
       <h1 className={style.pagar}>Pagar</h1>
       <form className={style.stripeControl} onSubmit={handleSubmit(onSubmit)}>
-        <CardElement className={style.pay} />
-        {error && <p className={style.err}>{error}</p>}
-        {/* <input
+        <div className={style.containerBuy}>
+          <CardElement className={style.pay} />
+          {error && <p className={style.err}>{error}</p>}
+          {/* <input
           className={style.input}
           type="text"
           placeholder="Provincia"
@@ -212,69 +213,72 @@ const CheckoutForm = ({ cart, history, user, address }) => {
           placeholder="Código Postal"
         ></input>
         <button className={style.button}>Pagar</button> */}
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Provincia"
-            // value={address.province}
-            {...register("province", {
-              maxLength: 40,
-              minLength: 5,
-              value: address.province,
-            })}
-          ></input>
-          {errors.province?.type === "maxLength" && (
-            <p className={style.error}>maximo 40</p>
-          )}
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              placeholder="Provincia"
+              // value={address.province}
+              {...register("province", {
+                maxLength: 40,
+                minLength: 5,
+                value: address.province,
+              })}
+            ></input>
+            {errors.province?.type === "maxLength" && (
+              <p className={style.error}>maximo 40</p>
+            )}
+          </div>
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              placeholder="Ciudad"
+              {...register("city", {
+                maxLength: 40,
+                value: address.city,
+              })}
+            ></input>
+            {errors.city?.type === "maxLength" && (
+              <p className={style.error}>maximo 40</p>
+            )}
+          </div>
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              placeholder="Dirección"
+              {...register("address", {
+                maxLength: 40,
+                value: address.address,
+              })}
+            ></input>
+            {errors.address?.type === "maxLength" && (
+              <p className={style.error}>maximo 40</p>
+            )}
+          </div>
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              placeholder="Código Postal"
+              {...register("zipCode", {
+                maxLength: 5,
+                pattern: /^[0-9]*$/,
+                value: address.zipCode,
+              })}
+            ></input>
+            {errors.zipCode?.type === "maxLength" && (
+              <p className={style.error}>maximo 5</p>
+            )}
+            {errors.zipCode?.type === "pattern" && (
+              <p className={style.error}>Solo numeros</p>
+            )}
+          </div>
         </div>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Ciudad"
-            {...register("city", {
-              maxLength: 40,
-              value: address.city,
-            })}
-          ></input>
-          {errors.city?.type === "maxLength" && (
-            <p className={style.error}>maximo 40</p>
+        <button className={style.button}>
+          {loading ? (
+            <span className={style.loaderBuy}></span>
+          ) : (
+            <span>Pagar</span>
           )}
-        </div>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Dirección"
-            {...register("address", {
-              maxLength: 40,
-              value: address.address,
-            })}
-          ></input>
-          {errors.address?.type === "maxLength" && (
-            <p className={style.error}>maximo 40</p>
-          )}
-        </div>
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            placeholder="Código Postal"
-            {...register("zipCode", {
-              maxLength: 5,
-              pattern: /^[0-9]*$/,
-              value: address.zipCode,
-            })}
-          ></input>
-          {errors.zipCode?.type === "maxLength" && (
-            <p className={style.error}>maximo 5</p>
-          )}
-          {errors.zipCode?.type === "pattern" && (
-            <p className={style.error}>Solo numeros</p>
-          )}
-        </div>
-        {loading ? (
-          <div>Cargando</div> // falta cargando
-        ) : (
-          <button className={style.button}>Pagar</button>
-        )}
+        </button>
       </form>
     </>
   );

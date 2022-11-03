@@ -14,7 +14,7 @@ export default function Footer() {
     <>
       <div
         className={
-          pathname === "/admin" || pathname === "/profile"
+          pathname === "/admin" || pathname === "/profile" || pathname === "/cart"
             ? `${style.container} ${style.none}`
             : style.container
         }

@@ -311,6 +311,13 @@ export default function Cart() {
                         <h2 className={style.detail_info_h2}>{book.name}</h2>
                       </Link>
                       <h5 className={style.detail_info_h4}>{book.author}</h5>
+                      {book.stock === 0 ? (
+                        <span className={style.soldOutBook}>Agotado</span>
+                      ) : (
+                        <span className={style.availableBook}>
+                          Stock disponible: {book.stock}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <h3 className={`col-2 text-center ${style.detail_price}`}>
@@ -374,7 +381,7 @@ export default function Cart() {
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos
               nuestra sección de <br />
-              <a href="/#popular">recomendados.</a>
+              <a href="/#popular">más visitados.</a>
             </h1>
           </div>
         ) : (
@@ -392,7 +399,7 @@ export default function Cart() {
             <h1 className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos
               nuestra sección de <br />
-              <a href="/#popular">recomendados.</a>
+              <a href="/#popular">más visitados.</a>
             </h1>
           </div>
         ) : (
@@ -436,10 +443,6 @@ export default function Cart() {
                         <h5 className={style.detail_info_h4}>{book.author}</h5>
                         {book.stock === 0 ? (
                           <span className={style.soldOutBook}>Agotado</span>
-                        ) : book.stock === 1 ? (
-                          <span className={style.lastBook}>
-                            Último disponible
-                          </span>
                         ) : (
                           <span className={style.availableBook}>
                             Stock disponible: {book.stock}
@@ -453,7 +456,7 @@ export default function Cart() {
                     <div
                       className={`col-1 text-center ${style.detail_quantity}`}
                     >
-                      {book.stock - book.quantity < 0 ? (
+                      {book.stock === 0 && book.stock - book.quantity < 0 ? (
                         <button
                           className={`${style.detail_quantity_button} ${style.button_disabled}`}
                         >

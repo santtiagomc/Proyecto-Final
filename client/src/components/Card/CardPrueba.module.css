@@ -127,14 +127,19 @@
     margin: 0;
     width: 10rem;
   }
-  .container{
+  /* .container{
     width: 22rem;
-  }
+  } */
   .bookCover{
     width: 6rem;
     height: 10rem;
   }
   .container{
+    width: 20rem;
+    height: 10rem;
+    margin: 2.5em 1em;
+  }
+  .containerF{
     width: 20rem;
     height: 10rem;
     margin: 2.5em 1em;
