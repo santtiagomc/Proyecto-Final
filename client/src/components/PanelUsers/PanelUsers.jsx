@@ -218,15 +218,7 @@ export default function PanelUsers() {
                           value={user.id}
                         />
                         : null
-                      : userDb.role === "Admin" && userDb.id !== user.id && user.status === "Activo" && user.role !== "Admin++"
-                        ? <AiFillEdit
-                          className={style.icon}
-                          onClick={(e, id, fullName, role) =>
-                            handleRole(e, user.id, user.fullName, user.role)
-                          }
-                          value={user.id}
-                        />
-                        : null
+                      : null
                     }
                   </span>
                   <span className={user.id === userDb.id ? `${style.col2} ${style.current}` : style.col2}>{user.fullName}</span>
