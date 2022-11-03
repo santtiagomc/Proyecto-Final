@@ -320,7 +320,7 @@
 }
 
 .divLabelF {
-  opacity: 30%;
+  opacity: 0.30;
 }
 
 .fileLabel,
@@ -403,7 +403,7 @@
 
 .container_eye_f {
   cursor: default;
-  opacity: 30%;
+  opacity: 0.30;
   display: flex;
 }
 
@@ -436,7 +436,7 @@
 .i_eye_f {
   color: var(--extra-color);
   font-size: 1.7em;
-  /* opacity: 20%; */
+  /* opacity: 0.20; */
   cursor: default;
 }
 
@@ -495,7 +495,7 @@
   width: 50%;
   font-size: 1.1em;
   cursor: default;
-  opacity: 50%;
+  opacity: 0.50;
 }
 
 .incontainer a {
