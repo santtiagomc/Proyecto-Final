@@ -1,6 +1,6 @@
 const { Cart, Users, Books_Carts } = require("../db");
 
-async function postCart({ userId, bookId, suma, stock }) {
+async function postCart({ userId, bookId, suma }) {
   try {
     if (!Array.isArray(bookId)) {
       const userCart = await Cart.findOne({
@@ -38,9 +38,6 @@ async function postCart({ userId, bookId, suma, stock }) {
         await booksCart.save();
       }
 
-      if (stock) {
-        booksCart.quantity = stock;
-      }
       return { message: "Su libro ha sido modificado exitosamente!" };
     } else {
       let [bId] = bookId;
@@ -79,9 +76,6 @@ async function postCart({ userId, bookId, suma, stock }) {
             } else {
               booksCart.quantity = booksCart.quantity - 1;
               await booksCart.save();
-            }
-            if (stock) {
-              booksCart.quantity = stock;
             }
           }
         });
