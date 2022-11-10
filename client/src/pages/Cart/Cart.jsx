@@ -284,23 +284,22 @@ export default function Cart() {
               Vaciar carrito
             </button>
             <div className={`${style.attributes}`}>
-              <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
-              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+              <span className={`${style.attributes_col1}  ${style.attributes_span}`}>Producto</span>
+              <span className={`${style.attributes_col2}  ${style.attributes_span}`}>
                 Precio unitario
-              </h4>
-              <h4 className={`col-1 text-center ${style.attributes_h2}`}>
+              </span>
+              <span className={`${style.attributes_col3}  ${style.attributes_span}`}>
                 Cantidad
-              </h4>
-              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+              </span>
+              <span className={`${style.attributes_col4}  ${style.attributes_span}`}>
                 Precio total
-              </h4>
+              </span>
             </div>
-            <hr></hr>
 
             {cart.map((book) => (
               <div key={book.id} className={style.detailContainer}>
                 <div className={style.detail}>
-                  <div className={`col-7 text-center ${style.detail_product}`}>
+                  <div className={`${style.detail_product}`}>
                     <img
                       src={book.image}
                       alt="Portada"
@@ -308,9 +307,9 @@ export default function Cart() {
                     ></img>
                     <div className={style.detail_info}>
                       <Link to={`/detail/${book.id}`}>
-                        <h2 className={style.detail_info_h2}>{book.name}</h2>
+                        <span className={style.detail_info_h2}>{book.name}</span>
                       </Link>
-                      <h5 className={style.detail_info_h4}>{book.author}</h5>
+                      <span className={style.detail_info_h4}>{book.author}</span>
                       {book.stock === 0 ? (
                         <span className={style.soldOutBook}>Agotado</span>
                       ) : (
@@ -320,10 +319,10 @@ export default function Cart() {
                       )}
                     </div>
                   </div>
-                  <h3 className={`col-2 text-center ${style.detail_price}`}>
-                    {book.price}
-                  </h3>
-                  <div className={`col-1 text-center ${style.detail_quantity}`}>
+                  <span className={`${style.detail_price}`}>
+                    $ {book.price}
+                  </span>
+                  <div className={`${style.detail_quantity}`}>
                     <button
                       value={book.id}
                       onClick={handleCartSubs}
@@ -336,9 +335,9 @@ export default function Cart() {
                     >
                       -
                     </button>
-                    <h3 className={style.detail_quantity_p}>
+                    <span className={style.detail_quantity_p}>
                       {quantity[book.id]}
-                    </h3>
+                    </span>
                     <button
                       value={book.id}
                       onClick={handleCartAdd}
@@ -352,9 +351,9 @@ export default function Cart() {
                       +
                     </button>
                   </div>
-                  <h3 className={`col-2 text-center ${style.detail_price}`}>
-                    {(book.price * quantity[book.id]).toFixed(2)}
-                  </h3>
+                  <span className={`${style.detail_price}`}>
+                    $ {(book.price * quantity[book.id]).toFixed(2)}
+                  </span>
                   <button
                     onClick={() => handleRemoveBook(book.id)}
                     className={style.btnTrash}
@@ -363,12 +362,14 @@ export default function Cart() {
                     {/* <i class="fa-regular fa-trash-can"></i> */}
                   </button>
                 </div>
-                <hr></hr>
               </div>
             ))}
-            <Link to="/login">
-              <button className={style.botonComprar}>Comprar</button>
-            </Link>
+            <div className={style.buttonContainer}>
+              <Link to="/login" >
+                <button className={style.botonComprar}>Comprar</button>
+              </Link>
+            </div>
+
           </div>
         ) : !uniqueIdArrayCart.length ? (
           <div>
@@ -378,11 +379,11 @@ export default function Cart() {
             >
               <AiOutlineArrowLeft className={style.btnArr} />
             </button>
-            <h1 className={style.message}>
+            <span className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos
               nuestra sección de <br />
               <a href="/#popular">más visitados.</a>
-            </h1>
+            </span>
           </div>
         ) : (
           <img src={Loader} alt="Logo loader" className={style.loader} />
@@ -396,11 +397,11 @@ export default function Cart() {
             >
               <AiOutlineArrowLeft className={style.btnArr} />
             </button>
-            <h1 className={style.message}>
+            <span className={style.message}>
               ¡Oh! Tu carrito está vacío. ¿No sabes qué libro leer? Te sugerimos
               nuestra sección de <br />
               <a href="/#popular">más visitados.</a>
-            </h1>
+            </span>
           </div>
         ) : (
           <div className={style.cart_container}>
@@ -411,18 +412,17 @@ export default function Cart() {
               Vaciar carrito
             </button>
             <div className={`${style.attributes}`}>
-              <h4 className={`col-7 ps-4 ${style.attributes_h2}`}>Producto</h4>
-              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+              <span className={`${style.attributes_col1}  ${style.attributes_span}`}>Producto</span>
+              <span className={`${style.attributes_col2}  ${style.attributes_span}`}>
                 Precio unitario
-              </h4>
-              <h4 className={`col-1 text-center ${style.attributes_h2}`}>
+              </span>
+              <span className={`${style.attributes_col3}  ${style.attributes_span}`}>
                 Cantidad
-              </h4>
-              <h4 className={`col-2 text-center ${style.attributes_h2}`}>
+              </span>
+              <span className={`${style.attributes_col4}  ${style.attributes_span}`}>
                 Precio total
-              </h4>
+              </span>
             </div>
-            <hr></hr>
             {cart &&
               cart.length &&
               cart.map((book) => (
@@ -438,9 +438,9 @@ export default function Cart() {
                       ></img>
                       <div className={style.detail_info}>
                         <Link to={`/detail/${book.id}`}>
-                          <h2 className={style.detail_info_h2}>{book.name}</h2>
+                          <span className={style.detail_info_h2}>{book.name}</span>
                         </Link>
-                        <h5 className={style.detail_info_h4}>{book.author}</h5>
+                        <span className={style.detail_info_h4}>{book.author}</span>
                         {book.stock === 0 ? (
                           <span className={style.soldOutBook}>Agotado</span>
                         ) : (
@@ -450,9 +450,9 @@ export default function Cart() {
                         )}
                       </div>
                     </div>
-                    <h3 className={`col-2 text-center ${style.detail_price}`}>
-                      {book.price}
-                    </h3>
+                    <span className={`col-2 text-center ${style.detail_price}`}>
+                      $ {book.price}
+                    </span>
                     <div
                       className={`col-1 text-center ${style.detail_quantity}`}
                     >
@@ -466,9 +466,9 @@ export default function Cart() {
                           >
                             -
                           </button>
-                          <h3 className={style.detail_quantity_p}>
+                          <span className={style.detail_quantity_p}>
                             {book.quantity}
-                          </h3>
+                          </span>
                           <button
                             className={`${style.detail_quantity_button} ${style.button_disabled}`}
                             disabled={true}
@@ -490,9 +490,9 @@ export default function Cart() {
                           >
                             -
                           </button>
-                          <h3 className={style.detail_quantity_p}>
+                          <span className={style.detail_quantity_p}>
                             {book.quantity}
-                          </h3>
+                          </span>
                           <button
                             value={book.id}
                             onClick={handleCartAdd}
@@ -508,9 +508,9 @@ export default function Cart() {
                         </>
                       )}
                     </div>
-                    <h3 className={`col-2 text-center ${style.detail_price}`}>
-                      {(book.price * book.quantity).toFixed(2)}
-                    </h3>
+                    <span className={`col-2 text-center ${style.detail_price}`}>
+                      $ {(book.price * book.quantity).toFixed(2)}
+                    </span>
 
                     <button
                       onClick={() => handleRemoveBook(book.id)}
@@ -520,14 +520,15 @@ export default function Cart() {
                       {/* <i class="fa-regular fa-trash-can"></i> */}
                     </button>
                   </div>
-                  <hr></hr>
                 </div>
               ))}
-            <Link to="/stripe">
-              <button className={style.botonComprar} onClick={handleStock}>
-                Comprar
-              </button>
-            </Link>
+            <div className={style.buttonContainer}>
+              <Link to="/stripe">
+                <button className={style.botonComprar} onClick={handleStock}>
+                  Comprar
+                </button>
+              </Link>
+            </div>
           </div>
         )
       ) : (
